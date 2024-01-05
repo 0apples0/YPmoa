@@ -1,6 +1,6 @@
 package com.moa.youthpolicy.common;
 
-// ë³´ë¹ˆ ê¹ƒ í…ŒìŠ¤íŠ¸
+// ¤©¤·¤©¤·¤©
 public class BoardDTO {
 
 }
