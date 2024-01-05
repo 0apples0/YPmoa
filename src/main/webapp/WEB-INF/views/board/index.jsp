@@ -35,7 +35,7 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
+   
     <link href="resources/css/style.css" rel="stylesheet">
 
 
