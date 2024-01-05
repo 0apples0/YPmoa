@@ -40,7 +40,7 @@
 
 
     <link rel="stylesheet" href="resources/style_pluto.css" />
-    <!-- responsive css -->
+   
     <link rel="stylesheet" href="resources/css_pluto/responsive.css" />
     <!-- color css -->
     <!-- select bootstrap -->
