@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="resources/style_pluto.css" />
    
     <link rel="stylesheet" href="resources/css_pluto/responsive.css" />
-    <!-- color css -->
+  
     <!-- select bootstrap -->
     <link rel="stylesheet" href="resources/css_pluto/bootstrap-select.css" />
     <!-- scrollbar css -->
