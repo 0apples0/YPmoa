@@ -18,6 +18,6 @@ public class UserVO {
 	boolean isMarry; 	// 맞춤조건: 결혼 유무
 	String interestField; // 맞춤조건: 관심분야
 	
-	int countReport;    // 신고 당한 횟수
+	int countReport;    // 신고 당한 횟수 
 
 }
