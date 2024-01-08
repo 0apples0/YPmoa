@@ -1,7 +1,7 @@
 package com.moa.youthpolicy.common;
 
 public interface BoardGenericService extends BoardInterface {
-	public <T> void writeBoard(T boardVO); // ±Û ¾²±â
-	public <T> void toggleLike(T boardVO); //±Û ÁÁ¾Æ¿ä or Ãë¼Ò
-	public void getBack(); // µÚ·Î°¡±â
+	public <T> void writeBoard(T boardVO); // ê¸€ ì“°ê¸°
+	public <T> void toggleLike(T boardVO); // ì¢‹ì•„ìš” or ì·¨ì†Œ
+	public void getBack(); // ë’¤ë¡œê°€ê¸°
 }

@@ -3,9 +3,9 @@ package com.moa.youthpolicy.common;
 import java.util.List; 
 
 public interface BoardInterface {
-	public <T> void delBoard(Class<T> board);   // °Ô½ÃÆÇ »èÁ¦
-	public <T> void modBoard(Class<T> board);	// °Ô½Ã±Û ¼öÁ¤
-	public <T> T getBoard(Class<T> board);		// °Ô½Ã±Û ÀÚ¼¼È÷º¸±â
-	public <T> List<T> getPage(Criteria cri, BoardDTO dto);	// ÆäÀÌÂ¡
-	public int getTotalAmount();	// ÀüÃ¼±Û °¡Á®¿À±â
+	public <T> void delBoard(Class<T> board);   // ê¸€ ì‚­ì œ
+	public <T> void modBoard(Class<T> board);	// ê¸€ ìˆ˜ì •
+	public <T> T getBoard(Class<T> board);		// ê¸€ ìì„¸íˆë³´ê¸°
+	public <T> List<T> getPage(Criteria cri, BoardDTO dto);	// í˜ì´ì§•
+	public int getTotalAmount();	// ì „ì²´ê¸€ ì¹´ìš´íŒ…
 }
