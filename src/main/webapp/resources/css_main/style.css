@@ -7,6 +7,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'LINESeedKR-Bd_light';
+    src: url('resources/fonts/LINESeedKR-Rg.ttf') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
 * {
     font-family: 'LINESeedKR-Bd';
 }
@@ -130,6 +137,14 @@
     padding-left: 0px;
     padding-top: 42px;
 }
+#login_menu_box_guest{
+    width: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    padding-left: 0px;
+    padding-top: 30px;
+}
 
 .col-sm-2,
 .col-sm-4 {
@@ -167,10 +182,14 @@
 }
 
 
-#register_letter{
+.register_letter{
     padding-left: 13px;
 }
 
+#register_letter_guest{
+    padding-top: 10px;
+    padding-left: 5px;
+}
 
 #login {
     width: 50px;
@@ -180,6 +199,11 @@
 #adminMenu{
     width: 35px;
     margin-left: 20px;
+}
+
+
+#adminMenu_letter{
+	padding-top: 3px;
 }
 
 #notify{
@@ -194,8 +218,11 @@
 
 #admin_logout{
     width: 38px;
-    margin-left: 40px;
+    margin-left: 25px;
 }
+
+
+
 
 #header_member_alert{
     width: 30px;
@@ -233,12 +260,23 @@
     text-align: right;
 }
 
+
+
+
+
+
+#previous_btn_box{
+    width: 50px; height: 50px;
+    background-color: #00000034;
+}
+
+
+
 .carousel-caption {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 43, .7);
     z-index: 1;
 }
 
@@ -323,6 +361,37 @@
 
 
 /*** Service ***/
+
+
+
+#mini_table td {
+    font-family: 'LINESeedKR-Bd_light';
+}
+#mini_title{
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+
+.heading1 h2, .container h6{
+    font-family: 'LINESeedKR-Bd';
+    margin: 0px;
+}
+
+#mini_board{
+    padding-top: 0px;
+}
+
+.container h6{
+    font-size: 50px;
+    padding-top: 20px;
+}
+
+.list_date{
+    width: 130px;
+    text-align: right;
+}
+
 .service-item {
     height: 320px;
     padding: 30px;
@@ -548,6 +617,12 @@
 
 
 /*** Footer ***/
+
+
+#footer_box{
+    text-align: center;
+}
+
 .newsletter {
     position: relative;
     z-index: 1;
@@ -556,7 +631,6 @@
 .footer {
     position: relative;
     margin-top: -110px;
-    padding-top: 180px;
 }
 
 .footer .btn.btn-social {
@@ -567,7 +641,7 @@
     align-items: center;
     justify-content: center;
     color: var(--light);
-    border: 1px solid #FFFFFF;
+    border: 1px solid #000000;
     border-radius: 35px;
     transition: .3s;
 }
@@ -581,7 +655,7 @@
     margin-bottom: 5px;
     padding: 0;
     text-align: left;
-    color: #FFFFFF;
+    color: #000000;
     font-size: 15px;
     font-weight: normal;
     text-transform: capitalize;
@@ -601,6 +675,7 @@
 }
 
 .footer .copyright {
+    display: inline-block;
     padding: 25px 0;
     font-size: 15px;
     border-top: 1px solid rgba(256, 256, 256, .1);
@@ -613,7 +688,7 @@
 .footer .footer-menu a {
     margin-right: 15px;
     padding-right: 15px;
-    border-right: 1px solid rgba(255, 255, 255, .3);
+    border-right: 1px solid rgb(0, 0, 0);
 }
 
 .footer .footer-menu a:last-child {
