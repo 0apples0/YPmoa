@@ -1,5 +1,6 @@
 package com.moa.youthpolicy.admin.domain;
 
 public class AdminVO {
-	//ADMINVO
+
+	//AdminVO test test test
 }
