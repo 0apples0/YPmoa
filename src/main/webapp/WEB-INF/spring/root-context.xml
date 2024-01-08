@@ -39,6 +39,7 @@
 	<context:component-scan base-package="com.moa.youthpolicy.suggest"/>
 	<context:component-scan base-package="com.moa.youthpolicy.user"/>
 	<context:component-scan base-package="com.moa.youthpolicy.wish"/>
+	<context:component-scan base-package="com.moa.youthpolicy.common"/>
 		
 	<mybatis-spring:scan base-package="com.moa.youthpolicy.admin.mapper"/>
 	<mybatis-spring:scan base-package="com.moa.youthpolicy.community.mapper"/>
