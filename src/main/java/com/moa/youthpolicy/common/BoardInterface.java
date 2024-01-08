@@ -1,6 +1,6 @@
 package com.moa.youthpolicy.common;
 
-import java.util.List;
+import java.util.List; 
 
 public interface BoardInterface {
 	public <T> void delBoard(Class<T> board);   // 게시판삭제
