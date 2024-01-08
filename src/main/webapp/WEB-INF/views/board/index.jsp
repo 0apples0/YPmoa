@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
+<!-- index.jsp 수정 24.01.08 -->
 <%@include file="../includes/header_guest.jsp" %>
 
         <!-- Carousel Start -->
