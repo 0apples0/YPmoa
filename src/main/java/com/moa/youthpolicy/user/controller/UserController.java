@@ -63,10 +63,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
 	    UserVO vo = userService.getUser(auth); 
-	    session.setAttribute("user", vo);
-	    if(userService.get(vo.getEmail()) != null) {
+	    UserVO _vo = userService.get(vo.getEmail());
+	    if(_vo == null || _vo.getEmail().length() < 1) {
 	    	userService.logIn(vo);
 	    }else {
 	    	userService.register(vo);

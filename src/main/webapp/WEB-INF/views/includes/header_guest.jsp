@@ -86,7 +86,7 @@
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
                         <a href="index.html" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
-                       <!--  <a href="/user/mypage?Email=${user.Eamil}" id="myPage" class="nav-item nav-link">마이페이지</a> -->
+                       <!--  <a href="/user/mypage?Email=${user.Email}" id="myPage" class="nav-item nav-link">마이페이지</a> -->
                         <a href="#" onclick="checkAndNavigateToMypage()" class="nav-item nav-link">마이페이지</a>
                     </div>
 
