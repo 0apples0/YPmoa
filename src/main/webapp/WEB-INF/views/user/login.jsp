@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 수정 24.01.08 -->
+<!-- 수정 24.01.09 -->
 <%@include file="../includes/header_guest.jsp" %>
 
            <!-- Page Header Start -->
@@ -36,7 +36,7 @@
                                 <div class="login_section">
                                  
                                     <div class="login_form">
-                                       <form>
+                                       <form action="#" method="post" >
                                           <fieldset>
                                              <div class="field" id="login_email_box">
                                                 <label class="label_field">아이디</label>
@@ -47,9 +47,9 @@
                                                 <input type="password" name="password" placeholder="" />
                                              </div>
                                             
-                                             <div class="field login_btn" id="siteLogin_btn">
-                                                <button class="btn-primary btn" id="login_loginBtn">로그인</button>
-                                             </div>
+                                              <div class="field login_btn" id="siteLogin_btn">
+                                                  <button type="submit" onclick="" class="btn-primary btn" id="login_loginBtn">로그인</button>
+                                               </div>
 
                                              <div id="login_line">
 
@@ -57,16 +57,18 @@
 
 
                                              <div class="field  login_btn">
-                                               
-                                                <img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img>
-                                                <img src="resources/img/web_neutral_sq_SU.svg"></img>
+                                             
+                                               	<!-- SNS로그인 버튼 -->
+                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/web_neutral_sq_SU.svg"></img></button>
+                                                
                                              </div>
                                           
                                            
-                                             <div class="field">
-                                                <a class="login_registerBtn"  href="#">회원가입</a>
-                                                <a class="forgot" href="#">아이디/비밀번호 찾기</a>
-                                             </div>
+                                              <div class="field">
+                                                  <button type="button" class="login_registerBtn a_btn" onclick="">회원가입</button>
+                                                  <button type="button" class="forgot a_btn" onclick="">아이디/비밀번호 찾기</button>
+                                               </div>
                                           </fieldset>
                                        </form>
                                     </div>
