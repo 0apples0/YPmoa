@@ -90,7 +90,7 @@ public class UserService {
 	            "https://nid.naver.com/oauth2.0/token",
 	            HttpMethod.POST,
 	            accessTokenRequest,
-	            String.class
+	            String.class 
 	    );
 	  
 
