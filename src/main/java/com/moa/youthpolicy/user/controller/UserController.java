@@ -23,43 +23,39 @@ import lombok.extern.log4j.Log4j;
 public class UserController {
 	private final UserService userService;
 
-	// ---------------------보빈---------------------
-	// 마이페이지 조회
+	// ---------------------蹂대퉰---------------------
+	// 留덉씠�럹�씠吏� 議고쉶
 	@GetMapping("/mypage")
 	public String get(@RequestParam("Email") String Email, Model model) {
 		UserVO user = userService.get(Email);
 		if (user != null) {
 			model.addAttribute("vo", user);
-			return "mypage"; // user 값이 있으면 마이페이지
+			return "mypage"; // user 媛믪씠 �엳�쑝硫� 留덉씠�럹�씠吏�
 		}
-		return "board/index"; // 없으면 메인으로 보냄
+		return "board/index"; // �뾾�쑝硫� 硫붿씤�쑝濡� 蹂대깂
 	}
 
-	// 마이페이지 회원 정보 및 맞춤 조건 수정
 	@PostMapping("/modify")
 	public String modify(@ModelAttribute("vo") UserVO modifyUser) {
 		userService.modify(modifyUser);
-		// 수정된 사용자의 이메일을 이용하여 마이페이지로 리다이렉트
 		return "redirect:/mypage?Email=" + modifyUser.getEmail();
 	}
 
-	// 마이페이지 회원 탈퇴
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession) {
 		String Email = (String) httpSession.getAttribute("Email");
 		userService.removeUser(Email);
 		httpSession.invalidate();
-		log.info("회원탈퇴 완료 : " + Email);
-		// 탈퇴 후 로그아웃 자동으로 안되면 return "redirect:/user/logout";으로 해봐야지..
+		log.info("�쉶�썝�깉�눜 �셿猷� : " + Email);
 		return "redirect:/index";
 	}
 
-	// 건
+	// 嫄�
 	@GetMapping("/naver_login")
 	public String naverLogin() {
 	    System.out.println("helloworld");
 	    String uri = userService.getUri();
-	    return "board/index";
+	    return "redirect:" + uri;
 	}
 	
 
