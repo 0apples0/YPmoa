@@ -3,8 +3,20 @@ package com.moa.youthpolicy.user.service;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moa.youthpolicy.login.naver.NaverAuthResponse;
+import com.moa.youthpolicy.login.naver.NaverOauthParams;
+import com.moa.youthpolicy.login.naver.NaverProfileInfo;
 import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.extern.log4j.Log4j;
@@ -15,6 +27,8 @@ public class UserService {
 	private static final String NURL = "https://nid.naver.com/oauth2.0/authorize";
 	private static final String NCLIENTID = "rzR7mIoFeu6WT0A7uoHD";
 	private static final String NREDIRECT_URI = "http://localhost:8090/index";
+	private static final String NSECRET = "GPSQ2FGPUb";
+	
 
 	public UserVO get(String email) {
 		// TODO Auto-generated method stub
@@ -55,4 +69,65 @@ public class UserService {
 		log.info(uri);
 		return uri;
 	}
+
+	
+	public String getToken(NaverAuthResponse auth) {
+		System.out.println(auth.getCode());
+	    RestTemplate rt = new RestTemplate();
+	    HttpHeaders accessTokenHeaders = new HttpHeaders();
+	    accessTokenHeaders.add("Content-type", "application/x-www-form-urlencoded");
+
+	    MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
+	    accessTokenParams.add("grant_type", "authorization_code");
+	    accessTokenParams.add("client_id", NCLIENTID);  // NCLIENTID를 직접 사용
+	    accessTokenParams.add("client_secret", NSECRET);  // NCLIENTSECRET를 직접 사용
+	    accessTokenParams.add("code", auth.getCode());
+	    accessTokenParams.add("state", auth.getState());
+
+	    HttpEntity<MultiValueMap<String, String>> accessTokenRequest = new HttpEntity<>(accessTokenParams, accessTokenHeaders);
+
+	    ResponseEntity<String> accessTokenResponse = rt.exchange(
+	            "https://nid.naver.com/oauth2.0/token",
+	            HttpMethod.POST,
+	            accessTokenRequest,
+	            String.class
+	    );
+	  
+
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    
+	    NaverOauthParams naverOauthParams = null;
+	    try {
+	        naverOauthParams = objectMapper.readValue(accessTokenResponse.getBody(), NaverOauthParams.class);
+	    } catch (JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    HttpHeaders profileRequestHeader = new HttpHeaders();
+	    profileRequestHeader.add("Authorization", "Bearer " + naverOauthParams.getAccess_token());
+	    
+	    HttpEntity<HttpHeaders> profileHttpEntity = new HttpEntity<>(profileRequestHeader);
+	    
+	 // profile api로 생성해둔 헤더를 담아서 요청을 보냅니다.
+	    ResponseEntity<String> profileResponse = rt.exchange(
+	            "https://openapi.naver.com/v1/nid/me",
+	            HttpMethod.POST,
+	            profileHttpEntity,
+	            String.class
+	    );
+	    
+	    objectMapper = new ObjectMapper();
+	    NaverProfileInfo naverProfileInfo = null;
+
+	    try {
+	        naverProfileInfo = objectMapper.readValue(profileResponse.getBody(), NaverProfileInfo.class);
+	    } catch (JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
+
+	    String email = naverProfileInfo.getResponse().getEmail();
+	    log.info("Email: " + email);
+	    return "profile response : " + profileResponse.getBody();
+	}
+	
 }

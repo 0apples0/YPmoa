@@ -1,5 +1,6 @@
 package com.moa.youthpolicy.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
 import com.moa.youthpolicy.user.service.UserService;
 
@@ -59,9 +61,15 @@ public class UserController {
 
 	@GetMapping("/naver_login")
 	public String naverLogin() {
-	    System.out.println("helloworld");
 	    String uri = userService.getUri();
 	    return "redirect:" + uri;
+	}
+	
+	@GetMapping("/n_login")
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
+	    String token = userService.getToken(auth); 
+	    log.info(token);
+	    return "redirect:" + token;
 	}
 	
 

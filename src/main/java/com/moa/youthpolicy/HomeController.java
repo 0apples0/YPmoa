@@ -6,9 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 
@@ -28,9 +29,11 @@ public class HomeController {
 		return "/index";
 	}
 	
-	@PostMapping("/index")
-	public void index(NaverAuthResponse response) {
-		logger.info(response.toString());
+	@GetMapping("/index")
+	public String callBack(RedirectAttributes redirect, NaverAuthResponse response) {
+	    logger.info(response.toString());
+	    redirect.addFlashAttribute("NaverAuth", response);
+	    return "redirect:user/n_login";
 	}
 	
 }
