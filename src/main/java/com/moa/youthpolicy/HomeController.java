@@ -31,7 +31,6 @@ public class HomeController {
 	
 	@GetMapping("/index")
 	public String callBack(RedirectAttributes redirect, NaverAuthResponse response) {
-	    logger.info(response.toString());
 	    redirect.addFlashAttribute("NaverAuth", response);
 	    return "redirect:user/n_login";
 	}

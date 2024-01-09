@@ -14,20 +14,32 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moa.youthpolicy.common.UserGenericService;
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.login.naver.NaverOauthParams;
-import com.moa.youthpolicy.login.naver.NaverProfileInfo;
+import com.moa.youthpolicy.login.naver.NaverProfileResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class UserService {
+public class UserService implements UserGenericService {
 	private static final String NURL = "https://nid.naver.com/oauth2.0/authorize";
 	private static final String NCLIENTID = "rzR7mIoFeu6WT0A7uoHD";
 	private static final String NREDIRECT_URI = "http://localhost:8090/index";
 	private static final String NSECRET = "GPSQ2FGPUb";
+	
+	public boolean chkEmail(String email) {
+		
+		return true;
+	}
+	
+	public boolean chkNick(String nick) {
+		
+		return false;
+	}
+	
 	
 
 	public UserVO get(String email) {
@@ -43,6 +55,51 @@ public class UserService {
 	public void removeUser(String email) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void register(UserVO vo) {
+		
+		if(vo.getPW() != null) {
+			vo.setPW(hashingPW(vo.getPW()));
+		}		
+	}
+	
+	public String findUserID(UserVO vo) {
+		
+		return null;
+	}
+	
+	public void changePW(UserVO vo) {
+		
+	}
+	
+	private String hashingPW(String pw) {
+		
+		return null;
+	}
+	
+	@Override
+	public void delMember(UserVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modMember(UserVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logOut(UserVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logIn(UserVO vo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public String getUri() {
@@ -66,21 +123,19 @@ public class UserService {
 		} catch (Exception e) {
 			log.error("ConnHttpGetType Error: {}" + e);
 		}
-		log.info(uri);
 		return uri;
 	}
 
 	
-	public String getToken(NaverAuthResponse auth) {
-		System.out.println(auth.getCode());
+	public UserVO getUser(NaverAuthResponse auth) {
 	    RestTemplate rt = new RestTemplate();
 	    HttpHeaders accessTokenHeaders = new HttpHeaders();
 	    accessTokenHeaders.add("Content-type", "application/x-www-form-urlencoded");
 
 	    MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
 	    accessTokenParams.add("grant_type", "authorization_code");
-	    accessTokenParams.add("client_id", NCLIENTID);  // NCLIENTID를 직접 사용
-	    accessTokenParams.add("client_secret", NSECRET);  // NCLIENTSECRET를 직접 사용
+	    accessTokenParams.add("client_id", NCLIENTID);  // NCLIENTID瑜� 吏곸젒 �궗�슜
+	    accessTokenParams.add("client_secret", NSECRET);  // NCLIENTSECRET瑜� 吏곸젒 �궗�슜
 	    accessTokenParams.add("code", auth.getCode());
 	    accessTokenParams.add("state", auth.getState());
 
@@ -108,7 +163,6 @@ public class UserService {
 	    
 	    HttpEntity<HttpHeaders> profileHttpEntity = new HttpEntity<>(profileRequestHeader);
 	    
-	 // profile api로 생성해둔 헤더를 담아서 요청을 보냅니다.
 	    ResponseEntity<String> profileResponse = rt.exchange(
 	            "https://openapi.naver.com/v1/nid/me",
 	            HttpMethod.POST,
@@ -117,17 +171,28 @@ public class UserService {
 	    );
 	    
 	    objectMapper = new ObjectMapper();
-	    NaverProfileInfo naverProfileInfo = null;
+	    NaverProfileResponse naverProfileResponse = null;
 
 	    try {
-	        naverProfileInfo = objectMapper.readValue(profileResponse.getBody(), NaverProfileInfo.class);
+	        naverProfileResponse = objectMapper.readValue(profileResponse.getBody(), NaverProfileResponse.class);
 	    } catch (JsonProcessingException e) {
 	        e.printStackTrace();
 	    }
 
-	    String email = naverProfileInfo.getResponse().getEmail();
-	    log.info("Email: " + email);
-	    return "profile response : " + profileResponse.getBody();
+	    String email = naverProfileResponse.getResponse().getEmail();
+	    String phone = naverProfileResponse.getResponse().getMobile();
+	   
+	    String name = naverProfileResponse.getResponse().getName();
+	    UserVO uservo = new UserVO();
+	    uservo.setEmail(email);
+	    uservo.setPhone(Integer.parseInt(phone.replaceAll("-","")));
+	    
+	    uservo.setName(name);
+	    uservo.setNick(name);
+
+	    return uservo;
 	}
+
+	
 	
 }

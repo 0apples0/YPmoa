@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -66,10 +67,27 @@ public class UserController {
 	}
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
-	    String token = userService.getToken(auth); 
-	    log.info(token);
-	    return "redirect:" + token;
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
+	    UserVO vo = userService.getUser(auth); 
+	    session.setAttribute("user", vo);
+	    if(userService.get(vo.getEmail()) != null) {
+	    	userService.logIn(vo);
+	    }else {
+	    	userService.register(vo);
+	    }
+	    return "index";
+	}
+	
+	@ResponseBody
+	@PostMapping("/chkEmail")
+	public boolean chkEmail(@RequestParam("Eamil") String Email) {
+		return userService.chkEmail(Email);
+	}
+	
+	@PostMapping("/register")
+	public String register(UserVO vo) {
+		userService.register(vo);
+		return "index";
 	}
 	
 
