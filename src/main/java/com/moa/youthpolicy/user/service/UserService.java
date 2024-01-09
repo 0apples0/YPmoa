@@ -31,8 +31,10 @@ public class UserService {
 	
 
 	public UserVO get(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		UserVO user = new UserVO();
+		user.setEmail(email);
+		
+		return user;
 	}
 
 	public void modify(UserVO modifyUser) {
