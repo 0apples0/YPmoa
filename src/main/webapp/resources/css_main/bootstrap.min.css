@@ -4411,14 +4411,13 @@ fieldset:disabled .btn {
 
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
-    transition: none
+    transition: none;
   }
 }
 
-.nav-link:hover,
-.nav-link:focus {
-  color: #cb8112
-}
+
+
+
 
 .nav-link.disabled {
   color: #6c757d;
@@ -4467,6 +4466,10 @@ fieldset:disabled .btn {
   background: none;
   border: 0;
   border-radius: 2px
+}
+
+.nav-link.active{
+  color: black;
 }
 
 .nav-pills .nav-link.active,
@@ -4858,7 +4861,7 @@ fieldset:disabled .btn {
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link:focus {
-  color: rgba(255, 255, 255, 0.75)
+  color: rgba(0, 0, 0, 0.75)
 }
 
 .navbar-dark .navbar-nav .nav-link.disabled {
@@ -4982,10 +4985,6 @@ fieldset:disabled .btn {
   border-bottom: 0
 }
 
-.card-header-tabs .nav-link.active {
-  background-color: #fff;
-  border-bottom-color: #fff
-}
 
 .card-header-pills {
   margin-right: -.5rem;
