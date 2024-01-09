@@ -1686,7 +1686,6 @@ button.main_bt {
     min-height: 65px;
     background: #fff;
     margin-top: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     width: 100%;
 }
@@ -1935,7 +1934,6 @@ i.icon {
 
 
 /** button section **/
-
 
 .button_sction {
     float: left;
@@ -2980,6 +2978,16 @@ table.projects tr td:first-child {
 /*------------------------------------------------------------------
     25. Login Section
 -------------------------------------------------------------------*/
+#login_loginBtn{
+    width: 183px;
+    height: 45px;
+    border-radius: 5px;
+}
+
+#login_h1{
+    white-space: pre;
+}
+
 
 .login {
     background: #eee;
@@ -2990,15 +2998,16 @@ table.projects tr td:first-child {
 }
 
 .login_section {
-    max-width: 640px;
+    
     background: #fff;
-    min-height: 540px;
-    width: 100%;
-    box-shadow: 0px 0 10px -8px #000;
+   
+    width: 640px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
     margin: 0px;
     padding: 0;
     border-radius: 10px;
     overflow: hidden;
+    max-width: 640px !important
 }
 
 .logo_login {
@@ -3024,6 +3033,34 @@ table.projects tr td:first-child {
     z-index: 1;
 }
 
+.login_btn{
+   text-align: center;
+   margin-bottom: 10px;
+   cursor: pointer;
+}
+
+#login_email_box{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#login_password_box{
+    margin-bottom: 50px;
+}
+
+#login_line{
+    border: 0.1rem solid rgba(160, 160, 160, 0.601);
+    margin: 30px 0;
+}
+
+#login_googleLogin{
+    margin-bottom: 20px;
+}
+
+#login_inner_box{
+    margin-top: 0px;
+}
+
 .login_form {
     padding: 50px 50px;
     float: left;
@@ -3035,13 +3072,12 @@ table.projects tr td:first-child {
     width: 100%;
 }
 
-.login_form form .field {
-    display: flex;
-    margin: 0;
+#login_naverlogo{
+    height: 40px;
 }
 
 .login_form form .field label.label_field {
-    margin: 0 30px 0 0;
+    margin: 0 10px 0 0;
     width: 115px;
     line-height: 45px;
     text-align: right;
@@ -3050,10 +3086,14 @@ table.projects tr td:first-child {
     font-size: 15px;
 }
 
-.login_form form .field {
-    display: block;
-    margin: 0 0 20px;
+
+
+ ::placeholder{
+    color: rgb(184, 184, 184);
+    font-size: small;
 }
+
+
 
 .login_form form .field input {
     border-top: none;
@@ -3093,6 +3133,14 @@ table.projects tr td:first-child {
     position: relative;
     left: 0;
     color: #ff5722;
+}
+
+.login_registerBtn{
+    float: left;
+    margin: 11px 0;
+    position: relative;
+    left: 0;
+    color:  #16a9fe;
 }
 
 

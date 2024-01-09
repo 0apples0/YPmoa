@@ -120,6 +120,26 @@
 
 /*** Header ***/
 
+#login_box{
+    justify-content: center;
+
+}
+
+
+#login_banner{
+    margin-top: 20px;
+    height: 180px;
+}
+
+#login_h1{
+    padding-top: 40px;
+    padding-bottom: 0px;
+    margin-bottom: 0px !important
+}
+
+
+
+
 #login_menu_box{
     width: 140px;
     display: flex;
@@ -312,7 +332,9 @@
 }
 
 .page-header-inner {
-    background: rgba(15, 23, 43, .7);
+    background: #72d2ff;
+    height: 50px;
+
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
@@ -446,6 +468,7 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     box-sizing: content-box;
+    
     display: block;
     width: 32px;
     height: 44px;
