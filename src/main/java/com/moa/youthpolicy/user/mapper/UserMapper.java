@@ -12,4 +12,6 @@ public interface UserMapper {
 	
 
 	
+	
+	public UserVO selectUserByEmail(String Email);
 }

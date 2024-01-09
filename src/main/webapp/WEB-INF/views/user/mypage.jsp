@@ -18,7 +18,7 @@
         <form>
             <p>
                 <label for="Email">아이디(이메일)</label>
-                <input type="text" id="Email" name="Email" value="<%= user.getEmail() %>"/>
+                <input type="text" id="Email" name="Email" value="<%= user.getEmail() %>" readonly="readonly"/>
             </p>
             <p>
                 <label for="PW">비밀번호</label>
