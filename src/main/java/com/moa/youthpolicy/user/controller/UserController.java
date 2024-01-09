@@ -26,13 +26,20 @@ public class UserController {
 	// ---------------------보빈---------------------
 	// 마이페이지 조회
 	@GetMapping("/mypage")
-	public String get(@RequestParam("Email") String Email, Model model) {
+	public String getMypage(@RequestParam("Email") String Email, Model model) {
+		log.info("마이페이지 조회");
 		UserVO user = userService.get(Email);
 		if (user != null) {
 			model.addAttribute("vo", user);
 			return "mypage"; // user 값이 있으면 마이페이지
 		}
-		return "board/index"; // 없으면 메인으로 보냄
+		return "index"; // 없으면 메인으로 보냄
+	}
+	
+	
+	@GetMapping({"/remove","/modify"})
+	public void get(@RequestParam("Email") String Email, Model model) {
+		model.addAttribute("vo", userService.get(Email));
 	}
 
 	// 마이페이지 회원 정보 및 맞춤 조건 수정
@@ -40,7 +47,7 @@ public class UserController {
 	public String modify(@ModelAttribute("vo") UserVO modifyUser) {
 		userService.modify(modifyUser);
 		// 수정된 사용자의 이메일을 이용하여 마이페이지로 리다이렉트
-		return "redirect:/mypage?Email=" + modifyUser.getEmail();
+		return "redirect:/user/mypage?Email=" + modifyUser.getEmail();
 	}
 
 	// 마이페이지 회원 탈퇴
@@ -54,12 +61,13 @@ public class UserController {
 		return "redirect:/index";
 	}
 
-	// 건
+	// ---------------------건혁---------------------
+	// 네이버 로그인
 	@GetMapping("/naver_login")
 	public String naverLogin() {
 	    System.out.println("helloworld");
 	    String uri = userService.getUri();
-	    return "board/index";
+	    return "index";
 	}
 	
 
