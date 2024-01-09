@@ -47,9 +47,9 @@
                                                 <input type="password" name="password" placeholder="" />
                                              </div>
                                             
-                                             <div class="field login_btn" id="siteLogin_btn">
-                                                <button type="submit" class="btn-primary btn" id="login_loginBtn">로그인</button>
-                                             </div>
+                                              <div class="field login_btn" id="siteLogin_btn">
+                                                  <button type="submit" onclick="" class="btn-primary btn" id="login_loginBtn">로그인</button>
+                                               </div>
 
                                              <div id="login_line">
 
@@ -59,16 +59,16 @@
                                              <div class="field  login_btn">
                                              
                                                	<!-- SNS로그인 버튼 -->
-                                                <img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img>
-                                                <img src="resources/img/web_neutral_sq_SU.svg"></img>
+                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/web_neutral_sq_SU.svg"></img></button>
                                                 
                                              </div>
                                           
                                            
-                                             <div class="field">
-                                               <button class="login_registerBtn a_btn" href="#">회원가입</button>
-                                               <button class="forgot a_btn" href="#">아이디/비밀번호 찾기</button>
-                                             </div>
+                                              <div class="field">
+                                                  <button type="button" class="login_registerBtn a_btn" onclick="">회원가입</button>
+                                                  <button type="button" class="forgot a_btn" onclick="">아이디/비밀번호 찾기</button>
+                                               </div>
                                           </fieldset>
                                        </form>
                                     </div>
