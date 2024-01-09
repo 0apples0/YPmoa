@@ -23,16 +23,22 @@ import lombok.extern.log4j.Log4j;
 public class UserController {
 	private final UserService userService;
 
-	// ---------------------蹂대퉰---------------------
-	// 留덉씠�럹�씠吏� 議고쉶
+	// ---------------------보빈---------------------
 	@GetMapping("/mypage")
-	public String get(@RequestParam("Email") String Email, Model model) {
+	public String getMypage(@RequestParam("Email") String Email, Model model) {
+		log.info("마이페이지 조회");
 		UserVO user = userService.get(Email);
 		if (user != null) {
 			model.addAttribute("vo", user);
 			return "mypage"; // user 媛믪씠 �엳�쑝硫� 留덉씠�럹�씠吏�
 		}
-		return "board/index"; // �뾾�쑝硫� 硫붿씤�쑝濡� 蹂대깂
+		return "index"; // 없으면 메인으로 보냄
+	}
+	
+	
+	@GetMapping({"/remove","/modify"})
+	public void get(@RequestParam("Email") String Email, Model model) {
+		model.addAttribute("vo", userService.get(Email));
 	}
 
 	@PostMapping("/modify")
@@ -50,7 +56,7 @@ public class UserController {
 		return "redirect:/index";
 	}
 
-	// 嫄�
+
 	@GetMapping("/naver_login")
 	public String naverLogin() {
 	    System.out.println("helloworld");
