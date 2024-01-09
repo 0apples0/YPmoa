@@ -21,8 +21,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.moa.youthpolicy" />
-	
-	
+	<context:component-scan base-package="com.moa.youthpolicy, com.moa.youthpolicy.user.controller" />
 	
 </beans:beans>
