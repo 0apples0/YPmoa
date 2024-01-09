@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 수정 24.01.08 -->
-<%@include file="includes/header_guest.jsp" %>
+<!-- 수정 24.01.09 -->
+<%@include file="../includes/header_guest.jsp" %>
 
            <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0" >
