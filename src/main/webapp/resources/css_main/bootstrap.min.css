@@ -229,20 +229,32 @@ sup {
   top: -.5em
 }
 
-a {
+/* a태그 속성 */
+
+a, .a_btn {
   color: #16a9fe;
   text-decoration: none
 }
 
-a:hover {
-  color: #cb8112
+
+a:hover, .a_btn:hover {
+  color: #ff9d0b
 }
 
 a:not([href]):not([class]),
-a:not([href]):not([class]):hover {
+a:not([href]):not([class]):hover,
+.a_btn:not([href]):not([class]),
+.a_btn:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none
 }
+
+.a_btn{
+  border: none;
+  background-color: white;
+}
+
+
 
 pre,
 code,

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- 수정 24.01.08 -->
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="includes/header_guest.jsp" %>
 
            <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0" >
@@ -36,7 +36,7 @@
                                 <div class="login_section">
                                  
                                     <div class="login_form">
-                                       <form>
+                                       <form action="#" method="post" >
                                           <fieldset>
                                              <div class="field" id="login_email_box">
                                                 <label class="label_field">아이디</label>
@@ -48,7 +48,7 @@
                                              </div>
                                             
                                              <div class="field login_btn" id="siteLogin_btn">
-                                                <button class="btn-primary btn" id="login_loginBtn">로그인</button>
+                                                <button type="submit" class="btn-primary btn" id="login_loginBtn">로그인</button>
                                              </div>
 
                                              <div id="login_line">
@@ -57,15 +57,17 @@
 
 
                                              <div class="field  login_btn">
-                                               
+                                             
+                                               	<!-- SNS로그인 버튼 -->
                                                 <img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img>
                                                 <img src="resources/img/web_neutral_sq_SU.svg"></img>
+                                                
                                              </div>
                                           
                                            
                                              <div class="field">
-                                                <a class="login_registerBtn"  href="#">회원가입</a>
-                                                <a class="forgot" href="#">아이디/비밀번호 찾기</a>
+                                               <button class="login_registerBtn a_btn" href="#">회원가입</button>
+                                               <button class="forgot a_btn" href="#">아이디/비밀번호 찾기</button>
                                              </div>
                                           </fieldset>
                                        </form>
