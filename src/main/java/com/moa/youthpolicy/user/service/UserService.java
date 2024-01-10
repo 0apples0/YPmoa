@@ -80,9 +80,8 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public void modify(UserVO modifyUser) {
-		// TODO Auto-generated method stub
-
+	public String modify(UserVO modifyUser) {
+		return mapper.update(modifyUser);
 	}
 
 	public void removeUser(String email) {
@@ -132,7 +131,7 @@ public class UserService implements UserGenericService {
 
 	@Override
 	public void logIn(UserVO vo) {
-		
+		log.info("service login");
 	}
 
 	public String getUri() {
