@@ -60,6 +60,10 @@
                 <label for="interestField">관심분야</label>
                 <input type="text" id="interestField" name="interestField" value="<%= user.getInterestField() %>"/>
             </p>
+            
+            <button type="submit">정보수정</button>
+            <a href="redirect:/index">메인화면</a>
+            <a href="/user/remove">회원탈퇴</a>
         </form>
         <%
             } else {
