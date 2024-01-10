@@ -58,8 +58,8 @@
                                              <div class="field  login_btn">
                                              
                                                	<!-- SNS로그인 버튼 -->
-                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
-                                                  <button type="button" class="a_btn" onclick=""><img src="resources/img/web_neutral_sq_SU.svg"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src=""${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src=""${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
                                                 
                                              </div>
                                           
@@ -94,7 +94,7 @@
                 <div class="row g-5" ></div>
                     <div class="rounded p-4" id="footer_box">
                         <a href="">
-                            <img src="resources/img/foot.svg" id="logo" /></a>
+                            <img src=""${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
                     </div>
 
 
