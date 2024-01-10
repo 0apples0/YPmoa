@@ -52,20 +52,21 @@ public class UserController {
 	
 	@PostMapping("/modify")
 	public String modify(UserVO modifyUser, HttpSession session) {
-	    String email = modifyUser.getEmail(); 
-	    log.info("Controller : "+ modifyUser.toString());
+	    String email = modifyUser.getEmail();
+	    log.info("Controller : " + modifyUser.toString());
+
 	    userService.modify(modifyUser);
 	    log.info(email);
-	    return "redirect:/user/mypage?Email=" + email;  
+	    return "redirect:/user/mypage?Email=" + email;
 	}
 
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession, Model model) {
-		String Email = (String) httpSession.getAttribute("Email");
-		userService.removeUser(Email);
-		httpSession.invalidate();
-		log.info("회원탈퇴 : " + Email);
-		return "redirect:/index";
+	    String email = (String) httpSession.getAttribute("Email");
+	    userService.removeUser(email);
+	    httpSession.invalidate();
+	    log.info("회원탈퇴 : " + email);
+	    return "redirect:/index";
 	}
 
 
