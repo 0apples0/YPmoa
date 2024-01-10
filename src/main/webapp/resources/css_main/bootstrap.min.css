@@ -627,7 +627,7 @@ progress {
 }
 
 .container,
-.container-fluid,
+
 .container-sm,
 .container-md,
 .container-lg,
@@ -640,9 +640,19 @@ progress {
   margin-left: auto
 }
 
+.container-fluid{
 
+  padding-right: var(--bs-gutter-x, .75rem);
+  padding-left: var(--bs-gutter-x, .75rem);
+  margin-right: 100px;
+  margin-left: 100px
+}
 
 @media (min-width: 576px) {
+  .container-fluid{
+    width: 100%;
+  }
+
 
   .container,
   .container-sm {
@@ -651,6 +661,10 @@ progress {
 }
 
 @media (min-width: 768px) {
+	  .container-fluid{
+    width: 100%;
+  }
+	
 
   .container,
   .container-sm,
@@ -660,6 +674,10 @@ progress {
 }
 
 @media (min-width: 992px) {
+  .container-fluid{
+    width: 100%;
+  }
+
 
   .container,
   .container-sm,
@@ -670,6 +688,9 @@ progress {
 }
 
 @media (min-width: 1200px) {
+	  .container-fluid{
+    width: 90%;
+  }
 
   .container,
   .container-sm,
@@ -681,6 +702,9 @@ progress {
 }
 
 @media (min-width: 1400px) {
+	  .container-fluid{
+    width: 90%;
+  }
 
   .container,
   .container-sm,
