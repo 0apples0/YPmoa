@@ -116,6 +116,7 @@ public class UserService implements UserGenericService {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
 		if(_vo.getPW() != null) {
 			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
+				session.setAttribute("user", _vo);
 				return true;
 			}else {
 				return false;
