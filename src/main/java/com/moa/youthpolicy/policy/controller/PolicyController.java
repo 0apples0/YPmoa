@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/policy/*")
 @AllArgsConstructor
 @Log4j
-public class PolicyController {
+public class PolicyController { 
 	@Autowired
 	PolicyService service;
 	
