@@ -22,7 +22,7 @@
             </p>
             <p>
                 <label for="PW">비밀번호</label>
-                <a href="/user/modify?PW=<%= user.getPW() %>" id="myPage">비밀번호 변경</a>
+                <a href="/user/modify?Email=<%= user.getEmail() %>" id="myPage">비밀번호 변경</a>
             </p>
             <p>
                 <label for="name">이름</label>
