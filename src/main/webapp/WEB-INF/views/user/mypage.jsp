@@ -18,7 +18,7 @@
 		</div>
 	</div>
 </div>
-<!-- Page Header End -->
+<!-- Page Header Enfd -->
 
 
 <!-- Booking Start -->
@@ -28,20 +28,21 @@
 
             if (user != null) {
         %>
+     
+        
 <form>
-	<div class="container-fluid mypage_booking pb-5 wow fadeIn"
-		data-wow-delay="0.1s">
+	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
 			<div class="bg-white mypage_shadow" style="padding: 35px;">
 				<div class="row g-2">
-					<h3 class="mypage_section-title text-center text-primary ">맞춤
-						조건 설정</h3>
+					<h3 class="mypage_section-title text-center text-primary ">맞춤조건 설정</h3>
 					<div class="col-md-10">
 
 						<div class="row g-2">
 							<div class="col-md-3_b">
-								<select class="form-select">
-									<option selected>지역선택</option>
+								<select class="form-select"  >
+								<option selected id="address" name="address" value="<%= user.getAddress() %>"><%= user.getAddress() %></option>
+									<option value="0">지역선택</option>
 									<option value="1">부천시</option>
 									<option value="2">수원시</option>
 									<option value="3">광명시</option>
@@ -49,7 +50,8 @@
 							</div>
 							<div class="col-md-3_b">
 								<select class="form-select">
-									<option selected>취업상태</option>
+									<option selected id="isWork" name="isWork" value="<%= user.isWork() %>"><%= user.isWork() %></option>
+									<option value="0">취업상태</option>
 									<option value="1">취업</option>
 									<option value="2">미취업</option>
 								</select>
@@ -224,14 +226,31 @@
 
 </div>
 
-</div>
+
 <!-- Footer End -->
 
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 	class="bi bi-arrow-up"></i></a>
-</div>
+<script>
+
+	
+$(document).ready(function() {
+	
+
+	    // 값이 없는 경우 숨기기
+	    if (addressOption.val() === '') {
+        addressOption.hide();
+        // value가 1인 옵션을 selected로 설정
+        $('[value="1"]').prop('selected', true);
+    }
+    
+   
+});
+
+</script>
+
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
