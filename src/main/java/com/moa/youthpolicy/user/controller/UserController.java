@@ -63,13 +63,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
 	    UserVO vo = userService.getUser(auth); 
 	    UserVO _vo = userService.get(vo.getEmail());
 	    if(_vo != null) {
-	    	userService.logIn(vo);
+	    	userService.logIn(vo, session);
 	    }else {
-	    	userService.register(vo);
+	    	userService.register(vo, session);
 	    }
 	    return "redirect:/";
 	}
@@ -81,8 +81,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public String register(UserVO vo) {
-		userService.register(vo);
+	public String register(UserVO vo, HttpSession session) {
+		userService.register(vo, session);
 		return "index";
 	}
 	

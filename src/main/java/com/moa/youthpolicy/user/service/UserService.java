@@ -3,11 +3,15 @@ package com.moa.youthpolicy.user.service;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,6 +38,9 @@ public class UserService implements UserGenericService {
 	
 	@Autowired
 	UserMapper mapper;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
 	
 	public boolean chkEmail(String email) {
 		
@@ -63,12 +70,13 @@ public class UserService implements UserGenericService {
 
 	}
 	
-	public void register(UserVO vo) {		
-//		if(vo.getPW() != null) {
-//			vo.setPW(hashingPW(vo.getPW()));
-//		}
+	public void register(UserVO vo,HttpSession session) {		
+		if(vo.getPW() != null) {
+			vo.setPW(hashingPW(vo.getPW()));
+		}
 		log.info(vo.toString());
 		mapper.register(vo);
+		logIn(vo, session);
 	}
 	
 	public String findUserID(UserVO vo) {
@@ -81,8 +89,8 @@ public class UserService implements UserGenericService {
 	}
 	
 	private String hashingPW(String pw) {
-		
-		return null;
+		encoder.encode(pw);
+		return pw;
 	}
 	
 	@Override
@@ -104,8 +112,19 @@ public class UserService implements UserGenericService {
 	}
 
 	@Override
-	public void logIn(UserVO vo) {
-		log.info("service login");
+	public boolean logIn(UserVO vo, HttpSession session) {
+		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
+		if(_vo.getPW() != null) {
+			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			session.setAttribute("user", _vo);
+			return true;
+		}
+		
 	}
 
 	public String getUri() {

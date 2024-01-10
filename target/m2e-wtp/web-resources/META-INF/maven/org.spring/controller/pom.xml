@@ -194,6 +194,13 @@
 		    <version>1.9.13</version>
 		</dependency>
 		
+		<!-- hasing -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			 <version>4.0.0.RELEASE</version>
+		</dependency>
+		
 		
 	</dependencies>
 	<build>
