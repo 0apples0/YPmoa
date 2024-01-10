@@ -4,35 +4,20 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	int userType; 		// 회원 타입(0: 관리자, 1: 일반회원)
-	String Email; 		// 이메일(아이디)
-	String PW;    		// 비밀번호
-	String name;  		// 이름
-	String nick;  		// 닉네임
-	int phone;    		// 전화번호
+	int userType; 		// �쉶�썝 ���엯(0: 愿�由ъ옄, 1: �씪諛섑쉶�썝)
+	String Email; 		// �씠硫붿씪(�븘�씠�뵒)
+	String PW;    		// 鍮꾨�踰덊샇
+	String name;  		// �씠由�
+	String nick;  		// �땳�꽕�엫
+	int phone;    		// �쟾�솕踰덊샇
 
-	String address;     // 맞춤조건: 지역
-	int age; 			// 맞춤조건: 나이
-	int income; 		// 맞춤조건: 수입
-	boolean isWork; 	// 맞춤조건: 취업 유무
-	boolean isMarry; 	// 맞춤조건: 결혼 유무
-	String interestField; // 맞춤조건: 관심분야
+	String address;     // 留욎땄議곌굔: 吏��뿭
+	int age; 			// 留욎땄議곌굔: �굹�씠
+	int income; 		// 留욎땄議곌굔: �닔�엯
+	boolean isWork; 	// 留욎땄議곌굔: 痍⑥뾽 �쑀臾�
+	boolean isMarry; 	// 留욎땄議곌굔: 寃고샎 �쑀臾�
+	String interestField; // 留욎땄議곌굔: 愿��떖遺꾩빞
 	
-	int countReport;    // 신고 당한 횟수 
+	int countReport;    // �떊怨� �떦�븳 �슏�닔 
 
-	
-	
-	
-    public String getEmail() {
-        return Email;
-    }
-    public void setEmail(String email) {
-        Email = email;
-    }
-    public boolean isMarry() {
-    	return isMarry;
-    }
-    public boolean isWork() {
-    	return isMarry;
-    }
 }
