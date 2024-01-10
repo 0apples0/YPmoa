@@ -107,9 +107,10 @@
    
    function checkAndNavigateToMypage() {
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
-       var user_email = "${user}";
-
-       if (user == null) {
+       var user_email = null;
+       user_email = "${user}";
+       
+       if (!user_email) {
            alert("로그인이 필요한 서비스입니다.");
            // 로그인 페이지로 리다이렉트 
        } else {
