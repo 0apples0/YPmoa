@@ -16,5 +16,11 @@
         SELECT * FROM user WHERE email = #{email}
     </select>
     
+    <insert id="register" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+    	INSERT INTO user
+    	(Email, name, nick, phone)
+    	VALUES (#{Email}, #{name}, #{nick}, #{phone})
+	</insert>
+    
     <!-- Additional SQL queries and mapping statements can be added here -->
 </mapper>

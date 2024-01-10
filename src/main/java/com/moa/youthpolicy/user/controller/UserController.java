@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 	@PostMapping("/remove")
-	public String remove(HttpSession httpSession) {
+	public String remove(HttpSession httpSession, Model model) {
 		String Email = (String) httpSession.getAttribute("Email");
 		userService.removeUser(Email);
 		httpSession.invalidate();
@@ -63,15 +63,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
 	    UserVO vo = userService.getUser(auth); 
-	    session.setAttribute("user", vo);
-	    if(userService.get(vo.getEmail()) != null) {
+	    UserVO _vo = userService.get(vo.getEmail());
+	    if(_vo != null) {
 	    	userService.logIn(vo);
 	    }else {
 	    	userService.register(vo);
 	    }
-	    return "index";
+	    return "redirect:/";
 	}
 	
 	@ResponseBody

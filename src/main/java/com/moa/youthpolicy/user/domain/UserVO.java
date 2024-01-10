@@ -15,15 +15,24 @@ public class UserVO {
 	int age; 			// 맞춤조건: 나이
 	int income; 		// 맞춤조건: 수입
 	boolean isWork; 	// 맞춤조건: 취업 유무
-    public boolean isWork() {
-        return isMarry;
-    }
 	boolean isMarry; 	// 맞춤조건: 결혼 유무
-    public boolean isMarry() {
-        return isMarry;
-    }
 	String interestField; // 맞춤조건: 관심분야
 	
 	int countReport;    // 신고 당한 횟수 
 
+	
+	
+	
+    public String getEmail() {
+        return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
+    public boolean isMarry() {
+    	return isMarry;
+    }
+    public boolean isWork() {
+    	return isMarry;
+    }
 }

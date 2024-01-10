@@ -62,8 +62,8 @@
             </p>
             
             <button type="submit">정보수정</button>
-            <a href="/index">메인화면</a>
-            <a href="/user/remove?Email=${user.Email}">회원탈퇴</a>
+            <a href="redirect:/index">메인화면</a>
+            <a href="/user/remove">회원탈퇴</a>
         </form>
         <%
             } else {

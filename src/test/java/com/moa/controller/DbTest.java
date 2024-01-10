@@ -28,7 +28,7 @@ public class DbTest {
         try {
             log.info(dataSource.getConnection());
         } catch (Exception e) {
-            log.error("데이터베이스 연결 실패: " + e.getMessage());
+            log.error("�뜲�씠�꽣踰좎씠�뒪 �뿰寃� �떎�뙣: " + e.getMessage());
         }
     }
     
@@ -36,5 +36,16 @@ public class DbTest {
     public void getTest() {
     	UserVO vo = userMapper.selectUserByEmail("test");
     	log.info(vo.toString());
+    }
+    
+    @Test
+    public void insertTest() {
+    	UserVO vo = new UserVO();
+    	vo.setEmail("ttest");
+    	vo.setName("test");
+    	vo.setNick("ttest");
+    	vo.setPhone(111);
+    	
+    	userMapper.register(vo);
     }
 }
