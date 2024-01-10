@@ -28,7 +28,6 @@
 
             if (user != null) {
         %>
-<<<<<<< HEAD
         <form name="myform" action="/user/modify" method="post">
             <p>
                 <label for="Email">아이디(이메일)</label>
@@ -80,15 +79,12 @@
             <a href="/user/remove">회원탈퇴</a>
         </form>
         <%
-=======
 <form>
-	<div class="container-fluid mypage_booking pb-5 wow fadeIn"
-		data-wow-delay="0.1s">
+	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
 			<div class="bg-white mypage_shadow" style="padding: 35px;">
 				<div class="row g-2">
-					<h3 class="mypage_section-title text-center text-primary ">맞춤
-						조건 설정</h3>
+					<h3 class="mypage_section-title text-center text-primary ">맞춤조건 설정</h3>
 					<div class="col-md-10">
 
 						<div class="row g-2">
@@ -249,7 +245,6 @@
 	</div>
 </form>
  <%
->>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
             } else {
         %>
         	<h1>로그인이 필요한 서비스입니다.</h1>
