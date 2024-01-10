@@ -45,6 +45,8 @@
     <!-- Vendors CSS -->
     <script src="resources/assets/vendor/js/helpers.js"></script>
     <script src="resources/assets/js/config.js"></script>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 

@@ -28,57 +28,8 @@
 
             if (user != null) {
         %>
-        <form name="myform" action="/user/modify" method="post">
-            <p>
-                <label for="Email">아이디(이메일)</label>
-                <input type="text" id="Email" name="Email" value="<%= user.getEmail() %>" readonly="readonly"/>
-            </p>
-            <p>
-                <label for="PW">비밀번호</label>
-                <a href="/user/modify?Email=<%= user.getEmail() %>" id="myPage">비밀번호 변경</a>
-            </p>
-            <p>
-                <label for="name">이름</label>
-                <input type="text" id="name" name="name" maxlength="40" value="<%= user.getName() %>"/>
-            </p>
-            <p>
-                <label for="nick">닉네임</label>
-                <input type="text" id="nick" name="nick" maxlength="40" value="<%= user.getNick() %>"/>
-            </p>
-            <p>
-                <label for="phone">전화번호</label>
-                <input type="text" id="phone" name="phone" value="<%= user.getPhone() %>"/>
-            </p>
-            <p>
-                <label for="address">지역선택</label>
-                <input type="text" id="address" name="address" value="<%= user.getAddress() %>"/>
-            </p>
-            <p>
-                <label for="isWork">취업상태</label>
-                <input type="text" id="isWork" name="isWork" value="<%= user.isWork() %>"/>
-            </p>
-            <p>
-                <label for="age">나이</label>
-                <input type="text" id="age" name="age" value="<%= user.getAge() %>"/>
-            </p>
-            <p>
-                <label for="income">소득범위</label>
-                <input type="text" id="income" name="income" value="<%= user.getIncome() %>"/>
-            </p>
-            <p>
-                <label for="isMarry">결혼여부</label>
-                <input type="text" id="isMarry" name="isMarry" value="<%= user.isMarry() %>"/>
-            </p>
-            <p>
-                <label for="interestField">관심분야</label>
-                <input type="text" id="interestField" name="interestField" value="<%= user.getInterestField() %>"/>
-            </p>
-            
-            <button type="submit">정보수정</button>
-            <a href="redirect:/index">메인화면</a>
-            <a href="/user/remove">회원탈퇴</a>
-        </form>
-        <%
+     
+        
 <form>
 	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
@@ -89,8 +40,9 @@
 
 						<div class="row g-2">
 							<div class="col-md-3_b">
-								<select class="form-select">
-									<option selected>지역선택</option>
+								<select class="form-select"  >
+								<option selected id="address" name="address" value="<%= user.getAddress() %>"><%= user.getAddress() %></option>
+									<option value="0">지역선택</option>
 									<option value="1">부천시</option>
 									<option value="2">수원시</option>
 									<option value="3">광명시</option>
@@ -98,7 +50,8 @@
 							</div>
 							<div class="col-md-3_b">
 								<select class="form-select">
-									<option selected>취업상태</option>
+									<option selected id="isWork" name="isWork" value="<%= user.isWork() %>"><%= user.isWork() %></option>
+									<option value="0">취업상태</option>
 									<option value="1">취업</option>
 									<option value="2">미취업</option>
 								</select>
@@ -280,6 +233,23 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 	class="bi bi-arrow-up"></i></a>
+<script>
+
+	
+$(document).ready(function() {
+	
+
+	    // 값이 없는 경우 숨기기
+	    if (addressOption.val() === '') {
+        addressOption.hide();
+        // value가 1인 옵션을 selected로 설정
+        $('[value="1"]').prop('selected', true);
+    }
+    
+   
+});
+
+</script>
 
 
 <!-- JavaScript Libraries -->

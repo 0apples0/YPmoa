@@ -28,7 +28,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="resources/css_main/bootstrap.min.css" rel="stylesheet">
-
+	
     <!-- Template Stylesheet -->
     <link href="resources/css_main/style.css" rel="stylesheet">
 
