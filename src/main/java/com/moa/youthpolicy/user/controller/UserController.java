@@ -77,7 +77,7 @@ public class UserController {
 	
 	@GetMapping("/getGoogleCode")
 	@ResponseBody
-	public void test(HttpServletRequest request) {
+	public void g_login(HttpServletRequest request) {
 		Map<String, String> param = new HashMap<String, String>();
 		System.out.println("code: " + request.getParameter("code"));
 		
@@ -85,6 +85,7 @@ public class UserController {
 		
 		System.out.println("param : " + param.toString());
 		userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
+		//return "redirect:/";
 	}
 	
 	@GetMapping("/n_login")
