@@ -29,10 +29,10 @@
 <link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="resources/css_main/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="resources/css_main/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 
@@ -61,7 +61,7 @@
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="#"
                         class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <img src="resources/img/logo.svg" id="logo" />
+                        <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
 
                     </a>
 
@@ -73,8 +73,13 @@
 
 
 
+<<<<<<< HEAD
                     <a href="/user/login"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
                     <a href="/user/register"> <img src="resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+=======
+                    <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+>>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 
                    
                    
@@ -99,7 +104,7 @@
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
                         <a href="index.html" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
-                        <a href="#" onclick="checkAndNavigateToMypage()" class="nav-item nav-link">마이페이지</a>
+                        <a href="#" class="nav-item nav-link onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
                     </div>
 
                 </div>
@@ -108,11 +113,10 @@
    </div>
    
    <script>
-   
-   function checkAndNavigateToMypage() {
+   function checkAndNavigateToMypage(Email) {
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
        var user_email = null;
-       user_email = "${user}";
+       user_email = Email;
        
        if (!user_email) {
            alert("로그인이 필요한 서비스입니다.");

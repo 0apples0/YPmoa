@@ -684,7 +684,9 @@ progress {
 }
 
 @media (min-width: 1200px) {
-
+  .container-fluid{
+    width: 95%;
+  }
   .container,
   .container-sm,
   .container-md,
@@ -695,7 +697,9 @@ progress {
 }
 
 @media (min-width: 1400px) {
-
+  .container-fluid{
+    width: 90%;
+  }
   .container,
   .container-sm,
   .container-md,
@@ -703,6 +707,34 @@ progress {
   .container-xl,
   .container-xxl {
     max-width: 1320px
+  }
+}
+
+@media (min-width: 1600px) {
+  .container-fluid{
+    width: 80%;
+  }
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 1520px
+  }
+}
+
+@media (min-width: 1764px) {
+  .container-fluid{
+    width: 70%;
+  }
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 1700px
   }
 }
 

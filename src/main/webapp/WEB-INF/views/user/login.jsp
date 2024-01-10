@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 수정 24.01.09 -->
+
 <%@include file="../includes/header_guest.jsp" %>
 
            <!-- Page Header Start -->
@@ -58,8 +58,8 @@
                                              <div class="field  login_btn">
                                              
                                                	<!-- SNS로그인 버튼 -->
-                                                  <button type="button" class="a_btn" onclick=""><img src=""${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
-                                                  <button type="button" class="a_btn" onclick=""><img src=""${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src="${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" onclick=""><img src="${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
                                                 
                                              </div>
                                           
@@ -94,7 +94,7 @@
                 <div class="row g-5" ></div>
                     <div class="rounded p-4" id="footer_box">
                         <a href="">
-                            <img src=""${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
+                            <img src="${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
                     </div>
 
 
@@ -114,17 +114,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="resources/lib/wow/wow.min.js"></script>
-    <script src="resources/lib/easing/easing.min.js"></script>
-    <script src="resources/lib/waypoints/waypoints.min.js"></script>
-    <script src="resources/lib/counterup/counterup.min.js"></script>
-    <script src="resources/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="resources/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/wow/wow.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/counterup/counterup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="resources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 
 </html>

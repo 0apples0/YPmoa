@@ -35,27 +35,30 @@ public class UserController {
 	@Autowired
 	UserMapper mapper;
 
-	// ---------------------보빈---------------------
 	@GetMapping("/mypage")
-	public String getMypage(@RequestParam("Email") String Email, Model model) {
-		log.info("마이페이지 조회");
-		UserVO user = userService.get(Email);
-		model.addAttribute("user", user);
-		return "user/mypage";
+	public String getMypage(@RequestParam("Email") String Email, HttpSession httpSession, Model model) {
+	    log.info("마이페이지 조회");
+	    UserVO user = userService.get(Email);
+	    httpSession.setAttribute("user", user);
+	    model.addAttribute("user", user);
+	    log.info("User details - Email: " + user.getEmail());
+	    return "user/mypage";
 	}
-	
 	
 	@GetMapping({"/remove","/modify"})
 	public void get(@RequestParam("Email") String Email, Model model) {
 		model.addAttribute("vo", userService.get(Email));
 	}
-
-	@PostMapping("/modify")
-	public String modify(@ModelAttribute("vo") UserVO modifyUser) {
-		userService.modify(modifyUser);
-		return "redirect:/user/mypage?Email=" + modifyUser.getEmail();
-	}
 	
+	@PostMapping("/modify")
+	public String modify(UserVO modifyUser, HttpSession session) {
+	    String email = modifyUser.getEmail();
+	    log.info("Controller : " + modifyUser.toString());
+
+	    userService.modify(modifyUser);
+	    log.info(email);
+	    return "redirect:/user/mypage?Email=" + email;
+	}
     @GetMapping("/login")
     public void login() {
     	
@@ -68,11 +71,11 @@ public class UserController {
 
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession, Model model) {
-		String Email = (String) httpSession.getAttribute("Email");
-		userService.removeUser(Email);
-		httpSession.invalidate();
-		log.info("회원탈퇴 : " + Email);
-		return "redirect:/index";
+	    String email = (String) httpSession.getAttribute("Email");
+	    userService.removeUser(email);
+	    httpSession.invalidate();
+	    log.info("회원탈퇴 : " + email);
+	    return "redirect:/index";
 	}
 
 

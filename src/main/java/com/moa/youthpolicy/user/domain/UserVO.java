@@ -32,6 +32,7 @@ public class UserVO {
     	return isMarry;
     }
     public boolean isWork() {
-    	return isMarry;
+    	return isWork;
     }
+
 }
