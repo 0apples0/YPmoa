@@ -74,7 +74,7 @@ public class UserController {
 	    String uri = userService.doGoogleLogin();
 	    return "redirect:" + uri;
 	}
-/*	
+/*
 	@GetMapping("/getGoogleCode")
 	@ResponseBody
 	public void g_login(HttpServletRequest request) {
@@ -86,18 +86,23 @@ public class UserController {
 		System.out.println("param : " + param.toString());
 		userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
 
-	}
-*/	
+	}*/
+	
 	@GetMapping("/getGoogleCode")
-	public String g_login(HttpServletRequest request, Model model) {
+	public String g_login(HttpServletRequest request, HttpSession session) {
 		Map<String, String> param = new HashMap<String, String>();
 		System.out.println("code: " + request.getParameter("code"));
 		
 		param.put("code", request.getParameter("code"));
 		
 		System.out.println("param : " + param.toString());
-		UserVO uservo = userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
-		model.addAttribute("uservo", uservo);
+		UserVO vo = userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
+		UserVO _vo = userService.get(vo.getEmail());
+		if(_vo != null) {
+			userService.logIn(vo, session);
+		}else {
+			userService.register(vo, session);
+		}
 		return "redirect:/";
 	}	
 	
