@@ -71,7 +71,7 @@ public class UserController {
 	    }else {
 	    	userService.register(vo);
 	    }
-	    return "index";
+	    return "redirect:/";
 	}
 	
 	@ResponseBody
