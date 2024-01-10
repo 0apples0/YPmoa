@@ -1,6 +1,5 @@
 package com.moa.youthpolicy.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,11 +30,8 @@ public class UserController {
 	public String getMypage(@RequestParam("Email") String Email, Model model) {
 		log.info("마이페이지 조회");
 		UserVO user = userService.get(Email);
-		if (user != null) {
-			model.addAttribute("vo", user);
-			return "mypage"; // user 媛믪씠 �엳�쑝硫� 留덉씠�럹�씠吏�
-		}
-		return "index"; // 없으면 메인으로 보냄
+		model.addAttribute("user", user);
+		return "user/mypage";
 	}
 	
 	
@@ -55,7 +51,7 @@ public class UserController {
 		String Email = (String) httpSession.getAttribute("Email");
 		userService.removeUser(Email);
 		httpSession.invalidate();
-		log.info("�쉶�썝�깉�눜 �셿猷� : " + Email);
+		log.info("회원탈퇴 : " + Email);
 		return "redirect:/index";
 	}
 
@@ -67,10 +63,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
 	    UserVO vo = userService.getUser(auth); 
-	    session.setAttribute("user", vo);
-	    if(userService.get(vo.getEmail()) != null) {
+	    UserVO _vo = userService.get(vo.getEmail());
+	    if(_vo != null) {
 	    	userService.logIn(vo);
 	    }else {
 	    	userService.register(vo);

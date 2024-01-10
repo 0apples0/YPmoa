@@ -3,10 +3,11 @@
 >>>>>>>=branch 'main' of https\://github.com/0apples0/YPmoa.git
 eclipse.preferences.version=1
 encoding//src/main/java/com/moa/youthpolicy/user/controller/UserController.java=UTF-8
+encoding//src/main/java/com/moa/youthpolicy/user/mapper/UserMapper.java=UTF-8
 encoding//src/main/java/com/moa/youthpolicy/user/service/UserService.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/includes/header_admin.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/includes/header_guest.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/includes/header_member.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/index.jsp=UTF-8
 encoding//src/main/webapp/resources/css_main/style.css=UTF-8
-encoding/<project>=UTF-8
+encoding//src/test/java/com/moa/controller/DbTest.java=UTF-8

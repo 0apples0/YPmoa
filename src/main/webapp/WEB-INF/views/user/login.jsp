@@ -30,8 +30,7 @@
                 <div class="row g-5" id="login_box">
                     <div class="col-lg-6" id="login_inner_box">
                         <div class="row g-3">
-                            <div class="col-6 w-100 wow zoomIn" data-wow-delay="0.1s">
-
+                            <div class="col-6  wow zoomIn" id="login_small_box" data-wow-delay="0.1s">
 
                                 <div class="login_section">
                                  

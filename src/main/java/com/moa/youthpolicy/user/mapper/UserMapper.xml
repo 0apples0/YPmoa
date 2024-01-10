@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.moa.youthpolicy.user.mapper.UserMapper" >
+<!-- 마이페이지 수정 -->
+	<update id="update" parameterType="UserVO">
+		UPDATE user
+		SET name = #{name}
+		WHERE Email = #{Email}
+	</update>
+
+    <!-- SQL queries and mapping statements go here -->
+    <select id="selectUserByEmail" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
+    
+    <insert id="register" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+    	INSERT INTO user
+    	(Email, name, nick, phone)
+    	VALUES (#{Email}, #{name}, #{nick}, #{phone})
+	</insert>
+    
+    <!-- Additional SQL queries and mapping statements can be added here -->
+</mapper>
