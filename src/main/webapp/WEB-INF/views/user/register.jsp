@@ -118,7 +118,7 @@
 												for="basic-default-company">닉네임</label>
 											<div class="col-sm-10">
 												<input type="text" class="regi_sub_form-control" required
-													id="basic-default-company" placeholder="10글자 이내" />
+													id="basic-default-company" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
 												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
 											</div>
 										</div>
