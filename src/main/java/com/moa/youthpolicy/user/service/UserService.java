@@ -105,7 +105,7 @@ public class UserService implements UserGenericService {
 
 	@Override
 	public void logIn(UserVO vo) {
-		
+		log.info("service login");
 	}
 
 	public String getUri() {

@@ -66,7 +66,7 @@ public class UserController {
 	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
 	    UserVO vo = userService.getUser(auth); 
 	    UserVO _vo = userService.get(vo.getEmail());
-	    if(_vo == null || _vo.getEmail().length() < 1) {
+	    if(_vo != null) {
 	    	userService.logIn(vo);
 	    }else {
 	    	userService.register(vo);
