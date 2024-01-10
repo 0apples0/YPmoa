@@ -63,11 +63,12 @@ public class UserService implements UserGenericService {
 
 	}
 	
-	public void register(UserVO vo) {
-		
-		if(vo.getPW() != null) {
-			vo.setPW(hashingPW(vo.getPW()));
-		}		
+	public void register(UserVO vo) {		
+//		if(vo.getPW() != null) {
+//			vo.setPW(hashingPW(vo.getPW()));
+//		}
+		log.info(vo.toString());
+		mapper.register(vo);
 	}
 	
 	public String findUserID(UserVO vo) {
@@ -104,8 +105,7 @@ public class UserService implements UserGenericService {
 
 	@Override
 	public void logIn(UserVO vo) {
-		// TODO Auto-generated method stub
-		
+		log.info("service login");
 	}
 
 	public String getUri() {
