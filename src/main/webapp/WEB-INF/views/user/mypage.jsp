@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.moa.youthpolicy.user.domain.UserVO"%>
 
 <%@include file="../includes/header_member.jsp"%>
 
@@ -20,16 +20,24 @@
 </div>
 <!-- Page Header End -->
 
+
 <!-- Booking Start -->
-<div class="container-fluid mypage_booking pb-5 wow fadeIn"
-	data-wow-delay="0.1s">
-	<div class="container">
-		<div class="bg-white mypage_shadow" style="padding: 35px;">
-			<div class="row g-2">
-				<h3 class="mypage_section-title text-center text-primary ">맞춤
-					조건 설정</h3>
-				<div class="col-md-10">
-					<form>
+  <%
+            // 컨트롤러에서 모델에 담긴 user 객체 가져오기
+            UserVO user = (UserVO) request.getAttribute("user");
+
+            if (user != null) {
+        %>
+<form>
+	<div class="container-fluid mypage_booking pb-5 wow fadeIn"
+		data-wow-delay="0.1s">
+		<div class="container">
+			<div class="bg-white mypage_shadow" style="padding: 35px;">
+				<div class="row g-2">
+					<h3 class="mypage_section-title text-center text-primary ">맞춤
+						조건 설정</h3>
+					<div class="col-md-10">
+
 						<div class="row g-2">
 							<div class="col-md-3_b">
 								<select class="form-select">
@@ -40,7 +48,7 @@
 								</select>
 							</div>
 							<div class="col-md-3_b">
-								<select class="form-select" >
+								<select class="form-select">
 									<option selected>취업상태</option>
 									<option value="1">취업</option>
 									<option value="2">미취업</option>
@@ -77,113 +85,123 @@
 								</select>
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="col-md-2">
-					<button type="submit" class="btn btn-primary w-100">저장하기</button>
+
+					</div>
+					<div class="col-md-2">
+						<button type="submit" class="btn btn-primary w-100">저장하기</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- Booking End -->
+	<!-- Booking End -->
 
 
 
-<!-- Booking Start -->
-<!-- Basic Layout -->
-<div class="container-xxl py-5">
-	<div class="container">
+	<!-- Booking Start -->
+	<!-- Basic Layout -->
+	<div class="container-xxl py-5">
+		<div class="container">
 
-		<div class="row g-5" id="login_box">
-			<div class="col-lg-6" id="login_inner_box">
-				<div class="row g-3">
-					<div class="col-6  wow zoomIn" id="login_small_box"
-						data-wow-delay="0.1s">
-
-
+			<div class="row g-5" id="login_box">
+				<div class="col-lg-6" id="login_inner_box">
+					<div class="row g-3">
+						<div class="col-6  wow zoomIn" id="login_small_box"
+							data-wow-delay="0.1s">
 
 
-						<div class="col-xxl login_section">
-							<div class=" mb-4">
 
-								<div id="card-body">
-									<form>
 
-										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label field"
-												for="basic-default-email">아이디</label>
-											<div class="col-sm-10">
-												<div class="input-group input-group-merge">
+							<div class="col-xxl login_section">
+								<div class=" mb-4">
+
+									<div id="card-body">
+										<form>
+
+											<div class="row mb-3">
+												<label class="col-sm-2 col-form-label field"
+													for="basic-default-email">아이디</label>
+												<div class="col-sm-10">
+													<div class="input-group input-group-merge">
+														<input type="text" class="regi_pwd_form-control" required
+															disabled aria-describedby="basic-default-password"
+															id="Email" name="Email" value="<%=user.getEmail()%>" />
+
+													</div>
+												</div>
+
+											</div>
+
+
+											<div class="row mb-3">
+												<label class="col-sm-2 col-form-label"
+													for="basic-default-company">이름</label>
+												<div class="col-sm-10" id="regi_input">
 													<input type="text" class="regi_pwd_form-control" required
-														disabled aria-describedby="basic-default-password"
-														id="Email" name="Email" value="<%= user.getEmail() %>" />
+														id="name" name="name" value="<%=user.getName()%>" />
 
 												</div>
 											</div>
 
-										</div>
-
-
-										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
-												for="basic-default-company">이름</label>
-											<div class="col-sm-10" id="regi_input">
-												<input type="text" class="regi_pwd_form-control" required
-													id="name" name="name" value="<%= user.getName() %>"/>
-
+											<div class="row mb-3">
+												<label class="col-sm-2 col-form-label"
+													for="basic-default-phone">연락처</label>
+												<div class="col-sm-10">
+													<input type="text" required
+														class="regi_sub_form-control phone-mask" id="phone"
+														name="phone" value="<%=user.getPhone()%>"
+														aria-describedby="basic-default-phone" />
+													<button type="button"
+														class="btn btn-primary  regi_checkBtn">중복확인</button>
+												</div>
 											</div>
-										</div>
-
-										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
-												for="basic-default-phone">연락처</label>
-											<div class="col-sm-10">
-												<input type="text"  required
-													class="regi_sub_form-control phone-mask"
-													id="phone" name="phone" value="<%= user.getPhone() %>"
-													aria-describedby="basic-default-phone" />
-												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+											<div class="row mb-3">
+												<label class="col-sm-2 col-form-label"
+													for="basic-default-company">닉네임</label>
+												<div class="col-sm-10">
+													<input type="text" class="regi_sub_form-control" required
+														id="nick" name="nick" value="<%=user.getNick()%>"
+														placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
+													<button type="button"
+														class="btn btn-primary  regi_checkBtn">중복확인</button>
+												</div>
 											</div>
-										</div>
-										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
-												for="basic-default-company">닉네임</label>
-											<div class="col-sm-10">
-												<input type="text" class="regi_sub_form-control" required
-													id="nick" name="nick" value="<%= user.getNick() %>"
-													placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
-												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+
+											<div class="col-sm-12" id="regi_btn">
+												<button type="submit" class="btn btn-primary"
+													id="regi_regiBtn">수정완료</button>
+												<button type="button" class="btn btn-primary"
+													id="regi_regiBtn">비밀번호 변경</button>
+
+												<button type="reset" class="btn btn-primary"
+													id="regi_regiBtn">초기화</button>
+												<button type="button" class="btn btn-warning">회원탈퇴</button>
 											</div>
-										</div>
 
-										<div class="col-sm-12" id="regi_btn">
-											<button type="submit" class="btn btn-primary"
-												id="regi_regiBtn">수정완료</button>
-											<button type="button" class="btn btn-primary"
-												id="regi_regiBtn">비밀번호 변경</button>
-
-											<button type="reset" class="btn btn-primary"
-												id="regi_regiBtn">초기화</button>
-											<button type="button" class="btn btn-warning">회원탈퇴</button>
-										</div>
-
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
+
+
+
 						</div>
 
 
-
 					</div>
-
-
 				</div>
-			</div>
 
+			</div>
 		</div>
 	</div>
-</div>
+</form>
+ <%
+            } else {
+        %>
+        	<h1>로그인이 필요한 서비스입니다.</h1>
+        <%        
+            }
+        %>
 <!-- Booking End -->
 
 

@@ -13,7 +13,6 @@
     <meta content="" name="description">
 	
 	<!-- 버전 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4/css/bootstrap.min.css">
     <!-- Favicon -->
     <link href="resources/img/favicon.ico" rel="icon">
 
