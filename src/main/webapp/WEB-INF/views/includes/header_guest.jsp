@@ -29,10 +29,10 @@
 <link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="resources/css_main/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="resources/css_main/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 
@@ -61,7 +61,7 @@
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="#"
                         class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <img src="resources/img/logo.svg" id="logo" />
+                        <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
 
                     </a>
 
@@ -73,8 +73,8 @@
 
 
 
-                    <a href="/user/login"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
-                    <a href="#"> <img src="resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+                    <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
 
                    
                    
