@@ -1,5 +1,11 @@
 package com.moa.youthpolicy.user.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -60,6 +66,26 @@ public class UserController {
 	public String naverLogin() {
 	    String uri = userService.getUri();
 	    return "redirect:" + uri;
+	}
+	
+	@GetMapping("/google_login")
+	public String googleLogin() {
+		System.out.println("google login 시작");
+	    String uri = userService.doGoogleLogin();
+	    return "redirect:" + uri;
+	}
+	
+	@GetMapping("/getGoogleCode")
+	@ResponseBody
+	public void g_login(HttpServletRequest request) {
+		Map<String, String> param = new HashMap<String, String>();
+		System.out.println("code: " + request.getParameter("code"));
+		
+		param.put("code", request.getParameter("code"));
+		
+		System.out.println("param : " + param.toString());
+		userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
+		//return "redirect:/";
 	}
 	
 	@GetMapping("/n_login")
