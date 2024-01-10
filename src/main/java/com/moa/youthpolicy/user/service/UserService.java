@@ -15,8 +15,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -66,8 +64,6 @@ public class UserService implements UserGenericService {
 	@Autowired
 	UserMapper mapper;
 	
-	@Autowired
-	BCryptPasswordEncoder encoder;
 	
 	public boolean chkEmail(String email) {
 		
@@ -115,7 +111,7 @@ public class UserService implements UserGenericService {
 	}
 	
 	private String hashingPW(String pw) {
-		encoder.encode(pw);
+//		encoder.encode(pw);
 		return pw;
 	}
 	
@@ -140,17 +136,17 @@ public class UserService implements UserGenericService {
 	@Override
 	public boolean logIn(UserVO vo, HttpSession session) {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
-		if(_vo.getPW() != null) {
-			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
-				session.setAttribute("user", _vo);
-				return true;
-			}else {
-				return false;
-			}
-		}else {
+//		if(_vo.getPW() != null) {
+//			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
+//				session.setAttribute("user", _vo);
+//				return true;
+//			}else {
+//				return false;
+//			}
+//		}else {
 			session.setAttribute("user", _vo);
 			return true;
-		}
+//		}
 		
 	}
 
