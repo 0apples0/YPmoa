@@ -58,13 +58,16 @@
 							</div>
 							<div class="col-md-3_b">
 								<div>
-									<input type="text" class="form-control datetimepicker-input"
+									<input type="text" 
+									id="age" name="age" value="<%= user.getAge() %>"
+									class="form-control datetimepicker-input"
 										placeholder="만 나이 입력" data-target="#date2"
 										data-toggle="datetimepicker" />
 								</div>
 							</div>
 							<div class="col-md-3_b">
-								<select class="form-select">
+								<select class="form-select" >
+									<option selected id="income" name="income" value="<%= user.getIncome() %>"><%= user.getIncome() %></option>
 									<option selected>소득범위</option>
 									<option value="1">소득없음</option>
 									<option value="2">세전 월 200만원 미만</option>
@@ -72,14 +75,16 @@
 								</select>
 							</div>
 							<div class="col-md-3_b">
-								<select class="form-select">
+								<select class="form-select" >
+									<option selected id="isMarry" name="isMarry" value="<%= user.isMarry() %>"><%= user.isMarry() %></option>
 									<option selected>결혼여부</option>
 									<option value="1">미혼</option>
 									<option value="2">기혼</option>
 								</select>
 							</div>
 							<div class="col-md-3_b">
-								<select class="form-select">
+								<select class="form-select" >
+									<option selected id="interestField" name="interestField" value="<%= user.getInterestField() %>"><%= user.getInterestField() %></option>
 									<option selected>관심분야</option>
 									<option value="1">주거</option>
 									<option value="2">교육</option>
@@ -235,19 +240,21 @@
 	class="bi bi-arrow-up"></i></a>
 <script>
 
+// 여기 추후 수정할예정 -수아
 	
 $(document).ready(function() {
-	
+    // 페이지가 로드되면 실행될 코드
+    var addressOption = $('#address'); // id가 "address"인 option 요소 선택
 
-	    // 값이 없는 경우 숨기기
-	    if (addressOption.val() === '') {
+    // 값이 없거나 null인 경우 숨기기
+    if (addressOption.val() === '' || addressOption.val() === null) {
         addressOption.hide();
-        // value가 1인 옵션을 selected로 설정
-        $('[value="1"]').prop('selected', true);
+        // value가 0인 옵션을 selected로 설정
+        $('[value="0"]').prop('selected', true);
     }
-    
-   
 });
+
+
 
 </script>
 
