@@ -641,11 +641,11 @@ progress {
 }
 
 .container-fluid{
-
+  width: 90%;
   padding-right: var(--bs-gutter-x, .75rem);
   padding-left: var(--bs-gutter-x, .75rem);
-  margin-right: 100px;
-  margin-left: 100px
+  margin-right: auto;
+  margin-left: auto
 }
 
 @media (min-width: 576px) {
@@ -664,7 +664,6 @@ progress {
 	  .container-fluid{
     width: 100%;
   }
-	
 
   .container,
   .container-sm,
@@ -688,10 +687,9 @@ progress {
 }
 
 @media (min-width: 1200px) {
-	  .container-fluid{
-    width: 90%;
+  .container-fluid{
+    width: 50%;
   }
-
   .container,
   .container-sm,
   .container-md,
@@ -702,10 +700,9 @@ progress {
 }
 
 @media (min-width: 1400px) {
-	  .container-fluid{
-    width: 90%;
+  .container-fluid{
+    width: 50%;
   }
-
   .container,
   .container-sm,
   .container-md,

@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 	@PostMapping("/remove")
-	public String remove(HttpSession httpSession) {
+	public String remove(HttpSession httpSession, Model model) {
 		String Email = (String) httpSession.getAttribute("Email");
 		userService.removeUser(Email);
 		httpSession.invalidate();
