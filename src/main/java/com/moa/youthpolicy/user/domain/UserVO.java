@@ -21,8 +21,6 @@ public class UserVO {
 	int countReport;    // 신고 당한 횟수 
 
 	
-	
-	
     public String getEmail() {
         return Email;
     }

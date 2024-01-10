@@ -80,9 +80,19 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public String modify(UserVO modifyUser) {
-		return mapper.update(modifyUser);
-	}
+//	public int modify(UserVO modifyUser) {
+//		return mapper.update(modifyUser);
+//	}
+	
+    public int modify(UserVO modifyUser) {
+        int rowsAffected = mapper.update(modifyUser);
+
+        if (rowsAffected > 0) {
+        	return mapper.update(modifyUser);
+        } else {
+            throw new RuntimeException("회원 정보 수정 실패");
+        }
+    }
 
 	public void removeUser(String email) {
 		// TODO Auto-generated method stub
