@@ -267,7 +267,7 @@ public class UserService implements UserGenericService {
 		return url;
 	}
 	
-	public void getGoogleToken(Map<String, String> param) {
+	public UserVO getGoogleToken(Map<String, String> param) {
 		
 		// 토큰 받아오기 위해 Post 요청 사용
 		RestTemplate template = new RestTemplate();
@@ -307,7 +307,14 @@ public class UserService implements UserGenericService {
     		System.out.println(key + " : " + userResponse.getBody().get(key));
     	}
     	
-//		return tokenResponse;
+    	UserVO uservo = new UserVO();
+    	uservo.setName(userResponse.getBody().get("name").toString());
+    	uservo.setEmail(userResponse.getBody().get("email").toString());
+    	
+    	System.out.println("user name: "+uservo.getName());
+    	System.out.println("user email: "+uservo.getEmail());
+    	
+		return uservo;
 	}
 
 }
