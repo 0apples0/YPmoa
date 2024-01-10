@@ -20,4 +20,20 @@ public class UserVO {
 	
 	int countReport;    // �떊怨� �떦�븳 �슏�닔 
 
+<<<<<<< HEAD
+=======
+	
+    public String getEmail() {
+        return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
+    public boolean isMarry() {
+    	return isMarry;
+    }
+    public boolean isWork() {
+    	return isMarry;
+    }
+>>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 }

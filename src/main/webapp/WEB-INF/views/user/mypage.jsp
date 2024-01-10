@@ -15,7 +15,7 @@
 
             if (user != null) {
         %>
-        <form>
+        <form action="/user/modify" method="post">
             <p>
                 <label for="Email">아이디(이메일)</label>
                 <input type="text" id="Email" name="Email" value="<%= user.getEmail() %>" readonly="readonly"/>

@@ -4,13 +4,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 
+
 <head>
+
     <meta charset="utf-8">
     <title>청년정책모아</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+	
+	<!-- 버전 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4/css/bootstrap.min.css">
     <!-- Favicon -->
     <link href="resources/img/favicon.ico" rel="icon">
 
@@ -35,7 +39,13 @@
     <link rel="stylesheet" href="resources/css_pluto/style_pluto.css" />
 
 
+    <!-- css2 -->
+    <script src="resources/assets/vendor/js/helpers.js"></script>
+    <link rel="stylesheet" href="resources/assets/vendor/fonts/boxicons.css" />
 
+    <!-- Vendors CSS -->
+    <script src="resources/assets/vendor/js/helpers.js"></script>
+    <script src="resources/assets/js/config.js"></script>
 
 </head>
 

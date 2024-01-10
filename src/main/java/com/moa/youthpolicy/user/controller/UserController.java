@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
+import com.moa.youthpolicy.user.mapper.UserMapper;
 import com.moa.youthpolicy.user.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +32,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class UserController {
 	private final UserService userService;
+	@Autowired
+	UserMapper mapper;
 
 	// ---------------------보빈---------------------
 	@GetMapping("/mypage")
@@ -49,8 +53,10 @@ public class UserController {
 	@PostMapping("/modify")
 	public String modify(@ModelAttribute("vo") UserVO modifyUser) {
 		userService.modify(modifyUser);
-		return "redirect:/mypage?Email=" + modifyUser.getEmail();
+		return "redirect:/user/mypage?Email=" + modifyUser.getEmail();
 	}
+	
+    
 
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession, Model model) {
