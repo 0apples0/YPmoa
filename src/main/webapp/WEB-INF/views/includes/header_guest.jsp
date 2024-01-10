@@ -28,7 +28,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="resources/css_main/bootstrap.min.css" rel="stylesheet">
-	
+
     <!-- Template Stylesheet -->
     <link href="resources/css_main/style.css" rel="stylesheet">
 
@@ -69,7 +69,7 @@
 
 
 
-                    <a href="#"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="/user/login"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
                     <a href="#"> <img src="resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
 
                    

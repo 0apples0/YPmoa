@@ -56,7 +56,10 @@ public class UserController {
 		return "redirect:/user/mypage?Email=" + modifyUser.getEmail();
 	}
 	
-    
+    @GetMapping("/login")
+    public void login() {
+    	
+    }
 
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession, Model model) {
