@@ -3,6 +3,7 @@ package com.moa.youthpolicy.user.service;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,7 @@ import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.login.naver.NaverOauthParams;
 import com.moa.youthpolicy.login.naver.NaverProfileResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
+import com.moa.youthpolicy.user.mapper.UserMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -29,6 +31,9 @@ public class UserService implements UserGenericService {
 	private static final String NCLIENTID = "rzR7mIoFeu6WT0A7uoHD";
 	private static final String NREDIRECT_URI = "http://localhost:8090/index";
 	private static final String NSECRET = "GPSQ2FGPUb";
+	
+	@Autowired
+	UserMapper mapper;
 	
 	public boolean chkEmail(String email) {
 		
@@ -43,8 +48,9 @@ public class UserService implements UserGenericService {
 	
 
 	public UserVO get(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		UserVO user = mapper.selectUserByEmail(email);
+				
+		return user;
 	}
 
 	public void modify(UserVO modifyUser) {

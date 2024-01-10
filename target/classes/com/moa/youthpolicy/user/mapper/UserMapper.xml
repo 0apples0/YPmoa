@@ -2,8 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.moa.youthpolicy.user.mapper.UserMapper" >
+<!-- 마이페이지 수정 -->
+	<update id="update" parameterType="UserVO">
+		UPDATE user
+		SET name = #{name}
+		WHERE Email = #{Email}
+	</update>
 
-<mapper namespace="com.moa.youthpolicy.user.mapper.UserMapper">
     <!-- SQL queries and mapping statements go here -->
     <select id="selectUserByEmail" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
         SELECT * FROM user WHERE email = #{email}
