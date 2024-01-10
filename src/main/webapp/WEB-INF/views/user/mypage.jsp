@@ -18,7 +18,7 @@
 		</div>
 	</div>
 </div>
-<!-- Page Header End -->
+<!-- Page Header Enfd -->
 
 
 <!-- Booking Start -->
