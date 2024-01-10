@@ -349,6 +349,13 @@
     z-index: 1;
 }
 
+.mypage_booking {
+    position: relative;
+    z-index: 1;
+}
+
+/*** myPage ***/
+
 
 /*** Section Title ***/
 .section-title {
@@ -367,6 +374,17 @@
     background: var(--primary);
 }
 
+.mypage_section-title::before {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 25%;
+    left: 530px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
 .section-title::after {
     position: absolute;
     content: "";
@@ -374,6 +392,17 @@
     height: 2px;
     top: 50%;
     right: -55px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
+.mypage_section-title::after {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 25%;
+    right: 530px;
     margin-top: -1px;
     background: var(--primary);
 }

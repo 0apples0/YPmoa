@@ -13,7 +13,6 @@
     <meta content="" name="description">
 	
 	<!-- 버전 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4/css/bootstrap.min.css">
     <!-- Favicon -->
     <link href="resources/img/favicon.ico" rel="icon">
 
@@ -96,7 +95,6 @@
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
                         <a href="index.html" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
-                       <!--  <a href="/user/mypage?Email=${user.Email}" id="myPage" class="nav-item nav-link">마이페이지</a> -->
                         <a href="#" onclick="checkAndNavigateToMypage()" class="nav-item nav-link">마이페이지</a>
                     </div>
 
@@ -106,18 +104,19 @@
    </div>
    
    <script>
-    function checkAndNavigateToMypage() {
-        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
-        var user_email = "${user.Email}";
+   
+   function checkAndNavigateToMypage() {
+       // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
+       var user_email = "${user}";
 
-        if (user_email === "") {
-            alert("로그인이 필요한 서비스입니다.");
-            // 로그인 페이지로 리다이렉트 
-        } else {
-            // 마이페이지로 이동
-            window.location.href = "/user/mypage?Email=" + user_email;
-        }
-    }
+       if (user == null) {
+           alert("로그인이 필요한 서비스입니다.");
+           // 로그인 페이지로 리다이렉트 
+       } else {
+           // 마이페이지로 이동
+           window.location.href = "/user/mypage?Email=" + user_email;
+       }
+   }
 </script>
    
    </body>
