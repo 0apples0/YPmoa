@@ -1,12 +1,36 @@
 package com.moa.youthpolicy.policy.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.BoardDTO;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.policy.mapper.PolicyMapper;
 
+import lombok.extern.log4j.Log4j;
+
+@Service
+@Log4j
 public class PolicyService implements BoardGenericService {
+	
+	@Autowired
+	PolicyMapper mapper;
+	
+	public List<PolicyVO> getfiveboard(){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		List<PolicyVO> list = mapper.getfiveboard();
+		for(PolicyVO board : list) {
+			board.setUpdtDt(LocalDate.parse(board.getUpdtDt_String(), formatter));
+		}
+		
+		return list;
+	}
 
 	@Override
 	public <T> void delBoard(Class<T> board) {

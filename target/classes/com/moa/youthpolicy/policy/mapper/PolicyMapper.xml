@@ -2,7 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
- <mapper namespace="com.moa.youthpolicy.policy.mapper.PolicyMapper" >
- 
- </mapper>
+
+<mapper	namespace="com.moa.youthpolicy.policy.mapper.PolicyMapper">
+	<select id="selectUserByEmail" resultType="com.moa.youthpolicy.user.domain.UserVO">
+		SELECT * FROM policy 
+	</select>
+</mapper>
