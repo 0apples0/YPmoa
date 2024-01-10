@@ -15,22 +15,22 @@
 
             if (user != null) {
         %>
-        <form action="/user/modify" method="post">
+        <form name="myform" action="/user/modify" method="post">
             <p>
                 <label for="Email">아이디(이메일)</label>
                 <input type="text" id="Email" name="Email" value="<%= user.getEmail() %>" readonly="readonly"/>
             </p>
             <p>
                 <label for="PW">비밀번호</label>
-                <a href="/user/modify?PW=${user.PW}" id="myPage">비밀번호 변경</a>
+                <a href="/user/modify?PW=<%= user.getPW() %>" id="myPage">비밀번호 변경</a>
             </p>
             <p>
                 <label for="name">이름</label>
-                <input type="text" id="name" name="name" value="<%= user.getName() %>"/>
+                <input type="text" id="name" name="name" maxlength="40" value="<%= user.getName() %>"/>
             </p>
             <p>
                 <label for="nick">닉네임</label>
-                <input type="text" id="nick" name="nick" value="<%= user.getNick() %>"/>
+                <input type="text" id="nick" name="nick" maxlength="40" value="<%= user.getNick() %>"/>
             </p>
             <p>
                 <label for="phone">전화번호</label>
@@ -73,5 +73,6 @@
             }
         %>
     </div>
+
 </body>
 </html>
