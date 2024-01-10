@@ -11,7 +11,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+	
+	<!-- 버전 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4/css/bootstrap.min.css">
     <!-- Favicon -->
     <link href="resources/img/favicon.ico" rel="icon">
 
@@ -35,6 +37,14 @@
 
     <link rel="stylesheet" href="resources/css_pluto/style_pluto.css" />
 
+
+    <!-- css2 -->
+    <script src="resources/assets/vendor/js/helpers.js"></script>
+    <link rel="stylesheet" href="resources/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Vendors CSS -->
+    <script src="resources/assets/vendor/js/helpers.js"></script>
+    <script src="resources/assets/js/config.js"></script>
 
 </head>
 
@@ -80,7 +90,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0" id="main_menu">
+                    <div class="navbar-nav py-0" id="main_menu">
 
                         <a href="index.html" class="nav-item nav-link">정책정보</a>
                         <a href="index.html" class="nav-item nav-link">정책건의</a>

@@ -83,9 +83,19 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public String modify(UserVO modifyUser) {
-		return mapper.update(modifyUser);
-	}
+//	public int modify(UserVO modifyUser) {
+//		return mapper.update(modifyUser);
+//	}
+	
+    public int modify(UserVO modifyUser) {
+        int rowsAffected = mapper.update(modifyUser);
+
+        if (rowsAffected > 0) {
+        	return mapper.update(modifyUser);
+        } else {
+            throw new RuntimeException("회원 정보 수정 실패");
+        }
+    }
 
 	public void removeUser(String email) {
 		// TODO Auto-generated method stub
@@ -305,10 +315,13 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
+    	uservo.setNick(userResponse.getBody().get("nick").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	
     	System.out.println("user name: "+uservo.getName());
+    	System.out.println("user nick: "+uservo.getNick());
     	System.out.println("user email: "+uservo.getEmail());
+    	
     	
 		return uservo;
 	}
