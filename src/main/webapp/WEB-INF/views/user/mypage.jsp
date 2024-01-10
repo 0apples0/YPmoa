@@ -44,7 +44,6 @@
 						        <option value="true" ${user.isWork() ? 'selected' : ''}>취업</option>
 						        <option value="false" ${!user.isWork() ? 'selected' : ''}>미취업</option>
 						    </select>
-						    <p>Debug: ${param.isWork}</p>
 							</div>
 							<div class="col-md-3_b">
 								<div>
