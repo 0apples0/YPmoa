@@ -53,9 +53,8 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public void modify(UserVO modifyUser) {
-		// TODO Auto-generated method stub
-
+	public String modify(UserVO modifyUser) {
+		return mapper.update(modifyUser);
 	}
 
 	public void removeUser(String email) {
