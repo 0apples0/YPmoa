@@ -604,7 +604,7 @@ progress {
 
 @media ( min-width : 1400px) {
 		.container-fluid {
-		width: 90%;
+		width: 95%;
 			padding-right: var(- -bs-gutter-x, .75rem);
 	padding-left: var(- -bs-gutter-x, .75rem);
 	margin-right: auto;
@@ -617,7 +617,7 @@ progress {
 }
 @media ( min-width : 1700px) {
 		.container-fluid {
-		width: 70%;
+		width: 80%;
 			padding-right: var(- -bs-gutter-x, .75rem);
 	padding-left: var(- -bs-gutter-x, .75rem);
 	margin-right: auto;
@@ -625,7 +625,7 @@ progress {
 	}
 	.container, .container-sm, .container-md, .container-lg, .container-xl,
 		.container-xxl {
-		max-width: 1320px
+		max-width: 1720px
 	}
 }
 
