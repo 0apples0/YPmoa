@@ -99,7 +99,7 @@
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
                         <a href="index.html" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
-                        <a href="#" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
+                        <a href="#" class="nav-item nav-link onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
                     </div>
 
                 </div>
