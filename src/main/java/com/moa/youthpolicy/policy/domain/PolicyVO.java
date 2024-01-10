@@ -1,6 +1,7 @@
 package com.moa.youthpolicy.policy.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -16,6 +17,6 @@ public class PolicyVO {
 	
 	String sprvsnInstNm;
 	String policyNm;
-	String updtDt_String;
-	LocalDate  updtDt;
+	String updtDt;
+	LocalDateTime updtDt_date;
 }

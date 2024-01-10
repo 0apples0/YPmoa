@@ -194,7 +194,19 @@
 		    <version>1.9.13</version>
 		</dependency>
 		
-		<!-- hasing -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- datetime 바꾸기 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.16.0</version>
+		</dependency>		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-jsr310</artifactId>
+		    <version>2.16.0</version> <!-- 적절한 버전으로 변경 -->
+		</dependency>
+
 		
 		
 	</dependencies>

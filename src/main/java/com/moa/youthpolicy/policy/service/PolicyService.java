@@ -1,6 +1,7 @@
 package com.moa.youthpolicy.policy.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -22,11 +23,13 @@ public class PolicyService implements BoardGenericService {
 	@Autowired
 	PolicyMapper mapper;
 	
-	public List<PolicyVO> getfiveboard(){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	public List<PolicyVO> getfiveboard(){		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		List<PolicyVO> list = mapper.getfiveboard();
-		for(PolicyVO board : list) {
-			board.setUpdtDt(LocalDate.parse(board.getUpdtDt_String(), formatter));
+
+		for (PolicyVO board : list) {
+			System.out.println("policyService : " + board.toString());
+		    board.setUpdtDt_date(LocalDateTime.parse(board.getUpdtDt(), formatter));
 		}
 		
 		return list;

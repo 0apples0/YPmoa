@@ -177,34 +177,10 @@
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="policy">
 
                                         <tbody>
-                                            <tr>
-                                                <td class="mini_board_bold">수원시</td>
-                                                <td>신혼부부 임대주택 정책</td>
-                                                <td class="list_date">2024-05-03</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">부천시</td>
-                                                <td>청년 사업지원금 지급</td>
-                                                <td class="list_date">2024-01-12</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">광명시</td>
-                                                <td>대학생 학자금 지원</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">광명시</td>
-                                                <td>대학생 학자금 지원</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">광명시</td>
-                                                <td>대학생 학자금 지원</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -340,6 +316,36 @@
     <script src="resources/lib/tempusdominus/js/moment.min.js"></script>
     <script src="resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // Ajax 요청
+        $.ajax({
+            type: "POST",
+            url: "/policy/get5policy",
+            dataType: "json",
+            success: function(data) {
+                // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+                processData(data);
+            },
+            error: function(error) {
+                console.log("Error: " + error);
+            }
+        });
+    });
+
+    function processData(data) {
+        // 테이블에 데이터 추가
+        $.each(data, function(index, policy) {
+            var row = "<tr>" +
+                        "<td class='mini_board_bold'>" + policy.sprvsnInstNm + "</td>" +
+                        "<td>" + policy.policyNm + "</td>" +
+                        "<td class='list_date'>" + policy.updtDt_date + "</td>" +
+                     "</tr>";
+            $("#policy").append(row);
+        });
+    }
+</script>
 
     <!-- Template Javascript -->
     <script src="resources/js/main.js"></script>

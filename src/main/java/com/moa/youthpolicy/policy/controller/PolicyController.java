@@ -25,9 +25,10 @@ public class PolicyController {
 	
 	@ResponseBody
 	@PostMapping("/get5policy")
-	public void getfiveBoard(Model model){
+	public List<PolicyVO> getfiveBoard(){
 		List<PolicyVO> list = service.getfiveboard();
-		model.addAttribute("policy", list);
+		System.out.println("controller : "+ list.get(0).toString());
+		return list;
 	}
 	
 	
