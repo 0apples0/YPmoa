@@ -685,7 +685,7 @@ progress {
 
 @media (min-width: 1200px) {
   .container-fluid{
-    width: 100%;
+    width: 95%;
   }
   .container,
   .container-sm,
@@ -707,6 +707,20 @@ progress {
   .container-xl,
   .container-xxl {
     max-width: 1320px
+  }
+}
+
+@media (min-width: 1600px) {
+  .container-fluid{
+    width: 80%;
+  }
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 1520px
   }
 }
 
