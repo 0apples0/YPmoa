@@ -12,6 +12,7 @@ public interface UserMapper {
 	
 	public void register(UserVO vo);
 	
+	public UserVO login(UserVO vo);
 	
 	public UserVO selectUserByEmail(String Email);
 }

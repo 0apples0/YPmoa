@@ -74,7 +74,7 @@ public class UserController {
 	    String uri = userService.doGoogleLogin();
 	    return "redirect:" + uri;
 	}
-	
+/*	
 	@GetMapping("/getGoogleCode")
 	@ResponseBody
 	public void g_login(HttpServletRequest request) {
@@ -85,17 +85,30 @@ public class UserController {
 		
 		System.out.println("param : " + param.toString());
 		userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
-		//return "redirect:/";
+
 	}
+*/	
+	@GetMapping("/getGoogleCode")
+	public String g_login(HttpServletRequest request, Model model) {
+		Map<String, String> param = new HashMap<String, String>();
+		System.out.println("code: " + request.getParameter("code"));
+		
+		param.put("code", request.getParameter("code"));
+		
+		System.out.println("param : " + param.toString());
+		UserVO uservo = userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
+		model.addAttribute("uservo", uservo);
+		return "redirect:/";
+	}	
 	
 	@GetMapping("/n_login")
-	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth) {
+	public String n_login(@ModelAttribute("NaverAuth") NaverAuthResponse auth, HttpSession session) {
 	    UserVO vo = userService.getUser(auth); 
 	    UserVO _vo = userService.get(vo.getEmail());
 	    if(_vo != null) {
-	    	userService.logIn(vo);
+	    	userService.logIn(vo, session);
 	    }else {
-	    	userService.register(vo);
+	    	userService.register(vo, session);
 	    }
 	    return "redirect:/";
 	}
@@ -107,8 +120,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public String register(UserVO vo) {
-		userService.register(vo);
+	public String register(UserVO vo, HttpSession session) {
+		userService.register(vo, session);
 		return "index";
 	}
 	
