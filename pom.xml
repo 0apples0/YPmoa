@@ -194,6 +194,8 @@
 		    <version>1.9.13</version>
 		</dependency>
 		
+		<!-- hasing -->
+		
 		
 	</dependencies>
 	<build>

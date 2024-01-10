@@ -13,7 +13,7 @@
 
     <!-- SQL queries and mapping statements go here -->
     <select id="selectUserByEmail" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
-        SELECT * FROM user WHERE email = #{email}
+        SELECT * FROM user WHERE Email = #{Email}
     </select>
     
     <insert id="register" parameterType="com.moa.youthpolicy.user.domain.UserVO">
@@ -21,6 +21,10 @@
     	(Email, name, nick, phone)
     	VALUES (#{Email}, #{name}, #{nick}, #{phone})
 	</insert>
+	
+	 <select id="login" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="com.moa.youthpolicy.user.domain.UserVO">
+        SELECT * FROM user WHERE Email = #{Email} AND PW = #{PW}
+    </select>
     
     <!-- Additional SQL queries and mapping statements can be added here -->
 </mapper>

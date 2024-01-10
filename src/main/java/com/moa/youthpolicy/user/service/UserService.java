@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -62,6 +64,7 @@ public class UserService implements UserGenericService {
 	@Autowired
 	UserMapper mapper;
 	
+	
 	public boolean chkEmail(String email) {
 		
 		return true;
@@ -99,12 +102,13 @@ public class UserService implements UserGenericService {
 
 	}
 	
-	public void register(UserVO vo) {		
-//		if(vo.getPW() != null) {
-//			vo.setPW(hashingPW(vo.getPW()));
-//		}
+	public void register(UserVO vo,HttpSession session) {		
+		if(vo.getPW() != null) {
+			vo.setPW(hashingPW(vo.getPW()));
+		}
 		log.info(vo.toString());
 		mapper.register(vo);
+		logIn(vo, session);
 	}
 	
 	public String findUserID(UserVO vo) {
@@ -117,8 +121,8 @@ public class UserService implements UserGenericService {
 	}
 	
 	private String hashingPW(String pw) {
-		
-		return null;
+//		encoder.encode(pw);
+		return pw;
 	}
 	
 	@Override
@@ -140,8 +144,20 @@ public class UserService implements UserGenericService {
 	}
 
 	@Override
-	public void logIn(UserVO vo) {
-		log.info("service login");
+	public boolean logIn(UserVO vo, HttpSession session) {
+		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
+//		if(_vo.getPW() != null) {
+//			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
+//				session.setAttribute("user", _vo);
+//				return true;
+//			}else {
+//				return false;
+//			}
+//		}else {
+			session.setAttribute("user", _vo);
+			return true;
+//		}
+		
 	}
 
 	public String getUri() {
@@ -257,7 +273,7 @@ public class UserService implements UserGenericService {
 		return url;
 	}
 	
-	public void getGoogleToken(Map<String, String> param) {
+	public UserVO getGoogleToken(Map<String, String> param) {
 		
 		// 토큰 받아오기 위해 Post 요청 사용
 		RestTemplate template = new RestTemplate();
@@ -297,7 +313,14 @@ public class UserService implements UserGenericService {
     		System.out.println(key + " : " + userResponse.getBody().get(key));
     	}
     	
-//		return tokenResponse;
+    	UserVO uservo = new UserVO();
+    	uservo.setName(userResponse.getBody().get("name").toString());
+    	uservo.setEmail(userResponse.getBody().get("email").toString());
+    	
+    	System.out.println("user name: "+uservo.getName());
+    	System.out.println("user email: "+uservo.getEmail());
+    	
+		return uservo;
 	}
 
 }

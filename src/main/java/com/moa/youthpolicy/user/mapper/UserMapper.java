@@ -7,5 +7,8 @@ public interface UserMapper {
 	public int update(UserVO vo);
 	public String delete(String Email);
 	public void register(UserVO vo);
+	
+	public UserVO login(UserVO vo);
+	
 	public UserVO selectUserByEmail(String Email);
 }
