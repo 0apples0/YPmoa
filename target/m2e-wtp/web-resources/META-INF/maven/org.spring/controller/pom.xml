@@ -195,11 +195,6 @@
 		</dependency>
 		
 		<!-- hasing -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			 <version>4.0.0.RELEASE</version>
-		</dependency>
 		
 		
 	</dependencies>
