@@ -9,7 +9,7 @@
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="w-100" src="resources/img/banner1.png" alt="Image">
+                        <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner1.png" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-start justify-content-center">
                             <div class="p-3" style="max-width: 1000px;">
                                 <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">신청하기</a>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="w-100" src="resources/img/banner22.png" alt="Image">
+                        <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner22.png" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-right justify-content-end">
                             <div class="p-3" style="max-width: 1000px;">
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight" id="headerBtn">게시판 보기</a>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="w-100" src="resources/img/banner3.png" alt="Image">
+                        <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner3.png" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-end">
                             <div class="p-3" style="max-width: 1000px;">
                                 <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">신청하기</a>
@@ -124,7 +124,7 @@
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="white_shd full margin_bottom_30">
                             <div class="full graph_head mini_board_more" >
-                                    <span><img src="resources/img/checkWish.png" id="mini_heart"/></span>
+                                    <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                                     <span class="mini_board_title">나의 위시 정책</span>
                                     <span class="mini_board_span"><a href="">더보기</a></span>
                               
@@ -171,7 +171,7 @@
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="white_shd full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
-                                <span><img src="resources/img/commentManage.png" id="mini_heart"/></span>
+                                <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">정책정보</span>
                                 <span class="mini_board_span"><a href="">더보기</a></span>
                             </div>
@@ -190,7 +190,7 @@
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="white_shd full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
-                                <span><img src="resources/img/commentManage.png" id="mini_heart"/></span>
+                                <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">꿀팁모음</span>
                                 <span class="mini_board_span"><a href="">더보기</a></span>
                             </div>
@@ -233,7 +233,7 @@
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="white_shd full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
-                                <span><img src="resources/img/commentManage.png" id="mini_heart"/></span>
+                                <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">정책건의</span>
                                 <span class="mini_board_span"><a href="">더보기</a></span>
                             </div>
@@ -288,7 +288,7 @@
                 <div class="row g-5" ></div>
                     <div class="rounded p-4" id="footer_box">
                         <a href="">
-                            <img src="resources/img/foot.svg" id="logo" /></a>
+                            <img src="${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
                     </div>
 
 

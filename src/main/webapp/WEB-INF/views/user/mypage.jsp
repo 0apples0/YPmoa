@@ -162,7 +162,7 @@
 	<div class="container">
 		<div class="row g-5"></div>
 		<div class="rounded p-4" id="footer_box">
-			<a href=""> <img src="resources/img/foot.svg" id="logo" /></a>
+			<a href=""> <img src=""${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
 		</div>
 	</div>
 </div>

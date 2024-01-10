@@ -13,37 +13,41 @@
     <meta content="" name="description">
 	
 	<!-- 버전 -->
-    <!-- Favicon -->
-    <link href="resources/img/favicon.ico" rel="icon">
+<!-- Favicon -->
+<link href="${pageContext.request.contextPath}/resources/img/favicon.ico" rel="icon">
 
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/lib/animate/animate.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-    <!-- Libraries Stylesheet -->
-    <link href="resources/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="resources/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="resources/css_main/bootstrap.min.css" rel="stylesheet">
-	
+    <link href="${pageContext.request.contextPath}/resources/css_main/bootstrap.min.css" rel="stylesheet">
+
     <!-- Template Stylesheet -->
-    <link href="resources/css_main/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
+<!-- Template Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 
-    <!-- 원본 css 여기까지-->
+<!-- 원본 css 여기까지-->
 
-    <link rel="stylesheet" href="resources/css_pluto/style_pluto.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css_pluto/style_pluto.css" />
 
+<!-- css2 -->
+<script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendor/fonts/boxicons.css" />
 
-    <!-- css2 -->
-    <script src="resources/assets/vendor/js/helpers.js"></script>
-    <link rel="stylesheet" href="resources/assets/vendor/fonts/boxicons.css" />
+<!-- Vendors CSS -->
+<script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
 
-    <!-- Vendors CSS -->
-    <script src="resources/assets/vendor/js/helpers.js"></script>
-    <script src="resources/assets/js/config.js"></script>
 
 </head>
 
@@ -57,7 +61,7 @@
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="#"
                         class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <img src="resources/img/logo.svg" id="logo" />
+                        <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
 
                     </a>
 
@@ -69,8 +73,8 @@
 
 
 
-                    <a href="#"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
-                    <a href="#"> <img src="resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+                    <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
 
                    
                    

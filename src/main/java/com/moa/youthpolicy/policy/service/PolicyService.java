@@ -28,7 +28,6 @@ public class PolicyService implements BoardGenericService {
 		List<PolicyVO> list = mapper.getfiveboard();
 
 		for (PolicyVO board : list) {
-			System.out.println("policyService : " + board.toString());
 		    board.setUpdtDt_date(LocalDateTime.parse(board.getUpdtDt(), formatter));
 		}
 		
