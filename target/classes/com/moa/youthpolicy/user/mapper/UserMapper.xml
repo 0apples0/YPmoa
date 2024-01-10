@@ -7,7 +7,7 @@
 <!-- 마이페이지 수정 -->
 	<update id="update" parameterType="UserVO">
 		UPDATE user
-		SET name = #{name}
+		SET name = #{name},nick = #{nick},phone = #{phone},address = #{address},isWork = #{isWork},age = #{age},income = #{income},isMarry = #{isMarry},interestField = #{interestField}
 		WHERE Email = #{Email}
 	</update>
 
