@@ -315,7 +315,7 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
-    	uservo.setNick(userResponse.getBody().get("nick").toString());
+    	uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	
     	System.out.println("user name: "+uservo.getName());
