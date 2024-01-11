@@ -30,7 +30,7 @@
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="resources/img/search.png" /></h3>
+                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
 
                     </div>
@@ -85,7 +85,7 @@
                                 <div class="row policy_row g-2">
 
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control datetimepicker-input"
+                                        <input type="text" class="form-control datetimepicker-input font_light"
                                             placeholder="검색어를 입력하세요" />
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@
                                                 </td>
                                                 <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -187,7 +187,7 @@
                                                 <td><a href="#"></a>ㅇ안녕하세요ㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇ</td>
                                                 <td>aaaaaaaaaaaaaaaaaaaaaa</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -197,7 +197,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>3</span>개
                                                 </td>
                                             </tr>
@@ -207,7 +207,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -217,7 +217,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -227,7 +227,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -237,7 +237,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -247,7 +247,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -257,7 +257,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>
@@ -267,7 +267,7 @@
                                                 <td><a href="#"></a>john@example.com</td>
                                                 <td>john@example.com</td>
                                                 <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="resources/img/checkLike.png" />
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
                                                     <span>32</span>개
                                                 </td>
                                             </tr>

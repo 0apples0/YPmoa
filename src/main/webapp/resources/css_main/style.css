@@ -18,6 +18,10 @@
     font-family: 'LINESeedKR-Bd';
 }
 
+.font_light{
+    font-family: 'LINESeedKR-Bd_light';
+}
+
 :root {
     --primary: #16a9fe;
     --light: #F1F8FF;
