@@ -73,13 +73,11 @@
 
 
 
-<<<<<<< HEAD
-                    <a href="/user/login"> <img src="resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
-                    <a href="/user/register"> <img src="resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
-=======
+
+              
                     <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
                     <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
->>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
+
 
                    
                    
