@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moa.youthpolicy.common.BoardDTO;
+import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -53,7 +53,7 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> List<T> getPage(Criteria cri, BoardDTO dto) {
+	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

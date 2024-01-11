@@ -6,6 +6,6 @@ public interface BoardInterface {
 	public <T> void delBoard(Class<T> board);   // 글 삭제
 	public <T> void modBoard(Class<T> board);	// 글 수정
 	public <T> T getBoard(Class<T> board);		// 글 자세히보기
-	public <T> List<T> getPage(Criteria cri, BoardDTO dto);	// 페이징
+	public <T> List<T> getPage(Criteria cri, PageDTO dto);	// 페이징
 	public int getTotalAmount();	// 전체글 카운팅
 }

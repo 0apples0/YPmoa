@@ -161,7 +161,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/chkNickname")
 	public boolean chkID(@RequestParam String nick) {
-		return userService.chkEmail(nick);
+		return userService.chkNick(nick);
 	}
 	
 	@ResponseBody
