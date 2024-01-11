@@ -412,6 +412,48 @@
     display: none;
 }
 
+/*** policy ***/
+
+.policy_detail{
+    margin-bottom: 20px;
+}
+
+.policy_detail #policy_areaName{
+    float: left;
+}
+
+.policy_detail #policy_startDate{
+    float: right;
+}
+
+
+
+.policy_row{
+    justify-content: center;
+}
+
+
+
+.custom-control-input{
+    border: none !important;
+}
+
+
+#policy_checkbox{
+    display: flex;
+  }
+
+
+.policy_heart{
+    width: 38px;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
 /*** register ***/
 #card-body{
     padding: 30px;

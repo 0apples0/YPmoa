@@ -684,9 +684,7 @@ progress {
 }
 
 @media (min-width: 1200px) {
-  .container-fluid{
-    width: 95%;
-  }
+
   .container,
   .container-sm,
   .container-md,
@@ -697,9 +695,7 @@ progress {
 }
 
 @media (min-width: 1400px) {
-  .container-fluid{
-    width: 90%;
-  }
+
   .container,
   .container-sm,
   .container-md,
@@ -707,34 +703,6 @@ progress {
   .container-xl,
   .container-xxl {
     max-width: 1320px
-  }
-}
-
-@media (min-width: 1600px) {
-  .container-fluid{
-    width: 80%;
-  }
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg,
-  .container-xl,
-  .container-xxl {
-    max-width: 1520px
-  }
-}
-
-@media (min-width: 1764px) {
-  .container-fluid{
-    width: 70%;
-  }
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg,
-  .container-xl,
-  .container-xxl {
-    max-width: 1700px
   }
 }
 
@@ -1241,7 +1209,7 @@ progress {
   }
   .col-md-3_b {
     flex: 0 0 auto;
-    width: 16.65%
+    width: 15.65%
   }
 
   .col-md-3 {
@@ -3611,6 +3579,8 @@ fieldset:disabled .btn {
 
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
+
+  
   color: #16a9fe;
   background-color: transparent
 }
@@ -5260,6 +5230,13 @@ fieldset:disabled .btn {
   height: 20px;
 }
 
+.page-item.active .page-link {
+  z-index: 3;
+  background-color: rgba(105, 108, 255, 0.08) !important;
+  border-color: rgba(105, 108, 255, 0.08) !important;
+}
+
+
 .pagination {
   display: flex;
   padding-left: 0;
@@ -5269,9 +5246,9 @@ fieldset:disabled .btn {
 .page-link {
   position: relative;
   display: block;
-  color: #16a9fe;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+  color: #697a8d;
+  background-color:#D4D4D4;
+  border-color: rgba(67, 89, 113, 0.3);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
 
@@ -5283,14 +5260,13 @@ fieldset:disabled .btn {
 
 .page-link:hover {
   z-index: 2;
-  color: #cb8112;
-  background-color: #e9ecef;
-  border-color: #dee2e6
+  color: black;
+  background-color: #D4D4D4;
 }
 
 .page-link:focus {
   z-index: 3;
-  color: #cb8112;
+  color: #1E90FF;
   background-color: #e9ecef;
   outline: 0;
   box-shadow: 0 0 0 .25rem rgba(254, 161, 22, 0.25)
@@ -5300,11 +5276,14 @@ fieldset:disabled .btn {
   margin-left: -1px
 }
 
-.page-item.active .page-link {
+.page-item.active  {
   z-index: 3;
   color: #fff;
-  background-color: #16a9fe;
-  border-color: #16a9fe
+  background-color:  black; /* 페이징 배경 색 */
+} 
+
+.page-link.active{
+  color: black !important;
 }
 
 .page-item.disabled .page-link {
@@ -7362,6 +7341,10 @@ fieldset:disabled .btn {
 
 .start-50 {
   left: 50% !important
+}
+
+.start-90 {
+  left: 85% !important
 }
 
 .start-100 {
