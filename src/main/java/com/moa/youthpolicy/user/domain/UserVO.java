@@ -11,7 +11,7 @@ public class UserVO {
 	String nick;  		// �땳�꽕�엫
 	int phone;    		// �쟾�솕踰덊샇
 
-	String address;     // 留욎땄議곌굔: 吏��뿭
+	String address;     // 
 	int age; 			// 留욎땄議곌굔: �굹�씠
 	int income; 		// 留욎땄議곌굔: �닔�엯
 	boolean isWork; 	// 留욎땄議곌굔: 痍⑥뾽 �쑀臾�
@@ -32,6 +32,7 @@ public class UserVO {
     	return isMarry;
     }
     public boolean isWork() {
-    	return isMarry;
+    	return isWork;
     }
+
 }

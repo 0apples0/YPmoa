@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- 수정 24.01.09 -->
+<!-- 수정 24.01.10 -->
 <%@include file="../includes/header_guest.jsp"%>
 
 <!-- Page Header Start -->
@@ -50,18 +50,8 @@
 											<label class="col-sm-2 col-form-label field"
 												for="basic-default-email">아이디</label>
 											<div class="col-sm-10">
-												<div class="input-group ">
-													<input type="text" required class="regi_form-control"
-														aria-describedby="basic-default-email2" /> <select
-														class="regi_form-select ">
-														<option selected>이메일 선택</option>
-														<option value="1">@naver.com</option>
-														<option value="2">@gmail.com</option>
-														<option value="3">@kakao.com</option>
-													</select>
-													<button type="button" class="btn btn-primary regi_checkBtn">중복확인</button>
-												</div>
-
+												<input type="text" class="regi_sub_form-control" required />
+												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
 											</div>
 
 										</div>
@@ -97,7 +87,7 @@
 												for="basic-default-company">이름</label>
 											<div class="col-sm-10" id="regi_input">
 												<input type="text" class="regi_pwd_form-control" required
-													id="basic-default-company" placeholder="" />
+													placeholder="" />
 
 											</div>
 										</div>
@@ -108,7 +98,6 @@
 											<div class="col-sm-10">
 												<input type="text" id="basic-default-phone" required
 													class="regi_sub_form-control phone-mask"
-													aria-label="658 799 8941"
 													aria-describedby="basic-default-phone" />
 												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
 											</div>
@@ -118,7 +107,7 @@
 												for="basic-default-company">닉네임</label>
 											<div class="col-sm-10">
 												<input type="text" class="regi_sub_form-control" required
-													id="basic-default-company" placeholder="10글자 이내" />
+													placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
 												<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
 											</div>
 										</div>
@@ -156,7 +145,9 @@
 	<div class="container">
 		<div class="row g-5"></div>
 		<div class="rounded p-4" id="footer_box">
-			<a href=""> <img src="resources/img/foot.svg" id="logo" /></a>
+			<a href=""> <img
+				src="${pageContext.request.contextPath}/resources/img/foot.svg"
+				id="logo" /></a>
 		</div>
 
 
