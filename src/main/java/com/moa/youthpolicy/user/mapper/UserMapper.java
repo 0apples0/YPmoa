@@ -11,4 +11,6 @@ public interface UserMapper {
 	public UserVO login(UserVO vo);
 	
 	public UserVO selectUserByEmail(String Email);
+	public UserVO chkPhone(int phone);
+	public UserVO chkNick(String nick);
 }

@@ -1,9 +1,7 @@
 package com.moa.youthpolicy.user.controller;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -137,15 +135,28 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/chkEmail")
-	public boolean chkEmail(@RequestParam("Eamil") String Email) {
-		return userService.chkEmail(Email);
+	public boolean chkEmail(@RequestParam String Email) {
+		System.out.println(Email);
+	    return userService.chkEmail(Email);
 	}
 	
 	@PostMapping("/register")
 	public String register(UserVO vo, HttpSession session) {
+		log.info(vo.toString());
 		userService.register(vo, session);
-		return "index";
+		return "redirect:/";
 	}
 	
+	@ResponseBody
+	@PostMapping("/chkNickname")
+	public boolean chkID(@RequestParam String nick) {
+		return userService.chkEmail(nick);
+	}
+	
+	@ResponseBody
+	@PostMapping("/chkPhone")
+	public boolean chkPhone(@RequestParam String phone) {
+		return userService.chkPhone(phone);
+	}
 
 }
