@@ -119,19 +119,20 @@
 												<label class="col-sm-2 col-form-label" for="basic-default-phone">연락처</label>
 												<div class="col-sm-10">
 													<input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%=user.getPhone()%>" aria-describedby="basic-default-phone" />
-													<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+													<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 												</div>
 											</div>
 											<div class="row mb-3">
 												<label class="col-sm-2 col-form-label" for="basic-default-company">닉네임</label>
 												<div class="col-sm-10">
-													<input type="text" class="regi_sub_form-control" required id="nick" name="nick" value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
-													<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+													<input type="text" class="regi_sub_form-control" required id="nick" name="nick" 
+													value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
+													<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 												</div>
 											</div>
 
 											<div class="col-sm-12" id="regi_btn">
-												<button type="submit" class="btn btn-primary" id="regi_regiBtn">수정완료</button>
+												<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
 												<button type="button" class="btn btn-primary" id="regi_regiBtn">비밀번호 변경</button>
 												<button type="reset" class="btn btn-primary" id="regi_regiBtn">초기화</button>
 												<button type="button" class="btn btn-warning">회원탈퇴</button>
@@ -174,6 +175,11 @@
 // 여기 추후 수정할예정 -수아
 	
 $(document).ready(function() {
+    // 각 중복 체크 상태를 저장하는 변수들
+    var idCheckDone = false;
+    var phoneCheckDone = false;
+    var nickCheckDone = false;
+	
     // 페이지가 로드되면 실행될 코드
     var addressOption = $('#address'); // id가 "address"인 option 요소 선택
 
@@ -182,8 +188,7 @@ $(document).ready(function() {
         addressOption.hide();
         // value가 0인 옵션을 selected로 설정
         $('[value="0"]').prop('selected', true);
-    }
-});
+	}
 
 
 

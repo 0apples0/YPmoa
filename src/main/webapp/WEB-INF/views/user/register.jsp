@@ -271,6 +271,7 @@
 		            }
 		        },
 		        error: function () {
+		        	console.error("연락처 중복 체크 중 오류가 발생했습니다.", error);
 		            alert("닉네임 중복 체크 중 오류가 발생했습니다.");
 		        }
 		    });
