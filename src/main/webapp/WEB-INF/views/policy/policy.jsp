@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+
     
     
 <%@include file="../includes/header_guest.jsp" %>
@@ -11,7 +10,7 @@
                 <div class="container text-center ">
                     <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Policy</h1>
 
-                    <p id="login_p">Ã»³âµéÀ» À§ÇÑ Á¤Ã¥</p>
+                    <p id="login_p">ì²­ë…„ë“¤ì„ ìœ„í•œ ì •ì±…</p>
 
 
 
@@ -26,7 +25,7 @@
                 <div class="bg-white mypage_shadow" style="padding: 35px;">
                     <div class="row g-2">
 
-                        <h3 class="mypage_section-title text-center text-primary ">°Ë»ö</h3>
+                        <h3 class="mypage_section-title text-center text-primary ">ê²€ìƒ‰</h3>
 
 
                     </div>
@@ -41,46 +40,46 @@
                             <div class="row  policy_row g-2">
                                 <div class="col-md-3_b">
                                     <select class="form-select">
-                                        <option selected>Áö¿ª¼±ÅÃ</option>
-                                        <option value="1">ºÎÃµ½Ã</option>
-                                        <option value="2">¼ö¿ø½Ã</option>
-                                        <option value="3">±¤¸í½Ã</option>
+                                        <option selected>ì§€ì—­ì„ íƒ</option>
+                                        <option value="1">ë¶€ì²œì‹œ</option>
+                                        <option value="2">ìˆ˜ì›ì‹œ</option>
+                                        <option value="3">ê´‘ëª…ì‹œ</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">
-                                        <option selected>Ãë¾÷»óÅÂ</option>
-                                        <option value="1">Ãë¾÷</option>
-                                        <option value="2">¹ÌÃë¾÷</option>
+                                        <option selected>ì·¨ì—…ìƒíƒœ</option>
+                                        <option value="1">ì·¨ì—…</option>
+                                        <option value="2">ë¯¸ì·¨ì—…</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="¸¸ ³ªÀÌ ÀÔ·Â" data-target="#date2" data-toggle="datetimepicker" />
+                                            placeholder="ë§Œ ë‚˜ì´ ìž…ë ¥" data-target="#date2" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">
-                                        <option selected>¼Òµæ¹üÀ§</option>
-                                        <option value="1">¼Òµæ¾øÀ½</option>
-                                        <option value="2">¼¼Àü ¿ù 200¸¸¿ø ¹Ì¸¸</option>
-                                        <option value="3">¼¼Àü ¿ù 200¸¸¿ø ÀÌ»ó 300¸¸¿ø ¹Ì¸¸</option>
+                                        <option selected>ì†Œë“ë²”ìœ„</option>
+                                        <option value="1">ì†Œë“ì—†ìŒ</option>
+                                        <option value="2">ì„¸ì „ ì›” 200ë§Œì› ë¯¸ë§Œ</option>
+                                        <option value="3">ì„¸ì „ ì›” 200ë§Œì› ì´ìƒ 300ë§Œì› ë¯¸ë§Œ</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">
-                                        <option selected>°áÈ¥¿©ºÎ</option>
-                                        <option value="1">¹ÌÈ¥</option>
-                                        <option value="2">±âÈ¥</option>
+                                        <option selected>ê²°í˜¼ì—¬ë¶€</option>
+                                        <option value="1">ë¯¸í˜¼</option>
+                                        <option value="2">ê¸°í˜¼</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">
-                                        <option selected>°ü½ÉºÐ¾ß</option>
-                                        <option value="1">ÁÖ°Å</option>
-                                        <option value="2">±³À°</option>
-                                        <option value="3">½ÅÈ¥ºÎºÎ</option>
+                                        <option selected>ê´€ì‹¬ë¶„ì•¼</option>
+                                        <option value="1">ì£¼ê±°</option>
+                                        <option value="2">êµìœ¡</option>
+                                        <option value="3">ì‹ í˜¼ë¶€ë¶€</option>
                                     </select>
                                 </div>
                             </div>
@@ -89,19 +88,19 @@
                     <div id="policy_checkbox">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">ÀüÃ¼</label>
+                            <label class="custom-control-label" for="customCheck1">ì „ì²´</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck2">
-                            <label class="custom-control-label" for="customCheck2">¸ðÁýÁß</label>
+                            <label class="custom-control-label" for="customCheck2">ëª¨ì§‘ì¤‘</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck3">
-                            <label class="custom-control-label" for="customCheck3">½ÅÃ»¸¶°¨</label>
+                            <label class="custom-control-label" for="customCheck3">ì‹ ì²­ë§ˆê°</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck4">
-                            <label class="custom-control-label" for="customCheck4">ÁÁ¾Æ¿ä ¸¹Àº ¼ø</label>
+                            <label class="custom-control-label" for="customCheck4">ì¢‹ì•„ìš” ë§Žì€ ìˆœ</label>
                         </div>
 
                     </div>
@@ -116,17 +115,17 @@
                                 <div class="col-md-5">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä" />
+                                            placeholder="ê²€ìƒ‰ì–´ë¥¼ ìž…ë ¥í•˜ì„¸ìš”" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-primary w-100">°Ë»öÇÏ±â</button>
+                                    <button class="btn btn-primary w-100">ê²€ìƒ‰í•˜ê¸°</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-primary w-100">³» ¸ÂÃãÁ¤º¸ °Ë»ö</button>
+                                    <button class="btn btn-primary w-100">ë‚´ ë§žì¶¤ì •ë³´ ê²€ìƒ‰</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-secondary ">ÃÊ±âÈ­</button>
+                                    <button class="btn btn-secondary ">ì´ˆê¸°í™”</button>
                                 </div>
 
 
@@ -144,7 +143,7 @@
     <!-- Booking End -->
     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
         <h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
-        <h1 class="mb-5"><span class="text-primary text-uppercase">Á¤Ã¥</span> µÑ·¯º¸±â </h1>
+        <h1 class="mb-5"><span class="text-primary text-uppercase">ì •ì±…</span> ë‘˜ëŸ¬ë³´ê¸° </h1>
     </div>
 
 
@@ -154,7 +153,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå1.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ1.png" alt="">
                             <div class="policy_wish_box">
                                 <div
                                     class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
@@ -165,11 +164,11 @@
                             </div>
                         </div>
 
-                        <!-- °ª ºÒ·¯¿Ã °÷ -->
+                        <!-- ê°’ ë¶ˆëŸ¬ì˜¬ ê³³ -->
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -180,16 +179,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå2.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ2.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink"href="#"  data-target="policy_heart_2"><img class="policy_heart"
                                         id="policy_heart_2" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -198,16 +197,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå3.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ3.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_3"><img class="policy_heart"
                                         id="policy_heart_3" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -216,16 +215,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå4.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ4.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_4"><img class="policy_heart"
                                         id="policy_heart_4" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -234,16 +233,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå5.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ5.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_5"><img class="policy_heart"
                                         id="policy_heart_5" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -252,16 +251,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå6.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ6.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_6"><img class="policy_heart"
                                         id="policy_heart_6" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -270,16 +269,16 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå7.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ7.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_7"><img class="policy_heart"
                                         id="policy_heart_7" src="resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -288,7 +287,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/Ä«µå8.png" alt="">
+                            <img class="img-fluid" src="resources/img/ì¹´ë“œ8.png" alt="">
 
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_8"><img class="policy_heart"
@@ -296,9 +295,9 @@
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
-                            <h5 class="fw-bold mb-4">Ã»³â ÀÏÀÚ¸® »ç¾÷</h5>
+                            <h5 class="fw-bold mb-4">ì²­ë…„ ì¼ìžë¦¬ ì‚¬ì—…</h5>
                           
-                            <small id="policy_areaName">Æ÷Ç×½Ã</small>
+                            <small id="policy_areaName">í¬í•­ì‹œ</small>
                             <small id="policy_startDate">2024-01-22</small>
                            
                         </div>
@@ -345,7 +344,7 @@
     
   <script>
      $(document).ready(function () {
-    // Ã¼Å©¹Ú½º Áßº¹ ¹æÁö
+    // ì²´í¬ë°•ìŠ¤ ì¤‘ë³µ ë°©ì§€
     $('.custom-control-input').on('change', function () {
         if ($(this).prop('checked')) {
             $('.custom-control-input').not(this).prop('disabled', true);
@@ -354,7 +353,7 @@
         }
     });
 
-    // ¸®½ºÆ® À§½Ã ¹öÆ°
+    // ë¦¬ìŠ¤íŠ¸ ìœ„ì‹œ ë²„íŠ¼
     $(".toggleLink").click(function (e) {
         e.preventDefault();
 
