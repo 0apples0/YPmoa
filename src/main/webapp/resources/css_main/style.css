@@ -121,6 +121,10 @@
 
 /*** Header ***/
 
+
+
+
+
 #login_box{
     justify-content: center;
 
@@ -378,9 +382,20 @@
     position: absolute;
     content: "";
     width: 45px;
-    height: 2px;
+    height: 2px;    
     top: 25%;
     left: 530px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
+.policy_section-title::before{
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 20%;
+    left: 560px;
     margin-top: -1px;
     background: var(--primary);
 }
@@ -407,9 +422,91 @@
     background: var(--primary);
 }
 
+.policy_section-title::after{
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 20%;
+    right: 560px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
 .section-title.text-start::before,
 .section-title.text-end::after {
     display: none;
+}
+
+/*** policy ***/
+
+
+.policy_page_nav{
+    margin-top: 30px;
+}
+
+
+
+.policy_search_box{
+    padding-top: 20px;
+}
+
+#policy_search{
+    width: 25px;
+    margin-left: 10px;
+    padding-bottom: 5px;
+}
+
+.policy_detail{
+    margin-bottom: 20px;
+}
+
+.policy_detail #policy_areaName{
+    float: left;
+}
+
+.policy_detail #policy_startDate{
+    float: right;
+}
+
+
+
+.policy_row{
+    justify-content: center;
+}
+
+
+
+.custom-control-input{
+    border: none !important;
+    padding-top: 10px;
+}
+
+.custom-control-label{
+    margin-right: 15px;
+}
+
+#policy_checkbox{
+    
+    display: flex;
+    justify-content: left;
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+
+.policy_heart{
+    background-color: rgba(255, 255, 255, 0.434);
+    padding: 5px;
+    border-radius: 7px;
+    width: 38px;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
 }
 
 /*** register ***/

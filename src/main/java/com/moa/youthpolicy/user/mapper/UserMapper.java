@@ -4,8 +4,8 @@ import com.moa.youthpolicy.user.domain.UserVO;
 
 public interface UserMapper {
 	public UserVO select(String Email);
-//	public int update(UserVO vo);
 	public void update(UserVO vo);
+	public int modinfo(UserVO vo);
 	public String delete(String Email);
 	public void register(UserVO vo);
 	

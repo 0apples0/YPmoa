@@ -229,7 +229,7 @@ sup {
   top: -.5em
 }
 
-/* a�±� �Ӽ� */
+/* a태그 속성 */
 
 a, .a_btn {
   color: #16a9fe;
@@ -682,10 +682,9 @@ progress {
     max-width: 960px
   }
 }
-
 @media (min-width: 1200px) {
   .container-fluid{
-    width: 95%;
+    width: 100%;
   }
   .container,
   .container-sm,
@@ -698,7 +697,7 @@ progress {
 
 @media (min-width: 1400px) {
   .container-fluid{
-    width: 90%;
+    width: 95%;
   }
   .container,
   .container-sm,
@@ -724,9 +723,9 @@ progress {
   }
 }
 
-@media (min-width: 1764px) {
+@media (min-width: 1700px) {
   .container-fluid{
-    width: 70%;
+    width: 80%;
   }
   .container,
   .container-sm,
@@ -734,7 +733,7 @@ progress {
   .container-lg,
   .container-xl,
   .container-xxl {
-    max-width: 1700px
+    max-width: 1620px
   }
 }
 
@@ -1230,6 +1229,11 @@ progress {
     flex: 0 0 auto;
     width: 8.33333%
   }
+  .col-md-1_a {
+    flex: 0 0 auto;
+    width: 6.33333%
+  }
+
 
   .col-md-2 {
     flex: 0 0 auto;
@@ -1241,7 +1245,16 @@ progress {
   }
   .col-md-3_b {
     flex: 0 0 auto;
-    width: 16.65%
+    width: 15.65%
+  }
+  .col-md-3_b_1{
+    flex: 0 0 auto;
+    width: 11.65%
+  }
+
+  .col-md-3_b_2{
+    flex: 0 0 auto;
+    width: 24.65%
   }
 
   .col-md-3 {
@@ -3397,14 +3410,14 @@ fieldset:disabled .btn {
 
 .btn-warning {
   color: #ffffff;
-  background-color: #ff8400;
-  border-color: #ffc107
+  background-color: #ffac07;
+  border-color:  #ffc107;
 }
 
 .btn-warning:hover {
   color: #ffffff;
-  background-color: #ffb444;
-  border-color: #ffc720
+  background-color: #ff8400;
+  border-color: #ff8400;
 }
 
 .btn-check:focus+.btn-warning,
@@ -3611,6 +3624,8 @@ fieldset:disabled .btn {
 
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
+
+  
   color: #16a9fe;
   background-color: transparent
 }
@@ -5260,6 +5275,13 @@ fieldset:disabled .btn {
   height: 20px;
 }
 
+.page-item.active .page-link {
+  z-index: 3;
+  background-color: rgba(105, 108, 255, 0.08) !important;
+  border-color: rgba(105, 108, 255, 0.08) !important;
+}
+
+
 .pagination {
   display: flex;
   padding-left: 0;
@@ -5269,9 +5291,9 @@ fieldset:disabled .btn {
 .page-link {
   position: relative;
   display: block;
-  color: #16a9fe;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+  color: black;
+  background-color: white;
+  border-color: rgba(67, 89, 113, 0.3);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
 
@@ -5283,14 +5305,13 @@ fieldset:disabled .btn {
 
 .page-link:hover {
   z-index: 2;
-  color: #cb8112;
-  background-color: #e9ecef;
-  border-color: #dee2e6
+  color: #16a9fe;
+  background-color: #E8E8E8;
 }
 
 .page-link:focus {
   z-index: 3;
-  color: #cb8112;
+  color: #1E90FF;
   background-color: #e9ecef;
   outline: 0;
   box-shadow: 0 0 0 .25rem rgba(254, 161, 22, 0.25)
@@ -5300,11 +5321,14 @@ fieldset:disabled .btn {
   margin-left: -1px
 }
 
-.page-item.active .page-link {
+.page-item.active  {
   z-index: 3;
-  color: #fff;
-  background-color: #16a9fe;
-  border-color: #16a9fe
+  color: black;
+  background-color: #16a9fe; /* 페이징 배경 색 */
+} 
+
+.page-link.active{
+  color: black !important;
 }
 
 .page-item.disabled .page-link {
@@ -7362,6 +7386,10 @@ fieldset:disabled .btn {
 
 .start-50 {
   left: 50% !important
+}
+
+.start-90 {
+  left: 85% !important
 }
 
 .start-100 {

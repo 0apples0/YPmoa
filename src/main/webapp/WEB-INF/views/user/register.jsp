@@ -139,51 +139,7 @@
 
 
 
-<!-- Footer Start -->
-<div class="container-fluid bg-dark text-light footer wow fadeIn"
-	data-wow-delay="0.3s">
-	<div class="container">
-		<div class="row g-5"></div>
-		<div class="rounded p-4" id="footer_box">
-			<a href=""> <img
-				src="${pageContext.request.contextPath}/resources/img/foot.svg"
-				id="logo" /></a>
-		</div>
 
-
-
-	</div>
-
-</div>
-
-</div>
-<!-- Footer End -->
-
-
-<!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-	class="bi bi-arrow-up"></i></a>
-</div>
-
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="resources/lib/wow/wow.min.js"></script>
-<script src="resources/lib/easing/easing.min.js"></script>
-<script src="resources/lib/waypoints/waypoints.min.js"></script>
-<script src="resources/lib/counterup/counterup.min.js"></script>
-<script src="resources/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="resources/lib/tempusdominus/js/moment.min.js"></script>
-<script src="resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script
-	src="resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="resources/js/main.js"></script>
-</body>
-
-</html>
 
 <script>
     $(document).ready(function () {
@@ -271,6 +227,7 @@
 		            }
 		        },
 		        error: function () {
+		        	console.error("연락처 중복 체크 중 오류가 발생했습니다.", error);
 		            alert("닉네임 중복 체크 중 오류가 발생했습니다.");
 		        }
 		    });
@@ -333,3 +290,5 @@
         }
     });
 </script>
+
+<%@include file="../includes/footer.jsp" %>

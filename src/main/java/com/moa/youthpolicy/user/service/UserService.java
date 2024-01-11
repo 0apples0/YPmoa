@@ -64,6 +64,8 @@ public class UserService implements UserGenericService {
 	@Autowired
 	UserMapper mapper;
 	
+
+	
 	
 	public boolean chkEmail(String email) {
 		UserVO vo = mapper.selectUserByEmail(email);
@@ -90,15 +92,6 @@ public class UserService implements UserGenericService {
 	}
 
 	public void modify(UserVO modifyUser) {
-//	    int rowsAffected = mapper.update(modifyUser);
-//	    log.info("Service : "+ modifyUser.toString());
-//	    log.info("Rows affected: " + rowsAffected);
-//
-//	    if (rowsAffected > 0) {
-//	        return rowsAffected;
-//	    } else {
-//	        throw new RuntimeException("회원 정보 수정 실패");
-//	    }
 		mapper.update(modifyUser);
 	}
 
@@ -329,6 +322,16 @@ public class UserService implements UserGenericService {
     	
     	
 		return uservo;
+	}
+
+	public boolean modinfo(UserVO vo) {
+		log.info("service : "+ vo.toString());
+		int rowsUpdated = mapper.modinfo(vo);
+		if(rowsUpdated > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }
