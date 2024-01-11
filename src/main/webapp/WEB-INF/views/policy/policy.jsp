@@ -336,7 +336,7 @@
                             aria-hidden="true"></i></a>
                 </li>
                 <li class="policy_page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
+                    <a class="page-link" href="${pageMaker.startPage -1 }"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
                 <li class="page-item active">
@@ -365,9 +365,14 @@
             </ul>
         </nav>
     </div>
+    <form id="actionFrom" action="/board/list" method="get">
+    	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+    	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+    </form>
     
   <script>
      $(document).ready(function () {
+   	loadTableData();
     // 체크박스 중복 방지
     $('.custom-control-input').on('change', function () {
         if ($(this).prop('checked')) {
@@ -387,8 +392,86 @@
             return oldSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
         });
     });
+		
+		let actionFrom = $("#actionFrom");
+		$(".paginate_button a").on("click", function(e) {
+			// 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			e.preventDefault(); // 이벤트 초기화
+			//pageNum값을 사용자가 누른 a태그의 href속성값으로 변경
+			// 3페이지 선택시 pageNum = 3;
+			actionFrom.find("input[name='pageNum']").val($(this).attr("href"));
+			actionFrom.submit();
+		});
+		
+		let searchForm = $("#searchForm");
+		
+		$("#searchForm button").on("click",function(e){
+			if (!searchForm.find("option:selected").val()) {
+				alert("검색종류를 선택하세요");
+				return false;
+			}
+			if (!searchForm.find("input[name='keyword']").val()) {
+				alert("키워드를 입력하세요");
+				return false;
+			}
+			searchForm.find("input[name='pageNum']").val("1");
+			e.preventDefault();
+			searchForm.submit();
+		});
+		
+		function addPolicyToContainer(policy, index) {
+		    var policyHtml = `
+		        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="${0.1 * index}s">
+		            <div class="rounded shadow overflow-hidden">
+		                <div class="position-relative">
+		                    <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/${policy.image}" alt="">
+		                    <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
+		                        <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_${index}">
+		                            <img class="policy_heart" id="policy_heart_${index}" src="${pageContext.request.contextPath}/resources/img/addWish.png" />
+		                        </a>
+		                    </div>
+		                </div>
+		                <div class="text-center p-4 mt-2 policy_detail">
+		                    <h5 class="fw-bold mb-4">${policy.title}</h5>
+		                    <small id="policy_areaName">${policy.areaName}</small>
+		                    <small id="policy_startDate">${policy.startDate}</small>
+		                </div>
+		            </div>
+		        </div>
+		    `;
+		
+		    // 정책 컨테이너에 추가
+		    $("#policyContainer").append(policyHtml);
+		}
+	
+    
 });
 
+     function loadTableData() {
+    	    $.ajax({
+    	        url: "/policy/policy",
+    	        type: "POST",
+    	        dataType: "json",
+    	        data: {
+    	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
+    	            amount: $("#actionFrom").find("input[name='amount']").val(),
+    	            type: $("#searchForm select[name='type']").val(),
+    	            keyword: $("#searchForm").find("input[name='keyword']").val()
+    	        },
+    	        success: function (data) {
+    	            // #policyContainer 내부의 모든 자식 요소를 제거
+    	            $("#policyContainer").empty();
+
+    	            // 정책 정보를 동적으로 추가
+    	            data.forEach(function (policy, index) {
+    	                addPolicyToContainer(policy, index + 1);
+    	            });
+    	        },
+    	        error: function (e) {
+    	            console.log(e);
+    	        }
+    	    });
+    	}
 
     </script>
 <%@include file="../includes/footer.jsp" %>
