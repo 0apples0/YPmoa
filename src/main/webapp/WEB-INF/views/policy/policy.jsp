@@ -4,9 +4,6 @@
 
 <%@include file="../includes/header_guest.jsp" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %> 
-
      <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
@@ -342,24 +339,6 @@
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
-                <c:if test="${pageMaker.prev }">
-               		<li class="paginate_button previous">
-               			<a href="${pageMaker.startPage -1 }">이전</a>
-               		</li>
-               	</c:if>
-               	<c:forEach var="num" begin="${pageMaker.startPage }"
-               		end="${pageMaker.endPage }">
-               		<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':'' }">
-               			<a href="${num }">${num}</a>
-               		</li>
-               	</c:forEach>
-               	<c:if test="${pageMaker.next }">
-               		<li class="paginate_button next">
-               			<a href="${pageMaker.endPage +1 }">다음</a>
-               		</li>
-               	</c:if>
-               	
-               	
                 <li class="page-item active">
                     <a class="page-link" href="javascript:void(0);">1</a>
                 </li>
@@ -386,15 +365,9 @@
             </ul>
         </nav>
     </div>
-    <form id="actionFrom" action="/board/list" method="get">
-        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-       	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-    </form>
-    
     
   <script>
      $(document).ready(function () {
-   	loadTableData();
     // 체크박스 중복 방지
     $('.custom-control-input').on('change', function () {
         if ($(this).prop('checked')) {
@@ -414,82 +387,7 @@
             return oldSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
         });
     });
-    
-	function loadTableData() {
-		$.ajax({
-			url: "/policy/policy",
-			type: "POST", //요청 방식 지정
-			dataType : "json",
-			data : {
-				pageNum : $("#actionFrom").find("input[name='pageNum']").val(),
-				amount : $("#actionFrom").find("input[name='amount']").val(),
-				//type : $("#searchForm select[name='type']").val(),
-				//keyword : $("#searchForm").find("input[name='keyword']").val()
-			},
-			success: function(data){
-				let boardTbody = $("#boardTable tbody");
-				
-				// Ajax가 반환한 데이터를 '순회'(=='반복자')하여 처리
-				// for( let item of items) -> items == data, item == board 역할
-				$.each(data, function(index,board){
-					// 날짜 형태로 전환
-					let regDate = new Date(board.regdate);
-					// numeric: 숫자 형식, 2-digit: 두자리 숫자 형식
-					let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"}
-					// 한국 시간 형식으로 변환
-					let formatDate = regDate.toLocaleString("ko-KR",options);
-					
-					// 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-					// 동적으로 데이터 처리
-					let row = $("<tr>");
-					row.append($("<td>").text(board.bno));
-					
-					let titleLink = $("<a>").attr("href","/board/get?bno="+board.bno).text(board.title);
-					let titleTd = $("<td>").append(titleLink);
-					
-					row.append(titleTd);
-					row.append($("<td>").text(board.content));
-					row.append($("<td>").text(board.writer));
-					row.append($("<td>").text(formatDate));
-					
-					boardTbody.append(row);
-					
-				});
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-	
-	let actionFrom = $("#actionFrom");
-	$(".paginate_button a").on("click", function(e) {
-		// 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		e.preventDefault(); // 이벤트 초기화
-		//pageNum값을 사용자가 누른 a태그의 href속성값으로 변경
-		// 3페이지 선택시 pageNum = 3;
-		actionFrom.find("input[name='pageNum']").val($(this).attr("href"));
-		actionFrom.submit();
-	});
-	
-	let searchForm = $("#searchForm");
-	
-	$("#searchForm button").on("click",function(e){
-		if (!searchForm.find("option:selected").val()) {
-			alert("검색종류를 선택하세요");
-			return false;
-		}
-		if (!searchForm.find("input[name='keyword']").val()) {
-			alert("키워드를 입력하세요");
-			return false;
-		}
-		searchForm.find("input[name='pageNum']").val("1");
-		e.preventDefault();
-		searchForm.submit();
-	});
-}
-    
 });
-     
 
 
     </script>
