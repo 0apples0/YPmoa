@@ -42,6 +42,11 @@ public class communitytest {
     	}
 
     }
+    @Test
+    public void countTest() {
+    	log.info("결과!: "+communityMapper.countCommunityVO());
+    	
+    }
     
 
 }

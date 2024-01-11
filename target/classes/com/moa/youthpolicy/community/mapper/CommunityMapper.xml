@@ -13,4 +13,8 @@
 		DELETE FROM tipboard
 		WHERE bno=#{bno}
 	</select>
+	
+	<select id="countCommunityVO" resultType="int">
+		select COUNT(bno) from tipboard
+	</select>
 </mapper>

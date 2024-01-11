@@ -44,9 +44,9 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-	public int getTotalAmount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getTotalAmount(Criteria cri) {
+		int cnt = communityMapper.countCommunityVO();
+		return cnt;
 	}
 
 	@Override

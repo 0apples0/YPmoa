@@ -59,7 +59,7 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public int getTotalAmount() {
+	public int getTotalAmount(Criteria cri) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
