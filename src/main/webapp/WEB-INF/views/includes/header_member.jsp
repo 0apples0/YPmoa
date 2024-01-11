@@ -40,7 +40,8 @@
 <!-- 원본 css 여기까지 -->
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css_pluto/style_pluto.css" />
-
+    <!-- list CSS-->
+    <script src="resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
 <!-- css2 -->
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendor/fonts/boxicons.css" />

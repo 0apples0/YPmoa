@@ -24,6 +24,7 @@
 		    <button type="button" id="pwUpdate" name="pwUpdate" >비밀번호 변경</button> <a href="/member/infoView" >취소</a>
 		</div>
 </form>
+
 <script type="text/javascript">
 $(document).ready(function(){
 

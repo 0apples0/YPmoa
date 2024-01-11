@@ -48,7 +48,8 @@
 <!-- Vendors CSS -->
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
-
+    <!-- list CSS-->
+    <script src="resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
 <!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 

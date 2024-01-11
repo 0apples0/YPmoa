@@ -1149,6 +1149,13 @@ a[data-toggle="collapse"] {
     border-radius: 5px;
     margin-top: 0;
 }
+.white_shd_a {
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 0;
+}
+
+
 
 .dark_bg {
     background: #214162;
@@ -2664,8 +2671,8 @@ ul.inbox-pagination li {
 
 .table-hover tbody tr:hover,
 .table-hover tbody tr:focus {
-    background-color: #16a9fe !important;
-    color: #fff;
+    background-color: rgb(187, 231, 255) !important;
+    color: #000000;
 }
 
 .view-message.inbox-small-cells i {
