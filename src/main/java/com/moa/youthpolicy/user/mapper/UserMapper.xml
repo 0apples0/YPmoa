@@ -4,10 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.moa.youthpolicy.user.mapper.UserMapper" >
-<!-- 마이페이지 수정 -->
 	<update id="update" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 		UPDATE user
-		SET name = #{name},nick = #{nick},phone = #{phone},address = #{address},isWork = #{isWork},age = #{age},income = #{income},isMarry = #{isMarry},interestField = #{interestField}
+		SET name = #{name},nick = #{nick},phone = #{phone}
+		WHERE Email = #{Email}
+	</update>
+
+	<update id="modinfo" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+		UPDATE user
+		SET address = #{address},isWork = #{isWork},age = #{age},income = #{income},isMarry = #{isMarry},interestField = #{interestField}
 		WHERE Email = #{Email}
 	</update>
 
@@ -17,7 +22,7 @@
     </select>
     
     <select id="chkPhone" parameterType="int" resultType="com.moa.youthpolicy.user.domain.UserVO">
-        SELECT * FROM user WHERE phone = #{phone}
+        SELECT * FROM user WHERE phone = #{phone} LIMIT 1
     </select>
     
     <select id="chkNick" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">

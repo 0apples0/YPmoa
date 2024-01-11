@@ -20,7 +20,7 @@
             UserVO user = (UserVO) session.getAttribute("user");
             if (user != null) {
         %>
-<form method="post" action="/user/modify">
+<form method="post" action="/user/modify" id="modifyForm">
 	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
 			<div class="bg-white mypage_shadow" style="padding: 35px;">
@@ -82,7 +82,7 @@
 						</div>
 					</div>
 					<div class="col-md-2">
-						<button type="submit" class="btn btn-primary w-100">저장하기</button>
+						<button type="button" class="btn btn-primary w-100" id="saveButton">저장하기</button>
 					</div>
 				</div>
 			</div>
@@ -119,19 +119,20 @@
 												<label class="col-sm-2 col-form-label" for="basic-default-phone">연락처</label>
 												<div class="col-sm-10">
 													<input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%=user.getPhone()%>" aria-describedby="basic-default-phone" />
-													<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+													<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 												</div>
 											</div>
 											<div class="row mb-3">
 												<label class="col-sm-2 col-form-label" for="basic-default-company">닉네임</label>
 												<div class="col-sm-10">
-													<input type="text" class="regi_sub_form-control" required id="nick" name="nick" value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
-													<button type="button" class="btn btn-primary  regi_checkBtn">중복확인</button>
+													<input type="text" class="regi_sub_form-control" required id="nick" name="nick" 
+													value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
+													<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 												</div>
 											</div>
 
 											<div class="col-sm-12" id="regi_btn">
-												<button type="submit" class="btn btn-primary" id="regi_regiBtn">수정완료</button>
+												<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
 												<button type="button" class="btn btn-primary" id="regi_regiBtn">비밀번호 변경</button>
 												<button type="reset" class="btn btn-primary" id="regi_regiBtn">초기화</button>
 												<button type="button" class="btn btn-warning">회원탈퇴</button>
@@ -155,25 +156,17 @@
             }
         %>
 <!-- Booking End -->
-<!-- Footer Start -->
-<div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.3s">
-	<div class="container">
-		<div class="row g-5"></div>
-		<div class="rounded p-4" id="footer_box">
-			<a href=""> <img src="${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
-		</div>
-	</div>
-</div>
-<!-- Footer End -->
-<!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-	class="bi bi-arrow-up"></i></a>
+
+
 <script>
 
 // 여기 추후 수정할예정 -수아
 	
 $(document).ready(function() {
+    // 각 중복 체크 상태를 저장하는 변수들
+    var phoneCheckDone = true;
+    var nickCheckDone = true;
+	
     // 페이지가 로드되면 실행될 코드
     var addressOption = $('#address'); // id가 "address"인 option 요소 선택
 
@@ -182,26 +175,118 @@ $(document).ready(function() {
         addressOption.hide();
         // value가 0인 옵션을 selected로 설정
         $('[value="0"]').prop('selected', true);
+	}
+
+    // 연락처 중복 체크 버튼 클릭 시
+    $("#phoneck").on("click", function () {
+        // 여기에 연락처 중복 체크 로직을 추가
+        var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
+    
+        // Ajax를 이용하여 서버에 연락처 중복 체크 요청
+        $.ajax({
+            type: "POST",
+            url: "/user/chkPhone",  // 실제 서버의 처리 URL로 변경해야 합니다.
+            data: { phone: phoneNumber },
+            success: function (response) {
+                if (response) {
+                    phoneCheckDone = true;
+                    enableOrDisableRegisterButton();
+                    alert("사용 가능한 연락처입니다.");
+                } else {
+                    phoneCheckDone = false;
+                    enableOrDisableRegisterButton();
+                    alert("이미 사용 중인 연락처입니다.");
+                }
+            },
+            error: function (error) {
+                console.error("연락처 중복 체크 중 오류가 발생했습니다.", error);
+                alert("연락처 중복 체크 중 오류가 발생했습니다.");
+            }
+        });
+    });
+    
+    // 닉네임 중복 체크 버튼 클릭 시
+    $("#nickchk").on("click", function () {
+        // 여기에 닉네임 중복 체크 로직을 추가
+        var nickname = $(".regi_sub_form-control[name='nick']").val();
+    
+        // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
+        $.ajax({
+            type: "POST",
+            url: "/user/chkNickname",  // 실제 서버의 처리 URL로 변경해야 합니다.
+            data: { nick: nickname },
+            success: function (response) {
+                if (response) {
+                    nickCheckDone = true;
+                    enableOrDisableRegisterButton();
+                    alert("사용 가능한 닉네임입니다.");
+                } else {
+                    nickCheckDone = false;
+                    enableOrDisableRegisterButton();
+                    alert("이미 사용 중인 닉네임입니다.");
+                }
+            },
+            error: function (error) {
+                console.error("닉네임 중복 체크 중 오류가 발생했습니다.", error);
+                alert("닉네임 중복 체크 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+
+    // 수정완료 버튼을 활성화 또는 비활성화하는 함수
+    function enableOrDisableRegisterButton() {
+        var allChecksDone =  phoneCheckDone && nickCheckDone;
+        var allInputsFilled = true;
+    
+        $(".regi_sub_form-control, .regi_pwd_form-control, .phone-mask").each(function () {
+            if ($(this).val() === "") {
+                allInputsFilled = false;
+                return false; // 중단
+            }
+        });
+    
+        if (allChecksDone && allInputsFilled) {
+            enableRegisterButton();
+        } else {
+            disableRegisterButton();
+        }
     }
+    
+    // 수정완료 버튼을 활성화하는 함수
+    function enableRegisterButton() {
+        $("#mod_regiBtn").prop("disabled", false);
+    }
+    
+    // 수정완료 버튼을 비활성화하는 함수
+    function disableRegisterButton() {
+        $("#mod_regiBtn").prop("disabled", true);
+    }
+    
+    $("#saveButton").on("click", function () {
+        // 여기에 저장하기 버튼 클릭 시 실행할 로직을 추가
+        // Ajax를 이용하여 서버에 저장 요청
+        $.ajax({
+            type: "POST",
+            url: "/user/modinfo", // form의 action 속성 값 사용
+            data: $("#modifyForm").serialize(), // form 데이터를 직렬화하여 전송
+            success: function (response) {
+                // 성공적으로 처리되었을 때의 로직을 추가
+                alert("저장되었습니다.");
+                location.reload();
+            },
+            error: function (error) {
+                // 오류 발생 시의 로직을 추가
+                console.error("저장 중 오류가 발생했습니다.", error);
+                alert("저장 중 오류가 발생했습니다.");
+            }
+        });
+    });
+    
+    
 });
-
-
 
 </script>
 
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="resources/lib/wow/wow.min.js"></script>
-<script src="resources/lib/easing/easing.min.js"></script>
-<script src="resources/lib/waypoints/waypoints.min.js"></script>
-<script src="resources/lib/counterup/counterup.min.js"></script>
-<script src="resources/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="resources/lib/tempusdominus/js/moment.min.js"></script>
-<script src="resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Template Javascript -->
-<script src="resources/js/main.js"></script>
-</body>
-</html>
+<%@include file="../includes/footer.jsp" %>
