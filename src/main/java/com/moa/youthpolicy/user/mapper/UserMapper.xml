@@ -17,7 +17,7 @@
     </select>
     
     <select id="chkPhone" parameterType="int" resultType="com.moa.youthpolicy.user.domain.UserVO">
-        SELECT * FROM user WHERE phone = #{phone}
+        SELECT * FROM user WHERE phone = #{phone} LIMIT 1
     </select>
     
     <select id="chkNick" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
