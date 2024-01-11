@@ -229,7 +229,7 @@ sup {
   top: -.5em
 }
 
-/* aÅÂ±× ¼Ó¼º */
+/* aíƒœê·¸ ì†ì„± */
 
 a, .a_btn {
   color: #16a9fe;
@@ -5279,7 +5279,7 @@ fieldset:disabled .btn {
 .page-item.active  {
   z-index: 3;
   color: #fff;
-  background-color:  black; /* ÆäÀÌÂ¡ ¹è°æ »ö */
+  background-color:  black; /* í˜ì´ì§• ë°°ê²½ ìƒ‰ */
 } 
 
 .page-link.active{

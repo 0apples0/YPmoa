@@ -1,9 +1,8 @@
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
-    
-    
 <%@include file="../includes/header_guest.jsp" %>
-
 
   <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
@@ -234,7 +233,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="r${pageContext.request.contextPath}/esources/img/카드5.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드5.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_5"><img class="policy_heart"
                                         id="policy_heart_5" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
