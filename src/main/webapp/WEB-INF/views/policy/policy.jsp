@@ -153,13 +153,13 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드1.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드1.png" alt="">
                             <div class="policy_wish_box">
                                 <div
                                     class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
 
                                     <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_1"><img class="policy_heart"
-                                            id="policy_heart_1" src="resources/img/addWish.png" /></a>
+                                            id="policy_heart_1" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                                 </div>
                             </div>
                         </div>
@@ -179,10 +179,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드2.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드2.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink"href="#"  data-target="policy_heart_2"><img class="policy_heart"
-                                        id="policy_heart_2" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_2" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -197,10 +197,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드3.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드3.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_3"><img class="policy_heart"
-                                        id="policy_heart_3" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_3" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -215,10 +215,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드4.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드4.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_4"><img class="policy_heart"
-                                        id="policy_heart_4" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_4" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -233,10 +233,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드5.png" alt="">
+                            <img class="img-fluid" src="r${pageContext.request.contextPath}/esources/img/카드5.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_5"><img class="policy_heart"
-                                        id="policy_heart_5" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_5" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -251,10 +251,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드6.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드6.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_6"><img class="policy_heart"
-                                        id="policy_heart_6" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_6" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -269,10 +269,10 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드7.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드7.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_7"><img class="policy_heart"
-                                        id="policy_heart_7" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_7" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -287,11 +287,11 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="resources/img/카드8.png" alt="">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드8.png" alt="">
 
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
                                 <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_8"><img class="policy_heart"
-                                        id="policy_heart_8" src="resources/img/addWish.png" /></a>
+                                        id="policy_heart_8" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
                         <div class="text-center p-4 mt-2 policy_detail" >
@@ -360,7 +360,7 @@
         var $img = $("#" + $(this).data("target"));
 
         $img.attr("src", function (_, oldSrc) {
-            return oldSrc.includes("addWish.png") ? "resources/img/checkWish.png" : "resources/img/addWish.png";
+            return oldSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
         });
     });
 });
