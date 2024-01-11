@@ -4,7 +4,7 @@
 
 <%@include file="../includes/header_guest.jsp" %>
 
-  <!-- Page Header Start -->
+     <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -18,14 +18,18 @@
             </div>
         </div>
         <!-- Page Header End -->
-
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
+            <h1 class="mb-5"><span class="text-primary text-uppercase">정책</span> 둘러보기 </h1>
+        </div>
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container">
+            <div class="container_search">
                 <div class="bg-white mypage_shadow" style="padding: 35px;">
                     <div class="row g-2">
 
-                        <h3 class="mypage_section-title text-center text-primary ">검색</h3>
+                        <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
+                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
 
                     </div>
@@ -53,13 +57,13 @@
                                         <option value="2">미취업</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3_b">
+                                <div class="col-md-3_b_1">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="만 나이 입력" data-target="#date2" data-toggle="datetimepicker" />
+                                            placeholder="만 나이 숫자만 입력" />
                                     </div>
                                 </div>
-                                <div class="col-md-3_b">
+                                <div class="col-md-3_b_2">
                                     <select class="form-select">
                                         <option selected>소득범위</option>
                                         <option value="1">소득없음</option>
@@ -85,52 +89,41 @@
                             </div>
                         </form>
                     </div>
-                    <div id="policy_checkbox">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">전체</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck2">
-                            <label class="custom-control-label" for="customCheck2">모집중</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck3">
-                            <label class="custom-control-label" for="customCheck3">신청마감</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck4">
-                            <label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
-                        </div>
-
-                    </div>
 
 
-                    <div class="mypage_section-title">
-                        <form>
 
-                            <div class="row g-2">
+                    <div>
 
 
-                                <div class="col-md-5">
-                                    <div>
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="검색어를 입력하세요" />
-                                    </div>
+                        <div class="row g-2 justify-content-center">
+
+
+                            <div class="col-md-5 policy_search_box">
+                                <div>
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        placeholder="검색어를 입력하세요" />
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary w-100">검색하기</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary w-100">내 맞춤정보 검색</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-secondary ">초기화</button>
-                                </div>
-
-
                             </div>
-                        </form>
+
+
+
+                        </div>
+
+                        <div class="row g-2 justify-content-center policy_search_box">
+
+                            <!-- 조건+제목+내용 / 제목+내용 검색 -->
+                            <div class="col-md-1 ">
+                                <button class="btn btn-primary w-100">검색하기</button>
+                            </div>
+                            <!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
+                            <div class="col-md-2">
+                                <button class="btn btn-warning w-100">내 맞춤조건 적용</button>
+                            </div>
+                            <div class="col-md-1_a">
+                                <button type="reset" class="btn btn-secondary ">초기화</button>
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -141,14 +134,36 @@
 
 
     <!-- Booking End -->
-    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-        <h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
-        <h1 class="mb-5"><span class="text-primary text-uppercase">정책</span> 둘러보기 </h1>
-    </div>
+
 
 
     <div class="container-xxl py-5">
         <div class="container">
+
+
+            <!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
+
+            <div id="policy_checkbox">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">전체</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                    <label class="custom-control-label" for="customCheck2">모집중</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                    <label class="custom-control-label" for="customCheck3">신청마감</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+                    <label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
+                </div>
+
+            </div>
+
+
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
@@ -158,19 +173,25 @@
                                 <div
                                     class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
 
-                                    <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_1"><img class="policy_heart"
-                                            id="policy_heart_1" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                    <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_1"><img
+                                            class="policy_heart" id="policy_heart_1"
+                                            src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                                 </div>
+
+                                <!-- 하트를 누르면.. 이미지 바뀌는거는 아래에 해놧고요..
+                                    누르면 알림으로 위시리스트에 등록되었습니다 라고 떴으면 좋겠습니다..
+                                    다시누르면..(빈 하트가되면) 위시리스트에서 해제되었습니다..뜨구요..
+                                -->
                             </div>
                         </div>
 
                         <!-- 값 불러올 곳 -->
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
 
 
@@ -181,16 +202,19 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드2.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink"href="#"  data-target="policy_heart_2"><img class="policy_heart"
-                                        id="policy_heart_2" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_2"><img
+                                        class="policy_heart" id="policy_heart_2" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
+
+
+
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -199,16 +223,16 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드3.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_3"><img class="policy_heart"
-                                        id="policy_heart_3" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_3"><img
+                                        class="policy_heart" id="policy_heart_3" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -217,16 +241,16 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드4.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_4"><img class="policy_heart"
-                                        id="policy_heart_4" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_4"><img
+                                        class="policy_heart" id="policy_heart_4" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -235,16 +259,16 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드5.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_5"><img class="policy_heart"
-                                        id="policy_heart_5" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_5"><img
+                                        class="policy_heart" id="policy_heart_5" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -253,16 +277,16 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드6.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_6"><img class="policy_heart"
-                                        id="policy_heart_6" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_6"><img
+                                        class="policy_heart" id="policy_heart_6" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -271,16 +295,16 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드7.png" alt="">
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_7"><img class="policy_heart"
-                                        id="policy_heart_7" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_7"><img
+                                        class="policy_heart" id="policy_heart_7" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -290,24 +314,24 @@
                             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드8.png" alt="">
 
                             <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-                                <a class="btn btn-square mx-1 toggleLink" href="#"  data-target="policy_heart_8"><img class="policy_heart"
-                                        id="policy_heart_8" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
+                                <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_8"><img
+                                        class="policy_heart" id="policy_heart_8" src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                             </div>
                         </div>
-                        <div class="text-center p-4 mt-2 policy_detail" >
+                        <div class="text-center p-4 mt-2 policy_detail">
                             <h5 class="fw-bold mb-4">청년 일자리 사업</h5>
-                          
+
                             <small id="policy_areaName">포항시</small>
                             <small id="policy_startDate">2024-01-22</small>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-end">
-                <li class="policy_page-item prev">
+        <nav aria-label="Page navigation" class="policy_page_nav wow fadeInUp">
+            <ul class="pagination justify-content-center policy_page_navbox">
+                <li class="policy_page-item_prev prev">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
                             aria-hidden="true"></i></a>
                 </li>
@@ -321,7 +345,7 @@
                 <li class="page-item">
                     <a class="page-link" href="javascript:void(0);">2</a>
                 </li>
-                <li class="page-item ">
+                <li class="page-item">
                     <a class="page-link" href="javascript:void(0);">3</a>
                 </li>
                 <li class="page-item">

@@ -229,7 +229,7 @@ sup {
   top: -.5em
 }
 
-/* a�깭洹� �냽�꽦 */
+/* a태그 속성 */
 
 a, .a_btn {
   color: #16a9fe;
@@ -682,7 +682,6 @@ progress {
     max-width: 960px
   }
 }
-
 @media (min-width: 1200px) {
   .container-fluid{
     width: 100%;
@@ -698,7 +697,7 @@ progress {
 
 @media (min-width: 1400px) {
   .container-fluid{
-    width: 90%;
+    width: 95%;
   }
   .container,
   .container-sm,
@@ -726,7 +725,7 @@ progress {
 
 @media (min-width: 1700px) {
   .container-fluid{
-    width: 70%;
+    width: 80%;
   }
   .container,
   .container-sm,
@@ -1230,6 +1229,11 @@ progress {
     flex: 0 0 auto;
     width: 8.33333%
   }
+  .col-md-1_a {
+    flex: 0 0 auto;
+    width: 6.33333%
+  }
+
 
   .col-md-2 {
     flex: 0 0 auto;
@@ -1242,6 +1246,15 @@ progress {
   .col-md-3_b {
     flex: 0 0 auto;
     width: 15.65%
+  }
+  .col-md-3_b_1{
+    flex: 0 0 auto;
+    width: 11.65%
+  }
+
+  .col-md-3_b_2{
+    flex: 0 0 auto;
+    width: 24.65%
   }
 
   .col-md-3 {
@@ -3397,14 +3410,14 @@ fieldset:disabled .btn {
 
 .btn-warning {
   color: #ffffff;
-  background-color: #ff8400;
-  border-color: #ffc107
+  background-color: #ffac07;
+  border-color:  #ffc107;
 }
 
 .btn-warning:hover {
   color: #ffffff;
-  background-color: #ffb444;
-  border-color: #ffc720
+  background-color: #ff8400;
+  border-color: #ff8400;
 }
 
 .btn-check:focus+.btn-warning,
@@ -5278,8 +5291,8 @@ fieldset:disabled .btn {
 .page-link {
   position: relative;
   display: block;
-  color: #697a8d;
-  background-color:#D4D4D4;
+  color: black;
+  background-color: white;
   border-color: rgba(67, 89, 113, 0.3);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
@@ -5292,8 +5305,8 @@ fieldset:disabled .btn {
 
 .page-link:hover {
   z-index: 2;
-  color: black;
-  background-color: #D4D4D4;
+  color: #16a9fe;
+  background-color: #E8E8E8;
 }
 
 .page-link:focus {
@@ -5310,8 +5323,8 @@ fieldset:disabled .btn {
 
 .page-item.active  {
   z-index: 3;
-  color: #fff;
-  background-color:  black; /* �럹�씠吏� 諛곌꼍 �깋 */
+  color: black;
+  background-color: #16a9fe; /* 페이징 배경 색 */
 } 
 
 .page-link.active{
