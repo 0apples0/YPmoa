@@ -37,7 +37,7 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css_main/style.css" rel="stylesheet">
 
-<!-- 원본 css 여기까지-->
+<!-- 원본 css 여기까지 -->
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css_pluto/style_pluto.css" />
 
