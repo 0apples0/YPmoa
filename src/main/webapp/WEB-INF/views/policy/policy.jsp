@@ -336,7 +336,7 @@
                             aria-hidden="true"></i></a>
                 </li>
                 <li class="policy_page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
+                    <a class="page-link" href="${pageMaker.startPage -1 }"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
                 <li class="page-item active">
