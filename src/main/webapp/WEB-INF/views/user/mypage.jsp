@@ -40,10 +40,11 @@
 							</div>
 							<div class="col-md-3_b">
 							<label for="isWork">취업상태</label>
-						    <select class="form-select" name="isWork">
-						        <option value="true" ${user.isWork() ? 'selected' : ''}>취업</option>
-						        <option value="false" ${!user.isWork() ? 'selected' : ''}>미취업</option>
-						    </select>
+							<select class="form-select" name="isWork">
+							<option value="<%= user.getIsWork() %>"><%= user.getIsWork() %></option>
+							    <option value="1">취업</option>
+							    <option value="0">미취업</option>
+							</select>
 							</div>
 							<div class="col-md-3_b">
 								<div>
@@ -63,18 +64,17 @@
 							</div>
 							<div class="col-md-3_b">
 							<label for="isMarry">결혼여부</label>
-								<select class="form-select" >
-									<option selected id="isMarry" name="isMarry" value="<%= user.isMarry() %>"><%= user.isMarry() %></option>
-									<option selected>결혼여부</option>
-									<option value="미혼">미혼</option>
-									<option value="기혼">기혼</option>
-								</select>
+							<select class="form-select" name="isMarry">
+								<option value="<%= user.getIsMarry() %>"><%= user.getIsMarry() %></option>
+							    <option value="0" >미혼</option>
+							    <option value="1" >기혼</option>
+							</select>
 							</div>
 							<div class="col-md-3_b">
 							<label for="interestField">관심분야</label>
-								<select class="form-select" >
-									<option selected id="interestField" name="interestField" value="<%= user.getInterestField() %>"><%= user.getInterestField() %></option>
-									<option selected>관심분야</option>
+								<select class="form-select" name="interestField">
+									<option selected id="interestField"  value="<%= user.getInterestField() %>"><%= user.getInterestField() %></option>
+									<option value="">관심분야</option>
 									<option value="주거">주거</option>
 									<option value="교육">교육</option>
 									<option value="신혼부부">신혼부부</option>

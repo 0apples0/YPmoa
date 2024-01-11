@@ -34,6 +34,8 @@ public class UserController {
 	private final UserService userService;
 	@Autowired
 	UserMapper mapper;
+	@Autowired
+	UserService service;
 
 	@GetMapping("/mypage")
 	public String getMypage(@RequestParam("Email") String Email, HttpSession httpSession, Model model) {
@@ -43,6 +45,18 @@ public class UserController {
 	    model.addAttribute("user", user);
 	    log.info("User details - Email: " + user.getEmail());
 	    return "user/mypage";
+	}
+	//보빈 테스트중,,
+	@PostMapping("/mypage")
+//	public String postMypage(Model model, @ModelAttribute UserVO userVO) {
+//		String email = userVO.getEmail();
+//		model.addAttribute("userVO", userVO);
+//		return "redirect:/user/mypage?Email="+email;
+//	}
+	public String update(@ModelAttribute UserVO vo) {
+		String email = vo.getEmail();
+		service.modify(vo);
+		return "redirect:/user/mypage?Email="+email;
 	}
 	
 	@GetMapping({"/remove","/modify"})

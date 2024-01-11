@@ -5,7 +5,7 @@
     
 <mapper namespace="com.moa.youthpolicy.user.mapper.UserMapper" >
 <!-- 마이페이지 수정 -->
-	<update id="update" parameterType="UserVO">
+	<update id="update" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 		UPDATE user
 		SET name = #{name},nick = #{nick},phone = #{phone},address = #{address},isWork = #{isWork},age = #{age},income = #{income},isMarry = #{isMarry},interestField = #{interestField}
 		WHERE Email = #{Email}

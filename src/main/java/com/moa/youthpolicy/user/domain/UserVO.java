@@ -14,8 +14,8 @@ public class UserVO {
 	String address;     // 
 	int age; 			// 留욎땄議곌굔: �굹�씠
 	int income; 		// 留욎땄議곌굔: �닔�엯
-	boolean isWork; 	// 留욎땄議곌굔: 痍⑥뾽 �쑀臾�
-	boolean isMarry; 	// 留욎땄議곌굔: 寃고샎 �쑀臾�
+	int isWork; 	// 留욎땄議곌굔: 痍⑥뾽 �쑀臾�
+	int isMarry; 	// 留욎땄議곌굔: 寃고샎 �쑀臾�
 	String interestField; // 留욎땄議곌굔: 愿��떖遺꾩빞
 	
 	int countReport;    // �떊怨� �떦�븳 �슏�닔 
@@ -28,11 +28,7 @@ public class UserVO {
     public void setEmail(String email) {
         Email = email;
     }
-    public boolean isMarry() {
-    	return isMarry;
-    }
-    public boolean isWork() {
-    	return isWork;
-    }
+
+
 
 }

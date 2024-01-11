@@ -83,16 +83,17 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public int modify(UserVO modifyUser) {
-	    int rowsAffected = mapper.update(modifyUser);
-	    log.info("Service : "+ modifyUser.toString());
-	    log.info("Rows affected: " + rowsAffected);
-
-	    if (rowsAffected > 0) {
-	        return rowsAffected;
-	    } else {
-	        throw new RuntimeException("회원 정보 수정 실패");
-	    }
+	public void modify(UserVO modifyUser) {
+//	    int rowsAffected = mapper.update(modifyUser);
+//	    log.info("Service : "+ modifyUser.toString());
+//	    log.info("Rows affected: " + rowsAffected);
+//
+//	    if (rowsAffected > 0) {
+//	        return rowsAffected;
+//	    } else {
+//	        throw new RuntimeException("회원 정보 수정 실패");
+//	    }
+		mapper.update(modifyUser);
 	}
 
 	public void removeUser(String email) {
