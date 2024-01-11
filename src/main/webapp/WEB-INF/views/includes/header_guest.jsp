@@ -48,6 +48,8 @@
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
 
+<!-- 제이쿼리 -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 
