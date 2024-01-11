@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-
+    
+    
+<%@include file="../includes/header_guest.jsp" %>
 
 
   <!-- Page Header Start -->
@@ -366,4 +368,4 @@
 
 
     </script>
-<%@include file="includes/footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>
