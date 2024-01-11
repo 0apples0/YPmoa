@@ -66,13 +66,19 @@ public class UserService implements UserGenericService {
 	
 	
 	public boolean chkEmail(String email) {
-		
-		return true;
+		UserVO vo = mapper.selectUserByEmail(email);
+		return vo == null;	
 	}
 	
 	public boolean chkNick(String nick) {
-		
-		return false;
+		UserVO vo = mapper.chkNick(nick);
+		return vo == null;
+	}
+	
+	public boolean chkPhone(String phoneNumber) {
+		int phone = Integer.parseInt(phoneNumber);
+		UserVO vo = mapper.chkPhone(phone);
+		return vo == null;
 	}
 	
 	
@@ -314,7 +320,7 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
-    	uservo.setNick(userResponse.getBody().get("nick").toString());
+    	uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	
     	System.out.println("user name: "+uservo.getName());

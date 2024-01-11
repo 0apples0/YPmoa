@@ -16,6 +16,14 @@
         SELECT * FROM user WHERE Email = #{Email}
     </select>
     
+    <select id="chkPhone" parameterType="int" resultType="com.moa.youthpolicy.user.domain.UserVO">
+        SELECT * FROM user WHERE phone = #{phone}
+    </select>
+    
+    <select id="chkNick" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
+        SELECT * FROM user WHERE nick = #{nick}
+    </select>
+    
     <insert id="register" parameterType="com.moa.youthpolicy.user.domain.UserVO">
     	INSERT INTO user
     	(Email, name, nick, phone)
