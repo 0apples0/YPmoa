@@ -44,16 +44,13 @@ public class UserController {
 	    log.info("User details - Email: " + user.getEmail());
 	    return "user/mypage";
 	}
-	//보빈 테스트중,,
+
 	@PostMapping("/mypage")
-//	public String postMypage(Model model, @ModelAttribute UserVO userVO) {
-//		String email = userVO.getEmail();
-//		model.addAttribute("userVO", userVO);
-//		return "redirect:/user/mypage?Email="+email;
-//	}
-	public String update(@ModelAttribute UserVO vo) {
+	public String update(@ModelAttribute UserVO vo, Model model) {
 		String email = vo.getEmail();
 		service.modify(vo);
+		model.addAttribute("isWorkText", vo.getIsWork() == 1 ? "취업" : "미취업");
+		model.addAttribute("isMarryText", vo.getIsMarry() == 1 ? "기혼" : "미혼");
 		return "redirect:/user/mypage?Email="+email;
 	}
 	

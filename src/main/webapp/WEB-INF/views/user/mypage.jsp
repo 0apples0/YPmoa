@@ -41,9 +41,8 @@
 							<div class="col-md-3_b">
 							<label for="isWork">취업상태</label>
 							<select class="form-select" name="isWork">
-							<option value="<%= user.getIsWork() %>"><%= user.getIsWork() %></option>
-							    <option value="1">취업</option>
-							    <option value="0">미취업</option>
+							    <option value="0" ${user.getIsWork() == 0 ? 'selected' : ''}>미취업</option>
+							    <option value="1" ${user.getIsWork() == 1 ? 'selected' : ''}>취업</option>
 							</select>
 							</div>
 							<div class="col-md-3_b">
@@ -55,19 +54,19 @@
 							</div>
 							<div class="col-md-3_b">
 								<label for="income">소득범위</label>
-								<select class="form-select" name="income">
-								   <option value="<%= user.getIncome() %>"><%= user.getIncome() %></option>
-								   <option value="0">소득없음</option>
-								   <option value="200">세전 월 200만원 미만</option>
-								   <option value="300">세전 월 200만원 이상 300만원 미만</option>
-								</select>
+							<select class="form-select" name="income">
+							    <option value="0" ${user.getIncome() == 0 ? 'selected' : ''}>소득없음</option>
+							    <option value="200" ${user.getIncome() == 200 ? 'selected' : ''}>세전 월 200만원 미만</option>
+							    <option value="300" ${user.getIncome() == 300 ? 'selected' : ''}>세전 월 300만원 미만</option>
+							    <option value="400" ${user.getIncome() == 400 ? 'selected' : ''}>세전 월 400만원 미만</option>
+							    <option value="500" ${user.getIncome() >= 400 ? 'selected' : ''}>세전 월 400만원 이상</option>
+							</select>
 							</div>
 							<div class="col-md-3_b">
 							<label for="isMarry">결혼여부</label>
 							<select class="form-select" name="isMarry">
-								<option value="<%= user.getIsMarry() %>"><%= user.getIsMarry() %></option>
-							    <option value="0" >미혼</option>
-							    <option value="1" >기혼</option>
+							    <option value="0" ${user.getIsMarry() == 0 ? 'selected' : ''}>미혼</option>
+							    <option value="1" ${user.getIsMarry() == 1 ? 'selected' : ''}>기혼</option>
 							</select>
 							</div>
 							<div class="col-md-3_b">
