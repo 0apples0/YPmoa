@@ -20,7 +20,7 @@
             UserVO user = (UserVO) session.getAttribute("user");
             if (user != null) {
         %>
-<form method="post" action="/user/modify">
+<form method="post" action="/user/modify" id="modifyForm">
 	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
 			<div class="bg-white mypage_shadow" style="padding: 35px;">
@@ -82,7 +82,7 @@
 						</div>
 					</div>
 					<div class="col-md-2">
-						<button type="submit" class="btn btn-primary w-100">저장하기</button>
+						<button type="button" class="btn btn-primary w-100" id="saveButton">저장하기</button>
 					</div>
 				</div>
 			</div>
@@ -164,9 +164,8 @@
 	
 $(document).ready(function() {
     // 각 중복 체크 상태를 저장하는 변수들
-    var idCheckDone = false;
-    var phoneCheckDone = false;
-    var nickCheckDone = false;
+    var phoneCheckDone = true;
+    var nickCheckDone = true;
 	
     // 페이지가 로드되면 실행될 코드
     var addressOption = $('#address'); // id가 "address"인 option 요소 선택
@@ -234,36 +233,10 @@ $(document).ready(function() {
         });
     });
 
-    // 수정완료 버튼 클릭 시
-    $("#mod_regiBtn").on("click", function (e) {
-        e.preventDefault();
-    
-        // 여기에서 필요한 수정완료 유효성 검사 로직을 추가
-    
-        // Ajax를 이용하여 서버에 수정완료 요청
-        $.ajax({
-            type: "POST",
-            url: "/user/mypage",  // 실제 서버의 처리 URL로 변경해야 합니다.
-            data: {
-                Email: $(".regi_sub_form-control[name='Email']").val(),
-                phone: $(".regi_sub_form-control[name='phone']").val(),
-                name: $(".regi_pwd_form-control[name='name']").val(),
-                nick: $(".regi_sub_form-control[name='nick']").val()
-            },
-            success: function (response) {
-                alert("정보수정이 완료되었습니다.");
-                window.location.href = "/";
-            },
-            error: function (error) {
-                console.error("정보수정 중 오류가 발생했습니다.", error);
-                alert("정보수정 중 오류가 발생했습니다.");
-            }
-        });
-    });
 
     // 수정완료 버튼을 활성화 또는 비활성화하는 함수
     function enableOrDisableRegisterButton() {
-        var allChecksDone = idCheckDone && phoneCheckDone && nickCheckDone;
+        var allChecksDone =  phoneCheckDone && nickCheckDone;
         var allInputsFilled = true;
     
         $(".regi_sub_form-control, .regi_pwd_form-control, .phone-mask").each(function () {
@@ -289,6 +262,28 @@ $(document).ready(function() {
     function disableRegisterButton() {
         $("#mod_regiBtn").prop("disabled", true);
     }
+    
+    $("#saveButton").on("click", function () {
+        // 여기에 저장하기 버튼 클릭 시 실행할 로직을 추가
+        // Ajax를 이용하여 서버에 저장 요청
+        $.ajax({
+            type: "POST",
+            url: "/user/modinfo", // form의 action 속성 값 사용
+            data: $("#modifyForm").serialize(), // form 데이터를 직렬화하여 전송
+            success: function (response) {
+                // 성공적으로 처리되었을 때의 로직을 추가
+                alert("저장되었습니다.");
+                location.reload();
+            },
+            error: function (error) {
+                // 오류 발생 시의 로직을 추가
+                console.error("저장 중 오류가 발생했습니다.", error);
+                alert("저장 중 오류가 발생했습니다.");
+            }
+        });
+    });
+    
+    
 });
 
 </script>

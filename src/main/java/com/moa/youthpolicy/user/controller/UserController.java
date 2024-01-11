@@ -54,6 +54,13 @@ public class UserController {
 		return "redirect:/user/mypage?Email="+email;
 	}
 	
+	@ResponseBody
+	@PostMapping("/modinfo")
+	public boolean modinfo (UserVO vo) {
+		log.info("controller : "+ vo.toString());
+		return service.modinfo(vo);
+	}
+	
 	@GetMapping({"/remove","/modify"})
 	public void get(@RequestParam("Email") String Email, Model model) {
 		model.addAttribute("vo", userService.get(Email));
@@ -161,7 +168,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/chkNickname")
 	public boolean chkID(@RequestParam String nick) {
-		return userService.chkEmail(nick);
+		return userService.chkNick(nick);
 	}
 	
 	@ResponseBody
