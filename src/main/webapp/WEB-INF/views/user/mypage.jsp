@@ -277,6 +277,7 @@ $(document).ready(function() {
         }
     }
     
+    
     // 수정완료 버튼을 활성화하는 함수
     function enableRegisterButton() {
         $("#mod_regiBtn").prop("disabled", false);
