@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class UserService implements UserGenericService {
 	private static final String NCLIENTID = "rzR7mIoFeu6WT0A7uoHD";
 	private static final String NREDIRECT_URI = "http://localhost:8090/index";
 	private static final String NSECRET = "GPSQ2FGPUb";
+    private UserVO currentUser;
 	
 	@Value("${google.url}")
 	private String googleUrl;
@@ -64,8 +66,43 @@ public class UserService implements UserGenericService {
 	@Autowired
 	UserMapper mapper;
 	
+    public UserVO initCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserVO currentUser = new UserVO();
+        currentUser.setEmail((String) session.getAttribute("userEmail"));
+        String currentPassword = request.getParameter("currentPassword");
+        currentUser.setPW(currentPassword);
+        return currentUser;
+    }
+    
+    // 사용자 정보 가져오기
+    @Override
+    public UserVO getCurrentUser() {
+        return currentUser;
+    }
+    
+    public UserVO getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session != null) {
+            return (UserVO) session.getAttribute("user");
+        }
+        return null;
+    }
 
-	
+    // 비밀번호 업데이트
+    @Override
+    public boolean updatePassword(UserVO user, String currentPassword, String newPassword) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("Email", user.getEmail());
+        paramMap.put("currentPassword", currentPassword);
+        paramMap.put("newPassword", newPassword);
+
+        int updatedRows = mapper.updatePassword(paramMap);
+
+        return updatedRows > 0;
+    }
+    	
 	
 	public boolean chkEmail(String email) {
 		UserVO vo = mapper.selectUserByEmail(email);
@@ -77,13 +114,22 @@ public class UserService implements UserGenericService {
 		return vo == null;
 	}
 	
+	// 전화번호 문자열로 변경
 	public boolean chkPhone(String phoneNumber) {
-		int phone = Integer.parseInt(phoneNumber);
+		String phone = phoneNumber;
 		UserVO vo = mapper.chkPhone(phone);
 		return vo == null;
 	}
 	
-	
+	public boolean modinfo(UserVO vo) {
+		log.info("service : "+ vo.toString());
+		int rowsUpdated = mapper.modinfo(vo);
+		if(rowsUpdated > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	public UserVO get(String email) {
 		UserVO user = mapper.selectUserByEmail(email);
@@ -95,8 +141,9 @@ public class UserService implements UserGenericService {
 		mapper.update(modifyUser);
 	}
 
+	// 회원탈퇴
 	public void removeUser(String email) {
-		// TODO Auto-generated method stub
+		mapper.removeUser(email);
 
 	}
 	
@@ -236,12 +283,13 @@ public class UserService implements UserGenericService {
 	    }
 
 	    String email = naverProfileResponse.getResponse().getEmail();
+	    // 전화번호 문자열로 변경
 	    String phone = naverProfileResponse.getResponse().getMobile();
 	   
 	    String name = naverProfileResponse.getResponse().getName();
 	    UserVO uservo = new UserVO();
 	    uservo.setEmail(email);
-	    uservo.setPhone(Integer.parseInt(phone.replaceAll("-","")));
+	    uservo.setPhone(phone.replaceAll("-","")); // 전화번호 문자열로 변경
 	    
 	    uservo.setName(name);
 	    uservo.setNick(name);
@@ -324,14 +372,5 @@ public class UserService implements UserGenericService {
 		return uservo;
 	}
 
-	public boolean modinfo(UserVO vo) {
-		log.info("service : "+ vo.toString());
-		int rowsUpdated = mapper.modinfo(vo);
-		if(rowsUpdated > 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
 
 }

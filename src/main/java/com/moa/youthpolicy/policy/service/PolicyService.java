@@ -51,13 +51,19 @@ public class PolicyService implements BoardGenericService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/*
 	@Override
 	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+*/
+	@Override
+	public <T> List<T> getPage(Criteria cri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public int getTotalAmount(Criteria cri) {
 		// TODO Auto-generated method stub

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -29,11 +30,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @Log4j
 public class UserController {
-	private final UserService userService;
-	@Autowired
-	UserMapper mapper;
-	@Autowired
-	UserService service;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
 	@GetMapping("/mypage")
 	public String getMypage(@RequestParam("Email") String Email, HttpSession httpSession, Model model) {
@@ -41,14 +39,13 @@ public class UserController {
 	    UserVO user = userService.get(Email);
 	    httpSession.setAttribute("user", user);
 	    model.addAttribute("user", user);
-	    log.info("User details - Email: " + user.getEmail());
 	    return "user/mypage";
 	}
 
 	@PostMapping("/mypage")
 	public String update(@ModelAttribute UserVO vo, Model model) {
 		String email = vo.getEmail();
-		service.modify(vo);
+		userService.modify(vo);
 		model.addAttribute("isWorkText", vo.getIsWork() == 1 ? "취업" : "미취업");
 		model.addAttribute("isMarryText", vo.getIsMarry() == 1 ? "기혼" : "미혼");
 		return "redirect:/user/mypage?Email="+email;
@@ -58,23 +55,39 @@ public class UserController {
 	@PostMapping("/modinfo")
 	public boolean modinfo (UserVO vo) {
 		log.info("controller : "+ vo.toString());
-		return service.modinfo(vo);
+		return userService.modinfo(vo);
 	}
 	
-	@GetMapping({"/remove","/modify"})
-	public void get(@RequestParam("Email") String Email, Model model) {
-		model.addAttribute("vo", userService.get(Email));
+	@GetMapping("/modify")
+	public String modPW(Model model) {
+		return "user/modify";
 	}
 	
-	@PostMapping("/modify")
-	public String modify(UserVO modifyUser, HttpSession session) {
-	    String email = modifyUser.getEmail();
-	    log.info("Controller : " + modifyUser.toString());
+	
+    @PostMapping("/modify")
+    public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
+                                 @RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 HttpServletRequest request,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model) {
+        boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
+        log.info("컨트롤러 : "+model);
+        if (passwordUpdated) {
+        	HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+        	redirectAttributes.addFlashAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다");
+            redirectAttributes.addFlashAttribute("isPasswordUpdated", true);
+            return "redirect:/user/login";
+        } else {
+        	redirectAttributes.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요");
+            return "redirect:/user/modify";
+        }
 
-	    userService.modify(modifyUser);
-	    log.info(email);
-	    return "redirect:/user/mypage?Email=" + email;
-	}
+    }
+	
     @GetMapping("/login")
     public void login() {
     	
@@ -86,12 +99,18 @@ public class UserController {
     }
 
 	@PostMapping("/remove")
-	public String remove(HttpSession httpSession, Model model) {
-	    String email = (String) httpSession.getAttribute("Email");
-	    userService.removeUser(email);
-	    httpSession.invalidate();
-	    log.info("회원탈퇴 : " + email);
-	    return "redirect:/index";
+	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	    UserVO currentUser = userService.getCurrentUser(request);
+	    if (currentUser != null) {
+	        String email = currentUser.getEmail();
+	        userService.removeUser(email);
+	        request.getSession().invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/user/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
+	        return "redirect:/user/login";
+	    }
 	}
 
 

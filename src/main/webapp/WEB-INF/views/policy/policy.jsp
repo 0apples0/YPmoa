@@ -98,11 +98,11 @@
                         <div class="row g-2 justify-content-center">
 
 
-                            <div class="col-md-5 policy_search_box">
-                                <div>
-                                    <input type="text" class="form-control datetimepicker-input"
+                            <div class="col-md-5 policy_search_box ">
+                               
+                                    <input type="text" class="form-control datetimepicker-input font_light"
                                         placeholder="검색어를 입력하세요" />
-                                </div>
+
                             </div>
 
 
@@ -168,12 +168,12 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드1.png" alt="">
+                            <a href="/policy/get"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드1.png" alt=""></a>
                             <div class="policy_wish_box">
                                 <div
                                     class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
 
-                                    <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_1"><img
+                                    <a class="btn btn-square mx-1 toggleLink" data-target="policy_heart_1"><img
                                             class="policy_heart" id="policy_heart_1"
                                             src="${pageContext.request.contextPath}/resources/img/addWish.png" /></a>
                                 </div>

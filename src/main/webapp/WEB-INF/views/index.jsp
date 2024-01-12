@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 수정 24.01.10 -->
+
 <%@include file="includes/header_guest.jsp" %>
 
         <!-- Carousel Start -->
@@ -131,7 +131,7 @@
                             </div>
                             <div class="table_section padding_infor_info" >
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover"  >
+                                    <table class="table table-hover index_table_a" style="text-align:left;" >
 
                                         <tbody>
                                             <tr>
@@ -177,7 +177,7 @@
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover" id="policy">
+                                    <table class="table table-hover index_table_a" id="policy" style="text-align:left;">
 
                                         <tbody>
                                             
@@ -196,7 +196,7 @@
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover index_table_b" style="text-align:left;">
 
                                         <tbody>
                                             <tr>
@@ -239,7 +239,7 @@
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover index_table_b" style="text-align:left;">
 
                                         <tbody>
                                             <tr>
@@ -304,16 +304,27 @@
     });
 
     function processData(data) {
-        // 테이블에 데이터 추가
+        // 테이블에 데이터 추가용
         $.each(data, function(index, policy) {
+        	
+            // 각 데이터에 대한 텍스트 길이 제한 
+            var maxTextLength = 20; // 적절한 길이로 조절
+
+            // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
+            var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
+
+            
             var row = "<tr>" +
                         "<td class='mini_board_bold'>" + policy.sprvsnInstNm + "</td>" +
-                        "<td>" + policy.policyNm + "</td>" +
+                        "<td class='ellipsis'>" + policyNmText + "</td>" +
                         "<td class='list_date'>" + policy.updtDt_date + "</td>" +
                      "</tr>";
             $("#policy").append(row);
         });
+
+        
     }
+
 </script>
 
 <%@include file="includes/footer.jsp" %>

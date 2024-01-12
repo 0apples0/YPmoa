@@ -5,8 +5,10 @@ import javax.servlet.http.HttpSession;
 import com.moa.youthpolicy.user.domain.UserVO;
 
 public interface UserGenericService {
-	public void delMember(UserVO vo); // È¸¿øÅ»Åð
-	public void modMember(UserVO vo); // È¸¿øÁ¤º¸ ¼öÁ¤
+	public void delMember(UserVO vo); // È¸ï¿½ï¿½Å»ï¿½ï¿½
+	public void modMember(UserVO vo); // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void logOut(UserVO vo);    
 	public boolean logIn(UserVO vo, HttpSession session);
+	UserVO getCurrentUser();
+	boolean updatePassword(UserVO user, String currentPassword, String newPassword);
 }

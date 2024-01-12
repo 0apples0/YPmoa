@@ -44,7 +44,7 @@ public class DbTest {
     	vo.setEmail("ttest");
     	vo.setName("test");
     	vo.setNick("ttest");
-    	vo.setPhone(111);
+    	vo.setPhone("111");
     	
     	userMapper.register(vo);
     }

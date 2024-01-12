@@ -4,31 +4,59 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	int userType; 		// �쉶�썝 ���엯(0: 愿�由ъ옄, 1: �씪諛섑쉶�썝)
-	String Email; 		// �씠硫붿씪(�븘�씠�뵒)
-	String PW;    		// 鍮꾨�踰덊샇
-	String name;  		// �씠由�
-	String nick;  		// �땳�꽕�엫
-	int phone;    		// �쟾�솕踰덊샇
+    int userType;       // 사용자 유형(0: 관리자, 1: 일반사용자)
+    String Email;       // 이메일(아이디)
+    String PW;          // 비밀번호
+    String name;        // 이름
+    String nick;        // 닉네임
+    String phone;       // 전화번호 (문자열로 변경)
 
-	String address;     // 
-	int age; 			// 留욎땄議곌굔: �굹�씠
-	int income; 		// 留욎땄議곌굔: �닔�엯
-	int isWork; 	// 留욎땄議곌굔: 痍⑥뾽 �쑀臾�
-	int isMarry; 	// 留욎땄議곌굔: 寃고샎 �쑀臾�
-	String interestField; // 留욎땄議곌굔: 愿��떖遺꾩빞
-	
-	int countReport;    // �떊怨� �떦�븳 �슏�닔 
+    String address;     // 주소
+    int age;            // 만 나이
+    int income;         // 소득
+    int isWork;         // 취업 상태
+    int isMarry;        // 결혼 여부
+    String interestField; // 관심 분야
 
+    int countReport;    // 신고당한 횟수
 
-	
-    public String getEmail() {
-        return Email;
+    // 새 비밀번호와 확인 비밀번호 관련 메서드 추가
+    private String newPassword;
+    private String confirmPassword;
+
+    // 비밀번호 필드와 관련된 메서드 수정
+    public String getPW() {
+        return PW;
     }
-    public void setEmail(String email) {
-        Email = email;
+
+    public void setPW(String pw) {
+        PW = pw;
     }
 
+    // 새 비밀번호 관련 메서드 수정
+    public String getNewPassword() {
+        return newPassword;
+    }
 
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
+    // 확인 비밀번호 관련 메서드 추가
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+    
+    // 추가: 전화번호 관련 메서드
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
