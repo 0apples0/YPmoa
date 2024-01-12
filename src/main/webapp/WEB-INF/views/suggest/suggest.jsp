@@ -9,9 +9,9 @@
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
-                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Community</h1>
+                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Suggest</h1>
 
-                    <p id="login_p">정책정보, 신청방법, 후기 등 꿀팁을 공유하세요!</p>
+                    <p id="login_p">새로운 정책이나 기존 정책에 대한 의견을 자유롭게 나눠보세요!</p>
 
 
 
@@ -20,8 +20,8 @@
         </div>
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase">Community</h6>
-            <h1 class="mb-5"><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
+            <h6 class="section-title text-center text-primary text-uppercase">Suggest</h6>
+            <h1 class="mb-5"><span class="text-primary text-uppercase">정책</span> 건의</h1>
         </div>
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -83,6 +83,9 @@
                                 <div class="col-md-auto">
                                     <button type="reset" class="btn btn-secondary ">초기화</button>
                                 </div>
+
+
+
                             </div>
 
                         </div>
@@ -296,86 +299,46 @@
     </div>
 
 
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.3s">
+        <div class="container">
+            <div class="row g-5"></div>
+            <div class="rounded p-4" id="footer_box">
+                <a href="#">
+                    <img src="${pageContext.request.contextPath}/resources/img/foot.svg" id="logo" /></a>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <!-- Footer End -->
+
+
     <script>
+        $(document).ready(function () {
+            // 좋아요 th를 클릭할 때마다 아이콘 변경
+            $("#commu_likeBtn").on("click", function () {
+                var icon = $(this).find("i");
+
+                if (icon.hasClass("fa-angle-up")) {
+                    // 현재가 오름차순이라면 내림차순으로 변경
+                    icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+                } else if (icon.hasClass("fa-angle-down")) {
+                    // 현재가 내림차순이라면 정렬 제거로 변경
+                    icon.removeClass("fa-angle-down").addClass("fa-sort");
+                } else {
+                    // 그 외의 경우는 오름차순으로 변경
+                    icon.removeClass("fa-sort").addClass("fa-angle-up");
+                }
 
 
-$(document).ready(function () {
-    // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
-    $("#commu_likeBtn").on("click", function () {
-        var icon = $(this).find("i");
-
-        if (icon.hasClass("fa-angle-up")) {
-            icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-        } else if (icon.hasClass("fa-angle-down")) {
-            icon.removeClass("fa-angle-down").addClass("fa-sort");
-        } else {
-            icon.removeClass("fa-sort").addClass("fa-angle-up");
-        }
-
-      
-    });
-    
-	function loadTableData(){
-		//Ajax:비동기 통신
-		// - 프로세스의 완료를 기다리지 않고 동시에 여러 작업을 처리
-		// - 전체 페이지를 새로고침하지 않고 필요한 부분만을 업데이트할 수 있다
-		// - 자원과 시간을 절약, 깜박거리거나 멈추지 않고 부드럽게 작동
-		
-		$.ajax({
-			url: "/community/community",// 요청할 서버 uri
-			type: "POST", //요청방식 지정
-			dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-			data:{
-				pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-				amount : $("#actionForm").find("input[name='amount']").val(),
-				type : $("#searchForm select[name='type']").val(),
-				keyword : $("#searchForm").find("input[name='keyword']").val()
-			},
-			success: function(data){
-				let boardTbody = $("#boardTable tbody");
-				// for문,,, for(let item of items)
-					
-				//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-				//for(let item of items) -> items == data, item ==board 역할
-				$.each(data, function(index, board){
-					let regDate=new Date(board.regDate);
-					// numeric: 숫자, 2-digit: 두자리 숫자 형식
-					let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-					let formateDate = regDate.toLocaleString("ko-KR", options);
-					
-					// 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-					// 동적으로 데이터 처리
-					let row = $("<tr>");
-					row.append($("<td>").text(board.bno));
-		
-					let titleLink = $("<a>").attr("href", "/board/get?bno="+board.bno).text(board.title);			
-					let titleTd = $("<td>").append(titleLink);
-					
-					row.append(titleTd);
-					row.append($("<td>").text(board.content));
-					row.append($("<td>").text(board.writer));
-					row.append($("<td>").text(board.regdate));
-					
-					boardTbody.append(row);
-				});
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-	}
-});
-
-
-
-
-
-
+            });
+        });
 
     </script>
-
-
-
-
 
 <%@include file="../includes/footer.jsp" %>
