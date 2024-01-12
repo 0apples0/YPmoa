@@ -441,6 +441,33 @@
 												false);
 									}
 								});
+						
+						
+					    // 아무 체크도 안했하거나 내용쓰지 않았을 때 선택버튼 비활성화
+			            $(".custom-control-input").change(updateReportButtonState);
+
+			            // textarea에 대한 이벤트 핸들러 등록
+			            $(".policyGet_reportDetail").on("input", updateReportButtonState);
+
+			            // 초기 상태 설정
+			            updateReportButtonState();
+
+			            function updateReportButtonState() {
+			                // 체크박스 중에서 하나라도 체크되어 있는지 여부 확인
+			                var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
+
+			                // textarea에 입력된 값이 있는지 여부 확인
+			                var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
+			                    return $(this).val().trim() !== "";
+			                }).length > 0;
+
+			                // 버튼 상태 업데이트
+			                $(".btn-primary").prop("disabled", !anyCheckboxChecked || !anyTextareaContent);
+			            }
+
+						
+						
+						
 
 					}); // document.ready함수
 </script>
