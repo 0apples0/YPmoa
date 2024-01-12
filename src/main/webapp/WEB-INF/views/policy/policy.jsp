@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <!-- Page Header End -->
+        <!-- Page Header Endd -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
             <h1 class="mb-5"><span class="text-primary text-uppercase">정책</span> 둘러보기 </h1>
