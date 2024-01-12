@@ -335,7 +335,7 @@
 					<div class="col mb-3">
 						<label class="form-label">신고내용</label>
 
-						<textarea id="textarea1" placeholder="신고내용을 작성해주세요"
+						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
 							class="policyGet_reportDetail font_light"></textarea>
 					</div>
 				</div>
