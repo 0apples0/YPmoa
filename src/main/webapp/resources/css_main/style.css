@@ -18,6 +18,10 @@
     font-family: 'LINESeedKR-Bd';
 }
 
+.font_light{
+    font-family: 'LINESeedKR-Bd_light';
+}
+
 :root {
     --primary: #16a9fe;
     --light: #F1F8FF;
@@ -518,8 +522,26 @@
 }
 
 /*** community ***/
+.policyGet_title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
 
 
+.policyGet_title div{
+    margin-left: auto;
+}
+
+.policy_get_heart{
+    width: 38px;
+    cursor: pointer;
+}
+
+.policy_dt_table th{
+    background-color: rgba(239, 239, 239, 0.401);
+}
 
 
 .commu_table tbody tr td{
@@ -530,32 +552,27 @@
     font-family: LINESeedKR-Bd_light;
 }
 
-.commu_table th {
+
+
+.commu_table th, .policy_dt_table td  {
     text-align: center;
+    vertical-align: middle;
 }
 
-.commu_table tbody tr td:first-child {
-    text-align: center;
-}
 
-.commu_table tbody tr td:last-child {
-    text-align: center;
-}
 
-.commu_table tbody tr td:nth-child(4) {
-    text-align: center;
-}
-
+.commu_table tbody tr td:first-child, .commu_table tbody tr td:last-child,
+ .commu_table tbody tr td:nth-child(2), .commu_table tbody tr td:nth-child(4),
 .commu_table tbody tr td:nth-child(5) {
+    
     text-align: center;
 }
 
-.commu_table tbody tr td:nth-child(2) {
-    text-align: center;
-}
 
 
-.commu_table tbody tr td:nth-child(2), #commu_likeBtn{
+
+
+.commu_table tbody tr td:nth-child(3), #commu_likeBtn{
     cursor: pointer;
 }
 
