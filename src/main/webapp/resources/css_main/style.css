@@ -604,6 +604,9 @@
     text-align: left !important;
 }
 
+.commu_table, .commu_table_a{
+    vertical-align: middle;
+}
 
 .commu_table_a{
 	text-align: left !important;
@@ -645,7 +648,7 @@
 
 
 .commu_table thead tr th:nth-child(1) {
-    width: 10%;
+    width: 9%;
 }
 .commu_table thead tr th:nth-child(3) {
     width: 30%;
