@@ -45,7 +45,7 @@
                                         -->
 								<div id="policyGet_heart_box">
 									<img
-										src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addWish.png"
+										src="${pageContext.request.contextPath}/resources/img/addWish.png"
 										class="policy_get_heart" id="policyGet_heartBtn" />
 								</div>
 							</div>
@@ -136,7 +136,7 @@
 									<tbody>
 										<tr style="text-align: center;">
 											<td colspan="4"><img style="width: 80%;"
-												src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/카드1.png" />
+												src="${pageContext.request.contextPath}/resources/img/카드1.png" />
 
 											</td>
 
@@ -165,7 +165,7 @@
 								<div style="display: flex;" class="policyGet_likeBox">
 									<div class="g-4 policyGet_letter">좋아요</div>
 									<a> <img
-										src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png"
+										src="${pageContext.request.contextPath}/resources/img/addLike.png"
 										class="policyGet_likeBtn"
 										style="width: 38px; cursor: pointer;" /></a>
 									<div class="g-4">
@@ -224,10 +224,10 @@
 											<td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
 											<td>2024-01-05</td>
 											<td><a><img class="commu_like policyGet_like"
-													src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
+													src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
 												<span>32</span>개</td>
 											<td><img class="policyGet_report"
-												src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/report.png"
+												src="${pageContext.request.contextPath}/resources/img/report.png"
 												style="width: 20px;" /> <a href="#"
 												class="policyGet_report">신고</a></td>
 										</tr>
@@ -238,10 +238,10 @@
 											<td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
 											<td>2024-01-05</td>
 											<td><img class="commu_like policyGet_like"
-												src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png" />
+												src="${pageContext.request.contextPath}/resources/img/addLike.png" />
 												<span>32</span>개</td>
 											<td><img class="policyGet_report"
-												src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/report.png"
+												src="${pageContext.request.contextPath}/resources/img/report.png"
 												style="width: 20px;" /> <a href="#"
 												class="policyGet_report">신고</a></td>
 										</tr>
