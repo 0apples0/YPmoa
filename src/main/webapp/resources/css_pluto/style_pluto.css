@@ -949,13 +949,11 @@ a[data-toggle="collapse"] {
     float: left;
     padding: 0 0 20px 0;
     width: 100%;
-    margin-top: 50px;
 }
 
 .graph_head .heading1 {
     float: left;
     padding: 0;
-    width: auto;
 }
 
 .heading2 {
@@ -2979,6 +2977,7 @@ table.projects tr td:first-child {
 
 .table-responsive-sm {
     overflow: auto;
+    text-align: center;
 }
 
 

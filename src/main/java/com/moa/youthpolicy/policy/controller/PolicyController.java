@@ -36,6 +36,9 @@ public class PolicyController {
 	public void policy() {
 		
 	}
-	
+	@GetMapping("/get")
+	public void getpolicy() {
+		
+	}	
 	
 }

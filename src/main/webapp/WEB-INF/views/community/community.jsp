@@ -30,7 +30,7 @@
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="resources/img/search.png" /></h3>
+                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
 
                     </div>
@@ -85,7 +85,7 @@
                                 <div class="row policy_row g-2">
 
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control datetimepicker-input"
+                                        <input type="text" class="form-control datetimepicker-input font_light"
                                             placeholder="검색어를 입력하세요" />
                                     </div>
                                 </div>
@@ -171,7 +171,106 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-<%-- 추가추가 --%>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.comjohn@example.comjohn@example.com
+                                                </td>
+                                                <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>ㅇ안녕하세요ㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇ</td>
+                                                <td>aaaaaaaaaaaaaaaaaaaaaa</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>3</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>John</td>
+                                                <td><a href="#"></a>john@example.com</td>
+                                                <td>john@example.com</td>
+                                                <td>2024-01-05</td>
+                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <span>32</span>개
+                                                </td>
+
                                             </tr>
 
                                         </tbody>
@@ -235,18 +334,15 @@
 
 
 $(document).ready(function () {
-    // 좋아요 th를 클릭할 때마다 아이콘 변경
+    // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
     $("#commu_likeBtn").on("click", function () {
         var icon = $(this).find("i");
 
         if (icon.hasClass("fa-angle-up")) {
-            // 현재가 오름차순이라면 내림차순으로 변경
             icon.removeClass("fa-angle-up").addClass("fa-angle-down");
         } else if (icon.hasClass("fa-angle-down")) {
-            // 현재가 내림차순이라면 정렬 제거로 변경
             icon.removeClass("fa-angle-down").addClass("fa-sort");
         } else {
-            // 그 외의 경우는 오름차순으로 변경
             icon.removeClass("fa-sort").addClass("fa-angle-up");
         }
 
