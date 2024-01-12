@@ -289,14 +289,13 @@ $(document).ready(function() {
     $("#user_delBtn").on("click",function(){
         var isConfirmed = confirm("정말 탈퇴하시겠습니까?");
         if (isConfirmed) {
-            // 회원 탈퇴를 서버에 요청
             $.ajax({
                 type: "POST",
-                url: "/user/remove", // 탈퇴를 처리하는 컨트롤러 메소드 주소
+                url: "/user/remove", 
                 success: function (response) {
                     // 회원 탈퇴 성공 시
                     alert("회원탈퇴가 완료되었습니다.");
-                    window.location.href = "/user/login"; // 로그인 페이지로 이동
+                    window.location.href = "/user/login"; 
                 },
                 error: function (error) {
                     // 회원 탈퇴 실패 시
