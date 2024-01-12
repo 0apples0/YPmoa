@@ -32,6 +32,13 @@
 							        %>
                                     <form action="/user/modify" method="post" id="pwUpdate" name="pwUpdate">
 									    <div class="row mb-3">
+											<div class="col-sm-10">
+												<div class="input-group input-group-merge">
+													<input type="text" class="regi_pwd_form-control" hidden="hidden" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
+												</div>
+											</div>
+										</div>
+									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">현재 비밀번호</label>
 									        <div class="col-sm-10">
 									            <div class="input-group input-group-merge">
@@ -43,14 +50,6 @@
 									            </div>
 									        </div>
 									    </div>
-									    <div class="row mb-3">
-											<label class="col-sm-2 col-form-label field" for="basic-default-email">아이디</label>
-											<div class="col-sm-10">
-												<div class="input-group input-group-merge">
-													<input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
-												</div>
-											</div>
-										</div>
 									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label">새 비밀번호</label>
 									        <div class="col-sm-10">
@@ -98,19 +97,31 @@
     </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var pwUpdateForm = document.getElementById("pwUpdate");
-
-        pwUpdateForm.addEventListener("submit", function (event) {
-            var newPassword = pwUpdateForm.elements["newPassword"].value;
-            var confirmPassword = pwUpdateForm.elements["confirmPassword"].value;
-
-            if (newPassword !== confirmPassword) {
-                alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-                event.preventDefault(); // 폼 전송 막기
+	document.addEventListener("DOMContentLoaded", function () {
+	    var pwUpdateForm = document.getElementById("pwUpdate");
+	
+	    pwUpdateForm.addEventListener("submit", function (event) {
+	    	var dbPassword = "<%= user.getPW() %>";
+	        var currentPassword = pwUpdateForm.elements["currentPassword"].value;
+	        var newPassword = pwUpdateForm.elements["newPassword"].value;
+	        var confirmPassword = pwUpdateForm.elements["confirmPassword"].value;
+            var isPasswordUpdated = [[${flash.isPasswordUpdated}]];
+            
+            if (currentPassword !== dbPassword) {
+                alert("현재 비밀번호가 올바르지 않습니다. 다시 확인해주세요.");
+                event.preventDefault(); 
+            }else if (currentPassword == newPassword) {
+	            alert("현재 비밀번호와 새 비밀번호가 동일합니다");
+	            event.preventDefault();
+	        }else if (newPassword !== confirmPassword) {
+	            alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다");
+	            event.preventDefault();
+	        }else if (isPasswordUpdated) {
+                alert("비밀번호가 성공적으로 업데이트되었습니다");
             }
-        });
-    });
+	    });
+	});
 </script>
+
 <!-- Booking End -->
    <%@include file="../includes/footer.jsp" %>

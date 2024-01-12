@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -67,14 +68,16 @@ public class UserController {
     public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
                                  @RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
+                                 RedirectAttributes redirectAttributes,
                                  Model model) {
         boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
         log.info("컨트롤러 : "+model);
         if (passwordUpdated) {
-            model.addAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다!!");
+        	redirectAttributes.addFlashAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다");
+            redirectAttributes.addFlashAttribute("isPasswordUpdated", true);
             return "redirect:/user/login";
         } else {
-            model.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요.");
+        	redirectAttributes.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요.");
             return "redirect:/user/modify";
         }
 
