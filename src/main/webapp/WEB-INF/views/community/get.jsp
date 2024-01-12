@@ -26,7 +26,7 @@
 
 
                 <div class="row g-4">
-                    <div class="wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="wow fadeIn" data-wow-delay="0.1s">
 
                         <!-- table section -->
                         <div class="col-md-12">
@@ -120,7 +120,7 @@
 
 
                 <div class="row g-4">
-                    <div class="wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="wow fadeIn" data-wow-delay="0.01s">
                         <h3 style="margin-left: 30px;">댓글</h3>
                         <div style="display: flex; justify-content: center;">
                             <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
