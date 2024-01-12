@@ -43,7 +43,7 @@
                                             그리고 이 버튼이 policy게시판의 하트에서도 반영되어야해여..
                                         -->
                                         <div id="policyGet_heart_box">
-                                            <img src="resources/img/addWish.png" class="policy_get_heart"
+                                            <img src="${pageContext.request.contextPath}/resources/img/addWish.png" class="policy_get_heart"
                                                 id="policyGet_heartBtn" />
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                             <tbody>
                                                 <tr style="text-align: center;">
                                                     <td colspan="4">
-                                                        <img style="width: 80%;" src="resources/img/카드1.png" />
+                                                        <img style="width: 80%;" src="${pageContext.request.contextPath}/resources/img/카드1.png" />
 
                                                     </td>
 
@@ -188,7 +188,7 @@
                                         <div style="display: flex;" class="policyGet_likeBox">
                                             <div class="g-4 policyGet_letter">
                                                 좋아요</div>
-                                            <a> <img src="resources/img/addLike.png" class="policyGet_likeBtn"
+                                            <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
                                                     style="width: 38px; cursor: pointer;" /></a>
                                             <div class="g-4">
                                                 <span class="policyGet_likeCount">3</span>
@@ -247,11 +247,11 @@
                                                     <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
                                                     <td>2024-01-05</td>
                                                     <td><a><img class="commu_like policyGet_like"
-                                                                src="resources/img/addLike.png" /></a>
+                                                                src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
                                                         <span>32</span>개
                                                     </td>
                                                     <td><a href="#">
-                                                            <img class="policyGet_report" src="resources/img/report.png"
+                                                            <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
                                                                 style="width: 20px;" />
                                                             신고</a>
                                                     </td>
@@ -265,11 +265,11 @@
                                                     <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
                                                     <td>2024-01-05</td>
                                                     <td><img class="commu_like policyGet_like"
-                                                            src="resources/img/addLike.png" />
+                                                            src="${pageContext.request.contextPath}/resources/img/addLike.png" />
                                                         <span>32</span>개
                                                     </td>
                                                     <td><a href="#">
-                                                            <img class="policyGet_report" src="resources/img/report.png"
+                                                            <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
                                                                 style="width: 20px;" />
                                                             신고</a>
                                                     </td>
@@ -339,7 +339,7 @@
             $(document).ready(function () {
                 $("#policyGet_heartBtn").click(function () {
                     var currentSrc = $("#policyGet_heartBtn").attr("src");
-                    var newSrc = (currentSrc === "resources/img/addWish.png") ? "resources/img/checkWish.png" : "resources/img/addWish.png";
+                    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
                     $("#policyGet_heartBtn").attr("src", newSrc);
                 });
 
@@ -348,7 +348,7 @@
 
                 $(".policyGet_likeBtn").click(function () {
                     var currentSrc = $(".policyGet_likeBtn").attr("src");
-                    var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
+                    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
                     $(".policyGet_likeBtn").attr("src", newSrc);
                 });
 
@@ -356,7 +356,7 @@
                 // 댓글 좋아요 버튼 클릭 시 이미지 변경
                 $(".commu_like").click(function () {
                     var currentSrc = $(this).attr("src");
-                    var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
+                    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
                     $(this).attr("src", newSrc);
                 });
 
