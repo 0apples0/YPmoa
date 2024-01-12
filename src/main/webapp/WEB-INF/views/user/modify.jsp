@@ -44,6 +44,14 @@
 									        </div>
 									    </div>
 									    <div class="row mb-3">
+											<label class="col-sm-2 col-form-label field" for="basic-default-email">아이디</label>
+											<div class="col-sm-10">
+												<div class="input-group input-group-merge">
+													<input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
+												</div>
+											</div>
+										</div>
+									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label">새 비밀번호</label>
 									        <div class="col-sm-10">
 									            <div class="input-group input-group-merge">
