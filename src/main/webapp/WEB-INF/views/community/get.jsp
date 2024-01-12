@@ -287,20 +287,13 @@
 
 
     <script>
-        // 위시 버튼 클릭 시 이미지 변경
         $(document).ready(function () {
-            $("#policyGet_heartBtn").click(function () {
-                var currentSrc = $("#policyGet_heartBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-                $("#policyGet_heartBtn").attr("src", newSrc);
-            });
-
-
+          
             // 좋아요 버튼 클릭 시 이미지 변경
 
             $(".policyGet_likeBtn").click(function () {
                 var currentSrc = $(".policyGet_likeBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
                 $(".policyGet_likeBtn").attr("src", newSrc);
             });
 
@@ -308,7 +301,7 @@
             // 댓글 좋아요 버튼 클릭 시 이미지 변경
             $(".commu_like").click(function () {
                 var currentSrc = $(this).attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
                 $(this).attr("src", newSrc);
             });
 
@@ -334,13 +327,10 @@
 
             // 기타 항목에 체크했을 때만 입력창 활성화
             $(".custom-control-input").change(function () {
-                // 해당 체크박스가 체크되었는지 여부 확인
                 var isChecked = $(this).prop("checked");
 
-                // 모든 textarea 요소 비활성화
                 $(".policyGet_reportDetail").prop("disabled", true);
 
-                // 체크된 체크박스에 해당하는 textarea만 활성화
                 if (isChecked) {
                     var textareaId = $(this).data("textarea-id");
                     $("#" + textareaId).prop("disabled", false);
@@ -349,27 +339,36 @@
 
 
             // 아무 체크도 안했을 때 선택버튼 비활성화
-            // 각 체크박스 요소에 대한 이벤트 핸들러 등록
             $(".custom-control-input").change(updateReportButtonState);
 
-            // textarea에 대한 이벤트 핸들러 등록
             $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
 
-            // 초기 상태 설정
+         
             updateReportButtonState();
 
             function updateReportButtonState() {
-                // 체크박스 중에서 하나라도 체크되어 있는지 여부 확인
                 var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
 
-                // textarea에 입력된 값이 있는지 여부 확인
                 var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
                     return $(this).val().trim() !== "";
                 }).length > 0;
 
-                // 버튼 상태 업데이트
                 $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
             }
+
+
+            // 댓글창 내용 있어야 버튼 활성화
+            var commentInput = $(".form-control");
+            var submitButton = $(".btn-primary");
+
+            commentInput.on("input", function () {
+                var isInputNotEmpty = commentInput.val().trim().length > 0;
+
+                submitButton.prop("disabled", !isInputNotEmpty);
+            });
+
+
+
 
 
         }); // document.ready함수
