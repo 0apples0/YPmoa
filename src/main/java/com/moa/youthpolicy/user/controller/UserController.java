@@ -71,7 +71,7 @@ public class UserController {
         boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
         log.info("컨트롤러 : "+model);
         if (passwordUpdated) {
-            model.addAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다");
+            model.addAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다!!");
             return "redirect:/user/login";
         } else {
             model.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요.");
