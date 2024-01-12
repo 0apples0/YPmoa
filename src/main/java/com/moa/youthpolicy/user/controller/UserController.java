@@ -68,11 +68,16 @@ public class UserController {
     public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
                                  @RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
+                                 HttpServletRequest request,
                                  RedirectAttributes redirectAttributes,
                                  Model model) {
         boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
         log.info("컨트롤러 : "+model);
         if (passwordUpdated) {
+        	HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
         	redirectAttributes.addFlashAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다");
             redirectAttributes.addFlashAttribute("isPasswordUpdated", true);
             return "redirect:/user/login";
