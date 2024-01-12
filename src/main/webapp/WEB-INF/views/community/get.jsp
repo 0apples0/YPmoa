@@ -84,7 +84,7 @@
                                         <div style="display: flex;" class="commuGet_likeBox">
                                             <div class="g-4 policyGet_letter">
                                                 좋아요</div>
-                                            <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
+                                            <a> <img src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
                                                     style="width: 38px; cursor: pointer;" /></a>
                                             <div class="g-4">
                                                 <span class="policyGet_likeCount">3</span>
@@ -144,11 +144,11 @@
                                                     <td>ㄹㅇ</td>
                                                     <td>2024-02-11</td>
                                                     <td><a><img class="commu_like policyGet_like"
-                                                                src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
+                                                                src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
                                                         <span>32</span>개
                                                     </td>
                                                     <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/report.png"
                                                             style="width: 20px;" />
                                                         <a href="#" class="policyGet_report">신고</a>
                                                     </td>
@@ -161,11 +161,11 @@
                                                     <td>ㅇㅇ</td>
                                                     <td>2024-02-11</td>
                                                     <td><img class="commu_like policyGet_like"
-                                                            src="${pageContext.request.contextPath}/resources/img/addLike.png" />
+                                                            src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/addLike.png" />
                                                         <span>32</span>개
                                                     </td>
                                                     <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/img/report.png"
                                                             style="width: 20px;" />
                                                         <a href="#" class="policyGet_report">신고</a>
                                                     </td>
@@ -293,7 +293,7 @@
 
             $(".policyGet_likeBtn").click(function () {
                 var currentSrc = $(".policyGet_likeBtn").attr("src");
-                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
+                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
                 $(".policyGet_likeBtn").attr("src", newSrc);
             });
 
@@ -301,7 +301,7 @@
             // 댓글 좋아요 버튼 클릭 시 이미지 변경
             $(".commu_like").click(function () {
                 var currentSrc = $(this).attr("src");
-                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
+                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
                 $(this).attr("src", newSrc);
             });
 
