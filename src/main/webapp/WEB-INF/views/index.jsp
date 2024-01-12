@@ -304,7 +304,7 @@
     });
 
     function processData(data) {
-        // 테이블에 데이터 추가
+        // 테이블에 데이터 추가용
         $.each(data, function(index, policy) {
         	
             // 각 데이터에 대한 텍스트 길이 제한 
