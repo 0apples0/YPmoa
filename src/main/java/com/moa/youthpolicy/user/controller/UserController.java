@@ -82,7 +82,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("isPasswordUpdated", true);
             return "redirect:/user/login";
         } else {
-        	redirectAttributes.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요.");
+        	redirectAttributes.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요");
             return "redirect:/user/modify";
         }
 
