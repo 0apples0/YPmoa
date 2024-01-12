@@ -20,7 +20,7 @@
             UserVO user = (UserVO) session.getAttribute("user");
             if (user != null) {
         %>
-<form method="post" action="/user/modify" id="modifyForm">
+<form method="post" action="/user/mypage" id="modifyForm">
 	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container">
 			<div class="bg-white mypage_shadow" style="padding: 35px;">
@@ -100,44 +100,41 @@
 							<div class="col-xxl login_section">
 								<div class=" mb-4">
 									<div id="card-body">
-									
-											<div class="row mb-3">
-												<label class="col-sm-2 col-form-label field" for="basic-default-email">아이디</label>
-												<div class="col-sm-10">
-													<div class="input-group input-group-merge">
-														<input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
-													</div>
+										<div class="row mb-3">
+											<label class="col-sm-2 col-form-label field" for="basic-default-email">아이디</label>
+											<div class="col-sm-10">
+												<div class="input-group input-group-merge">
+													<input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
 												</div>
 											</div>
-											<div class="row mb-3">
-												<label class="col-sm-2 col-form-label" for="basic-default-company">이름</label>
-												<div class="col-sm-10" id="regi_input">
-													<input type="text" class="regi_pwd_form-control" required id="name" name="name" value="<%=user.getName()%>" />
-												</div>
+										</div>
+										<div class="row mb-3">
+											<label class="col-sm-2 col-form-label" for="basic-default-company">이름</label>
+											<div class="col-sm-10" id="regi_input">
+												<input type="text" class="regi_pwd_form-control" required id="name" name="name" value="<%=user.getName()%>" />
 											</div>
-											<div class="row mb-3">
-												<label class="col-sm-2 col-form-label" for="basic-default-phone">연락처</label>
-												<div class="col-sm-10">
-													<input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%=user.getPhone()%>" aria-describedby="basic-default-phone" />
-													<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
-												</div>
+										</div>
+										<div class="row mb-3">
+											<label class="col-sm-2 col-form-label" for="basic-default-phone">연락처</label>
+											<div class="col-sm-10">
+												<input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%= user.getPhone().toString() %>" aria-describedby="basic-default-phone" />
+												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
-											<div class="row mb-3">
-												<label class="col-sm-2 col-form-label" for="basic-default-company">닉네임</label>
-												<div class="col-sm-10">
-													<input type="text" class="regi_sub_form-control" required id="nick" name="nick" 
-													value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
-													<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
-												</div>
+										</div>
+										<div class="row mb-3">
+											<label class="col-sm-2 col-form-label" for="basic-default-company">닉네임</label>
+											<div class="col-sm-10">
+												<input type="text" class="regi_sub_form-control" required id="nick" name="nick" 
+												value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
+												<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 											</div>
-
-											<div class="col-sm-12" id="regi_btn">
-												<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
-												<button type="button" class="btn btn-primary" id="regi_regiBtn">비밀번호 변경</button>
-												<button type="reset" class="btn btn-primary" id="regi_regiBtn">초기화</button>
-												<button type="button" class="btn btn-warning">회원탈퇴</button>
-											</div>
-										
+										</div>
+										<div class="col-sm-12" id="regi_btn">
+											<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
+											<button type="button" class="btn btn-primary" id="modpw_regiBtn">비밀번호 변경</button>
+											<button type="reset" class="btn btn-primary" id="regi_regiBtn">초기화</button>
+											<button type="button" class="btn btn-warning">회원탈퇴</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -185,7 +182,7 @@ $(document).ready(function() {
         // Ajax를 이용하여 서버에 연락처 중복 체크 요청
         $.ajax({
             type: "POST",
-            url: "/user/chkPhone",  // 실제 서버의 처리 URL로 변경해야 합니다.
+            url: "/user/chkPhone", 
             data: { phone: phoneNumber },
             success: function (response) {
                 if (response) {
@@ -213,7 +210,7 @@ $(document).ready(function() {
         // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
         $.ajax({
             type: "POST",
-            url: "/user/chkNickname",  // 실제 서버의 처리 URL로 변경해야 합니다.
+            url: "/user/chkNickname", 
             data: { nick: nickname },
             success: function (response) {
                 if (response) {
@@ -264,28 +261,29 @@ $(document).ready(function() {
     }
     
     $("#saveButton").on("click", function () {
-        // 여기에 저장하기 버튼 클릭 시 실행할 로직을 추가
-        // Ajax를 이용하여 서버에 저장 요청
         $.ajax({
             type: "POST",
-            url: "/user/modinfo", // form의 action 속성 값 사용
-            data: $("#modifyForm").serialize(), // form 데이터를 직렬화하여 전송
+            url: "/user/modinfo", 
+            data: $("#modifyForm").serialize(),
             success: function (response) {
-                // 성공적으로 처리되었을 때의 로직을 추가
                 alert("저장되었습니다.");
                 location.reload();
             },
             error: function (error) {
-                // 오류 발생 시의 로직을 추가
                 console.error("저장 중 오류가 발생했습니다.", error);
                 alert("저장 중 오류가 발생했습니다.");
             }
         });
     });
     
+    document.getElementById("modpw_regiBtn").addEventListener("click", function() {
+        // 세션에서 유저 정보 가져오기 (가정: 세션에 user 객체가 있다고 가정)
+        var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        // URL에 유저 정보를 추가하여 modify.jsp로 이동
+        window.location.href = "/user/modify?Email=" + currentUser.Email;
+    });
     
 });
-
 </script>
 
 
