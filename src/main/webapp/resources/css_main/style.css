@@ -594,6 +594,17 @@
 }
 
 /*** community ***/
+
+.commuGet_likeBox{
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.commuGet_table td{
+    text-align: left !important;
+}
+
+
 .commu_table_a{
 	text-align: left !important;
 }
