@@ -446,6 +446,26 @@
 
 /*** policy ***/
 
+.policyGet_reportDetail{
+    width: 465px;
+    height: 200px;
+}
+
+#policyGet_checkbox{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+
+#policyGet_checkbox div{
+    margin-bottom: 10px;
+}
+
+
+.policyGet_report{
+    cursor: pointer;
+}
+
 .policyGet_letter{
     padding-top: 10px;
 }
@@ -573,21 +593,11 @@
     line-height: 1;
 }
 
-/*** index ***/
-
-.index_table_a tbody tr td:nth-child(2) {
-	cursor:pointer;
-}
-
-.index_table_b tbody tr td:first-child {
-	cursor:pointer;
-}
-
 /*** community ***/
-
 .commu_table_a{
 	text-align: left !important;
 }
+
 
 .commu_table tbody tr td{
     font-family: LINESeedKR-Bd_light;
