@@ -20,8 +20,10 @@
         SELECT * FROM user WHERE Email = #{Email}
     </select>
     
-    <update id="updateUserPassword">
-        UPDATE user SET PW = #{newPassword} WHERE Email = #{email}
+    <update id="updatePassword" parameterType="map">
+        UPDATE user
+        SET PW = #{newPassword}
+        WHERE Email = #{Email} AND PW = #{currentPassword}
     </update>
     
    <!-- 전화번호 문자열로 변경 -->
