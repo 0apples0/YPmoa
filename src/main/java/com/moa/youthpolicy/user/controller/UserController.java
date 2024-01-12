@@ -29,11 +29,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @Log4j
 public class UserController {
-	private final UserService userService;
-	@Autowired
-	UserMapper mapper;
-	@Autowired
-	UserService service;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
 	@GetMapping("/mypage")
 	public String getMypage(@RequestParam("Email") String Email, HttpSession httpSession, Model model) {
@@ -41,14 +38,13 @@ public class UserController {
 	    UserVO user = userService.get(Email);
 	    httpSession.setAttribute("user", user);
 	    model.addAttribute("user", user);
-	    log.info("User details - Email: " + user.getEmail());
 	    return "user/mypage";
 	}
 
 	@PostMapping("/mypage")
 	public String update(@ModelAttribute UserVO vo, Model model) {
 		String email = vo.getEmail();
-		service.modify(vo);
+		userService.modify(vo);
 		model.addAttribute("isWorkText", vo.getIsWork() == 1 ? "취업" : "미취업");
 		model.addAttribute("isMarryText", vo.getIsMarry() == 1 ? "기혼" : "미혼");
 		return "redirect:/user/mypage?Email="+email;
@@ -58,23 +54,33 @@ public class UserController {
 	@PostMapping("/modinfo")
 	public boolean modinfo (UserVO vo) {
 		log.info("controller : "+ vo.toString());
-		return service.modinfo(vo);
+		return userService.modinfo(vo);
 	}
 	
-	@GetMapping({"/remove","/modify"})
-	public void get(@RequestParam("Email") String Email, Model model) {
-		model.addAttribute("vo", userService.get(Email));
+	@GetMapping("/modify")
+	public String modPW(Model model) {
+		return "user/modify";
 	}
+	
 	
 	@PostMapping("/modify")
-	public String modify(UserVO modifyUser, HttpSession session) {
-	    String email = modifyUser.getEmail();
-	    log.info("Controller : " + modifyUser.toString());
-
-	    userService.modify(modifyUser);
-	    log.info(email);
-	    return "redirect:/user/mypage?Email=" + email;
+	public String modifyPassword(UserVO userVO, HttpServletRequest request, Model model) {
+	    UserVO currentUser = userService.getCurrentUser(request);
+	    
+		    if (!userVO.getPW().equals(currentUser.getPW())) {
+		        model.addAttribute("error", "현재 비밀번호가 일치하지 않습니다.");
+		        return "redirect:/user/modify";
+		    }
+		    if (!userVO.getNewPassword().equals(userVO.getConfirmPassword())) {
+		        model.addAttribute("error", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+		        return "redirect:/user/modify";
+		    }
+		    userService.updatePassword(userVO.getNewPassword());
+		    HttpSession session = request.getSession();
+		    session.setAttribute("currentUser", currentUser);
+		    return "redirect:/user/login";
 	}
+	
     @GetMapping("/login")
     public void login() {
     	
