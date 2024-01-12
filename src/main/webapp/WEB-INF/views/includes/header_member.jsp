@@ -54,10 +54,10 @@
                     <p id="nickname">닉네임님 환영합니다!</p>
                 </div>
                 <div id="login_menu_box">
-                    <a href="#"> <img src="${pageContext.request.contextPath}resources/img/notify.png" id="notify" />
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
                         <p id="notify_letter">알림</p>
                     </a>
-                  <a href="#"> <img src="${pageContext.request.contextPath}resources/img/logout.png" id="logout" />
+                  <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>
                     </a>
                 </div>
