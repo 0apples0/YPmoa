@@ -36,10 +36,10 @@ public class communitytest {
     
     @Test
     public void getTest() {
-    	List<CommunityVO> voList = communityMapper.select();
-    	for(CommunityVO vo : voList) {
-        	log.info(vo.toString());	
-    	}
+    	CommunityVO voList = communityMapper.getBoard(15);
+
+        	log.info(voList.toString());	
+
 
     }
     

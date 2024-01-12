@@ -160,26 +160,26 @@
 
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
-                <li class="policy_page-item_prev prev">
+                <li class="paginate_button policy_page-item_prev prev">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
                             aria-hidden="true"></i></a>
                 </li>
-                <li class="policy_page-item prev">
+                <li class="paginate_button policy_page-item prev">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
 				<%-- 페이징 적용 --%>
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+				    <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
 				        <a class="page-link" href="${num}">${num}</a>
 				    </li>
 				</c:forEach>               
                 
-                <li class="page-item next">
+                <li class="paginate_button page-item next">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
                             aria-hidden="true"></i></a>
                 </li>
-                <li class="page-item next">
+                <li class="paginate_button page-item next">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
                             aria-hidden="true"></i></a>
                 </li>
@@ -248,6 +248,17 @@ $(document).ready(function () {
     				row.append($("<td>").text(board.writer));
     				row.append($("<td>").text(formateDate));
     				
+    			    // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+    			    let likeTd = $("<td>");
+    			    let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+    			    let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
+
+    			    // 이미지와 span을 <td> 엘리먼트에 추가
+    			    likeTd.append(likeImg).append(likeSpan);
+
+    			    // 새로운 <td> 엘리먼트를 행에 추가
+    			    row.append(likeTd);
+
     				boardTbody.append(row);
     			});
     		},
@@ -255,6 +266,14 @@ $(document).ready(function () {
     			console.log(e);
     		}
     	});
+		let actionForm = $("#actionForm");
+		$(".paginate_button a").on("click", function(e){
+			//기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			e.preventDefault(); //이벤트 초기화
+			//pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
     }
 });
 

@@ -45,7 +45,8 @@ public class PolicyService implements BoardGenericService {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+/*
 	@Override
 	public <T> T getBoard(Class<T> board) {
 		// TODO Auto-generated method stub
@@ -86,6 +87,12 @@ public class PolicyService implements BoardGenericService {
 	public void getBack() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public <T> T getBoard(Integer key) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

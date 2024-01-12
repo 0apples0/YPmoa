@@ -42,7 +42,7 @@ public class CommunityController {
 	
 	@GetMapping("/get")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
-//		model.addAttribute("vo", communityService.getBoard(bno));
+		model.addAttribute("vo", communityService.getBoard(bno));
 	}
 	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
