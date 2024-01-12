@@ -9,8 +9,6 @@ public interface UserGenericService {
 	public void modMember(UserVO vo); // ȸ������ ����
 	public void logOut(UserVO vo);    
 	public boolean logIn(UserVO vo, HttpSession session);
-	
-	
-    void updatePassword(String newPassword);
 	UserVO getCurrentUser();
+	boolean updatePassword(UserVO user, String currentPassword, String newPassword);
 }

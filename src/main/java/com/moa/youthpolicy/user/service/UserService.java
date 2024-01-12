@@ -101,8 +101,16 @@ public class UserService implements UserGenericService {
 
     // 비밀번호 업데이트
     @Override
-    public void updatePassword(String newPassword) {
-        this.currentUser.setPW(newPassword);
+    public boolean updatePassword(UserVO user, String currentPassword, String newPassword) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("Email", user.getEmail());
+        paramMap.put("currentPassword", currentPassword);
+        paramMap.put("newPassword", newPassword);
+
+        int updatedRows = mapper.updatePassword(paramMap);
+
+        return updatedRows > 0;
     }
 	
 	

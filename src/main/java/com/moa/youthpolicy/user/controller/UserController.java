@@ -63,23 +63,22 @@ public class UserController {
 	}
 	
 	
-	@PostMapping("/modify")
-	public String modifyPassword(UserVO userVO, HttpServletRequest request, Model model) {
-	    UserVO currentUser = userService.getCurrentUser(request);
-	    
-		    if (!userVO.getPW().equals(currentUser.getPW())) {
-		        model.addAttribute("error", "현재 비밀번호가 일치하지 않습니다.");
-		        return "redirect:/user/modify";
-		    }
-		    if (!userVO.getNewPassword().equals(userVO.getConfirmPassword())) {
-		        model.addAttribute("error", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-		        return "redirect:/user/modify";
-		    }
-		    userService.updatePassword(userVO.getNewPassword());
-		    HttpSession session = request.getSession();
-		    session.setAttribute("currentUser", currentUser);
-		    return "redirect:/user/login";
-	}
+    @PostMapping("/modify")
+    public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
+                                 @RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 Model model) {
+        boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
+        log.info("컨트롤러 : "+model);
+        if (passwordUpdated) {
+            model.addAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다!!");
+            return "redirect:/user/login";
+        } else {
+            model.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요.");
+            return "redirect:/user/modify";
+        }
+
+    }
 	
     @GetMapping("/login")
     public void login() {
