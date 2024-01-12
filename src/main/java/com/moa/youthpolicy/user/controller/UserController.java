@@ -99,12 +99,18 @@ public class UserController {
     }
 
 	@PostMapping("/remove")
-	public String remove(HttpSession httpSession, Model model) {
-	    String email = (String) httpSession.getAttribute("Email");
-	    userService.removeUser(email);
-	    httpSession.invalidate();
-	    log.info("회원탈퇴 : " + email);
-	    return "redirect:/index";
+	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	    UserVO currentUser = userService.getCurrentUser(request);
+	    if (currentUser != null) {
+	        String email = currentUser.getEmail();
+	        userService.removeUser(email);
+	        request.getSession().invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/user/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
+	        return "redirect:/user/login";
+	    }
 	}
 
 

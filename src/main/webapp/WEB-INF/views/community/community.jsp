@@ -6,7 +6,7 @@
 <%@include file="../includes/header_guest.jsp" %>
 
 
-     <!-- Page Header Start -->
+        <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -27,7 +27,7 @@
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container_search">
-                <div class="bg-white mypage_shadow" style="padding: 35px;">
+                <div class="bg-white mypage_shadow" style="padding: 20px;">
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
@@ -72,46 +72,25 @@
                                         <option value="3">글쓴이</option>
                                     </select>
                                 </div>
-                            </div>
-
-                        </div>
-
-
-
-                        <div>
-
-
-                            <div class="row policy_row g-2">
-
-                                <div class="row policy_row g-2">
-
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control datetimepicker-input font_light"
-                                            placeholder="검색어를 입력하세요" />
-                                    </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control datetimepicker-input font_light"
+                                        placeholder="검색어를 입력하세요" />
                                 </div>
-
-
-
-
-
-
-                            </div>
-
-                            <div class="row g-2 justify-content-center policy_search_box">
-
-
-                                <div class="col-md-1 ">
+                                <div class="col-md-1_a ">
 
                                     <button class="btn btn-primary w-100">검색하기</button>
                                 </div>
 
-                                <div class="col-md-1_a">
+                                <div class="col-md-auto">
                                     <button type="reset" class="btn btn-secondary ">초기화</button>
                                 </div>
                             </div>
 
                         </div>
+
+
+
+
                     </form>
 
 
@@ -130,32 +109,14 @@
 
     <div class="container-xxl py-5_a">
         <div class="container">
-
-
             <div class="row g-4">
-                <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <div id="policy_checkbox">
-
-                        <div class="col-md-1 policy_writeBtn">
-
-                            <button class="btn btn-warning w-100">글쓰기</button>
-                        </div>
-                        <div class="col-md-1 policy_writeBtn">
-
-                            <button class="btn btn-warning w-100">내글보기</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                <div class="wow fadeIn" data-wow-delay="0.1s">
 
                     <!-- table section -->
                     <div class="col-md-12">
-                        <div class="white_shd_a full margin_bottom_30">
+                        <div class="white_shd_a full">
 
-                            <div class="table_section padding_infor_info">
+                            <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
                                     <table id="communityBoardTable" class="table table-hover commu_table commu_table_a">
 
@@ -167,32 +128,36 @@
                                                 <th data-sort="title">제목</th>
                                                 <th data-sort="author">작성자</th>
                                                 <th data-sort="date">작성일</th>
-                                                <th data-sort="like" id="commu_likeBtn">좋아요 <i class="fa fa-angle-up" aria-hidden="true"></i></th>
+                                                <th data-sort="like" id="commu_likeBtn">좋아요 <i class="fa fa-angle-up"
+                                                        aria-hidden="true"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
-<%--여기 추가 --%>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div id="policy_checkbox">
 
+                            <div class="col-md-1 policy_writeBtn">
+
+                                <button class="btn btn-warning w-100">글쓰기</button>
+                            </div>
+                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+
+                                <button class="btn btn-warning w-100">내글보기</button>
+                            </div>
+                        </div>
 
 
 
                     </div>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
+
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
                 <li class="policy_page-item_prev prev">
@@ -225,6 +190,7 @@
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 		</form>
     </div>
+
 
     <script>
 

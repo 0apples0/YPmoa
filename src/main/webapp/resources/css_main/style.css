@@ -577,7 +577,7 @@
   }
 
   #policy_checkbox .policy_writeBtn{
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .policy_heart{
@@ -592,6 +592,12 @@
     text-rendering: auto;
     line-height: 1;
 }
+/*** suggest ***/
+.sug_input{
+    width: 1200px !important;
+}
+
+
 
 /*** community ***/
 

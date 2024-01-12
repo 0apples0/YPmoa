@@ -12,9 +12,10 @@ public interface UserMapper {
 	public void register(UserVO vo);
 	
 	public UserVO login(UserVO vo);
-	void updateUserPassword(String email, String newPassword);
+	void updateUserPassword(String Email, String newPassword);
 	public UserVO selectUserByEmail(String Email);
 	public UserVO chkPhone(String phone); // 전화번호 문자열 변경
 	public UserVO chkNick(String nick);
 	public int updatePassword(Map<String, Object> paramMap);
+	public void removeUser(String email);
 }
