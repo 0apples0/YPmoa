@@ -1,7 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header_guest.jsp" %>
 
 
@@ -117,7 +118,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover commu_table commu_table_a">
+                                    <table id="communityBoardTable" class="table table-hover commu_table commu_table_a">
 
 
                                         <thead>
@@ -132,107 +133,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>경상북도,포항시,영주시,어쩌구</td>
-                                                <td>일자리 (창업)</td>
-                                                <td><a href="#"></a>john@example.comjohn@example.comjohn@example.com
-                                                </td>
-                                                <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>ㅇ안녕하세요ㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇ</td>
-                                                <td>aaaaaaaaaaaaaaaaaaaaaa</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>3</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td><a href="#"></a>john@example.com</td>
-                                                <td>john@example.com</td>
-                                                <td>2024-01-05</td>
-                                                <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                    <span>32</span>개
-                                                </td>
-                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -268,21 +168,13 @@
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
-                <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
+				<%-- 페이징 적용 --%>
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+				        <a class="page-link" href="${num}">${num}</a>
+				    </li>
+				</c:forEach>               
+                
                 <li class="page-item next">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
                             aria-hidden="true"></i></a>
@@ -293,6 +185,10 @@
                 </li>
             </ul>
         </nav>
+        <form id="actionForm" action="/community/community" method="get">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		</form>
     </div>
 
 
@@ -315,55 +211,51 @@ $(document).ready(function () {
       
     });
     
-	function loadTableData(){
-		//Ajax:비동기 통신
-		// - 프로세스의 완료를 기다리지 않고 동시에 여러 작업을 처리
-		// - 전체 페이지를 새로고침하지 않고 필요한 부분만을 업데이트할 수 있다
-		// - 자원과 시간을 절약, 깜박거리거나 멈추지 않고 부드럽게 작동
-		
-		$.ajax({
-			url: "/community/community",// 요청할 서버 uri
-			type: "POST", //요청방식 지정
-			dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-			data:{
+    loadTableData();
+    
+    function loadTableData(){
+
+    	$.ajax({
+    		url: "/community/community",// 요청할 서버 uri
+    		type: "POST", //요청방식 지정
+    		dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+    		data:{
 				pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-				amount : $("#actionForm").find("input[name='amount']").val(),
-				type : $("#searchForm select[name='type']").val(),
-				keyword : $("#searchForm").find("input[name='keyword']").val()
-			},
-			success: function(data){
-				let boardTbody = $("#boardTable tbody");
-				// for문,,, for(let item of items)
-					
-				//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-				//for(let item of items) -> items == data, item ==board 역할
-				$.each(data, function(index, board){
-					let regDate=new Date(board.regDate);
-					// numeric: 숫자, 2-digit: 두자리 숫자 형식
-					let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-					let formateDate = regDate.toLocaleString("ko-KR", options);
-					
-					// 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-					// 동적으로 데이터 처리
-					let row = $("<tr>");
-					row.append($("<td>").text(board.bno));
-		
-					let titleLink = $("<a>").attr("href", "/board/get?bno="+board.bno).text(board.title);			
-					let titleTd = $("<td>").append(titleLink);
-					
-					row.append(titleTd);
-					row.append($("<td>").text(board.content));
-					row.append($("<td>").text(board.writer));
-					row.append($("<td>").text(board.regdate));
-					
-					boardTbody.append(row);
-				});
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-	}
+				amount : $("#actionForm").find("input[name='amount']").val()
+    		},
+    		success: function(data){
+    			let boardTbody = $("#communityBoardTable tbody");
+    			
+    				
+    			//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+    			//for(let item of items) -> items == data, item ==board 역할
+    			$.each(data, function(index, board){
+    				
+    				let regDate=new Date(board.regDate);
+    				// numeric: 숫자, 2-digit: 두자리 숫자 형식
+    				let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+    				let formateDate = regDate.toLocaleString("ko-KR", options);
+
+    				// 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+    				// 동적으로 데이터 처리
+    				let row = $("<tr>");
+    				row.append($("<td>").text(board.region));
+    				row.append($("<td>").text(board.category));
+    				let titleLink = $("<a>").attr("href", "/community/get?bno="+board.bno).text(board.title);			
+    				let titleTd = $("<td>").append(titleLink);
+    				
+    				row.append(titleTd);
+    				row.append($("<td>").text(board.writer));
+    				row.append($("<td>").text(formateDate));
+    				
+    				boardTbody.append(row);
+    			});
+    		},
+    		error: function(e){
+    			console.log(e);
+    		}
+    	});
+    }
 });
 
 

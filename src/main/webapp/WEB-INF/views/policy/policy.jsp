@@ -98,11 +98,11 @@
                         <div class="row g-2 justify-content-center">
 
 
-                            <div class="col-md-5 policy_search_box">
-                                <div>
-                                    <input type="text" class="form-control datetimepicker-input"
+                            <div class="col-md-5 policy_search_box ">
+                               
+                                    <input type="text" class="form-control datetimepicker-input font_light"
                                         placeholder="검색어를 입력하세요" />
-                                </div>
+
                             </div>
 
 
