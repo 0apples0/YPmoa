@@ -443,11 +443,12 @@
 								});
 						
 						
-					    // 아무 체크도 안했하거나 내용쓰지 않았을 때 선택버튼 비활성화
+						  // 아무 체크도 안했을 때 선택버튼 비활성화
+			            // 각 체크박스 요소에 대한 이벤트 핸들러 등록
 			            $(".custom-control-input").change(updateReportButtonState);
 
 			            // textarea에 대한 이벤트 핸들러 등록
-			            $(".policyGet_reportDetail").on("input", updateReportButtonState);
+			            $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
 
 			            // 초기 상태 설정
 			            updateReportButtonState();
@@ -462,8 +463,9 @@
 			                }).length > 0;
 
 			                // 버튼 상태 업데이트
-			                $(".btn-primary").prop("disabled", !anyCheckboxChecked || !anyTextareaContent);
+			                $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
 			            }
+
 
 						
 						
