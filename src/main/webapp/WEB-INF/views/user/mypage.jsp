@@ -13,7 +13,7 @@
 		</div>
 	</div>
 </div>
-<!-- Page Header Enfd -->
+<!-- Page Header End -->
 <!-- Booking Start -->
             <!--  컨트롤러에서 모델에 담긴 user 객체 가져오기 -->
   		<%
@@ -276,11 +276,16 @@ $(document).ready(function() {
         });
     });
     
-    document.getElementById("modpw_regiBtn").addEventListener("click", function() {
-        // 세션에서 유저 정보 가져오기 (가정: 세션에 user 객체가 있다고 가정)
-        var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-        // URL에 유저 정보를 추가하여 modify.jsp로 이동
-        window.location.href = "/user/modify?Email=" + currentUser.Email;
+    // 비밀번호 변경 버튼 눌렀을 때
+    $("#modpw_regiBtn").on("click", function () {
+        // 사용자 이메일 값 가져오기
+        var userEmail = "<%=user.getEmail()%>";
+
+        // 이메일 값을 modify.jsp로 전달하는 URL 생성
+        var redirectUrl = "/user/modify?email=" + encodeURIComponent(userEmail);
+
+        // modify.jsp로 이동
+        window.location.href = redirectUrl;
     });
     
 });

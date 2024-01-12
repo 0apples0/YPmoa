@@ -3,15 +3,7 @@
 <%@ page import="com.moa.youthpolicy.user.domain.UserVO"%>
 <%@include file="../includes/header_guest.jsp" %>
 
-<%
-	UserVO currentUser = (UserVO) session.getAttribute("currentUser");
-	String submittedCurrentPassword = request.getParameter("currentPassword");
-	String dbStoredPassword = currentUser.getPW();
-	boolean passwordsMatch = submittedCurrentPassword.equals(dbStoredPassword);
-	if (!passwordsMatch) {
-        out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
-    }
-%>
+
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -33,6 +25,11 @@
                         <div class="col-xxl login_section">
                             <div class=" mb-4">
                                 <div id="card-body">
+                                    <!--  컨트롤러에서 모델에 담긴 user 객체 가져오기 -->
+							  		<%
+							            UserVO user = (UserVO) session.getAttribute("user");
+							            if (user != null) {
+							        %>
                                     <form action="/user/modify" method="post" id="pwUpdate" name="pwUpdate">
 									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">현재 비밀번호</label>
@@ -76,6 +73,13 @@
 									        <button type="reset" class="btn btn-secondary">초기화</button>
 									    </div>
 									</form>
+									<%
+										} else {
+									%>
+										<h1>로그인이 필요한 서비스입니다.</h1>
+									<%        
+										}
+									%>
                                 </div>
                             </div>
                         </div>
