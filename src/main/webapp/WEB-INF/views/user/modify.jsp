@@ -56,7 +56,7 @@
 									        </div>
 									    </div>
 							 				<div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호 확인</label>
+                                            <label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호 확인!</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group input-group-merge">
                                                     <!-- 새로운 비밀번호 확인 필드 추가 -->
