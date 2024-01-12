@@ -133,7 +133,7 @@
 											<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
 											<button type="button" class="btn btn-primary" id="modpw_regiBtn">비밀번호 변경</button>
 											<button type="reset" class="btn btn-primary" id="regi_regiBtn">초기화</button>
-											<button type="button" class="btn btn-warning">회원탈퇴</button>
+											<button type="button" class="btn btn-warning" id="user_delBtn">회원탈퇴</button>
 										</div>
 									</div>
 								</div>
@@ -155,10 +155,7 @@
 <!-- Booking End -->
 
 
-<script>
-
-// 여기 추후 수정할예정 -수아
-	
+<script>	
 $(document).ready(function() {
     // 각 중복 체크 상태를 저장하는 변수들
     var phoneCheckDone = true;
@@ -286,6 +283,30 @@ $(document).ready(function() {
 
         // modify.jsp로 이동
         window.location.href = redirectUrl;
+    });
+    
+    // 회원탈퇴 버튼 눌렀을 때
+    $("#user_delBtn").on("click",function(){
+        var isConfirmed = confirm("정말 탈퇴하시겠습니까?");
+        if (isConfirmed) {
+            // 회원 탈퇴를 서버에 요청
+            $.ajax({
+                type: "POST",
+                url: "/user/remove", // 탈퇴를 처리하는 컨트롤러 메소드 주소
+                success: function (response) {
+                    // 회원 탈퇴 성공 시
+                    alert("회원탈퇴가 완료되었습니다.");
+                    window.location.href = "/user/login"; // 로그인 페이지로 이동
+                },
+                error: function (error) {
+                    // 회원 탈퇴 실패 시
+                    console.error("회원 탈퇴 중 오류가 발생했습니다.", error);
+                    alert("회원 탈퇴 중 오류가 발생했습니다.");
+                }
+            });
+        } else {
+            location.reload();
+        }
     });
     
 });

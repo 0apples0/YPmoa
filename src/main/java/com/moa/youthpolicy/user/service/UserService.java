@@ -66,16 +66,6 @@ public class UserService implements UserGenericService {
 	@Autowired
 	UserMapper mapper;
 	
-	/*
-    @Autowired
-    public UserService(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        this.currentUser = new UserVO();
-        this.currentUser.setEmail((String) session.getAttribute("userEmail"));
-        String currentPassword = request.getParameter("currentPassword");
-        this.currentUser.setPW(currentPassword);
-    }
-	*/
     public UserVO initCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserVO currentUser = new UserVO();
@@ -112,7 +102,7 @@ public class UserService implements UserGenericService {
 
         return updatedRows > 0;
     }
-	
+    	
 	
 	public boolean chkEmail(String email) {
 		UserVO vo = mapper.selectUserByEmail(email);
@@ -151,8 +141,9 @@ public class UserService implements UserGenericService {
 		mapper.update(modifyUser);
 	}
 
+	// 회원탈퇴
 	public void removeUser(String email) {
-		// TODO Auto-generated method stub
+		mapper.removeUser(email);
 
 	}
 	
