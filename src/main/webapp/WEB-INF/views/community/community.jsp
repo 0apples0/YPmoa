@@ -156,7 +156,7 @@
 
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover commu_table">
+                                    <table class="table table-hover commu_table commu_table_a">
 
 
                                         <thead>

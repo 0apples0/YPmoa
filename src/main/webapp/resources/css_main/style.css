@@ -573,8 +573,21 @@
     line-height: 1;
 }
 
+/*** index ***/
+
+.index_table_a tbody tr td:nth-child(2) {
+	cursor:pointer;
+}
+
+.index_table_b tbody tr td:first-child {
+	cursor:pointer;
+}
+
 /*** community ***/
 
+.commu_table_a{
+	text-align: left !important;
+}
 
 .commu_table tbody tr td{
     font-family: LINESeedKR-Bd_light;
