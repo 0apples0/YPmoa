@@ -19,16 +19,16 @@ import lombok.extern.log4j.Log4j;
 public class CommunityController {
 	private final CommunityService communityService;
 	
-	@GetMapping("") // 전체 리스트 출력
+	@GetMapping("/community") // 전체 리스트 출력
 	public void list(Criteria cri, Model model) {
 		log.info("-------controller in list ------");
 		log.info(cri);
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
-		
+		log.info(total);		
 		PageDTO pageResult = new PageDTO(cri, total);
-		//model.addAttribute("pageMaker", pageResult);
+		model.addAttribute("pageMaker", pageResult);
 		log.info("-------controller out list ------");
-		//log.info(total);
+
 	}
 }

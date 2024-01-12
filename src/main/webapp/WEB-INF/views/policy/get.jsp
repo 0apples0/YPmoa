@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="table_section padding_infor_info">
 
-                                    <div class="table-responsive-sm" >
+                                    <div class="table-responsive-sm">
                                         <table class="table table-bordered commu_table policy_dt_table">
                                             <colgroup>
                                                 <col style="width: 14%">
@@ -69,21 +69,22 @@
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
-                                                    <th scope="row">정책 유형</th>
+                                                    <th scope="row">시행 지역</th>
                                                     <td>
-                                                        주거
+                                                        영등포구
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
                                                     <td>서울시청 미래청년기획단</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">시행 지역</th>
+                                                    <th scope="row">정책 유형</th>
                                                     <td>
-                                                        영등포구
+                                                        주거
                                                     </td>
                                                     <th scope="row">지원 대상</th>
                                                     <td>
+                                                        <!-- 이부분은 더미값 -->
                                                         시행지역 3년 이상 거주, 만 나이 25세 이상
                                                     </td>
                                                 </tr>
@@ -136,7 +137,7 @@
                                 <div class="table_section padding_infor_info">
 
                                     <div class="table-responsive-sm">
-                                        <table class="table table-bordered commu_table policy_dt_table">
+                                        <table class="table commu_table policy_dt_table">
                                             <colgroup>
                                                 <col style="width: 14%">
                                                 <col style="width: 36%">
@@ -145,7 +146,36 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr style="text-align: center;">
-                                                    <img style="width: 80%;" src="${pageContext.request.contextPath}/resources/img/카드1.png" />
+                                                    <td colspan="4">
+                                                        <img style="width: 80%;" src="${pageContext.request.contextPath}/resources/img/카드1.png" />
+
+                                                    </td>
+
+                                                </tr>
+                                                <tr style="text-align: center;">
+                                                    <td colspan="4">
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                        정책 상세 내용<br>
+                                                    </td>
+
+                                                </tr>
+                                                <tr style="text-align: center;">
+                                                    <td colspan="4">
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                        정책 신청 방법<br>
+                                                    </td>
 
                                                 </tr>
 
@@ -154,7 +184,17 @@
 
                                             </tbody>
                                         </table>
-
+                                        <br>
+                                        <div style="display: flex;" class="policyGet_likeBox">
+                                            <div class="g-4 policyGet_letter">
+                                                좋아요</div>
+                                            <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
+                                                    style="width: 38px; cursor: pointer;" /></a>
+                                            <div class="g-4">
+                                                <span class="policyGet_likeCount">3</span>
+                                            </div>
+                                            <div class="g-4 policyGet_letter">개</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -181,6 +221,12 @@
 
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
+                        <h3 style="margin-left: 20px;">댓글</h3>
+                        <div style="display: flex; justify-content: center;">
+                            <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
+                                placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
+                            <button class="btn btn-primary" style="margin-left: 10px;">댓글 작성</button>
+                        </div>
 
                         <!-- table section -->
                         <div class="col-md-12">
@@ -188,123 +234,47 @@
 
                                 <div class="table_section padding_infor_info">
                                     <div class="table-responsive-sm">
-                                        <table class="table table-hover commu_table">
+                                        <table class="table table-basic commu_table policyGet_comment">
 
-
-                                            <thead>
-                                                <tr>
-                                                    <th data-sort="nick">닉네임</th>
-                                                    <th data-sort="category">내용</th>
-                                                    <th data-sort="title">제목</th>
-                                                    <th data-sort="author">작성자</th>
-                                                    <th data-sort="date">작성일</th>
-                                                    <th data-sort="like" id="commu_likeBtn">좋아요 <i
-                                                            class="fa fa-angle-up" aria-hidden="true"></i></th>
-                                                </tr>
-                                            </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.comjohn@example.comjohn@example.com
+                                                    <td style="width: 60%;">
+                                                        john@example.comjohn@example.comjohn@example.com안녕하세요
+                                                        안녕하세요
+                                                        안녕하세요
+                                                        안녕하세요
                                                     </td>
-                                                    <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+                                                    <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
                                                     <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <td><a><img class="commu_like policyGet_like"
+                                                                src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
                                                         <span>32</span>개
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>ㅇ안녕하세요ㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㅇㅇㅇㅇㅇ
+                                                    <td><a href="#">
+                                                            <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                                style="width: 20px;" />
+                                                            신고</a>
                                                     </td>
-                                                    <td>aaaaaaaaaaaaaaaaaaaaaa</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width: 60%;">
+                                                        john@example.comjohn@example.comjohn@example.com안녕하세요
+
+                                                    </td>
+                                                    <td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
                                                     <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
+                                                    <td><img class="commu_like policyGet_like"
+                                                            src="${pageContext.request.contextPath}/resources/img/addLike.png" />
                                                         <span>32</span>개
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>3</span>개
+                                                    <td><a href="#">
+                                                            <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                                style="width: 20px;" />
+                                                            신고</a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>John</td>
-                                                    <td><a href="#"></a>john@example.com</td>
-                                                    <td>john@example.com</td>
-                                                    <td>2024-01-05</td>
-                                                    <td><img class="commu_like" src="${pageContext.request.contextPath}/resources/img/checkLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                </tr>
+
 
                                             </tbody>
                                         </table>
@@ -363,7 +333,8 @@
             </nav>
         </div>
 
-    <script>
+
+         <script>
             // 위시 버튼 클릭 시 이미지 변경
             $(document).ready(function () {
                 $("#policyGet_heartBtn").click(function () {
@@ -371,7 +342,31 @@
                     var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
                     $("#policyGet_heartBtn").attr("src", newSrc);
                 });
+
+
+                // 좋아요 버튼 클릭 시 이미지 변경
+
+                $(".policyGet_likeBtn").click(function () {
+                    var currentSrc = $(".policyGet_likeBtn").attr("src");
+                    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                    $(".policyGet_likeBtn").attr("src", newSrc);
+                });
+
+
+                // 댓글 좋아요 버튼 클릭 시 이미지 변경
+                $(".commu_like").click(function () {
+                    var currentSrc = $(this).attr("src");
+                    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                    $(this).attr("src", newSrc);
+                });
+
+
+
+
             });
+
+
+
 
 
 

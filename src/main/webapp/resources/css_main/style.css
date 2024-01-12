@@ -446,6 +446,58 @@
 
 /*** policy ***/
 
+.policyGet_letter{
+    padding-top: 10px;
+}
+
+.policyGet_likeBox{
+    justify-content: center;
+}
+
+.policyGet_likeCount{
+    font-size: 30px !important;
+   margin-right: 5px;
+   color: var(--primary);
+}
+
+.policyGet_likeBtn{
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.policyGet_like{
+    width: 20px !important;
+    cursor: pointer;
+}
+
+.policyGet_comment tbody tr td:first-child{
+    text-align: left !important;
+}
+
+
+.policyGet_title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+
+
+.policyGet_title div{
+    margin-left: auto;
+}
+
+.policy_get_heart{
+    width: 38px;
+    cursor: pointer;
+}
+
+.policy_dt_table th{
+    background-color: rgba(239, 239, 239, 0.401);
+}
+
+
 
 .policy_page_nav{
     margin-top: 30px;
@@ -522,26 +574,6 @@
 }
 
 /*** community ***/
-.policyGet_title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-}
-
-
-.policyGet_title div{
-    margin-left: auto;
-}
-
-.policy_get_heart{
-    width: 38px;
-    cursor: pointer;
-}
-
-.policy_dt_table th{
-    background-color: rgba(239, 239, 239, 0.401);
-}
 
 
 .commu_table tbody tr td{

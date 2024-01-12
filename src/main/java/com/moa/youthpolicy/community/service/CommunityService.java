@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.mapper.CommunityMapper;
 
 import lombok.AllArgsConstructor;
@@ -38,14 +39,18 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CommunityVO> getPage(Criteria cri) {
+		log.info("------service in getList------");
+		log.info(cri);
+		List<CommunityVO> result = communityMapper.getListWithPaging(cri);
+		log.info("------service out getList------");
+		log.info(result);
+		return result;
 	}
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		int cnt = communityMapper.countCommunityVO();
+		int cnt = communityMapper.getTotalCount(cri);
 		return cnt;
 	}
 

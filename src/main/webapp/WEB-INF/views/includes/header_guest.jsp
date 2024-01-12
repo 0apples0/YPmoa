@@ -44,7 +44,7 @@
         <div class="container-fluid bg-dark px-0">
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="#"
+                    <a href="${pageContext.request.contextPath}/"
                         class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                         <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
                     </a>
@@ -54,7 +54,7 @@
                 </div>
                 <div  id="login_menu_box_guest">
                     <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
-                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+                    <a href="/user/register"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
                 </div>
             </div>
         </div>
@@ -68,11 +68,16 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">
-                        <a href="index.html" class="nav-item nav-link">정책정보</a>
+
+
+                        <a href="/policy/policy" class="nav-item nav-link">정책정보</a>
+
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
-                        <a href="index.html" class="nav-item nav-link">꿀팁모음</a>
+                        <a href="/community/community" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
+
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
+
                     </div>
                 </div>
             </nav>
