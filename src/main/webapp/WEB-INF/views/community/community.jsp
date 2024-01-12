@@ -333,18 +333,15 @@
 
 
 $(document).ready(function () {
-    // 좋아요 th를 클릭할 때마다 아이콘 변경
+    // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
     $("#commu_likeBtn").on("click", function () {
         var icon = $(this).find("i");
 
         if (icon.hasClass("fa-angle-up")) {
-            // 현재가 오름차순이라면 내림차순으로 변경
             icon.removeClass("fa-angle-up").addClass("fa-angle-down");
         } else if (icon.hasClass("fa-angle-down")) {
-            // 현재가 내림차순이라면 정렬 제거로 변경
             icon.removeClass("fa-angle-down").addClass("fa-sort");
         } else {
-            // 그 외의 경우는 오름차순으로 변경
             icon.removeClass("fa-sort").addClass("fa-angle-up");
         }
 
