@@ -168,7 +168,7 @@
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
-
+				<%-- 페이징 --%>
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 				    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
 				        <a class="page-link" href="${num}">${num}</a>
