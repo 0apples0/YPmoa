@@ -157,27 +157,23 @@
                 </div>
             </div>
         </div>
-
+        <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
-            
-                <li class="paginate_button policy_page-item_prev prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
-                            aria-hidden="true"></i></a>
-                </li> 
-                <%--
-                <li class="paginate_button policy_page-item_prev prev">
+
+
+            <li class="paginate_button policy_page-item_prev prev">
                <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum) >1}">
-                  <a class="page-link" href="${pageMaker.startPage -1 }"><i class="fa fa-angle-double-left"
+               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+                  <a class="page-link" href="" onclick="gotoPrevprev(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>
-                    </c:when>
-                    <c:otherwise>
-                  <a class="page-link" onclick="preventClick(event)"><i class="fa fa-angle-left"
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>  
-                    </c:otherwise>     
-                    </c:choose>            
-            </li> --%>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
             <li class="paginate_button policy_page-item prev">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum) >1}">
@@ -185,13 +181,13 @@
                            aria-hidden="true"></i></a>
                     </c:when>
                     <c:otherwise>
-                  <a class="page-link" onclick="preventClick(event)"><i class="fa fa-angle-left"
+                  <a class="page-link"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
-                    </c:choose>            
+               </c:choose>            
             </li>            
 
-            <%-- 페이징 적용 --%>
+
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                 <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                     <a class="page-link" href="${num}">${num}</a>
@@ -200,21 +196,37 @@
 
             <li class="paginate_button policy_page-item next">
                <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum) < pageMaker.endPage}">
+               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
                   <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>
-                    </c:when>
-                    <c:otherwise>
-                  <a class="page-link" onclick="preventClick('${pageMaker.endPage}')"><i class="fa fa-angle-right"
+               </c:when> 
+               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+                  <a class="page-link"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when>               
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextPage('${pageMaker.endPage}')"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>   
-                    </c:otherwise>     
-                    </c:choose>            
-            </li>                
+               </c:otherwise>     
+              </c:choose>            
+            </li>              
+              
+            <li class="paginate_button page-item next">
+               <c:choose>
+               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+                  <a class="page-link"><i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>  
 
-                <li class="paginate_button page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
-                            aria-hidden="true"></i></a>
-                </li>
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
+                  			<i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            
+
             </ul>
         </nav>
         <form id="actionForm" action="/community/community" method="get">
@@ -226,14 +238,28 @@
 
     <script>
 
-    function preventClick(endPage) {
+    function gotoNextPage(endPage) {
         // 아무 동작 없음
-        console.log("preventClick function called");
+        console.log("gotoNextPage function called");
         console.log("endPage : " + endPage);
-        event.preventDefault();
-        var nextPage = Number(endPage) + 2
+        //event.preventDefault();
+        var nextPage = Number(endPage) + 1
         window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
     }
+    
+    function gotoPrevprev(pageNum, pageAmount){
+    	console.log("gotoPrevprev function called");
+    	var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
+    	console.log(prevprevPage);
+    	window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
+    }
+    
+    function gotoNextnext(pageNum, pageAmount){
+    	var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
+    	console.log("nextnextPage : "+ nextnextPage);
+    	window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
+    }
+    
 $(document).ready(function () {
     // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
     $("#commu_likeBtn").on("click", function () {

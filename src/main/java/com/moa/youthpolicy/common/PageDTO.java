@@ -13,6 +13,8 @@ public class PageDTO {
 	// 이전, 다음 페이지가 있는지 여부판단
 	private boolean prev, next;
 
+	// 총 페이지 갯수 판단
+	private int realEnd;
 	private Criteria cri;
 
 	// cri : 사용자가 선택한 값(request)
@@ -33,10 +35,10 @@ public class PageDTO {
 			this.startPage = this.endPage-9;
 			
 			// 실제 마지막 페이지 번호를 나타냄
-			int realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));
+			this.realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));
 			System.out.println(realEnd);
 			
-			if(realEnd <= this.endPage) {
+			if(this.realEnd <= this.endPage) {
 				this.endPage = realEnd;
 			}
 			
