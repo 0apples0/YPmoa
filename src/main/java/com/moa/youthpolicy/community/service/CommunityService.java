@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class CommunityService implements BoardGenericService{
 
-	private final CommunityMapper communityMapper; // 주입
+	private final CommunityMapper communityMapper; // 二쇱엯
 	
 	@Override
 	public <T> void delBoard(Class<T> board) {
@@ -33,9 +33,9 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-	public <T> T getBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		return null;
+	public CommunityVO getBoard(Integer key) {
+		log.info("getBoard test");
+		return communityMapper.getBoard(key);
 	}
 
 	@Override

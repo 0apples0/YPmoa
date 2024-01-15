@@ -33,4 +33,8 @@
 		ORDER BY bno DESC
 		LIMIT #{start}, #{amount}
 	</select>
+	
+	<select id="getBoard" resultType="CommunityVO" parameterType="CommunityVO">
+		SELECT * FROM tipboard WHERE bno=#{bno}
+	</select>
 </mapper>

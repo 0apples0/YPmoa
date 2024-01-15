@@ -157,44 +157,109 @@
                 </div>
             </div>
         </div>
-
+        <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
-                <li class="policy_page-item_prev prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
-                            aria-hidden="true"></i></a>
+
+
+            <li class="paginate_button policy_page-item_prev prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+                  <a class="page-link" href="" onclick="gotoPrevprev(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>  
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            <li class="paginate_button policy_page-item prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum) >1}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>
+                    </c:when>
+                    <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>  
+                    </c:otherwise>     
+               </c:choose>            
+            </li>            
+
+
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+                    <a class="page-link" href="${num}">${num}</a>
                 </li>
-                <li class="policy_page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
-                            aria-hidden="true"></i></a>
-                </li>
-				<%-- 페이징 적용 --%>
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-				        <a class="page-link" href="${num}">${num}</a>
-				    </li>
-				</c:forEach>               
-                
-                <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
-                            aria-hidden="true"></i></a>
-                </li>
-                <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
-                            aria-hidden="true"></i></a>
-                </li>
+            </c:forEach>               
+
+            <li class="paginate_button policy_page-item next">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when> 
+               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+                  <a class="page-link"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when>               
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextPage('${pageMaker.endPage}')"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>   
+               </c:otherwise>     
+              </c:choose>            
+            </li>              
+              
+            <li class="paginate_button page-item next">
+               <c:choose>
+               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+                  <a class="page-link"><i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>  
+
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
+                  			<i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            
+
             </ul>
         </nav>
         <form id="actionForm" action="/community/community" method="get">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-		</form>
+         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+         <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+      </form>
     </div>
 
 
     <script>
 
-
+    function gotoNextPage(endPage) {
+        // 아무 동작 없음
+        console.log("gotoNextPage function called");
+        console.log("endPage : " + endPage);
+        //event.preventDefault();
+        var nextPage = Number(endPage) + 1
+        window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
+    }
+    
+    function gotoPrevprev(pageNum, pageAmount){
+    	console.log("gotoPrevprev function called");
+    	var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
+    	console.log(prevprevPage);
+    	window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
+    }
+    
+    function gotoNextnext(pageNum, pageAmount){
+    	var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
+    	console.log("nextnextPage : "+ nextnextPage);
+    	window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
+    }
+    
 $(document).ready(function () {
     // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
     $("#commu_likeBtn").on("click", function () {
@@ -215,47 +280,79 @@ $(document).ready(function () {
     
     function loadTableData(){
 
-    	$.ajax({
-    		url: "/community/community",// 요청할 서버 uri
-    		type: "POST", //요청방식 지정
-    		dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-    		data:{
-				pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-				amount : $("#actionForm").find("input[name='amount']").val()
-    		},
-    		success: function(data){
-    			let boardTbody = $("#communityBoardTable tbody");
-    			
-    				
-    			//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-    			//for(let item of items) -> items == data, item ==board 역할
-    			$.each(data, function(index, board){
-    				
-    				let regDate=new Date(board.regDate);
-    				// numeric: 숫자, 2-digit: 두자리 숫자 형식
-    				let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-    				let formateDate = regDate.toLocaleString("ko-KR", options);
+       $.ajax({
+          url: "/community/community",// 요청할 서버 uri
+          type: "POST", //요청방식 지정
+          dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+          data:{
+            pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+            amount : $("#actionForm").find("input[name='amount']").val()
+          },
+          success: function(data){
+             let boardTbody = $("#communityBoardTable tbody");
+             
+                
+             //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+             //for(let item of items) -> items == data, item ==board 역할
+             $.each(data, function(index, board){
+                
+                let regDate=new Date(board.regDate);
+                // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                let formateDate = regDate.toLocaleString("ko-KR", options);
 
-    				// 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-    				// 동적으로 데이터 처리
-    				let row = $("<tr>");
-    				row.append($("<td>").text(board.region));
-    				row.append($("<td>").text(board.category));
-    				let titleLink = $("<a>").attr("href", "/community/get?bno="+board.bno).text(board.title);			
-    				let titleTd = $("<td>").append(titleLink);
-    				
-    				row.append(titleTd);
-    				row.append($("<td>").text(board.writer));
-    				row.append($("<td>").text(formateDate));
-    				
-    				boardTbody.append(row);
-    			});
-    		},
-    		error: function(e){
-    			console.log(e);
-    		}
-    	});
+                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                // 동적으로 데이터 처리
+                let row = $("<tr>");
+                row.append($("<td>").text(board.region));
+                row.append($("<td>").text(board.category));
+                let titleLink = $("<a>").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleTd = $("<td>").append(titleLink);
+                
+                row.append(titleTd);
+                row.append($("<td>").text(board.writer));
+                row.append($("<td>").text(formateDate));
+                
+                 // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+                 let likeTd = $("<td>");
+                 let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+                 let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
+
+                 // 이미지와 span을 <td> 엘리먼트에 추가
+                 likeTd.append(likeImg).append(likeSpan);
+
+                 // 새로운 <td> 엘리먼트를 행에 추가
+                 row.append(likeTd);
+
+                boardTbody.append(row);
+             });
+          },
+          error: function(e){
+             console.log(e);
+          }
+       });
+      let actionForm = $("#actionForm");
+      $(".paginate_button a").on("click", function(e){
+         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+         e.preventDefault(); //이벤트 초기화
+         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+         console.log(actionForm);
+         /*
+         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+         actionForm.submit();
+         */
+         console.log("href : " + $(this).attr("href"));
+          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+          let newPageNum = $(this).attr("href");
+         console.log("newPageNum : " + newPageNum);
+          // pageNum이 비어있지 않은 경우에만 submit 실행
+          if (newPageNum) {
+              actionForm.find("input[name='pageNum']").val(newPageNum);
+              actionForm.submit();
+          }
+      });
     }
+
 });
 
 

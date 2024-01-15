@@ -10,4 +10,5 @@ public interface CommunityMapper {
 	public int delete(Integer key);
 	public int getTotalCount(Criteria cri);
 	public List<CommunityVO> getListWithPaging(Criteria cri);
+	public CommunityVO getBoard(Integer key);
 }

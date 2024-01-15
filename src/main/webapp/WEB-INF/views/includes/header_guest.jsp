@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
+<%
+   System.out.println("header session : " + session.getAttribute("user"));
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,7 +55,12 @@
                     </a>
                 </div>
                 <div id="nickname_box">
-                    <p id="nickname">방문을 환영합니다!</p>
+                    <p id="nickname">
+                       <c:if test="${user.nick ne null}">
+                          ${user.nick}님, 
+                         </c:if>
+                          방문을 환영합니다!
+                    </p>
                 </div>
                 <div  id="login_menu_box_guest">
                     <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>

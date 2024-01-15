@@ -1,7 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@include file="../includes/header_guest.jsp" %>
 
 
@@ -10,9 +10,9 @@
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
-                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Community</h1>
+                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Suggest</h1>
 
-                    <p id="login_p">꿀팁 상세정보</p>
+                    <p id="login_p">정책건의 상세정보</p>
 
 
 
@@ -32,16 +32,15 @@
                         <!-- table section -->
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
-                                
+
                                 <div class="full graph_head" style="padding-bottom: 7px;">
                                     <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">${vo.title}</h2><br>
-                                        <div>${vo.writer}</div>
-
-                                        <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
+                                        <h2 style="font-size: 30px;">이번 청약 신청방법 이런식으로 하면 어떨까요?</h2><br>
+                                        <div>동그란햄스터</div>
+                                        <div class="font_light">2024/02/11/ 17:18:22</div>
                                     </div>
                                 </div>
-                                
+
 
 
                             </div>
@@ -52,16 +51,31 @@
                         </div>
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
-                               
+
                                 <div class="table_section padding_infor_info">
 
                                     <div class="table-responsive-sm">
                                         <table class=" commu_table policy_dt_table commuGet_table">
-                                            
+
                                             <tbody>
-                                                <tr >
+                                                <tr>
                                                     <td>
-														${vo.content }
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
                                                     </td>
 
                                                 </tr>
@@ -71,7 +85,7 @@
                                         <div style="display: flex;" class="commuGet_likeBox">
                                             <div class="g-4 policyGet_letter">
                                                 좋아요</div>
-                                            <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
+                                            <a> <img src="resources/img/addLike.png" class="policyGet_likeBtn"
                                                     style="width: 38px; cursor: pointer;" /></a>
                                             <div class="g-4">
                                                 <span class="policyGet_likeCount">3</span>
@@ -83,11 +97,11 @@
 
 
 
-                                
+
 
                             </div>
 
-                            
+
 
 
 
@@ -107,7 +121,7 @@
 
 
                 <div class="row g-4">
-                    <div class="wow fadeIn" data-wow-delay="0.01s">
+                    <div class="wow fadeIn" data-wow-delay="0.1s">
                         <h3 style="margin-left: 30px;">댓글</h3>
                         <div style="display: flex; justify-content: center;">
                             <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
@@ -131,11 +145,11 @@
                                                     <td>ㄹㅇ</td>
                                                     <td>2024-02-11</td>
                                                     <td><a><img class="commu_like policyGet_like"
-                                                                src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
+                                                                src="resources/img/addLike.png" /></a>
                                                         <span>32</span>개
                                                     </td>
                                                     <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                        <img class="policyGet_report" src="resources/img/report.png"
                                                             style="width: 20px;" />
                                                         <a href="#" class="policyGet_report">신고</a>
                                                     </td>
@@ -143,16 +157,16 @@
 
                                                 <tr>
                                                     <td style="width: 60%;">
-                                                       비비큐 핫윙 ㄱ
+                                                        비비큐 핫윙 ㄱ
                                                     </td>
                                                     <td>ㅇㅇ</td>
                                                     <td>2024-02-11</td>
                                                     <td><img class="commu_like policyGet_like"
-                                                            src="${pageContext.request.contextPath}/resources/img/addLike.png" />
+                                                            src="resources/img/addLike.png" />
                                                         <span>32</span>개
                                                     </td>
                                                     <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
+                                                        <img class="policyGet_report" src="resources/img/report.png"
                                                             style="width: 20px;" />
                                                         <a href="#" class="policyGet_report">신고</a>
                                                     </td>
@@ -269,8 +283,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+
 
 
     <script>
@@ -280,7 +293,7 @@
 
             $(".policyGet_likeBtn").click(function () {
                 var currentSrc = $(".policyGet_likeBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
                 $(".policyGet_likeBtn").attr("src", newSrc);
             });
 
@@ -288,10 +301,9 @@
             // 댓글 좋아요 버튼 클릭 시 이미지 변경
             $(".commu_like").click(function () {
                 var currentSrc = $(this).attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                var newSrc = (currentSrc === "resources/img/addLike.png") ? "resources/img/checkLike.png" : "resources/img/addLike.png";
                 $(this).attr("src", newSrc);
             });
-
 
 
             // 신고 모달창
@@ -363,4 +375,7 @@
 
 
     </script>
+
+
 <%@include file="../includes/footer.jsp" %>
+

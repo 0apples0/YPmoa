@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.moa.youthpolicy.user.domain.UserVO"%>
 <%@include file="../includes/header_member.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta charset="UTF-8">
 
 <!-- Page Header Start -->
@@ -31,8 +32,14 @@
 							<div class="col-md-3_b">
 							<label for="address">지역선택</label>
 								<select class="form-select" name="address" >
-								<option selected id="address"  value="<%= user.getAddress() %>"><%= user.getAddress() %></option>
-									<option value="">지역선택</option>
+								<c:choose>
+						            <c:when test="${empty user.address}">
+						                <option selected value="">지역선택</option>
+						            </c:when>
+						            <c:otherwise>
+						                <option value="${user.address}">${user.address}</option>
+						            </c:otherwise>
+						        </c:choose>
 									<option value="부천시">부천시</option>
 									<option value="수원시">수원시</option>
 									<option value="광명시">광명시</option>
@@ -72,8 +79,14 @@
 							<div class="col-md-3_b">
 							<label for="interestField">관심분야</label>
 								<select class="form-select" name="interestField">
-									<option selected id="interestField"  value="<%= user.getInterestField() %>"><%= user.getInterestField() %></option>
-									<option value="">관심분야</option>
+									<c:choose>
+						            <c:when test="${empty user.interestField}">
+						                <option selected value="">관심분야</option>
+						            </c:when>
+						            <c:otherwise>
+						                <option value="${user.interestField}">${user.interestField}</option>
+						            </c:otherwise>
+						        	</c:choose>
 									<option value="주거">주거</option>
 									<option value="교육">교육</option>
 									<option value="신혼부부">신혼부부</option>
@@ -157,6 +170,11 @@
 
 <script>	
 $(document).ready(function() {
+    // 초기에 'phoneck' 버튼 비활성화
+    $("#phoneck").prop("disabled", true);
+    // 초기에 'nickchk' 버튼 비활성화
+    $("#nickchk").prop("disabled", true);
+    
     // 각 중복 체크 상태를 저장하는 변수들
     var phoneCheckDone = true;
     var nickCheckDone = true;
@@ -170,7 +188,19 @@ $(document).ready(function() {
         // value가 0인 옵션을 selected로 설정
         $('[value="0"]').prop('selected', true);
 	}
-
+    
+    // 'phone' 입력에 대한 변경 이벤트 리스너 추가
+    $(".regi_sub_form-control[name='phone']").on("input", function () {
+        // 'phone' 입력 값이 변경될 때 'phoneck' 버튼 활성화
+        $("#phoneck").prop("disabled", false);
+    });
+    
+    // 'nick' 입력에 대한 변경 이벤트 리스너 추가
+    $(".regi_sub_form-control[name='nick']").on("input", function () {
+        // 'nick' 입력 값이 변경될 때 'nickchk' 버튼 활성화
+        $("#nickchk").prop("disabled", false);
+    });
+    
     // 연락처 중복 체크 버튼 클릭 시
     $("#phoneck").on("click", function () {
         // 여기에 연락처 중복 체크 로직을 추가
@@ -247,6 +277,7 @@ $(document).ready(function() {
         }
     }
     
+    
     // 수정완료 버튼을 활성화하는 함수
     function enableRegisterButton() {
         $("#mod_regiBtn").prop("disabled", false);
@@ -306,6 +337,10 @@ $(document).ready(function() {
         } else {
             location.reload();
         }
+    });
+    
+    $("#regi_regiBtn").on("click", function () {
+        location.reload();
     });
     
 });
