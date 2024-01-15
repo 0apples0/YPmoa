@@ -6,13 +6,14 @@
 
 
 
+
         <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
                     <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Policy</h1>
 
-                    <p id="login_p">정책 등록하기</p>
+                    <p id="login_p">정책 수정하기</p>
 
 
 
@@ -54,61 +55,57 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                       <textarea class="form-control"></textarea>
+                                                        청소년기에서 청년기로 이행하며 사회에 첫발을 내딛는 청년들(만19~24세)의 교통비 부담 완화 및 이동권 보장을
+                                                        위한 대중교통비 지원
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">시행 지역</th>
                                                     <td>
-                                                        <input class="form-control">
+                                                        영등포구
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
-                                                    <td> <input class="form-control"></td>
+                                                    <td>서울시청 미래청년기획단</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">정책 유형</th>
                                                     <td>
-                                                        <input class="form-control">
+                                                        주거
                                                     </td>
                                                     <th scope="row">지원 대상</th>
                                                     <td>
-                                                        <input class="form-control">
+                                                        <!-- 이부분은 더미값 -->
+                                                        시행지역 3년 이상 거주, 만 나이 25세 이상
                                                     </td>
                                                 </tr>
 
 
                                                 <tr>
                                                     <th scope="row">신청 시작 날짜</th>
-                                                    <td > 
-                                                        <input class="form-control" type="text" id="dateInput" placeholder="yyyy-mm-dd" onblur="validateDateInput(this)">
-
-                                                       
-                                                  
+                                                    <td> 2023. 12. 22.
                                                     </td>
                                                     <th scope="row">신청 마감 날짜</th>
                                                     <td>
-                                                        <input class="form-control" type="text" id="dateInput" placeholder="yyyy-mm-dd" onblur="validateDateInput(this)">
+                                                        2024. 05. 31.
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policySd -->
                                                     <th scope="row">지원규모</th>
-                                                    <td> <input class="form-control"></td>
+                                                    <td>150,000명</td>
                                                     <th scope="row">신청 사이트</th>
                                                     <td><a
-                                                            href="#"> <input class="form-control"></a>
+                                                            href="#">http://gbyouth.co.kr/policy/list.tc?mn=2379&pageNo=5069&no=165</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">연락처</th>
                                                     <td colspan="3">
-                                                        <input class="form-control">
+                                                        전화: 02-1234-1234, 메일: 123@aaa.com
                                                     </td>
                                                 </tr>
-                                             
-                                              
                                             </tbody>
                                         </table>
                                         <div class="mb-3">
@@ -169,7 +166,7 @@
                                         <br>
                                        
                                         <div>
-                                            <button class="btn btn-primary">등록</button>
+                                            <button class="btn btn-primary">수정</button>
                                             <button class="btn btn-warning">취소</button>
                                         </div>
                                      
@@ -191,19 +188,7 @@
         </div>
 
 
-<script>
-// 정책 글쓰기 날짜 입력 함수
-function validateDateInput(input) {
-var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-
-if (!dateRegex.test(input.value)) {
-    alert('올바른 날짜 형식을 입력하세요 (yyyy-mm-dd).');
-    input.value = '';
-}
-}
-</script>
+    
 
 
 <%@include file="../includes/footer.jsp"%>
-
-
