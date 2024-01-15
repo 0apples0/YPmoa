@@ -2412,7 +2412,7 @@ progress {
 
 .form-control:disabled,
 .form-control:read-only {
-  background-color: #e9ecef;
+  background-color: #ffffff;
   opacity: 1
 }
 
@@ -2909,7 +2909,8 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 100%
+  width: 100%;
+  border: 1px solid #ced4da;
 }
 
 .input-group>.form-control,
@@ -12753,3 +12754,4 @@ fieldset:disabled .btn {
   .d-print-none {
     display: none !important
   }
+}
