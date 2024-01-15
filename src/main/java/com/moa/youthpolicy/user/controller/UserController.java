@@ -84,6 +84,7 @@ public class UserController {
     public void register(){
     	
     }
+    
 
 	@PostMapping("/remove")
 	public String remove(HttpSession httpSession, Model model) {
