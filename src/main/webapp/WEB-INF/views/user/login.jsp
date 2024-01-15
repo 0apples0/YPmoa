@@ -58,15 +58,15 @@
                                              <div class="field  login_btn">
                                              
                                                	<!-- SNS로그인 버튼 -->
-                                                  <button type="button" class="a_btn" onclick="location.href='/user/naver_login'"><img src="${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
-                                                  <button type="button" class="a_btn" onclick="location.href='/user/google_login'"><img src="${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
+                                                  <button type="button" class="a_btn" style="cursor: pointer;" onclick="location.href='/user/naver_login'"><img src="${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" style="cursor: pointer;" onclick="location.href='/user/google_login'"><img src="${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
                                                 
                                              </div>
                                           
                                            
                                               <div class="field">
-                                                  <button type="button" class="login_registerBtn a_btn" onclick="">회원가입</button>
-                                                  <button type="button" class="forgot a_btn" onclick="">아이디/비밀번호 찾기</button>
+                                                  <button type="button" class="login_registerBtn a_btn" style="cursor: pointer;" onclick="">회원가입</button>
+                                                  <button type="button" class="forgot a_btn" style="cursor: pointer;" onclick="">아이디/비밀번호 찾기</button>
                                                </div>
                                           </fieldset>
                                        </form>
