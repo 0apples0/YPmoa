@@ -73,9 +73,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0" id="main_menu">
-
                         <a href="/policy/policy" class="nav-item nav-link">정책정보</a>
-                        <a href="index.html" class="nav-item nav-link">정책건의</a>
+                        <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
