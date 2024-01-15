@@ -2,6 +2,8 @@ package com.moa.youthpolicy.suggest.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 

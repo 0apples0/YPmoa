@@ -7,13 +7,13 @@ import lombok.Data;
 @Data
 public class SuggestVO {
 	int bno;
-	Character boardType;
-	String category;
-	String content;
-	String imageName;
-	int like;
-	Date regDate;
 	String title;
+	String content;
 	String writer;
 	String region;
+	String category;
+	int like;
+	String imageName;
+	Date regDate;
+	Character boardType;
 }

@@ -14,13 +14,13 @@
 		WHERE bno=#{bno}
 	</select>
 	
-	<!-- 총 게시물 갯수 (검색시 if 문 실행) -->
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(bno) FROM suggestedboard
 		WHERE bno>0
 		<if test="type != null and type !='' and keyword !=null and keyword!=''">
 			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
 		</if>
+		
 	</select>
 	
 	<select id="getListWithPaging" resultType="SuggestVO" parameterType="com.moa.youthpolicy.common.Criteria">
@@ -34,7 +34,6 @@
 		LIMIT #{start}, #{amount}
 	</select>
 	
-	<!-- 글 상세보기 -->
 	<select id="getBoard" resultType="SuggestVO" parameterType="SuggestVO">
 		SELECT * FROM suggestedboard WHERE bno=#{bno}
 	</select>
