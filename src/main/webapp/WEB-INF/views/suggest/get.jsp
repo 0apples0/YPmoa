@@ -92,6 +92,18 @@
                                             </div>
                                             <div class="g-4 policyGet_letter">개</div>
                                         </div>
+                                        <div class="commuGet_btn">
+                                            <button class="btn btn-primary commuGet_modifyBtn">목록</button>
+                                            <button class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+
+
+                                            <!-- 한번 알람이 떠서 ㄹㅇ삭제? 이런거 나왔으면 좋겠습니당-->
+                                            <button class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+
+
+
+                                            <button class="btn btn-warning commuGet_postReport">신고하기</button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -126,7 +138,7 @@
                         <div style="display: flex; justify-content: center;">
                             <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
                                 placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary" style="margin-left: 10px;">댓글 작성</button>
+                            <button class="btn btn-primary commu_commentBtn" style="margin-left: 10px;">댓글 작성</button>
                         </div>
 
                         <!-- table section -->
@@ -353,7 +365,7 @@
                     return $(this).val().trim() !== "";
                 }).length > 0;
 
-                $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+                $(".commu_commentBtn").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
             }
 
 
