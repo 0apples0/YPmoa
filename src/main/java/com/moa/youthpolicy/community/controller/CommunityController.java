@@ -31,14 +31,15 @@ public class CommunityController {
 		log.info(cri);
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
-		log.info(total);		
+		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 		log.info("-------controller out list ------");
-
+		log.info("작성자 누구: "+cri.getWriter());
 		//log.info("Ajax");
 		//return communityService.getPage(cri);
 	}
+	
 	
 	@GetMapping("/get")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {

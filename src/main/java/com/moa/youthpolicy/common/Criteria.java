@@ -21,6 +21,7 @@ public class Criteria {
 	// 검색에 사용되는 필드 선언
 	private String type;
 	private String keyword;
+	private String writer; //여기
 	
 	public Criteria() {
 		this(1,10);
