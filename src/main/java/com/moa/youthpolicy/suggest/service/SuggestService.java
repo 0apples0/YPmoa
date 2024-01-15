@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 import com.moa.youthpolicy.suggest.mapper.SuggestMapper;
 
@@ -46,7 +47,7 @@ public class SuggestService implements BoardGenericService{
 		log.info(result);
 		return result;
 	}
-
+	
 	@Override
 	public int getTotalAmount(Criteria cri) {
 		int cnt = suggestMapper.getTotalCount(cri);
@@ -76,7 +77,5 @@ public class SuggestService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }

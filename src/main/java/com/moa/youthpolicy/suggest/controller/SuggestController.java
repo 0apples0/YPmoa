@@ -35,8 +35,10 @@ public class SuggestController {
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 		log.info("-------controller out list ------");
+	    
 	}
 	
+	// 게시글 상세보기
 	@GetMapping("/get")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
 		model.addAttribute("vo", suggestService.getBoard(bno));
@@ -49,4 +51,6 @@ public class SuggestController {
 		log.info("Ajax");
 		return suggestService.getPage(cri);
 	}
+	
+
 }

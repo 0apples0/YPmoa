@@ -5,7 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header_guest.jsp" %>
 
-
+<!-- jQuery 라이브러리 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -61,7 +62,7 @@
                         </div>
                         <div class="col-md-1_a ">
 
-                            <button class="btn btn-primary w-100">검색하기</button>
+                            <button type="button" class="btn btn-primary w-100" >검색하기</button>
                         </div>
 
                         <div class="col-md-auto">
@@ -96,7 +97,7 @@
                                      </tr>
                                  </thead>
                                  <tbody>
-                                    
+                                    <!-- 여기에 동적으로 생성되는 내용이 들어갈 자리입니다. -->
                                  </tbody>
                              </table>
                          </div>
@@ -194,6 +195,7 @@
 
 <script>
 	var baseURL = "http://localhost:8090/suggest/suggest";
+    var contextPath = "${pageContext.request.contextPath}";
 
 	function gotoNextPage(endPage) {
 	    // 아무 동작 없음
@@ -237,8 +239,8 @@
             }
         });
         
-		loadTableData();
-		
+        loadTableData();
+
 		function loadTableData(){
 		
 		   $.ajax({
@@ -251,7 +253,7 @@
 		      },
 		      success: function(data){
 		         let boardTbody = $("#suggestBoardTable tbody");
-		            
+  
 		         //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
 		         //for(let item of items) -> items == data, item ==board 역할
 		         $.each(data, function(index, board){
@@ -285,12 +287,13 @@
 					 row.append(likeTd);
 					
 					boardTbody.append(row);
-		        });
-		     },
+	                });
+	             
+	         },
 		     error: function(e){
 		         console.log(e);
 		    }
-		  });
+		 });
 		  let actionForm = $("#actionForm");
 		  $(".paginate_button a").on("click", function(e){
 		     //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
