@@ -53,15 +53,15 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PolicyVO> getPage(Criteria cri) {
+		List<PolicyVO> result = mapper.getListWithPasing(cri);
+		return result;
 	}
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getTotalCount(cri);
+		
 	}
 
 	@Override

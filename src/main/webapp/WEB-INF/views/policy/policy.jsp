@@ -4,6 +4,9 @@
 
 <%@include file="../includes/header_guest.jsp" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %> 
+
      <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
@@ -164,7 +167,7 @@
             </div>
 
 
-            <div class="row g-4">
+            <div class="row g-4" id="policyContainer">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="rounded shadow overflow-hidden">
                         <div class="position-relative">
@@ -339,21 +342,11 @@
                     <a class="page-link" href="${pageMaker.startPage -1 }"><i class="fa fa-angle-left"
                             aria-hidden="true"></i></a>
                 </li>
-                <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
+               <c:forEach var="num" begin="1" end="5">
+				    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+				        <a class="page-link" href="javascript:void(0);" onclick="changePage(${num})">${num}</a>
+				    </li>
+				</c:forEach>
                 <li class="page-item next">
                     <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
                             aria-hidden="true"></i></a>
@@ -418,38 +411,11 @@
 			e.preventDefault();
 			searchForm.submit();
 		});
-		
-		function addPolicyToContainer(policy, index) {
-		    var policyHtml = `
-		        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="${0.1 * index}s">
-		            <div class="rounded shadow overflow-hidden">
-		                <div class="position-relative">
-		                    <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/${policy.image}" alt="">
-		                    <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-		                        <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_${index}">
-		                            <img class="policy_heart" id="policy_heart_${index}" src="${pageContext.request.contextPath}/resources/img/addWish.png" />
-		                        </a>
-		                    </div>
-		                </div>
-		                <div class="text-center p-4 mt-2 policy_detail">
-		                    <h5 class="fw-bold mb-4">${policy.title}</h5>
-		                    <small id="policy_areaName">${policy.areaName}</small>
-		                    <small id="policy_startDate">${policy.startDate}</small>
-		                </div>
-		            </div>
-		        </div>
-		    `;
-		
-		    // 정책 컨테이너에 추가
-		    $("#policyContainer").append(policyHtml);
-		}
-	
-    
 });
 
      function loadTableData() {
     	    $.ajax({
-    	        url: "/policy/policy",
+    	        url: "/policy/getList",
     	        type: "POST",
     	        dataType: "json",
     	        data: {
@@ -461,7 +427,7 @@
     	        success: function (data) {
     	            // #policyContainer 내부의 모든 자식 요소를 제거
     	            $("#policyContainer").empty();
-
+					console.log(data);
     	            // 정책 정보를 동적으로 추가
     	            data.forEach(function (policy, index) {
     	                addPolicyToContainer(policy, index + 1);
@@ -471,6 +437,32 @@
     	            console.log(e);
     	        }
     	    });
+    	}
+     
+     function addPolicyToContainer(policy, index) {
+    	 	console.log(policy.policyNm);
+    	    var policyHtml = `
+    	        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="${0.1 * index}s">
+    	            <div class="rounded shadow overflow-hidden">
+    	                <div class="position-relative">
+    	                    <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드${index}.png" alt="">
+    	                    <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
+    	                        <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_${index}">
+    	                            <img class="policy_heart" id="policy_heart_${index}" src="${pageContext.request.contextPath}/resources/img/addWish.png" />
+    	                        </a>
+    	                    </div>
+    	                </div>
+    	                <div class="text-center p-4 mt-2 policy_detail">
+    	                    <h5 class="fw-bold mb-4">${policy.policyNm}</h5>
+    	                    <small class="policy_areaName">${policy.sprvsnInstNm}</small>
+    	                    <small class="policy_startDate">${policy.startDate}</small>
+    	                </div>
+    	            </div>
+    	        </div>
+    	    `;
+
+    	    // 정책 컨테이너에 추가
+    	    $("#policyContainer").append(policyHtml);
     	}
 
     </script>

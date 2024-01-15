@@ -38,7 +38,7 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
+	public <T> List<T> getPage(Criteria cri) {
 		// TODO Auto-generated method stub
 		return null;
 	}
