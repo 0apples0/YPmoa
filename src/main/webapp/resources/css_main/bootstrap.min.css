@@ -2412,7 +2412,7 @@ progress {
 
 .form-control:disabled,
 .form-control:read-only {
-  background-color: #e9ecef;
+  background-color: #ffffff;
   opacity: 1
 }
 
@@ -2909,7 +2909,8 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 100%
+  width: 100%;
+  border: 1px solid #ced4da;
 }
 
 .input-group>.form-control,
@@ -7709,6 +7710,10 @@ fieldset:disabled .btn {
 .align-items-end {
   align-items: flex-end !important
 }
+.align-items-center_admin {
+  align-items: center !important
+}
+
 
 .align-items-center {
   padding-bottom: 70px;
@@ -8275,6 +8280,10 @@ fieldset:disabled .btn {
 }
 .py-5_a {
   padding-bottom: 3rem !important
+}
+
+.py-5_b {
+  padding-bottom: 6rem !important
 }
 
 

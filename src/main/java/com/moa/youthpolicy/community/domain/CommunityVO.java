@@ -12,7 +12,7 @@ public class CommunityVO {
 	String writer;
 	String region;
 	String category;
-	String like;
+	int like;
 	String imageName;
 	Date regDate;
 	Character boardType;

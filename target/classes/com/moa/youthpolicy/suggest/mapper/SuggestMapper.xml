@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper	namespace="com.moa.youthpolicy.suggest.mapper.SuggestMapper">
+	<select id="select" resultType="SuggestVO">
+		select * from suggestedboard
+		ORDER BY bno DESC
+	</select>
+	
+	<select id="delete" parameterType="SuggestVO">
+		DELETE FROM suggestedboard
+		WHERE bno=#{bno}
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT COUNT(bno) FROM suggestedboard
+		WHERE bno>0
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="getListWithPaging" resultType="SuggestVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM suggestedboard
+		WHERE bno>0
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY bno DESC
+		LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getBoard" resultType="SuggestVO" parameterType="SuggestVO">
+		SELECT * FROM suggestedboard WHERE bno=#{bno}
+	</select>
+</mapper>

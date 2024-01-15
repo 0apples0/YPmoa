@@ -54,21 +54,25 @@ public class PolicyService implements BoardGenericService {
 	}
 /*
 	@Override
-	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PolicyVO> getPage(Criteria cri) {
+		List<PolicyVO> result = mapper.getListWithPasing(cri);
+		return result;
 	}
 */
 	@Override
-	public <T> List<T> getPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PolicyVO> getPage(Criteria cri) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");		
+		List<PolicyVO> list = mapper.getListWithPasing(cri);
+		for (PolicyVO board : list) {
+		    board.setCrtDt_date(LocalDateTime.parse(board.getCrtDt(), formatter));
+		}
+		return list;
 	}
 	
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getTotalCount(cri);
+		
 	}
 
 	@Override
@@ -91,6 +95,12 @@ public class PolicyService implements BoardGenericService {
 
 	@Override
 	public <T> T getBoard(Integer key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T getBoard(Class<T> board) {
 		// TODO Auto-generated method stub
 		return null;
 	}
