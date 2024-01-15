@@ -393,9 +393,10 @@
 	    
 	     function addPolicyToContainer(policy, index) {
 	    	    console.log(policy.policyNm);
-
+	    	  
+	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
-	    	 // policy.crtDt에서 날짜 부분만 추출 (예: "2024-01-20 12:30:45" -> "2024-01-20")
+	    	
 	    	    var datePart = policy.crtDt.split(' ')[0];
 
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
@@ -403,19 +404,19 @@
 	    	        '<div class="position-relative">' +
 	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
 	    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
-	    	        '<a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_' + index + '">' +
+	    	        '<a class="btn btn-square mx-1 toggleLink"  data-target="policy_heart_' + index + '">' +
 	    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/addWish.png" />' +
 	    	        '</a>' +
 	    	        '</div>' +
 	    	        '</div>' +
 	    	        '<div class="text-center p-4 mt-2 policy_detail">' +
-	    	        '<h5 class="fw-bold mb-4">' + (policy.policyNm) + '</h5>' +
+	    	        '<h5 class="fw-bold mb-4">' + displayPolicyName + '</h5>' +
 	    	        '<small class="policy_areaName">' + (policy.rgnSeNm) + '</small>' +
 	    	        '<small class="policy_startDate">' + datePart + '</small>' + // 날짜 부분만 표시
 	    	        '</div>' +
-	    	        '<div class="commuGet_btn" style="padding: 10px;">' +
+	    	        '<div class="commuGet_btn" >' +
 	    	        '<button class="btn btn-primary">수정</button>' +
-	    	        '<button class="btn btn-primary">삭제</button>' +
+	    	        '<button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
 
@@ -428,11 +429,7 @@
 	    	}
 	     
 	     
-	     if ($("header").hasClass("header_admin")) {
-	         $(".commuGet_btn").show();
-	     } else {
-	         $(".commuGet_btn").hide();
-	     }
+	
 	     
 }); // document.ready함수 끝
 
