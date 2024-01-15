@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="../includes/header_guest.jsp"%>
+<%@include file="../includes/header_admin.jsp"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -48,52 +48,49 @@
 			<div class="row policy_row g-2">
 
 
-				<form>
+				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
 						<div class="col-md-3_b">
-							<select class="form-select">
+							<select class="form-select" name="rgnSeNm">
 								<option selected>지역선택</option>
-								<option value="1">부천시</option>
-								<option value="2">수원시</option>
-								<option value="3">광명시</option>
+								<option value="부천시">부천시</option>
+								<option value="수원시">수원시</option>
+								<option value="광명시">광명시</option>
 							</select>
 						</div>
+						
 						<div class="col-md-3_b">
-							<select class="form-select">
-								<option selected>취업상태</option>
-								<option value="1">취업</option>
-								<option value="2">미취업</option>
-							</select>
-						</div>
-						<div class="col-md-3_b_1">
-							<div>
-								<input type="text" class="form-control datetimepicker-input"
-									placeholder="만 나이 숫자만 입력" />
-							</div>
-						</div>
-						<div class="col-md-3_b_2">
-							<select class="form-select">
-								<option selected>소득범위</option>
-								<option value="1">소득없음</option>
-								<option value="2">세전 월 200만원 미만</option>
-								<option value="3">세전 월 200만원 이상 300만원 미만</option>
-							</select>
-						</div>
-						<div class="col-md-3_b">
-							<select class="form-select">
-								<option selected>결혼여부</option>
-								<option value="1">미혼</option>
-								<option value="2">기혼</option>
-							</select>
-						</div>
-						<div class="col-md-3_b">
-							<select class="form-select">
+							<select class="form-select" name="policyTypeNm">
 								<option selected>관심분야</option>
-								<option value="1">주거</option>
-								<option value="2">교육</option>
-								<option value="3">신혼부부</option>
+								<option value="주거">주거</option>
+								<option value="교육">교육</option>
+								<option value="신혼부부">신혼부부</option>
 							</select>
+						</div>
+					</div>
+					<div class="row g-2 justify-content-center policy_search_box">
+
+						<!-- 조건+제목+내용 / 제목+내용 검색 -->
+						<div class="col-md-1 ">
+							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
+						</div>
+						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
+						<div class="col-md-2">
+							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
+						</div>
+						<div class="col-md-1_a">
+							<button type="reset" class="btn btn-secondary ">초기화</button>
+						</div>
+					</div>
+					<div class="row g-2 justify-content-center">
+
+
+						<div class="col-md-5 policy_search_box ">
+	
+							<input type="text" class="form-control datetimepicker-input font_light"
+								placeholder="검색어를 입력하세요" name="keyword" />
+	
 						</div>
 					</div>
 				</form>
@@ -104,35 +101,13 @@
 			<div>
 
 
-				<div class="row g-2 justify-content-center">
-
-
-					<div class="col-md-5 policy_search_box ">
-
-						<input type="text"
-							class="form-control datetimepicker-input font_light"
-							placeholder="검색어를 입력하세요" />
-
-					</div>
+				
 
 
 
-				</div>
+				
 
-				<div class="row g-2 justify-content-center policy_search_box">
-
-					<!-- 조건+제목+내용 / 제목+내용 검색 -->
-					<div class="col-md-1 ">
-						<button class="btn btn-primary w-100">검색하기</button>
-					</div>
-					<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
-					<div class="col-md-2">
-						<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
-					</div>
-					<div class="col-md-1_a">
-						<button type="reset" class="btn btn-secondary ">초기화</button>
-					</div>
-				</div>
+				
 
 			</div>
 
@@ -148,7 +123,9 @@
 
 <div class="container-xxl py-5">
 	<div class="container">
-
+ <div class="commuGet_btn">
+                <button class="btn btn-primary">글쓰기</button>
+            </div>
 
 		<!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
 
@@ -349,7 +326,9 @@
 	  	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
 	  	            amount: $("#actionFrom").find("input[name='amount']").val(),
 	  	            type: $("#searchForm select[name='type']").val(),
-	  	            keyword: $("#searchForm").find("input[name='keyword']").val()
+	  	            keyword: $("#searchForm").find("input[name='keyword']").val(),
+	  	            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val()
 	  	        },
 	  	        success: function (data) {
 	  	        	
@@ -391,23 +370,30 @@
 	    
 	     function addPolicyToContainer(policy, index) {
 	    	    console.log(policy.policyNm);
-
+	    	  
+	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
+	    	
+	    	    var datePart = policy.crtDt.split(' ')[0];
+
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
 	    	        '<div class="position-relative">' +
 	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
 	    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
-	    	        '<a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_' + index + '">' +
+	    	        '<a class="btn btn-square mx-1 toggleLink"  data-target="policy_heart_' + index + '">' +
 	    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/addWish.png" />' +
 	    	        '</a>' +
 	    	        '</div>' +
 	    	        '</div>' +
 	    	        '<div class="text-center p-4 mt-2 policy_detail">' +
-	    	        '<h5 class="fw-bold mb-4">' + (policy.policyNm) + '</h5>' +
-	    	        '<small class="policy_areaName">' + (policy.sprvsnInstNm) + '</small>' +
-	    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' +
+	    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '">' + displayPolicyName + '</a></h5>' +
+	    	        '<small class="policy_areaName">' + (policy.rgnSeNm) + '</small>' +
+	    	        '<small class="policy_startDate">' + datePart + '</small>' + // 날짜 부분만 표시
 	    	        '</div>' +
+	    	        '<div class="commuGet_btn" >' +
+	    	        '<button class="btn btn-primary">수정</button>' +
+	    	        '<button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
 
@@ -417,7 +403,11 @@
 	    	    // 정책 컨테이너에 추가
 	    	    $("#policyContainer").append(policyHtml);
 	    	}
-});
+	     
+	     
+	
+	     
+}); // document.ready함수 끝
 
     </script>
 <%@include file="../includes/footer.jsp"%>

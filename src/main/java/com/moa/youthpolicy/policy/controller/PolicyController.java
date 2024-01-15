@@ -38,6 +38,7 @@ public class PolicyController {
 	@GetMapping("/policy")
 	public void policy(Criteria cri, Model model) {
 		cri.setAmount(8);
+		log.info(cri.toString());
 		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
 		
 		PageDTO pageResult = new PageDTO(cri, total);
@@ -47,12 +48,15 @@ public class PolicyController {
 	@ResponseBody
 	@RequestMapping(value = "/getList", method = RequestMethod.POST)
 	public List<PolicyVO> getList(Criteria cri){
-		log.info(cri.getAmount());
+		//log.info(cri.getAmount());
 		return service.getPage(cri);
 	}
 	@GetMapping("/get")
-	public void getpolicy() {
-		
-	}	
+	public void getpolicy(PolicyVO vo) {
+		log.info("NO:" + vo.getNo());
+		// 글 자세히보기 해야됨
+	}
+	
+	
 	
 }

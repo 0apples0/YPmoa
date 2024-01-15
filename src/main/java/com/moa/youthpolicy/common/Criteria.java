@@ -22,6 +22,10 @@ public class Criteria {
 	private String type;
 	private String keyword;
 	
+	// policy검색조건
+	private String rgnSeNm;
+	private String policyTypeNm;
+	
 	public Criteria() {
 		this(1,10);
 	}

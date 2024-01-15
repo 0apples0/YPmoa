@@ -55,8 +55,8 @@
                     <p id="nickname">관리자님 환영합니다!</p>
                 </div>
                 <div  id="admin_login_menu_box">
-                    <a href="#"> <img src="${pageContext.request.contextPath}resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
-                    <a href="#"> <img src="${pageContext.request.contextPath}resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
                 </div>
             </div>
         </div>
