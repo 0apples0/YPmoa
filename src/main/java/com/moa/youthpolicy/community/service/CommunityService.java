@@ -39,11 +39,6 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-<<<<<<< HEAD
-	public <T> List<T> getPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
-=======
 	public List<CommunityVO> getPage(Criteria cri) {
 		log.info("------service in getList------");
 		log.info(cri);
@@ -51,7 +46,6 @@ public class CommunityService implements BoardGenericService{
 		log.info("------service out getList------");
 		log.info(result);
 		return result;
->>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 	}
 
 	@Override
@@ -76,6 +70,12 @@ public class CommunityService implements BoardGenericService{
 	public void getBack() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public <T> T getBoard(Class<T> board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
