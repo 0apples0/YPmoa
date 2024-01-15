@@ -192,7 +192,7 @@
                 <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                     <a class="page-link" href="${num}">${num}</a>
                 </li>
-            </c:forEach>               
+            </c:forEach>
 
             <li class="paginate_button policy_page-item next">
                <c:choose>

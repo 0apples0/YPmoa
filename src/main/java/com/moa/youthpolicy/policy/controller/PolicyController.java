@@ -47,7 +47,7 @@ public class PolicyController {
 	@ResponseBody
 	@RequestMapping(value = "/getList", method = RequestMethod.POST)
 	public List<PolicyVO> getList(Criteria cri){
-		log.info("Ajax");
+		log.info(cri.getAmount());
 		return service.getPage(cri);
 	}
 	@GetMapping("/get")

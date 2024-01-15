@@ -183,9 +183,8 @@ public class UserService implements UserGenericService {
 	}
 
 	@Override
-	public void logOut(UserVO vo) {
-		// TODO Auto-generated method stub
-		
+	public void logOut(HttpSession session) {
+		session.removeAttribute("user");
 	}
 
 	@Override

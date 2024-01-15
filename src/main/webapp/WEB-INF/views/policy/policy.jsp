@@ -140,7 +140,6 @@
 		</div>
 	</div>
 </div>
-</div>
 
 
 <!-- Booking End -->
@@ -183,38 +182,115 @@
 	</div>
 
 
-	<nav aria-label="Page navigation" class="policy_page_nav wow fadeInUp">
-		<ul class="pagination justify-content-center policy_page_navbox">
-			<li class="policy_page-item_prev prev"><a class="page-link"
-				href="javascript:void(0);"><i class="fa fa-angle-double-left"
-					aria-hidden="true"></i></a></li>
-			<li class="policy_page-item prev"><a class="page-link"
-				href="${pageMaker.startPage -1 }"><i class="fa fa-angle-left"
-					aria-hidden="true"></i></a></li>
-			<c:forEach var="num" begin="1" end="5">
-				<li
-					class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-					<a class="page-link" href="javascript:void(0);"
-					onclick="changePage(${num})">${num}</a>
-				</li>
-			</c:forEach>
-			<li class="page-item next"><a class="page-link"
-				href="javascript:void(0);"><i class="fa fa-angle-right"
-					aria-hidden="true"></i></a></li>
-			<li class="page-item next"><a class="page-link"
-				href="javascript:void(0);"><i class="fa fa-angle-double-right"
-					aria-hidden="true"></i></a></li>
-		</ul>
-	</nav>
-</div>
-<form id="actionFrom" action="/board/list" method="get">
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-</form>
+ <%-- 페이징 적용 --%>
+        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+            <ul class="pagination justify-content-center policy_page_navbox">
+
+
+            <li class="paginate_button policy_page-item_prev prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+                  <a class="page-link" href="" onclick="gotoPrevprev(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>  
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            <li class="paginate_button policy_page-item prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum) >1}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>
+                    </c:when>
+                    <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>  
+                    </c:otherwise>     
+               </c:choose>            
+            </li>            
+
+
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+                    <a class="page-link" href="${num}">${num}</a>
+                </li>
+            </c:forEach>
+
+            <li class="paginate_button policy_page-item next">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when> 
+               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+                  <a class="page-link"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when>               
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextPage('${pageMaker.endPage}')"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>   
+               </c:otherwise>     
+              </c:choose>            
+            </li>              
+              
+            <li class="paginate_button page-item next">
+               <c:choose>
+               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+                  <a class="page-link"><i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>  
+
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
+                  			<i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            
+
+            </ul>
+        </nav>
+        <form id="actionFrom" action="/board/list" method="get">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		</form>
+    </div>
+
+
+
 
 <script>
+
+	function gotoNextPage(endPage) {
+	    // 아무 동작 없음
+	    console.log("gotoNextPage function called");
+	    console.log("endPage : " + endPage);
+	    //event.preventDefault();
+	    var nextPage = Number(endPage) + 1
+	    window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
+	}
+	
+	function gotoPrevprev(pageNum, pageAmount){
+		console.log("gotoPrevprev function called");
+		var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
+		console.log(prevprevPage);
+		window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
+	}
+	
+	function gotoNextnext(pageNum, pageAmount){
+		var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
+		console.log("nextnextPage : "+ nextnextPage);
+		window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
+	}
+
+
      $(document).ready(function () {
    	loadTableData();
+   	
    	
    	
     // 체크박스 중복 방지
@@ -287,6 +363,28 @@
 	  	            console.log(e);
 	  	        }
 	  	    });
+	  	    
+	  	  let actionForm = $("#actionForm");
+	      $(".paginate_button a").on("click", function(e){
+	      
+	         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+	         e.preventDefault(); //이벤트 초기화
+	         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+	         console.log(actionForm);
+	         /*
+	         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	         actionForm.submit();
+	         */
+	         console.log("href : " + $(this).attr("href"));
+	          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+	          let newPageNum = $(this).attr("href");
+	         console.log("newPageNum : " + newPageNum);
+	          // pageNum이 비어있지 않은 경우에만 submit 실행
+	          if (newPageNum) {
+	              actionForm.find("input[name='pageNum']").val(newPageNum);
+	              actionForm.submit();
+	          }
+	      });
 	  	}
 	 	  
 
@@ -308,7 +406,7 @@
 	    	        '<div class="text-center p-4 mt-2 policy_detail">' +
 	    	        '<h5 class="fw-bold mb-4">' + (policy.policyNm) + '</h5>' +
 	    	        '<small class="policy_areaName">' + (policy.sprvsnInstNm) + '</small>' +
-	    	        '<small class="policy_startDate">' + (policy.startDate) + '</small>' +
+	    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' +
 	    	        '</div>' +
 	    	        '</div>' +
 	    	        '</div>';
@@ -319,13 +417,6 @@
 	    	    // 정책 컨테이너에 추가
 	    	    $("#policyContainer").append(policyHtml);
 	    	}
-
-	     
-		 
-	 
-
-	
-
 });
 
     </script>
