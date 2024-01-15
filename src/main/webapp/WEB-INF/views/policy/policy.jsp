@@ -440,29 +440,27 @@
     	}
      
      function addPolicyToContainer(policy, index) {
-    	 	console.log(policy.policyNm);
-    	    var policyHtml = `
-    	        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="${0.1 * index}s">
-    	            <div class="rounded shadow overflow-hidden">
-    	                <div class="position-relative">
-    	                    <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/카드${index}.png" alt="">
-    	                    <div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">
-    	                        <a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_${index}">
-    	                            <img class="policy_heart" id="policy_heart_${index}" src="${pageContext.request.contextPath}/resources/img/addWish.png" />
-    	                        </a>
-    	                    </div>
-    	                </div>
-    	                <div class="text-center p-4 mt-2 policy_detail">
-    	                    <h5 class="fw-bold mb-4">${policy.policyNm}</h5>
-    	                    <small class="policy_areaName">${policy.sprvsnInstNm}</small>
-    	                    <small class="policy_startDate">${policy.startDate}</small>
-    	                </div>
-    	            </div>
-    	        </div> 
-    	    `;
+    	    console.log(policy.policyNm);
 
-    	    // 정책 컨테이너에 추가
-    	    $("#policyContainer").append(policyHtml); 
+    	    var policyContainer = $("#policyContainer");
+
+    	    policyContainer.append('<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">');
+    	    policyContainer.append('<div class="rounded shadow overflow-hidden">');
+    	    policyContainer.append('<div class="position-relative">');
+    	    policyContainer.append('<img class="img-fluid" src="' + '${pageContext.request.contextPath}' + '/resources/img/카드' + index + '.png" alt="">');
+    	    policyContainer.append('<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">');
+    	    policyContainer.append('<a class="btn btn-square mx-1 toggleLink" href="#" data-target="policy_heart_' + index + '">');
+    	    policyContainer.append('<img class="policy_heart" id="policy_heart_' + index + '" src="' + '${pageContext.request.contextPath}' + '/resources/img/addWish.png" />');
+    	    policyContainer.append('</a>');
+    	    policyContainer.append('</div>');
+    	    policyContainer.append('</div>');
+    	    policyContainer.append('<div class="text-center p-4 mt-2 policy_detail">');
+    	    policyContainer.append('<h5 class="fw-bold mb-4">' + policy.policyNm + '</h5>');
+    	    policyContainer.append('<small class="policy_areaName">' + policy.sprvsnInstNm + '</small>');
+    	    policyContainer.append('<small class="policy_startDate">' + policy.startDate + '</small>');
+    	    policyContainer.append('</div>');
+    	    policyContainer.append('</div>');
+    	    policyContainer.append('</div>');
     	}
 
     </script>
