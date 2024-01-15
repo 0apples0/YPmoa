@@ -61,8 +61,8 @@ public class PolicyService implements BoardGenericService {
 */
 	@Override
 	public <T> List<T> getPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<T>) mapper.getListWithPasing(cri);
 	}
 	
 	@Override
