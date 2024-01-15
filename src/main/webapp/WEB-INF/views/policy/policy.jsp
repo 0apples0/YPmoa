@@ -458,7 +458,7 @@
     	                    <small class="policy_startDate">${policy.startDate}</small>
     	                </div>
     	            </div>
-    	        </div>
+    	        </div> 
     	    `;
 
     	    // 정책 컨테이너에 추가
