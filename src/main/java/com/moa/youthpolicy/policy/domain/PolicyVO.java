@@ -8,6 +8,7 @@ import lombok.Data;
 public class PolicyVO {
 	
 	Integer no;
+	String rgnSeNm;
 	String sprvsnInstNm;
 	String policyNm;
 	String updtDt;
