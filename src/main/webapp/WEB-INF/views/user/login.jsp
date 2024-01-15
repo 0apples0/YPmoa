@@ -58,8 +58,8 @@
                                              <div class="field  login_btn">
                                              
                                                	<!-- SNS로그인 버튼 -->
-                                                  <button type="button" class="a_btn" onclick=""><img src="${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
-                                                  <button type="button" class="a_btn" onclick=""><img src="${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
+                                                  <button type="button" class="a_btn" onclick="location.href='/user/naver_login'"><img src="${pageContext.request.contextPath}/resources/img/btnG_완성형.png" id="login_naverlogo"></img></button>
+                                                  <button type="button" class="a_btn" onclick="location.href='/user/google_login'"><img src="${pageContext.request.contextPath}/resources/img/web_neutral_sq_SU.svg"></img></button>
                                                 
                                              </div>
                                           

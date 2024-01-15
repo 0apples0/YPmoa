@@ -18,6 +18,10 @@
     font-family: 'LINESeedKR-Bd';
 }
 
+.font_light{
+    font-family: 'LINESeedKR-Bd_light';
+}
+
 :root {
     --primary: #16a9fe;
     --light: #F1F8FF;
@@ -442,6 +446,78 @@
 
 /*** policy ***/
 
+.policyGet_reportDetail{
+    width: 465px;
+    height: 200px;
+}
+
+#policyGet_checkbox{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+
+#policyGet_checkbox div{
+    margin-bottom: 10px;
+}
+
+
+.policyGet_report{
+    cursor: pointer;
+}
+
+.policyGet_letter{
+    padding-top: 10px;
+}
+
+.policyGet_likeBox{
+    justify-content: center;
+}
+
+.policyGet_likeCount{
+    font-size: 30px !important;
+   margin-right: 5px;
+   color: var(--primary);
+}
+
+.policyGet_likeBtn{
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.policyGet_like{
+    width: 20px !important;
+    cursor: pointer;
+}
+
+.policyGet_comment tbody tr td:first-child{
+    text-align: left !important;
+}
+
+
+.policyGet_title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+
+
+.policyGet_title div{
+    margin-left: auto;
+}
+
+.policy_get_heart{
+    width: 38px;
+    cursor: pointer;
+}
+
+.policy_dt_table th{
+    background-color: rgba(239, 239, 239, 0.401);
+}
+
+
 
 .policy_page_nav{
     margin-top: 30px;
@@ -501,7 +577,7 @@
   }
 
   #policy_checkbox .policy_writeBtn{
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .policy_heart{
@@ -516,10 +592,31 @@
     text-rendering: auto;
     line-height: 1;
 }
+/*** suggest ***/
+.sug_input{
+    width: 1200px !important;
+}
+
+
 
 /*** community ***/
 
+.commuGet_likeBox{
+    justify-content: center;
+    margin-top: 50px;
+}
 
+.commuGet_table td{
+    text-align: left !important;
+}
+
+.commu_table, .commu_table_a{
+    vertical-align: middle;
+}
+
+.commu_table_a{
+	text-align: left !important;
+}
 
 
 .commu_table tbody tr td{
@@ -530,39 +627,34 @@
     font-family: LINESeedKR-Bd_light;
 }
 
-.commu_table th {
+
+
+.commu_table th, .policy_dt_table td  {
     text-align: center;
+    vertical-align: middle;
 }
 
-.commu_table tbody tr td:first-child {
-    text-align: center;
-}
 
-.commu_table tbody tr td:last-child {
-    text-align: center;
-}
 
-.commu_table tbody tr td:nth-child(4) {
-    text-align: center;
-}
-
+.commu_table tbody tr td:first-child, .commu_table tbody tr td:last-child,
+ .commu_table tbody tr td:nth-child(2), .commu_table tbody tr td:nth-child(4),
 .commu_table tbody tr td:nth-child(5) {
+    
     text-align: center;
 }
 
-.commu_table tbody tr td:nth-child(2) {
-    text-align: center;
-}
 
 
-.commu_table tbody tr td:nth-child(2), #commu_likeBtn{
+
+
+.commu_table tbody tr td:nth-child(3), #commu_likeBtn{
     cursor: pointer;
 }
 
 
 
 .commu_table thead tr th:nth-child(1) {
-    width: 10%;
+    width: 9%;
 }
 .commu_table thead tr th:nth-child(3) {
     width: 30%;

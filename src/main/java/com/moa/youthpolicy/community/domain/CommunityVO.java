@@ -10,6 +10,7 @@ public class CommunityVO {
 	String title;
 	String content;
 	String writer;
+	String region;
 	String category;
 	String like;
 	String imageName;

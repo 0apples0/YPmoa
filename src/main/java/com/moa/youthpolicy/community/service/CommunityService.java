@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.mapper.CommunityMapper;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class CommunityService implements BoardGenericService{
 
-	private final CommunityMapper communityMapper; // 주입
+	private final CommunityMapper communityMapper; // 二쇱엯
 	
 	@Override
 	public <T> void delBoard(Class<T> board) {
@@ -32,20 +33,30 @@ public class CommunityService implements BoardGenericService{
 	}
 
 	@Override
-	public <T> T getBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		return null;
+	public CommunityVO getBoard(Integer key) {
+		log.info("getBoard test");
+		return communityMapper.getBoard(key);
 	}
 
 	@Override
+<<<<<<< HEAD
 	public <T> List<T> getPage(Criteria cri) {
 		// TODO Auto-generated method stub
 		return null;
+=======
+	public List<CommunityVO> getPage(Criteria cri) {
+		log.info("------service in getList------");
+		log.info(cri);
+		List<CommunityVO> result = communityMapper.getListWithPaging(cri);
+		log.info("------service out getList------");
+		log.info(result);
+		return result;
+>>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 	}
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		int cnt = communityMapper.countCommunityVO();
+		int cnt = communityMapper.getTotalCount(cri);
 		return cnt;
 	}
 

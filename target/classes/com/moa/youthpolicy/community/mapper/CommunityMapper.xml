@@ -14,7 +14,27 @@
 		WHERE bno=#{bno}
 	</select>
 	
-	<select id="countCommunityVO" resultType="int">
-		select COUNT(bno) from tipboard
+	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT COUNT(bno) FROM tipboard
+		WHERE bno>0
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="getListWithPaging" resultType="CommunityVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM tipboard
+		WHERE bno>0
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY bno DESC
+		LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getBoard" resultType="CommunityVO" parameterType="CommunityVO">
+		SELECT * FROM tipboard WHERE bno=#{bno}
 	</select>
 </mapper>

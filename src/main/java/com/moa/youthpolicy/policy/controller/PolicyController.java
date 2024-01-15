@@ -50,6 +50,9 @@ public class PolicyController {
 		log.info("Ajax");
 		return service.getPage(cri);
 	}
-	
+	@GetMapping("/get")
+	public void getpolicy() {
+		
+	}	
 	
 }
