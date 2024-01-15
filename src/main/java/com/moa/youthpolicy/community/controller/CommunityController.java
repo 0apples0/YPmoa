@@ -50,6 +50,6 @@ public class CommunityController {
 	@RequestMapping(value="/community", method=RequestMethod.POST)
 	public List<CommunityVO> getList(Criteria cri){
 		log.info("Ajax");
-		return communityService.getPage(cri); 
+		return communityService.getPage(cri);
 	}
 }
