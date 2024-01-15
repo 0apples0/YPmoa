@@ -14,9 +14,9 @@
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
-                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Board</h1>
+                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Comment</h1>
 
-                    <p id="login_p">관리자 게시글 관리</p>
+                    <p id="login_p">신고된 댓글 관리</p>
 
 
 
@@ -25,8 +25,8 @@
         </div>
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase">Reported board</h6>
-            <h1 class="mb-4"><span class="text-primary text-uppercase">게시글</span> 관리</h1>
+            <h6 class="section-title text-center text-primary text-uppercase">Reported comment</h6>
+            <h1 class="mb-4"><span class="text-primary text-uppercase">댓글</span> 관리</h1>
         </div>
 
 
@@ -105,10 +105,10 @@
                                         <thead>
                                             <tr> 
                                                 <th data-sort="nickname">닉네임</th>
-                                                <th data-sort="title">글 제목</th>
+                                                <th data-sort="title">댓글내용</th>
                                                 <th data-sort="date">작성일</th>
                                                 <th data-sort="reportNum">신고개수</th>
-                                                <th data-sort="delete">글삭제</th>
+                                                <th data-sort="delete">댓글삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -194,7 +194,7 @@
     </div>
 
 
-  
+    
         <!-- Modal -->
         <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -302,8 +302,10 @@
 
 
 
+
     </script>
-
-
-
+    
+    
+    
+    
 <%@include file="../includes/footer.jsp"%>
