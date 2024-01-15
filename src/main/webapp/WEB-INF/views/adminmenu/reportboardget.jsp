@@ -104,11 +104,11 @@
 
                                         <thead>
                                             <tr> 
-                                                <th data-sort="area">닉네임</th>
-                                                <th data-sort="category">글 제목</th>
-                                                <th data-sort="title">작성일</th>
-                                                <th data-sort="author">신고개수</th>
-                                                <th data-sort="date">글삭제</th>
+                                                <th data-sort="nickname">닉네임</th>
+                                                <th data-sort="title">글 제목</th>
+                                                <th data-sort="date">작성일</th>
+                                                <th data-sort="reportNum">신고개수</th>
+                                                <th data-sort="delete">글삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -121,22 +121,22 @@
                                                     너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
                                                     너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
                                                 </td>
-                                                <td>김피자
+                                                <td>2024-05-11
                                                 </td>
                                               
-                                                <td>게시글 신고 <span>2</span>회
+                                                <td class="admin_boardReport">게시글 신고 <span>2</span>회
                                                 </td>
-                                                <td><a ref="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
+                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
                                             </tr>
                                             <tr>
                                                 <td>부드러운아보카도</td>
                                                 <td>진짜 아보카도혐오하는사람들 디져라</td>
-                                                <td>김아보카도
+                                                <td>2024-05-11  
                                                 </td>
                                               
-                                                <td>게시글 신고 <span>2</span>회
+                                                <td class="admin_boardReport">게시글 신고 <span>2</span>회
                                                 </td>
-                                                <td><a ref="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
+                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
                                             </tr>
                                            
                                           
@@ -192,5 +192,109 @@
             </ul>
         </nav>
     </div>
+
+
+  
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="margin: 5px; margin-bottom: 20px;">
+                                <div>- 불건전한 내용 <span>2</span>회</div>
+                                <div>- 영리목적/홍보성 <span>2</span>회</div>
+                                <div>- 개인정보노출 <span>2</span>회</div>
+                                <div>- 기타 <span>2</span>회</div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                               <table class="table table-bordered admin_boardModal">
+                                <thead>
+                                    <th>신고자 닉네임</th>
+                                    <th>기타 신고 사유</th>
+                                    <th>신고날짜</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>최바나나</td>
+                                        <td>
+                                            바나나를 싫어한다고 해서 기분나빠요
+                                            바나나를 싫어한다고 해서 기분나빠요
+                                            바나나를 싫어한다고 해서 기분나빠요
+                                            바나나를 싫어한다고 해서 기분나빠요
+                                            바나나를 싫어한다고 해서 기분나빠요
+                                            바나나를 싫어한다고 해서 기분나빠요
+
+                                        </td>
+                                        <td>24-02-16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>박감귤</td>
+                                        <td>
+                                            감귤이 최고다
+
+                                        </td>
+                                        <td>24-02-16</td>
+                                    </tr>
+                                </tbody>
+                               </table>
+                               
+       
+                            </div>
+                            
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center policy_page_navbox">
+                                <li class="policy_page-item_prev prev">
+                                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                                <li class="policy_page-item prev">
+                                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="javascript:void(0);">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">5</a>
+                                </li>
+                                <li class="page-item next">
+                                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                                <li class="page-item next">
+                                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
+
+
 
 <%@include file="../includes/footer.jsp"%>
