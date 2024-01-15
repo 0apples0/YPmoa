@@ -70,6 +70,12 @@ public class SuggestService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public <T> T getBoard(Class<T> board) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 
