@@ -60,9 +60,14 @@ public class PolicyService implements BoardGenericService {
 	}
 */
 	@Override
-	public <T> List<T> getPage(Criteria cri) {
+	public List<PolicyVO> getPage(Criteria cri) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");		
+		List<PolicyVO> list = mapper.getListWithPasing(cri);
+		for (PolicyVO board : list) {
+		    board.setCrtDt_date(LocalDateTime.parse(board.getCrtDt(), formatter));
+		}
 		
-		return (List<T>) mapper.getListWithPasing(cri);
+		return list;
 	}
 	
 	@Override

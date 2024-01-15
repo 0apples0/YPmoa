@@ -11,8 +11,9 @@ public class PolicyVO {
 	String sprvsnInstNm;
 	String policyNm;
 	String updtDt;
+	String crtDt;
 	LocalDateTime updtDt_date;
-	
+	LocalDateTime crtDt_date;
 	PolicyBoardVO policyBoardVO;
 	
 
