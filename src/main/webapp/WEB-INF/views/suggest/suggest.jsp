@@ -314,7 +314,6 @@
 		          actionForm.submit();
 		      }
 		  });
-
 		}
     });
 </script>
