@@ -124,7 +124,7 @@
                         <div style="display: flex; justify-content: center;">
                             <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
                                 placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary" style="margin-left: 10px;">댓글 작성</button>
+                            <button class="btn btn-primary" disabled style="margin-left: 10px;">댓글 작성</button>
                         </div>
 
                         <!-- table section -->
