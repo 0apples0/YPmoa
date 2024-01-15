@@ -66,7 +66,6 @@ public class PolicyService implements BoardGenericService {
 		for (PolicyVO board : list) {
 		    board.setCrtDt_date(LocalDateTime.parse(board.getCrtDt(), formatter));
 		}
-		
 		return list;
 	}
 	
