@@ -462,7 +462,7 @@
     	    `;
 
     	    // 정책 컨테이너에 추가
-    	    $("#policyContainer").append(policyHtml);
+    	    $("#policyContainer").append(policyHtml); 
     	}
 
     </script>
