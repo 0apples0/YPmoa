@@ -446,6 +446,8 @@
 
 /*** policy ***/
 
+
+
 .policyGet_reportDetail{
     width: 465px;
     height: 200px;
@@ -601,10 +603,23 @@
 
 /*** community ***/
 
+.commuGet_btn{
+    text-align: right;
+}
+
+.commuGet_like{
+    display: flex;
+}
+
+
+
 .commuGet_likeBox{
+    display: flex;
     justify-content: center;
     margin-top: 50px;
 }
+
+
 
 .commuGet_table td{
     text-align: left !important;
