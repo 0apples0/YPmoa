@@ -10,14 +10,13 @@
 
 
 
-
         <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
-                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Member</h1>
+                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Board</h1>
 
-                    <p id="login_p">관리자 회원 관리</p>
+                    <p id="login_p">관리자 게시글 관리</p>
 
 
 
@@ -26,8 +25,8 @@
         </div>
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase">Member</h6>
-            <h1 class="mb-4"><span class="text-primary text-uppercase">회원</span> 관리</h1>
+            <h6 class="section-title text-center text-primary text-uppercase">Reported board</h6>
+            <h1 class="mb-4"><span class="text-primary text-uppercase">게시글</span> 관리</h1>
         </div>
 
 
@@ -49,7 +48,6 @@
                                     <select class="form-select">
                                         <option selected>전체</option>
                                         <option value="1">닉네임</option>
-                                        <option value="2">탈퇴회원</option>
                                     </select>
                                 </div>
 
@@ -101,46 +99,44 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover admin_userTable">
+                                    <table class="table table-hover admin_boardTable">
 
 
                                         <thead>
                                             <tr> 
-                                                <th data-sort="area">아이디</th>
-                                                <th data-sort="category">닉네임</th>
-                                                <th data-sort="title">이름</th>
-                                                <th data-sort="author">연락처</th>
-                                                <th data-sort="date">가입일자</th>
-                                                <th data-sort="like"  colspan="2">신고이력</th>
-                                                <th data-sort="like" >회원삭제 </th>
+                                                <th data-sort="area">닉네임</th>
+                                                <th data-sort="category">글 제목</th>
+                                                <th data-sort="title">작성일</th>
+                                                <th data-sort="author">신고개수</th>
+                                                <th data-sort="date">글삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>aaㅇㄹㅇㅇㄹaa@naver.com</td>
-                                                <td>동그란피자동그란피자</td>
+                                                <td>동그란피자</td>
+                                                <td>
+                                                    너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
+                                                    너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
+                                                    너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
+                                                    너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
+                                                    너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
+                                                </td>
                                                 <td>김피자
                                                 </td>
-                                                <td>010-5555-4444</td>
-                                                <td>2024-01-05</td>
+                                              
                                                 <td>게시글 신고 <span>2</span>회
                                                 </td>
-                                                <td>댓글 신고 <span>2</span>회
-                                                </td>
-                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
+                                                <td><a ref="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
                                             </tr>
                                             <tr>
-                                                <td>aaaa@naver.com</td>
-                                                <td>동그란피자</td>
-                                                <td>김피자
+                                                <td>부드러운아보카도</td>
+                                                <td>진짜 아보카도혐오하는사람들 디져라</td>
+                                                <td>김아보카도
                                                 </td>
-                                                <td>010-5555-4444</td>
-                                                <td>2024-01-05</td>
+                                              
                                                 <td>게시글 신고 <span>2</span>회
                                                 </td>
-                                                <td>댓글 신고 <span>2</span>회
-                                                </td>
-                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td>
+                                                <td><a ref="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
                                             </tr>
                                            
                                           
