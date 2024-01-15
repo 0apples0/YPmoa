@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="../includes/header_guest.jsp"%>
+<%@include file="../includes/header_admin.jsp"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -148,7 +148,9 @@
 
 <div class="container-xxl py-5">
 	<div class="container">
-
+ <div class="commuGet_btn">
+                <button class="btn btn-primary">글쓰기</button>
+            </div>
 
 		<!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
 
@@ -408,6 +410,9 @@
 	    	        '<small class="policy_areaName">' + (policy.sprvsnInstNm) + '</small>' +
 	    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' +
 	    	        '</div>' +
+	    	        '  <div class="commuGet_btn" style="padding: 10px;">' +
+	    	        ' <button class="btn btn-primary">수정</button>'+
+	    	        ' <button class="btn btn-primary">삭제</button>'+
 	    	        '</div>' +
 	    	        '</div>';
 
@@ -417,7 +422,15 @@
 	    	    // 정책 컨테이너에 추가
 	    	    $("#policyContainer").append(policyHtml);
 	    	}
-});
+	     
+	     
+	     if ($("header").hasClass("header_admin")) {
+	         $(".commuGet_btn").show();
+	     } else {
+	         $(".commuGet_btn").hide();
+	     }
+	     
+}); // document.ready함수 끝
 
     </script>
 <%@include file="../includes/footer.jsp"%>
