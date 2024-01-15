@@ -68,14 +68,25 @@
 								<option value="신혼부부">신혼부부</option>
 							</select>
 						</div>
+						 <div class="col-md-auto">
+                                    <select class="form-select">
+                                        <option selected>선택</option>
+                                        <option value="1">제목</option>
+                                        <option value="2">제목+내용</option>
+                                    </select>
+                                </div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
 
-						<!-- 조건+제목+내용 / 제목+내용 검색 -->
+						<div class="col-md-3">
+	
+							<input type="text" class="form-control datetimepicker-input font_light"
+								placeholder="검색어를 입력하세요" name="keyword" />
+	
+						</div>
 						<div class="col-md-1 ">
 							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
 						</div>
-						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
 							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
@@ -83,16 +94,7 @@
 							<button type="reset" class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
-					<div class="row g-2 justify-content-center">
-
-
-						<div class="col-md-5 policy_search_box ">
-	
-							<input type="text" class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
-	
-						</div>
-					</div>
+					
 				</form>
 			</div>
 
