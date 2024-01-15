@@ -6,7 +6,7 @@
 <%@include file="../includes/header_guest.jsp" %>
 
 
-        <!-- Page Header Start -->
+        <!-- Page Header Start 유민바보 -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">

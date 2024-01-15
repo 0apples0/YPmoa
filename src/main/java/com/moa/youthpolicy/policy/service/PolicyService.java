@@ -54,21 +54,21 @@ public class PolicyService implements BoardGenericService {
 	}
 /*
 	@Override
-	public <T> List<T> getPage(Criteria cri, PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PolicyVO> getPage(Criteria cri) {
+		List<PolicyVO> result = mapper.getListWithPasing(cri);
+		return result;
 	}
 */
 	@Override
 	public <T> List<T> getPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<T>) mapper.getListWithPasing(cri);
 	}
 	
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getTotalCount(cri);
+		
 	}
 
 	@Override
@@ -91,6 +91,12 @@ public class PolicyService implements BoardGenericService {
 
 	@Override
 	public <T> T getBoard(Integer key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T getBoard(Class<T> board) {
 		// TODO Auto-generated method stub
 		return null;
 	}

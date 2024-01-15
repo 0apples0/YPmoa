@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.service.PolicyService;
 
@@ -33,8 +36,19 @@ public class PolicyController {
 	}
 	
 	@GetMapping("/policy")
-	public void policy() {
+	public void policy(Criteria cri, Model model) {
+		cri.setAmount(8);
+		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
 		
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("pageMaker", pageResult);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getList", method = RequestMethod.POST)
+	public List<PolicyVO> getList(Criteria cri){
+		log.info("Ajax");
+		return service.getPage(cri);
 	}
 	@GetMapping("/get")
 	public void getpolicy() {

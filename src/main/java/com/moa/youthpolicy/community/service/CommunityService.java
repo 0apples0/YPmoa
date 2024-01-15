@@ -72,4 +72,10 @@ public class CommunityService implements BoardGenericService{
 		
 	}
 
+	@Override
+	public <T> T getBoard(Class<T> board) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

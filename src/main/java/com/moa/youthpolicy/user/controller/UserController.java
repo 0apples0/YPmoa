@@ -97,6 +97,7 @@ public class UserController {
     public void register(){
     	
     }
+    
 
 	@PostMapping("/remove")
 	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
