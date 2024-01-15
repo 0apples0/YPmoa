@@ -395,6 +395,9 @@
 	    	    console.log(policy.policyNm);
 
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
+	    	 // policy.crtDt에서 날짜 부분만 추출 (예: "2024-01-20 12:30:45" -> "2024-01-20")
+	    	    var datePart = policy.crtDt.split(' ')[0];
+
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
 	    	        '<div class="position-relative">' +
@@ -407,14 +410,15 @@
 	    	        '</div>' +
 	    	        '<div class="text-center p-4 mt-2 policy_detail">' +
 	    	        '<h5 class="fw-bold mb-4">' + (policy.policyNm) + '</h5>' +
-	    	        '<small class="policy_areaName">' + (policy.sprvsnInstNm) + '</small>' +
-	    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' +
+	    	        '<small class="policy_areaName">' + (policy.rgnSeNm) + '</small>' +
+	    	        '<small class="policy_startDate">' + datePart + '</small>' + // 날짜 부분만 표시
 	    	        '</div>' +
-	    	        '  <div class="commuGet_btn" style="padding: 10px;">' +
-	    	        ' <button class="btn btn-primary">수정</button>'+
-	    	        ' <button class="btn btn-primary">삭제</button>'+
+	    	        '<div class="commuGet_btn" style="padding: 10px;">' +
+	    	        '<button class="btn btn-primary">수정</button>' +
+	    	        '<button class="btn btn-primary">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
+
  
 
 	    	
