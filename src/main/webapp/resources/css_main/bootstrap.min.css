@@ -7709,6 +7709,10 @@ fieldset:disabled .btn {
 .align-items-end {
   align-items: flex-end !important
 }
+.align-items-center_admin {
+  align-items: center !important
+}
+
 
 .align-items-center {
   padding-bottom: 70px;
@@ -8275,6 +8279,10 @@ fieldset:disabled .btn {
 }
 .py-5_a {
   padding-bottom: 3rem !important
+}
+
+.py-5_b {
+  padding-bottom: 6rem !important
 }
 
 
@@ -12745,4 +12753,3 @@ fieldset:disabled .btn {
   .d-print-none {
     display: none !important
   }
-}
