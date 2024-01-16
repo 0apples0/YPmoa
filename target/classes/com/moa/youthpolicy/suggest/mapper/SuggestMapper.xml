@@ -17,6 +17,9 @@
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(bno) FROM suggestedboard
 		WHERE bno>0
+		<if test="writer != null and writer != ''">
+			And writer = #{writer}
+		</if>
 		<if test="type != null and type !='' and keyword !=null and keyword!=''">
 			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
 		</if>
@@ -26,8 +29,10 @@
 	<select id="getListWithPaging" resultType="SuggestVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM suggestedboard
 		WHERE bno>0
+		<if test="writer != null and writer != ''">
+			And writer = #{writer}
+		</if>
 		<if test="type != null and type !='' and keyword !=null and keyword!=''">
-			
 			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 		ORDER BY bno DESC

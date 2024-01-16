@@ -34,8 +34,9 @@ public class SuggestController {
 		log.info(total);		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		log.info("-------controller out list ------");
-	    
+		log.info("---------------------------------");
+		log.info("작성자 누구: "+cri.getWriter());
+
 	}
 	
 	// 게시글 상세보기
@@ -47,7 +48,7 @@ public class SuggestController {
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
 	@RequestMapping(value="/suggest", method=RequestMethod.POST)
-	public List<SuggestVO> getList(Criteria cri){
+	public List<SuggestVO> getList(Criteria cri, Model model){
 		log.info("Ajax");
 		return suggestService.getPage(cri);
 	}
