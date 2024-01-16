@@ -10,7 +10,7 @@
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
 	<div class="page-header-inner" id="login_banner">
-		<div class="container">
+		<div class="container text-center">
 			<h1 class=" display-3 text-white mb-3 animated slideInDown"
 				id="login_h1">Policy</h1>
 
