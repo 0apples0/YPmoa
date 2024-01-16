@@ -3,7 +3,7 @@
 
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer wow fadeIn"
-	data-wow-delay="0.7s">
+	data-wow-delay="0.3s">
 	<div class="container">
 		<div class="row g-5"></div>
 		<div class="rounded p-4" id="footer_box">

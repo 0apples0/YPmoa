@@ -34,7 +34,7 @@ public class PolicyController {
 		return list;
 	}
 	
-	@GetMapping("/policy")
+	@RequestMapping(value = { "/policy", "/policyPost" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public void policy(Criteria cri, Model model) {
 		cri.setAmount(8);
 		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
@@ -46,7 +46,7 @@ public class PolicyController {
 	@ResponseBody
 	@RequestMapping(value = "/getList", method = RequestMethod.POST)
 	public List<PolicyVO> getList(Criteria cri){
-		//log.info(cri.getAmount());
+		log.info(cri);
 		return service.getPage(cri);
 	}
 	@GetMapping("/get")

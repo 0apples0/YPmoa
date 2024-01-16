@@ -30,12 +30,11 @@ public class Criteria {
 
 	private String writer; //여기
 
-
 	
 	// policy검색조건
 	private String rgnSeNm;
 	private String policyTypeNm;
-
+	private String selectedFilter;
 	
 	public Criteria() {
 		this(1,10);
