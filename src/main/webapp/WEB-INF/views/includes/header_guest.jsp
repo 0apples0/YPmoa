@@ -35,10 +35,23 @@
 <script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
 <!-- list CSS-->
 <script src="${pageContext.request.contextPath}/resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
+<!-- 모달 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- 모달 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 부트스트랩 및 팝퍼.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 글쓰기 에디터 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+
+<!-- Summernote 추가 스크립트 -->
+<script src="${pageContext.request.contextPath}/resources/summerNote/js/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath}/resources/summerNote/js/lang/summernote-ko-KR.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summerNote/css/summernote-lite.css">
+
 </head>
 
 <body>
