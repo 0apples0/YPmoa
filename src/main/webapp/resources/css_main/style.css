@@ -802,6 +802,10 @@
     padding-top: 0px;
 }
 
+#mini_board_title{
+	cursor: pointer;
+}
+
 .container h6{
     font-size: 50px;
     padding-top: 20px;

@@ -315,8 +315,8 @@
 
             
             var row = "<tr>" +
-                        "<td class='mini_board_bold'>" + policy.sprvsnInstNm + "</td>" +
-                        "<td class='ellipsis'>" + policyNmText + "</td>" +
+                        "<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
+                        "<td class='ellipsis' id='mini_board_title'>" + policyNmText + "</td>" +
                         "<td class='list_date'>" + policy.updtDt_date + "</td>" +
                      "</tr>";
             $("#policy").append(row);
