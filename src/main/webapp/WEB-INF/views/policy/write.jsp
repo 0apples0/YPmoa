@@ -192,6 +192,34 @@ if (!dateRegex.test(input.value)) {
     input.value = '';
 }
 }
+
+
+// 글쓰기 에디터 함수
+	jQuery(document).ready(
+			function($) {
+				$('#summernote').summernote(
+						{
+							height : 500,
+							minHeight : null,
+							maxHeight : null,
+							lang : "ko-KR",
+
+							toolbar : [
+									['style',[ 'bold', 'italic', 'underline','clear' ] ],
+									[ 'font', [ 'strikethrough' ] ],
+									[ 'fontsize', [ 'fontsize' ] ],
+									[ 'color', [ 'color' ] ],
+									[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+									[ 'height', [ 'height' ] ],
+									[ 'picture', [ '[picture]' ] ],
+									[ 'insert', [ 'link', 'picture' ] ], ]
+
+						});
+
+				$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
+
+			}); // 글쓰기에디터 ready함수 끝
+			
 </script>
 
 
