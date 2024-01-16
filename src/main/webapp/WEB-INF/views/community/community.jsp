@@ -71,11 +71,16 @@
 									</select>
                                 </div>
                                 <div class="col-md-3_b">
-                                    <select class="form-select">
-                                        <option selected>전체</option>
-                                        <option value="1">제목</option>
-                                        <option value="2">제목+내용</option>
-                                        <option value="3">글쓴이</option>
+                                    <select class="form-select" name="type">
+	                                    <option value="" 
+	                                     	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+	                                    <option value="T" 
+	                                     	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+	                                    <option value="TC"
+	                                     	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>제목+내용</option>  
+	                                    <option value="W" 
+	                                     	<c:out value="${pageMaker.cri.type == 'W'?'selected':''}"/>>작성자</option>
+ 
                                     </select>
                                 </div>
                                 <div class="col-md-3">
