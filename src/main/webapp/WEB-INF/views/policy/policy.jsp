@@ -229,7 +229,6 @@
                </c:choose>            
             </li> 
             
-
             </ul>
         </nav>
         <form id="actionFrom" action="/policy/policy" method="get">
