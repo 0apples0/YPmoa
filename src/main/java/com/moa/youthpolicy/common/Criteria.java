@@ -18,6 +18,8 @@ public class Criteria {
 	// 페이지에 따라 첫번째 글이 어디부터 시작해야 하는지 정하기위해
 	private int start;
 	
+	// 각 화면에 표시되는 페이지의 수
+	private static final int pageAmount = 10;
 	// 10페이지 앞으로가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 << 버튼 클릭 시 11페이지로 이동)
 	private int prevprevPage;
 	// 10페이지 뒤가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 >> 버튼 클릭 시 31페이지로 이동)
@@ -53,17 +55,17 @@ public class Criteria {
 	}
 	
 	public int getPrevprevPage() {
-		this.prevprevPage = (int) (Math.floor((this.pageNum-this.amount)/this.amount)*this.amount+1);
+		this.prevprevPage = (int) (Math.floor((this.pageNum-pageAmount)/pageAmount)*pageAmount+1);
 		return this.prevprevPage;
 		
 	}
 	
 	public int getNextnextPage() {
-		this.nextnextPage = (int) (Math.floor((this.pageNum+this.amount)/this.amount)*this.amount+1);
+		this.nextnextPage = (int) (Math.floor((this.pageNum+pageAmount)/pageAmount)*pageAmount+1);
 		return this.nextnextPage;
 		
 	}
-	
+
 	// 미션: 이 메서드를 사용하여 검색 기능 구현하기
 	// type의 value : TC(제목+내용) 검색 -> {'T','C'}
 	public String[] getTypeArr() {
