@@ -446,6 +446,8 @@
 
 /*** policy ***/
 
+
+
 .policyGet_reportDetail{
     width: 465px;
     height: 200px;
@@ -529,6 +531,8 @@
 
 
 
+
+
 .policy_search_box{
     padding-top: 20px;
 }
@@ -598,19 +602,62 @@
 }
 
 
+/*** admin ***/
+
+.admin_boardModal{
+    text-align: center;
+}
+
+
+.admin_boardModal tbody tr td:nth-child(2){
+    width: 50%;
+    text-align: left;
+}
+
+
+.admin_userTable tbody tr td, .admin_boardTable tbody tr td, .admin_boardModal tbody tr td{
+    font-family: 'LINESeedKR-Bd_light';
+}
+
+.admin_boardTable tbody tr td:nth-child(2){
+    width: 60%;
+    cursor: pointer;
+}
+
+.admin_boardTable tbody tr td:nth-child(4), .admin_boardTable tbody tr td:nth-child(5){
+    cursor: pointer;
+}
+
+.admin_page_nav{
+    padding-top: 30px;
+}
+
 
 /*** community ***/
 
+.commuGet_btn{
+    text-align: right;
+}
+
+.commuGet_like{
+    display: flex;
+}
+
+
+
 .commuGet_likeBox{
+    display: flex;
     justify-content: center;
     margin-top: 50px;
 }
+
+
 
 .commuGet_table td{
     text-align: left !important;
 }
 
-.commu_table, .commu_table_a{
+.commu_table, .commu_table_a, .admin_userTable, .admin_boardTable, .admin_boardModal{
     vertical-align: middle;
 }
 
@@ -1040,4 +1087,4 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
-}
+}	

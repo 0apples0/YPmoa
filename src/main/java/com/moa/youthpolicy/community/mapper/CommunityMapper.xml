@@ -3,46 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper   namespace="com.moa.youthpolicy.community.mapper.CommunityMapper">
-   <select id="select" resultType="CommunityVO">
-      select * from tipboard
-      ORDER BY bno DESC
-   </select>
-   
-   <select id="delete" parameterType="CommunityVO">
-      DELETE FROM tipboard
-      WHERE bno=#{bno}
-   </select>
-   
-   <select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-      SELECT COUNT(bno) FROM tipboard
-      WHERE bno>0
-      <if test="writer != null and writer != ''">
-         And writer = #{writer}
+<mapper	namespace="com.moa.youthpolicy.community.mapper.CommunityMapper">
+	<select id="select" resultType="CommunityVO">
+		select * from tipboard
+		ORDER BY bno DESC
+	</select>
+	
+	<select id="delete" parameterType="CommunityVO">
+		DELETE FROM tipboard
+		WHERE bno=#{bno}
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT COUNT(bno) FROM tipboard
+		WHERE bno>0
+		<if test="writer != null and writer != ''">
+			And writer = #{writer}
 
-      </if>
-      <if test="type != null and type !='' and keyword !=null and keyword!=''">
-         AND ${type} LIKE CONCAT('%', #{keyword}, '%')
-      </if>
-      
-   </select>
-   
-   <select id="getListWithPaging" resultType="CommunityVO" parameterType="com.moa.youthpolicy.common.Criteria">
-      SELECT * FROM tipboard
-      WHERE bno>0
-      <if test="writer != null and writer != ''">
-         And writer = #{writer}
+		</if>
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="getListWithPaging" resultType="CommunityVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM tipboard
+		WHERE bno>0
+		<if test="writer != null and writer != ''">
+			And writer = #{writer}
 
-      </if>
-      <if test="type != null and type !='' and keyword !=null and keyword!=''">
-            
-         AND ${type} LIKE CONCAT('%', #{keyword}, '%')
-      </if>
-      ORDER BY bno DESC
-      LIMIT #{start}, #{amount}
-   </select>
-   
-   <select id="getBoard" resultType="CommunityVO" parameterType="CommunityVO">
-      SELECT * FROM tipboard WHERE bno=#{bno}
-   </select>
+		</if>
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+				
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY bno DESC
+		LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getBoard" resultType="CommunityVO" parameterType="CommunityVO">
+		SELECT * FROM tipboard WHERE bno=#{bno}
+	</select>
 </mapper>

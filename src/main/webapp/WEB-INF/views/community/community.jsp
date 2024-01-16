@@ -5,6 +5,7 @@
 <%@include file="../includes/header_guest.jsp" %>
 
         <!-- Page Header Start -->
+
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -188,7 +189,7 @@
                 <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                     <a class="page-link" href="${num}">${num}</a>
                 </li>
-            </c:forEach>               
+            </c:forEach>
 
             <li class="paginate_button policy_page-item next">
                <c:choose>
@@ -286,8 +287,7 @@ $(document).ready(function () {
     });
 
    
-    
-	
+
     
     $("#gotoMineBtn").on("click", function(e){
        let usernickForm = $("#usernickForm");
@@ -328,6 +328,7 @@ $(document).ready(function () {
                 };      	   
        }
 
+  
 
         console.log(data);
        $.ajax({
@@ -384,7 +385,7 @@ $(document).ready(function () {
       
       let actionForm = $("#actionForm");
       $(".paginate_button a").on("click", function(e){
-    	  
+
          //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
          e.preventDefault(); //이벤트 초기화
          //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
@@ -405,7 +406,7 @@ $(document).ready(function () {
       });
     }
     
-    
+    loadTableData(switchMine);
     
 
 });

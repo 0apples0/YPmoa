@@ -21,7 +21,16 @@ public class Criteria {
 	// 검색에 사용되는 필드 선언
 	private String type;
 	private String keyword;
-	private String writer; //추가!!!
+
+
+	private String writer; //여기
+
+
+	
+	// policy검색조건
+	private String rgnSeNm;
+	private String policyTypeNm;
+
 	
 	public Criteria() {
 		this(1,10);

@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-<%
-   System.out.println("header session : " + session.getAttribute("user"));
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,7 +34,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
 <!-- list CSS-->
-<script src="resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
+<script src="${pageContext.request.contextPath}/resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
 <!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- 모달 -->
@@ -78,16 +76,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">
-
-
                         <a href="/policy/policy" class="nav-item nav-link">정책정보</a>
+
 
                         <a href="index.html" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
-
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
-
                     </div>
                 </div>
             </nav>
@@ -115,4 +110,6 @@
 </script>
    
 </body>
+
+
 <!-- Header End -->

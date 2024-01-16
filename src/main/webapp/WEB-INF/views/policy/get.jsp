@@ -173,6 +173,9 @@
 									</div>
 									<div class="g-4 policyGet_letter">개</div>
 								</div>
+								 <div class="commuGet_btn">
+                                            <button class="btn btn-primary">목록</button>
+                                        </div>
 							</div>
 						</div>
 
@@ -204,7 +207,7 @@
 					<input type="text"
 						class="form-control datetimepicker-input font_light"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-					<button class="btn btn-primary" style="margin-left: 20px;">댓글
+					<button class="btn btn-primary commu_commentBtn" style="margin-left: 20px;">댓글
 						작성</button>
 				</div>
 
@@ -427,7 +430,7 @@
                     return $(this).val().trim() !== "";
                 }).length > 0;
 
-                $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+                $(".commu_commentBtn").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
             }
 
 
