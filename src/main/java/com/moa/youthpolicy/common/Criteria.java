@@ -21,6 +21,7 @@ public class Criteria {
 	// 검색에 사용되는 필드 선언
 	private String type;
 	private String keyword;
+	private String writer; //추가!!!
 	
 	public Criteria() {
 		this(1,10);
@@ -31,7 +32,7 @@ public class Criteria {
 		this.amount = amount;            // pageNum    start
 		this.start = (pageNum-1)*amount; //    1   ->   0
 	}   // mapper에서 활용하는 방법 체크 //    2   ->   10
-	                                     //    3   ->   20 
+	//    3   ->   20 
 
 	public int getStart() {
 		this.start = (this.pageNum-1)*this.amount;

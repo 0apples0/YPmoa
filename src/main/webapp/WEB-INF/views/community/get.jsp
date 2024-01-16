@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header_guest.jsp" %>
 
 
@@ -34,9 +35,10 @@
                                 
                                 <div class="full graph_head" style="padding-bottom: 7px;">
                                     <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">이번에 뜬 청약 꿀팁 알려줌ㅋㅋ</h2><br>
-                                        <div>동그란햄스터</div>
-                                        <div class="font_light">2024/02/11/ 17:18:22</div>
+                                        <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                        <div>${vo.writer}</div>
+
+                                        <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
                                     </div>
                                 </div>
                                 
@@ -59,22 +61,7 @@
                                             <tbody>
                                                 <tr >
                                                     <td>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
-                                                        오늘저녁뭐먹을지추천좀ㅋㅋ<br>
+														${vo.content }
                                                     </td>
 
                                                 </tr>

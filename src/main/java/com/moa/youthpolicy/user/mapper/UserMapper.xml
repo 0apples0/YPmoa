@@ -42,8 +42,8 @@
     
     <insert id="register" parameterType="com.moa.youthpolicy.user.domain.UserVO">
     	INSERT INTO user
-    	(Email, name, nick, phone)
-    	VALUES (#{Email}, #{name}, #{nick}, #{phone})
+    	(Email, name, nick, phone, PW)
+    	VALUES (#{Email}, #{name}, #{nick}, #{phone}, #{PW})
 	</insert>
 	
 	 <select id="login" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="com.moa.youthpolicy.user.domain.UserVO">
