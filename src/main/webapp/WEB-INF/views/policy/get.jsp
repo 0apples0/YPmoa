@@ -53,58 +53,70 @@
 						<div class="table_section padding_infor_info">
 
 							<div class="table-responsive-sm">
-								<table class="table table-bordered commu_table policy_dt_table">
-									<colgroup>
-										<col style="width: 14%">
-										<col style="width: 36%">
-										<col style="width: 14%">
-										<col style="width: 36%">
-									</colgroup>
-									<tbody>
-										<tr>
-											<!-- policyCn-->
-											<th scope="row">정책 소개</th>
-											<td colspan="3">청소년기에서 청년기로 이행하며 사회에 첫발을 내딛는
-												청년들(만19~24세)의 교통비 부담 완화 및 이동권 보장을 위한 대중교통비 지원</td>
-										</tr>
-										<tr>
-											<!-- policyTypeNm -->
-											<th scope="row">시행 지역</th>
-											<td>영등포구</td>
-											<!-- operInstNm -->
-											<th scope="row">주관 기관</th>
-											<td>서울시청 미래청년기획단</td>
-										</tr>
-										<tr>
-											<th scope="row">정책 유형</th>
-											<td>주거</td>
-											<th scope="row">지원 대상</th>
-											<td>
-												<!-- 이부분은 더미값 --> 시행지역 3년 이상 거주, 만 나이 25세 이상
-											</td>
-										</tr>
+								 <table class="table table-bordered commu_table policy_dt_table">
+                                            <colgroup>
+                                                <col style="width: 14%">
+                                                <col style="width: 36%">
+                                                <col style="width: 14%">
+                                                <col style="width: 36%">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <!-- policyCn-->
+                                                    <th scope="row">정책 소개</th>
+                                                    <td colspan="3">
+                                                        청소년기에서 청년기로 이행하며 사회에 첫발을 내딛는 청년들(만19~24세)의 교통비 부담 완화 및 이동권 보장을
+                                                        위한 대중교통비 지원
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- policyTypeNm -->
+                                                    <th scope="row">시행 지역</th>
+                                                    <td>
+                                                        영등포구
+                                                    </td>
+                                                    <!-- operInstNm -->
+                                                    <th scope="row">주관 기관</th>
+                                                    <td>서울시청 미래청년기획단</td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- policyTypeNm -->
+                                                    <th scope="row">정책 유형</th>
+                                                    <td>
+                                                        주거
+                                                    </td>
+                                                    <!-- policySd -->
+                                                    <th scope="row">지원규모</th>
+                                                    <td>150,000명</td>
+                                                </tr>
 
 
-										<tr>
-											<th scope="row">신청 시작 날짜</th>
-											<td>2023. 12. 22.</td>
-											<th scope="row">신청 마감 날짜</th>
-											<td>2024. 05. 31.</td>
-										</tr>
-										<tr>
-											<!-- policySd -->
-											<th scope="row">지원규모</th>
-											<td>150,000명</td>
-											<th scope="row">신청 사이트</th>
-											<td><a href="#">http://gbyouth.co.kr/policy/list.tc?mn=2379&pageNo=5069&no=165</a>
-											</td>
-										</tr>
-										<tr>
-											<th scope="row">연락처</th>
-											<td colspan="3">전화: 02-1234-1234, 메일: 123@aaa.com</td>
-										</tr>
-									</tbody>
-								</table>
+                                                <tr>
+                                                    <!-- aplyBangDt -->
+                                                    <th scope="row">신청 시작 날짜</th>
+                                                    <td> 2023. 12. 22.
+                                                    </td>
+                                                    <!-- aplyEndDt -->
+                                                    <th scope="row">신청 마감 날짜</th>
+                                                    <td>
+                                                        2024. 05. 31.
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <!-- policyEnq -->
+                                                    <th scope="row">연락처</th>
+                                                    <td>
+                                                        전화: 02-1234-1234, 메일: 123@aaa.com
+                                                    </td>
+                                                    <!-- dtlLinkUrl-->
+                                                    <th scope="row">신청 사이트</th>
+                                                    <td><a
+                                                            href="#">http://gbyouth.co.kr/policy/list.tc?mn=2379&pageNo=5069&no=165</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
 							</div>
 						</div>
@@ -126,41 +138,52 @@
 						<div class="table_section padding_infor_info">
 
 							<div class="table-responsive-sm">
-								<table class="table commu_table policy_dt_table">
-									<colgroup>
-										<col style="width: 14%">
-										<col style="width: 36%">
-										<col style="width: 14%">
-										<col style="width: 36%">
-									</colgroup>
-									<tbody>
-										<tr style="text-align: center;">
-											<td colspan="4"><img style="width: 80%;"
-												src="${pageContext.request.contextPath}/resources/img/카드1.png" />
+								  <table class="table commu_table policy_dt_table">
+                                            <colgroup>
+                                                <col style="width: 14%">
+                                                <col style="width: 36%">
+                                                <col style="width: 14%">
+                                                <col style="width: 36%">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <img style="width: 80%;" src="${pageContext.request.contextPath}/resources/img/카드1.png" />
 
-											</td>
+                                                    </td>
 
-										</tr>
-										<tr style="text-align: center;">
-											<td colspan="4">정책 상세 내용<br> 정책 상세 내용<br> 정책
-												상세 내용<br> 정책 상세 내용<br> 정책 상세 내용<br> 정책 상세 내용<br>
-												정책 상세 내용<br> 정책 상세 내용<br>
-											</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <!-- policyCnDtl -->
+                                                        '자격요건
+                                                        - 인턴: 미취업 청년, 결혼이민자, 새터민 등 취업애로계층
+                                                        - 기업: 울진군 소재 기업 중 중소기업기본법 상 중소기업
 
-										</tr>
-										<tr style="text-align: center;">
-											<td colspan="4">정책 신청 방법<br> 정책 신청 방법<br> 정책
-												신청 방법<br> 정책 신청 방법<br> 정책 신청 방법<br> 정책 신청 방법<br>
-												정책 신청 방법<br> 정책 신청 방법<br>
-											</td>
+                                                        지원내용
+                                                        - 기업: 채용 인턴 1명당 고용지원금 300만원
+                                                        - 인턴: 정규직 전환 시 근속장려금 300만원
 
-										</tr>
+                                                        지급방법
+                                                        - 기업: 인턴 2개월간 월 150만원씩 2회(1, 2월차) 분할 지급
+                                                        - 인턴: 정규직 전환일로부터 10개월간 월 150만원씩 2회(3, 10월차) 분할 지급'
 
+                                                    </td>
 
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <!-- 정책신청방법 작성 -->
+                                                        정책신청방법
+                                                        정책신청방법
+                                                        정책신청방법
+                                                        정책신청방법
+                                                        정책신청방법
+                                                    </td>
 
-
-									</tbody>
-								</table>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 								<br>
 								<div style="display: flex;" class="policyGet_likeBox">
 									<div class="g-4 policyGet_letter">좋아요</div>
@@ -444,7 +467,16 @@
                 submitButton.prop("disabled", !isInputNotEmpty);
             });
 
+            
+            
+          
+          
+            
+            
+            
         }); // document.ready함수
+
+
 
 
     </script>

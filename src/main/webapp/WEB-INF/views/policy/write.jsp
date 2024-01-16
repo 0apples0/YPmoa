@@ -145,31 +145,22 @@
                                                 <col style="width: 36%">
                                             </colgroup>
                                             <tbody>
+                                               
                                                 <tr style="text-align: center;">
                                                     <td colspan="4">
-                                                        <textarea class="form-control" disabled placeholder="이미지 나오는 곳"></textarea>
-                                                        
+                                                        <form method="post">
+                                                <textarea id="summernote" name="editordata" class="form-control"
+                                                   ></textarea></form>
                                                     </td>
 
                                                 </tr>
-                                                <tr style="text-align: center;">
-                                                    <td colspan="4">
-                                                       <textarea class="form-control" placeholder="정책 설명을 입력하세요"></textarea>
-                                                    </td>
-
-                                                </tr>
-                                                <tr style="text-align: center;">
-                                                    <td colspan="4">
-                                                        <textarea class="form-control" style="height: 500px;" placeholder="정책 신청 방법을 입력하세요"></textarea>
-                                                    </td>
-
-                                                </tr>
+                                               
                                             </tbody>
                                         </table>
                                         <br>
                                        
                                         <div>
-                                            <button class="btn btn-primary">등록</button>
+                                            <button class="btn btn-primary">등록하기</button>
                                             <button class="btn btn-warning">취소</button>
                                         </div>
                                      
@@ -201,6 +192,34 @@ if (!dateRegex.test(input.value)) {
     input.value = '';
 }
 }
+
+
+// 글쓰기 에디터 함수
+	jQuery(document).ready(
+			function($) {
+				$('#summernote').summernote(
+						{
+							height : 500,
+							minHeight : null,
+							maxHeight : null,
+							lang : "ko-KR",
+
+							toolbar : [
+									['style',[ 'bold', 'italic', 'underline','clear' ] ],
+									[ 'font', [ 'strikethrough' ] ],
+									[ 'fontsize', [ 'fontsize' ] ],
+									[ 'color', [ 'color' ] ],
+									[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+									[ 'height', [ 'height' ] ],
+									[ 'picture', [ '[picture]' ] ],
+									[ 'insert', [ 'link', 'picture' ] ], ]
+
+						});
+
+				$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
+
+			}); // 글쓰기에디터 ready함수 끝
+			
 </script>
 
 
