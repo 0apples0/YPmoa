@@ -81,7 +81,13 @@
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
+						<div class="col-md-2">
 
+							<input type="text"
+								class="form-control datetimepicker-input font_light"
+								placeholder="검색어를 입력하세요" name="keyword" />
+
+						</div>
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
 							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
@@ -97,12 +103,7 @@
 					<div class="row g-2 justify-content-center">
 
 
-						<div class="col-md-5 policy_search_box ">
-	
-							<input type="text" class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
-	
-						</div>
+						
 					</div>
 				</form>
 			</div>
