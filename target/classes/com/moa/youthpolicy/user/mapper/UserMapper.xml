@@ -30,7 +30,6 @@
 	    DELETE FROM user WHERE Email = #{email}
 	</delete>
     
-    
    <!-- 전화번호 문자열로 변경 -->
     <select id="chkPhone" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
         SELECT * FROM user WHERE phone = #{phone} LIMIT 1
@@ -49,6 +48,11 @@
 	 <select id="login" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="com.moa.youthpolicy.user.domain.UserVO">
         SELECT * FROM user WHERE Email = #{Email} AND PW = #{PW}
     </select>
+    
+    <select id="chkPW" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="com.moa.youthpolicy.user.domain.UserVO">
+        SELECT * FROM user WHERE Email = #{Email} AND PW = #{PW}
+    </select>
+    
     
     <!-- Additional SQL queries and mapping statements can be added here -->
 </mapper>

@@ -94,6 +94,13 @@ public class UserController {
     	
     }
     
+    @PostMapping("/login")
+    @ResponseBody
+    public void login(@RequestParam String Email, HttpSession session) {
+        UserVO user = userService.get(Email);
+        session.setAttribute("user", user);
+    }
+    
     @GetMapping("register")
     public void register(){
     	
@@ -182,8 +189,11 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/chkEmail")
 	public boolean chkEmail(@RequestParam String Email) {
-		System.out.println(Email);
-	    return userService.chkEmail(Email);
+	    System.out.println("chkEmail - Email: " + Email);
+	    boolean result = userService.chkEmail(Email);
+	    System.out.println("chkEmail - Result: " + result);
+	    
+	    return result;
 	}
 	
 	@PostMapping("/register")
@@ -203,6 +213,15 @@ public class UserController {
 	@PostMapping("/chkPhone")
 	public boolean chkPhone(@RequestParam String phone) {
 		return userService.chkPhone(phone);
+	}
+	
+	@ResponseBody
+	@PostMapping("/chkPassword")
+	public boolean chkPassword(@RequestParam String Email, @RequestParam String Password) {
+	    UserVO vo = new UserVO();
+	    vo.setEmail(Email);
+	    vo.setPW(Password);
+	    return userService.chkPW(vo);
 	}
 
 }

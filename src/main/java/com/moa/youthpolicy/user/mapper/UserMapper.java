@@ -2,6 +2,7 @@ package com.moa.youthpolicy.user.mapper;
 
 import java.util.Map;
 
+
 import com.moa.youthpolicy.user.domain.UserVO;
 
 public interface UserMapper {
@@ -18,4 +19,6 @@ public interface UserMapper {
 	public UserVO chkNick(String nick);
 	public int updatePassword(Map<String, Object> paramMap);
 	public void removeUser(String email);
+	public UserVO getUserByEmail(String email);
+	public Object chkPW(UserVO vo);
 }

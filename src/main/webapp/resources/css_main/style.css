@@ -519,6 +519,19 @@
     background-color: rgba(239, 239, 239, 0.401);
 }
 
+.policyWrite_table tbody tr td{
+    text-align: left !important;
+  
+}
+
+.policyWrite_table p{
+    margin-bottom: 0px !important;
+}
+
+.note-editable p{
+    font-family: 'LINESeedKR-Bd_light' !important;
+}
+
 
 
 .policy_page_nav{
@@ -1087,4 +1100,4 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
-}	
+}
