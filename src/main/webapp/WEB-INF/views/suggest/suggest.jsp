@@ -308,7 +308,6 @@
     	                 // 수정된 부분: 서버에서 가져온 like 값 사용
     	                 let likeSpan = $("<span>").text(board.like + "개");
 
-
     	                 // 이미지와 span을 <td> 엘리먼트에 추가
     	                 likeTd.append(likeImg).append(likeSpan);
 
