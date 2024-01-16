@@ -191,7 +191,7 @@
                   <a class="page-link"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
-               </c:choose>            
+               </c:choose>      
             </li>            
 
 
