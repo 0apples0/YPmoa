@@ -56,7 +56,6 @@ public class PolicyService implements BoardGenericService {
 */
 	@Override
 	public List<PolicyVO> getPage(Criteria cri) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");		
 		List<PolicyVO> list = mapper.getListWithPasing(cri);
 		return list;
 	}
@@ -86,15 +85,11 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> T getBoard(Integer key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> T getBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		return null;
+	public PolicyVO getBoard(Integer no) {
+		PolicyVO vo = mapper.getPolicy(no);
+		vo.setBoard(mapper.getBoard(no));
+		log.info(vo);
+		return vo;
 	}
 
 }

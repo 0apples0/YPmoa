@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -33,7 +35,7 @@
 					<div class="white_shd_a full margin_bottom_30">
 						<div class="policyGet_title">
 							<!-- policyNm -->
-							<h1>청년 스타트업 지원 사업</h1>
+							<h1>${policy.policyNm}</h1>
 
 						</div>
 						<div class="full graph_head" style="padding-bottom: 7px;">
@@ -65,41 +67,40 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                        청소년기에서 청년기로 이행하며 사회에 첫발을 내딛는 청년들(만19~24세)의 교통비 부담 완화 및 이동권 보장을
-                                                        위한 대중교통비 지원
+                                                        ${policy.policyCn}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">시행 지역</th>
                                                     <td>
-                                                        영등포구
+                                                        ${policy.rgnSeNm}
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
-                                                    <td>서울시청 미래청년기획단</td>
+                                                    <td>${policy.sprvsnInstNm}</td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">정책 유형</th>
                                                     <td>
-                                                        주거
+                                                        ${policy.policyTypeNm}
                                                     </td>
                                                     <!-- policySd -->
                                                     <th scope="row">지원규모</th>
-                                                    <td>150,000명</td>
+                                                    <td>${policy.policyScl}</td>
                                                 </tr>
 
 
                                                 <tr>
                                                     <!-- aplyBangDt -->
                                                     <th scope="row">신청 시작 날짜</th>
-                                                    <td> 2023. 12. 22.
+                                                    <td> ${policy.aplyBgngDt}
                                                     </td>
                                                     <!-- aplyEndDt -->
                                                     <th scope="row">신청 마감 날짜</th>
                                                     <td>
-                                                        2024. 05. 31.
+                                                        ${policy.aplyEndDt}
                                                     </td>
                                                 </tr>
 
@@ -107,12 +108,12 @@
                                                     <!-- policyEnq -->
                                                     <th scope="row">연락처</th>
                                                     <td>
-                                                        전화: 02-1234-1234, 메일: 123@aaa.com
+                                                        ${policy.policyEnq}
                                                     </td>
                                                     <!-- dtlLinkUrl-->
                                                     <th scope="row">신청 사이트</th>
                                                     <td><a
-                                                            href="#">http://gbyouth.co.kr/policy/list.tc?mn=2379&pageNo=5069&no=165</a>
+                                                            href="#">${policy.dtlLinkUrl}</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -156,17 +157,7 @@
                                                 <tr>
                                                     <td colspan="4">
                                                         <!-- policyCnDtl -->
-                                                        '자격요건
-                                                        - 인턴: 미취업 청년, 결혼이민자, 새터민 등 취업애로계층
-                                                        - 기업: 울진군 소재 기업 중 중소기업기본법 상 중소기업
-
-                                                        지원내용
-                                                        - 기업: 채용 인턴 1명당 고용지원금 300만원
-                                                        - 인턴: 정규직 전환 시 근속장려금 300만원
-
-                                                        지급방법
-                                                        - 기업: 인턴 2개월간 월 150만원씩 2회(1, 2월차) 분할 지급
-                                                        - 인턴: 정규직 전환일로부터 10개월간 월 150만원씩 2회(3, 10월차) 분할 지급'
+                                                        ${policy.policyCnDtl}
 
                                                     </td>
 
@@ -174,11 +165,7 @@
                                                 <tr>
                                                     <td colspan="4">
                                                         <!-- 정책신청방법 작성 -->
-                                                        정책신청방법
-                                                        정책신청방법
-                                                        정책신청방법
-                                                        정책신청방법
-                                                        정책신청방법
+                                                        ${policy.board.content}
                                                     </td>
 
                                                 </tr>
@@ -192,7 +179,7 @@
 										class="policyGet_likeBtn"
 										style="width: 38px; cursor: pointer;" /></a>
 									<div class="g-4">
-										<span class="policyGet_likeCount">3</span>
+										<span class="policyGet_likeCount">${policy.like}</span>
 									</div>
 									<div class="g-4 policyGet_letter">개</div>
 								</div>
