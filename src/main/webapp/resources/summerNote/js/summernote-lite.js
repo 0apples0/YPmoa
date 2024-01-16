@@ -2538,7 +2538,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.fn.ex
       if (isExternalAPICalled) {
         return context.invoke.apply(context, lists.from(arguments));
       } else if (options.focus) {
-        context.invoke('editor.focus');
+        window.scrollTo(0, 0); 
       }
     }
 
@@ -5956,7 +5956,7 @@ var Editor_Editor = /*#__PURE__*/function () {
 
         $image.show();
 
-        _this3.getLastRange().insertNode($image[0]);
+        _this3.getLastRange().insertNode($image[0]);f
 
         _this3.setLastRange(range.createFromNodeAfter($image[0]).select());
 
@@ -6227,13 +6227,10 @@ var Editor_Editor = /*#__PURE__*/function () {
 
   }, {
     key: "focus",
-    value: function focus() {
-      // [workaround] Screen will move when page is scolled in IE.
-      //  - do focus when not focused
-      if (!this.hasFocus()) {
-        this.$editable.focus();
-      }
+    focus() {
+      this.$editable.focus();
     }
+    
     /**
      * returns whether contents is empty or not.
      * @return {Boolean}
