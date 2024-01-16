@@ -79,6 +79,13 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
+						<div class="col-md-3_b">
+                            <select class="form-select">
+                                <option selected>전체</option>
+                                <option value="1">제목</option>
+                                <option value="2">제목+내용</option>
+                            </select>
+                        </div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
 						<div class="col-md-2">
