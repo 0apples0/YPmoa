@@ -93,14 +93,19 @@ public class UserController {
     public void login() {
     	
     }
-    
+    /*
     @PostMapping("/login")
     @ResponseBody
     public void login(@RequestParam String Email, HttpSession session) {
         UserVO user = userService.get(Email);
         session.setAttribute("user", user);
-    }
-    
+    }*/
+    @PostMapping("/login")
+    @ResponseBody
+    public void login(@RequestParam String Email, HttpSession session) {
+        UserVO user = userService.get(Email);
+        session.setAttribute("user", user);
+    }    
     @GetMapping("register")
     public void register(){
     	

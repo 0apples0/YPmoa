@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="../includes/header.jsp"%>
 
         <!-- Page Header Start -->
 
@@ -35,7 +35,7 @@
                     </div>
 
 
-                    <form>
+                    <form id="searchFormCommunity">
 
                         <div class="row policy_row g-2">
 
@@ -43,24 +43,36 @@
 
                             <div class="row policy_row g-2">
                                 <div class="col-md-3_b">
-                                    <select class="form-select">
-                                        <option selected>지역선택</option>
-                                        <option value="1">부천시</option>
-                                        <option value="2">수원시</option>
-                                        <option value="3">광명시</option>
-                                    </select>
+									<select class="form-select" name="rgnSeNm">
+										<%-- foreach문 사용하여 DB내의 지역 카테고리 반영 필요 --%>
+										<option value=""
+											<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
+									
+										<option value="부천시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '부천시'?'selected':'' }"/>>부천시</option>
+										
+										<option value="수원시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '수원시'?'selected':'' }"/>>수원시</option>
+										<option value="광명시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '광명시'?'selected':'' }"/>>광명시</option>
+											
+									</select>
                                 </div>
 
 
 
                                 <div class="col-md-3_b">
 
-                                    <select class="form-select">
-                                        <option selected>분야선택</option>
-                                        <option value="1">주거</option>
-                                        <option value="2">교육</option>
-                                        <option value="3">신혼부부</option>
-                                    </select>
+									<select class="form-select" name="policyTypeNm">
+										<option value=""
+											<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
+										<option value="주거"
+											<c:out value="${pageMaker.cri.policyTypeNm == '주거'?'selected':'' }"/>>주거</option>
+										<option value="교육"
+											<c:out value="${pageMaker.cri.policyTypeNm == '교육'?'selected':'' }"/>>교육</option>
+										<option value="신혼부부"
+											<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
+									</select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">

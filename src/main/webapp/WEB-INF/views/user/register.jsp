@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!-- 수정 24.01.10 -->
-<%@include file="../includes/header_guest.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">

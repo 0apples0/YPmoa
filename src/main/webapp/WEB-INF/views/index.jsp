@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<%@include file="includes/header_guest.jsp" %>
+<%@include file="includes/header.jsp" %>
 
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-5">
