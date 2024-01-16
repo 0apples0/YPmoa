@@ -275,7 +275,12 @@
 
 
     <script type="text/javascript">
+    function formatDate(date) {
+	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+	    return new Date(date).toLocaleDateString('ko-KR', options);
+	}
     $(document).ready(function() {
+    	
         // Ajax 요청
         $.ajax({
             type: "POST",
@@ -294,7 +299,7 @@
     function processData(data) {
         // 테이블에 데이터 추가용
         $.each(data, function(index, policy) {
-        	
+        	policy.crtDt = formatDate(policy.crtDt);
             // 각 데이터에 대한 텍스트 길이 제한 
             var maxTextLength = 20; // 적절한 길이로 조절
 
@@ -305,7 +310,7 @@
             var row = "<tr>" +
                         "<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
                         "<td class='ellipsis' id='mini_board_title'>" + policyNmText + "</td>" +
-                        "<td class='list_date'>" + policy.updtDt_date + "</td>" +
+                        "<td class='list_date'>" + policy.crtDt + "</td>" +
                      "</tr>";
             $("#policy").append(row);
         });
