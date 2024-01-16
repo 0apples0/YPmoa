@@ -42,4 +42,10 @@
 	<select id="getBoard" resultType="SuggestVO" parameterType="SuggestVO">
 		SELECT * FROM suggestedboard WHERE bno=#{bno}
 	</select>
+	
+	<!-- 추가된 부분 -->
+    <select id="getLikeCount" resultType="int" parameterType="int">
+        SELECT `like` FROM suggestedboard
+        WHERE bno = #{bno}
+    </select>
 </mapper>

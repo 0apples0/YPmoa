@@ -1,12 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header_guest.jsp" %>
 
-<!-- jQuery 라이브러리 로드 -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -33,15 +30,15 @@
                 <div class="row policy_row g-2">
                     <div class="row policy_row g-2">
                         <div class="col-md-3_b">
-                            <select class="form-select">
-                                <option selected>지역선택</option>
+                            <select class="form-select" >
+                               <option selected>지역선택</option>
                                 <option value="1">부천시</option>
                                 <option value="2">수원시</option>
                                 <option value="3">광명시</option>
                             </select>
                         </div>
                         <div class="col-md-3_b">
-                            <select class="form-select">
+                            <select class="form-select" >
                                 <option selected>분야선택</option>
                                 <option value="1">주거</option>
                                 <option value="2">교육</option>
@@ -58,11 +55,10 @@
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control datetimepicker-input font_light"
-                                placeholder="검색어를 입력하세요" />
+                                placeholder="검색어를 입력하세요"/>
                         </div>
                         <div class="col-md-1_a ">
-
-                            <button type="button" class="btn btn-primary w-100" >검색하기</button>
+                            <button class="btn btn-primary w-100" >검색하기</button>
                         </div>
 
                         <div class="col-md-auto">
@@ -78,7 +74,13 @@
 <div class="container-xxl py-5_a">
     <div class="container">
         <div class="row g-4">
-            <div class="wow fadeIn" data-wow-delay="0.1s">
+			<div class="wow fadeIn" data-wow-delay="0.1s">
+				<div id="policy_checkbox">
+	                <div class="custom-control custom-checkbox">
+	                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+	                    <label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
+	                </div>
+            	</div>
              <!-- table section -->
              <div class="col-md-12">
                  <div class="white_shd_a full">
@@ -92,8 +94,7 @@
                                          <th data-sort="title">제목</th>
                                          <th data-sort="author">작성자</th>
                                          <th data-sort="date">작성일</th>
-                                         <th data-sort="like" id="commu_likeBtn">좋아요 <i class="fa fa-angle-up"
-                                                 aria-hidden="true"></i></th>
+                                         <th data-sort="like" id="commu_likeBtn">좋아요</th>
                                      </tr>
                                  </thead>
                                  <tbody>
@@ -108,7 +109,7 @@
                          <button class="btn btn-warning w-100" id="sug_write">글쓰기</button>
                      </div>
                      <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
-                         <button class="btn btn-warning w-100" id="sug_mypage">내글보기</button>
+                         <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
                      </div>
                  </div>
              </div>
@@ -188,22 +189,25 @@
             </ul>
         </nav>
         <form id="actionForm" action="/suggest/suggest" method="get">
-         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-         <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-      </form>
+	        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+	        <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		</form>
+		<form id="usernickForm" action="/suggest/suggest" method="get">
+			<input type="hidden" name="writer" value="${user.nick}">
+		</form>
 </div>
 
 <script>
 	var baseURL = "http://localhost:8090/suggest/suggest";
     var contextPath = "${pageContext.request.contextPath}";
-
+    let storedValue = localStorage.getItem('switchMine');
+    let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
+    
 	function gotoNextPage(endPage) {
 	    // 아무 동작 없음
 	    console.log("gotoNextPage function called");
 	    console.log("endPage : " + endPage);
-	    //event.preventDefault();
 	    var nextPage = Number(endPage) + 1
-	    //window.location.href="http://localhost:8090/suggest/suggest?pageNum="+ nextPage + "&amount=10";
 	    window.location.href = baseURL + "?pageNum=" + nextPage + "&amount=10";	
 	}
 	
@@ -211,111 +215,144 @@
 		console.log("gotoPrevprev function called");
 		var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
 		console.log(prevprevPage);
-		//window.location.href="http://localhost:8090/suggest/suggest?pageNum="+ prevprevPage + "&amount=" + pageAmount;
+	       localStorage.setItem('switchMine', switchMine);
 		window.location.href = baseURL + "?pageNum=" + prevprevPage + "&amount=" + pageAmount;
 	}
 	
 	function gotoNextnext(pageNum, pageAmount){
 		var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
 		console.log("nextnextPage : "+ nextnextPage);
-		//window.location.href="http://localhost:8090/suggest/suggest?pageNum="+ nextnextPage + "&amount=" + pageAmount;
+	       localStorage.setItem('switchMine', switchMine);
 		window.location.href = baseURL + "?pageNum=" + nextnextPage + "&amount=" + pageAmount;
 	}
 	
+
     $(document).ready(function () {
-        // 좋아요 th를 클릭할 때마다 아이콘 변경
-        $("#commu_likeBtn").on("click", function () {
-            var icon = $(this).find("i");
+    	
+    	$("#gotoMineBtn").on("click", function(e){
+    	       let usernickForm = $("#usernickForm");
+    	       console.log("원래 스위치 값: "+switchMine);
+    	       switchMine = !switchMine;
+    	       console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
+    	       localStorage.setItem('switchMine', switchMine);
+    	       //loadTableData(switchMine);
+    	       let writer = $("#usernickForm").find("input[name='writer']").val();
+    	       if(switchMine){
+    	    	   e.preventDefault();
+    	    	   usernickForm.submit();
 
-            if (icon.hasClass("fa-angle-up")) {
-                // 현재가 오름차순이라면 내림차순으로 변경
-                icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-            } else if (icon.hasClass("fa-angle-down")) {
-                // 현재가 내림차순이라면 정렬 제거로 변경
-                icon.removeClass("fa-angle-down").addClass("fa-sort");
-            } else {
-                // 그 외의 경우는 오름차순으로 변경
-                icon.removeClass("fa-sort").addClass("fa-angle-up");
-            }
-        });
-        
-        loadTableData();
+    	    	   
+    	       }
+    	    });   
+    	    loadTableData(switchMine);
+    	    function loadTableData(switchMine){
+    	        
+    	       let data;
+    	       /*console.log("loadTableData의 switchmine:"+switchMine);
+    	       data = {
+    	               pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+    	               amount : $("#actionForm").find("input[name='amount']").val()
+    	       };
+    	       */
+    	       if(switchMine){
+    	           data = {
+    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+    	                   amount : $("#actionForm").find("input[name='amount']").val(),
+    	                   writer: $("#usernickForm").find("input[name='writer']").val()
+    	                };  
+    	       } else{
+    	           data = {
+    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+    	                   amount : $("#actionForm").find("input[name='amount']").val(),
+    	                   writer: ''
+    	                };      	   
+    	       }
 
-		function loadTableData(){
-		
-		   $.ajax({
-		      url: "/suggest/suggest",// 요청할 서버 uri
-		      type: "POST", //요청방식 지정
-		      dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-		      data:{
-		        pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-		        amount : $("#actionForm").find("input[name='amount']").val()
-		      },
-		      success: function(data){
-		         let boardTbody = $("#suggestBoardTable tbody");
-  
-		         //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-		         //for(let item of items) -> items == data, item ==board 역할
-		         $.each(data, function(index, board){
-		        	 
-					 let regDate=new Date(board.regDate);
-					 // numeric: 숫자, 2-digit: 두자리 숫자 형식
-					 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-					 let formateDate = regDate.toLocaleString("ko-KR", options);
-					
-					 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-					 // 동적으로 데이터 처리
-					 let row = $("<tr>");
-			 		 row.append($("<td>").text(board.region));
-			 		 row.append($("<td>").text(board.category));
-			 		 let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
-					 let titleTd = $("<td>").append(titleLink);
-					
-					 row.append(titleTd);
-					 row.append($("<td>").text(board.writer));
-					 row.append($("<td>").text(formateDate));
-		            
-					 // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-					 let likeTd = $("<td>");
-					 let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-					 let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
-					
-					 // 이미지와 span을 <td> 엘리먼트에 추가
-					 likeTd.append(likeImg).append(likeSpan);
-					
-					 // 새로운 <td> 엘리먼트를 행에 추가
-					 row.append(likeTd);
-					
-					boardTbody.append(row);
-	                });
-	             
-	         },
-		     error: function(e){
-		         console.log(e);
-		    }
-		 });
-		  let actionForm = $("#actionForm");
-		  $(".paginate_button a").on("click", function(e){
-		     //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		     e.preventDefault(); //이벤트 초기화
-		     //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		     console.log(actionForm);
-		     /*
-		     actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		     actionForm.submit();
-		     */
-		     console.log("href : " + $(this).attr("href"));
-		      // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		      let newPageNum = $(this).attr("href");
-		     console.log("newPageNum : " + newPageNum);
-		      // pageNum이 비어있지 않은 경우에만 submit 실행
-		      if (newPageNum) {
-		          actionForm.find("input[name='pageNum']").val(newPageNum);
-		          actionForm.submit();
-		      }
-		  });
-		}
-    });
+    	  
+
+    	        console.log(data);
+    	       $.ajax({
+    	          url: "/suggest/suggest",// 요청할 서버 uri
+    	          type: "POST", //요청방식 지정
+    	          dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+    	          data:data,
+    	          success: function(data){
+    	      	  
+    	             let boardTbody = $("#suggestBoardTable tbody");
+    	             boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
+    	                
+    	             //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+    	             //for(let item of items) -> items == data, item ==board 역할
+    	             $.each(data, function(index, board){
+    	               
+    	                let regDate=new Date(board.regDate);
+    	                // numeric: 숫자, 2-digit: 두자리 숫자 형식
+    	                let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+    	                let formateDate = regDate.toLocaleString("ko-KR", options);
+
+    	                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+    	                // 동적으로 데이터 처리
+    	                let row = $("<tr>");
+    	                row.append($("<td>").text(board.region));
+    	                row.append($("<td>").text(board.category));
+    	                let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+    	                let titleTd = $("<td>").append(titleLink);
+    	                
+    	                row.append(titleTd);
+    	                row.append($("<td>").text(board.writer));
+    	                row.append($("<td>").text(formateDate));
+    	                
+    	                 // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+    	                 let likeTd = $("<td>");
+    	                 let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+    	                 // 수정된 부분: 서버에서 가져온 like 값 사용
+    	                 let likeSpan = $("<span>").text(board.like + "개");
+
+
+    	                 // 이미지와 span을 <td> 엘리먼트에 추가
+    	                 likeTd.append(likeImg).append(likeSpan);
+
+    	                 // 새로운 <td> 엘리먼트를 행에 추가
+    	                 row.append(likeTd);
+
+    	                boardTbody.append(row);
+    	                console.log("pagemaker: "+${pageMaker.realEnd});
+    	             });
+    	          },
+    	          error: function(e){
+    	             console.log(e);
+    	          }
+    	       });
+    	       
+    	      
+    	      let actionForm = $("#actionForm");
+    	      $(".paginate_button a").on("click", function(e){
+
+    	         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+    	         e.preventDefault(); //이벤트 초기화
+    	         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+    	         console.log(actionForm);
+    	         /*
+    	         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+    	         actionForm.submit();
+    	         */
+    	         console.log("href : " + $(this).attr("href"));
+    	          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+    	          let newPageNum = $(this).attr("href");
+    	         console.log("newPageNum : " + newPageNum);
+    	          // pageNum이 비어있지 않은 경우에만 submit 실행
+    	          if (newPageNum) {
+    	              actionForm.find("input[name='pageNum']").val(newPageNum);
+    	              actionForm.submit();
+    	          }
+    	      });
+    	    }
+    	    
+    	    loadTableData(switchMine);
+    	    
+
+    	});
+
 </script>
 
 <%@include file="../includes/footer.jsp" %>
