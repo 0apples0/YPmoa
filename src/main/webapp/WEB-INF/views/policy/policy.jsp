@@ -10,7 +10,7 @@
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
 	<div class="page-header-inner" id="login_banner">
-		<div class="container text-center ">
+		<div class="container text-center">
 			<h1 class=" display-3 text-white mb-3 animated slideInDown"
 				id="login_h1">Policy</h1>
 
@@ -307,15 +307,29 @@
 	    });
 	
 	    // 리스트 위시 버튼
-	    $(".toggleLink").click(function (e) {
-	        e.preventDefault();
-	
-	        var $img = $("#" + $(this).data("target"));
-	
-	        $img.attr("src", function (_, oldSrc) {
-	            return oldSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-	        });
-	    });
+		 $(document).on("click", ".toggleLink", function(e) {
+		    e.preventDefault();
+		
+		    var $img = $("#" + $(this).data("target"));
+		
+		    // 현재 소스를 가져옴
+		    var currentSrc = $img.attr("src");
+		
+		    // 토글해서 새로운 소스를 설정
+		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
+		
+		    // 이미지 소스를 변경
+		    $img.attr("src", newSrc);
+		
+		    // 알림 창 표시
+		    var message = currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다";
+		    alert(message);
+		});
+
+
+	    
+	    
+	    
 			
 			let actionFrom = $("#actionFrom");
 			$(".paginate_button a").on("click", function(e) {
@@ -407,10 +421,13 @@
 		    	        '</a>' +
 		    	        '</div>' +
 		    	        '</div>' +
-		    	        '<div class="text-center p-4 mt-2 policy_detail">' +
-		    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '">' + displayPolicyName + '</a></h5>' +
-		    	        '<small class="policy_areaName">' + (policy.rgnSeNm) + '</small>' +
-		    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
+		    	        '<div class="p-4 mt-2 policy_detail">' +
+		    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
+		    	        		
+		    	        '<div class="d-flex">'+
+		    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
+		    	        '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
+		    	        '</div>'+
 		    	        '</div>' +
 		    	        '<div class="commuGet_btn" >' +
 		    	        '<button class="btn btn-primary">수정</button>' +

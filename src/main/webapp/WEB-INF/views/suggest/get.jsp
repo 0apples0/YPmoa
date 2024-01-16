@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">신고하기</button>
+                <button type="submit" class="btn btn-primary suggest_report">신고하기</button>
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     취소
                 </button>
@@ -152,7 +152,7 @@
             }
         });
 
-        // 아무 체크도 안했을 때 선택버튼 비활성화
+       // 아무 체크도 안했을 때 선택버튼 비활성화
         $(".custom-control-input").change(updateReportButtonState);
         $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
      
@@ -165,7 +165,7 @@
                 return $(this).val().trim() !== "";
             }).length > 0;
 
-            $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+            $(".suggest_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
         }
     }); // document.ready함수
 </script>
