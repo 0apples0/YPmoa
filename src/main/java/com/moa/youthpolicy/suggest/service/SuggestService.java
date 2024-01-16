@@ -43,6 +43,12 @@ public class SuggestService implements BoardGenericService{
 		log.info("------service in getList------");
 		log.info(cri);
 		List<SuggestVO> result = suggestMapper.getListWithPaging(cri);
+		// 추가
+        for (SuggestVO suggestVO : result) {
+            int likeCount = suggestMapper.getLikeCount(suggestVO.getBno());
+            suggestVO.setLike(likeCount);
+        }
+		// -----
 		log.info("------service out getList------");
 		log.info(result);
 		return result;
@@ -77,5 +83,10 @@ public class SuggestService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	// 좋아요 값 가져오는거 추가
+    public int getLikeCount(int bno) {
+        return suggestMapper.getLikeCount(bno);
+    }
 
 }
