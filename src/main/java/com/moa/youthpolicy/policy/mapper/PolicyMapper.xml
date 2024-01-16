@@ -9,20 +9,32 @@
 	</select>
 	
 	<select id="getListWithPasing" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.common.Criteria">
-		SELECT * FROM policy
-		WHERE no > 0
-		<if test="type != null and keyword != null and keyword !=''">
-			AND ${type} LIKE CONCAT('%',#{keyword},'%')
-		</if>
-		ORDER BY no DESC
-		LIMIT #{start}, #{amount}
+	    SELECT * FROM policy
+	    WHERE no > 0
+	    <if test="type != null and keyword != null and keyword != ''">
+	        AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+	    ORDER BY no DESC
+	    LIMIT #{start}, #{amount}
 	</select>
 	
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-		SELECT COUNT(no) FROM policy
-		WHERE no > 0
-		<if test="type != null and keyword != null and keyword !=''">
-			AND ${type} LIKE CONCAT('%',#{keyword},'%')
-		</if>
+	    SELECT COUNT(no) FROM policy
+	    WHERE no > 0
+	    <if test="type != null and keyword != null and keyword != ''">
+	        AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
 	</select>
 </mapper>

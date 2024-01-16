@@ -31,16 +31,14 @@ public class PolicyController {
 	@PostMapping("/get5policy")
 	public List<PolicyVO> getfiveBoard(){
 		List<PolicyVO> list = service.getfiveboard();
-		System.out.println("controller : "+ list.get(0).toString());
 		return list;
 	}
 	
 	@GetMapping("/policy")
 	public void policy(Criteria cri, Model model) {
 		cri.setAmount(8);
-		log.info(cri.toString());
 		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
-		
+		log.info(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 	}

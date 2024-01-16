@@ -53,40 +53,40 @@
 					<div class="row  policy_row g-2">
 						<div class="col-md-3_b">
 							<select class="form-select" name="rgnSeNm">
-								<option selected>지역선택</option>
-								<option value="부천시">부천시</option>
-								<option value="수원시">수원시</option>
-								<option value="광명시">광명시</option>
+								<option value=""
+									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
+							
+								<option value="구미시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '구미시'?'selected':'' }"/>>구미시</option>
+								
+								<option value="안동시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '안동시'?'selected':'' }"/>>안동시</option>
+								<option value="울진군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '울진군'?'selected':'' }"/>>울진군</option>
+									
 							</select>
 						</div>
 						
 						<div class="col-md-3_b">
 							<select class="form-select" name="policyTypeNm">
-								<option selected>관심분야</option>
-								<option value="주거">주거</option>
-								<option value="교육">교육</option>
-								<option value="신혼부부">신혼부부</option>
+								<option value=""
+									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
+								<option value="주거"
+									<c:out value="${pageMaker.cri.policyTypeNm == '주거'?'selected':'' }"/>>주거</option>
+								<option value="교육"
+									<c:out value="${pageMaker.cri.policyTypeNm == '교육'?'selected':'' }"/>>교육</option>
+								<option value="신혼부부"
+									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
-						 <div class="col-md-auto">
-                                    <select class="form-select">
-                                        <option selected>선택</option>
-                                        <option value="1">제목</option>
-                                        <option value="2">제목+내용</option>
-                                    </select>
-                                </div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
 
-						<div class="col-md-3">
-	
-							<input type="text" class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
-	
-						</div>
+						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
 							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
 						</div>
+						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
 							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
@@ -94,23 +94,22 @@
 							<button type="reset" class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
-					
+					<div class="row g-2 justify-content-center">
+
+
+						<div class="col-md-5 policy_search_box ">
+	
+							<input type="text" class="form-control datetimepicker-input font_light"
+								placeholder="검색어를 입력하세요" name="keyword" />
+	
+						</div>
+					</div>
 				</form>
 			</div>
 
 
 
 			<div>
-
-
-				
-
-
-
-				
-
-				
-
 			</div>
 
 
@@ -230,12 +229,15 @@
                </c:choose>            
             </li> 
             
-
             </ul>
         </nav>
         <form id="actionFrom" action="/policy/policy" method="get">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+			<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
+			<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }">
+			<input type="hidden" name="type" value="${pageMaker.cri.type }">
+			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
     </div>
 
@@ -305,14 +307,6 @@
 		let searchForm = $("#searchForm");
 		
 		$("#searchForm button").on("click",function(e){
-			if (!searchForm.find("option:selected").val()) {
-				alert("검색종류를 선택하세요");
-				return false;
-			}
-			if (!searchForm.find("input[name='keyword']").val()) {
-				alert("키워드를 입력하세요");
-				return false;
-			}
 			searchForm.find("input[name='pageNum']").val("1");
 			e.preventDefault();
 			searchForm.submit();
