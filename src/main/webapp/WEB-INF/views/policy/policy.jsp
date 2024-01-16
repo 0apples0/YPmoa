@@ -191,7 +191,7 @@
                   <a class="page-link"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
-               </c:choose>      
+               </c:choose>            
             </li>            
 
 
@@ -227,12 +227,13 @@
                </c:when>
                <c:otherwise>
                   <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
-                  			<i class="fa fa-angle-double-right"
+                           <i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>
                </c:otherwise>     
                </c:choose>            
             </li> 
             
+
             </ul>
         </nav>
         <form id="actionFrom" action="/policy/policy" method="post">
@@ -251,29 +252,6 @@
 
 <script>
 
-
-	function gotoNextPage(endPage) {
-	    // 아무 동작 없음
-	    console.log("gotoNextPage function called");
-	    console.log("endPage : " + endPage);
-	    //event.preventDefault();
-	    var nextPage = Number(endPage) + 1
-	    window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
-	}
-	
-	function gotoPrevprev(pageNum, pageAmount){
-		console.log("gotoPrevprev function called");
-		var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
-		console.log(prevprevPage);
-		window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
-	}
-	
-	function gotoNextnext(pageNum, pageAmount){
-		var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
-		console.log("nextnextPage : "+ nextnextPage);
-		window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
-	}
-	
 	function formatDate(date) {
 	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
 	    return new Date(date).toLocaleDateString('ko-KR', options);
