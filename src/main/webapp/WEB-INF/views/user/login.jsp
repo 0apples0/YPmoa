@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.moa.youthpolicy.user.domain.UserVO" %>
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="../includes/header.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
@@ -17,17 +17,19 @@
 <!-- Booking Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="row g-5" id="login_box">
-            <div class="col-lg-6" id="login_inner_box">
-                <div class="row g-3">
-                    <div class="col-6  wow zoomIn" id="login_small_box" data-wow-delay="0.1s">
+        <div class="row">
+            <div class="col-lg-12" id="login_inner_box">
+             
+                    <div class="col-lg-12  wow zoomIn justify-content-center d-flex" id="login_small_box" data-wow-delay="0.1s"
+                    				style="align-items: center;">
                         <div class="login_section">
                             <div class="login_form">
                                 <form id="loginchk" name="loginchk">
                                     <fieldset>
                                         <div class="field" id="login_email_box">
                                             <label class="label_field">아이디</label>
-                                            <input type="email" name="Email" id="Email" placeholder="이메일을 입력하세요" />
+                                            <input type="email" name="Email" id="Email" placeholder="이메일을 입력하세요" 
+                                            	style="font-family: 'LINESeedKR-Bd_light';"/>
                                         </div>
                                         <div class="field" id="login_password_box">
                                             <label class="label_field">비밀번호</label>
@@ -58,7 +60,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                
                 </div>
             </div>
         </div>

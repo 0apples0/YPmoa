@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="../includes/header.jsp"%>
 
         <!-- Page Header Start -->
 
@@ -35,7 +35,7 @@
                     </div>
 
 
-                    <form>
+                    <form id="searchFormCommunity">
 
                         <div class="row policy_row g-2">
 
@@ -43,24 +43,36 @@
 
                             <div class="row policy_row g-2">
                                 <div class="col-md-3_b">
-                                    <select class="form-select">
-                                        <option selected>지역선택</option>
-                                        <option value="1">부천시</option>
-                                        <option value="2">수원시</option>
-                                        <option value="3">광명시</option>
-                                    </select>
+									<select class="form-select" name="rgnSeNm">
+										<%-- foreach문 사용하여 DB내의 지역 카테고리 반영 필요 --%>
+										<option value=""
+											<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
+									
+										<option value="부천시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '부천시'?'selected':'' }"/>>부천시</option>
+										
+										<option value="수원시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '수원시'?'selected':'' }"/>>수원시</option>
+										<option value="광명시"
+											<c:out value="${pageMaker.cri.rgnSeNm == '광명시'?'selected':'' }"/>>광명시</option>
+											
+									</select>
                                 </div>
 
 
 
                                 <div class="col-md-3_b">
 
-                                    <select class="form-select">
-                                        <option selected>분야선택</option>
-                                        <option value="1">주거</option>
-                                        <option value="2">교육</option>
-                                        <option value="3">신혼부부</option>
-                                    </select>
+									<select class="form-select" name="policyTypeNm">
+										<option value=""
+											<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
+										<option value="주거"
+											<c:out value="${pageMaker.cri.policyTypeNm == '주거'?'selected':'' }"/>>주거</option>
+										<option value="교육"
+											<c:out value="${pageMaker.cri.policyTypeNm == '교육'?'selected':'' }"/>>교육</option>
+										<option value="신혼부부"
+											<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
+									</select>
                                 </div>
                                 <div class="col-md-3_b">
                                     <select class="form-select">
@@ -164,11 +176,11 @@
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
 
-
+			<%-- <<버튼: 10페이지 이전 --%>
             <li class="paginate_button policy_page-item_prev prev">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-                  <a class="page-link" href="" onclick="gotoPrevprev(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})"><i class="fa fa-angle-double-left"
+                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>
                </c:when>
                <c:otherwise>
@@ -177,9 +189,11 @@
                </c:otherwise>     
                </c:choose>            
             </li> 
+            <%-- <버튼: 1페이지 이전 --%>
             <li class="paginate_button policy_page-item prev">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum) >1}">
+               	
                   <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>
                     </c:when>
@@ -190,13 +204,14 @@
                </c:choose>            
             </li>            
 
-
+			<%-- 페이지 넘버 --%>
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                 <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                     <a class="page-link" href="${num}">${num}</a>
                 </li>
             </c:forEach>
 
+			<%-- >버튼: 1페이지 이동 --%>
             <li class="paginate_button policy_page-item next">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
@@ -208,12 +223,13 @@
                            aria-hidden="true"></i></a>
                </c:when>               
                <c:otherwise>
-                  <a class="page-link" href="" onclick="gotoNextPage('${pageMaker.endPage}')"><i class="fa fa-angle-right"
+                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>   
                </c:otherwise>     
               </c:choose>            
             </li>              
-              
+            
+            <%-- >>버튼: 10페이지 이동 --%>  
             <li class="paginate_button page-item next">
                <c:choose>
                <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
@@ -222,7 +238,7 @@
 
                </c:when>
                <c:otherwise>
-                  <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
+                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
                            <i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>
                </c:otherwise>     
@@ -232,10 +248,12 @@
 
             </ul>
         </nav>
-        <form id="actionForm" action="/community/community" method="get">
+       <form id="actionForm" action="/community/community" method="get">
          <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
          <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+         <input type="hidden" name="writer" value="${pageMaker.cri.writer}">              
       </form>
+    
       <form id="usernickForm" action="/community/community" method="get">
          <input type="hidden" name="writer" value="${user.nick}">
       </form>
@@ -246,35 +264,6 @@
     let storedValue = localStorage.getItem('switchMine');
     console.log("저장된 switchMine 값:", storedValue);
     let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
-    function gotoNextPage(endPage) {
-        // 아무 동작 없음
-        console.log("gotoNextPage function called");
-        console.log("endPage : " + endPage);
-        //event.preventDefault();
-        var nextPage = Number(endPage) + 1
-        // switchMine 값을 localStorage에 저장
-        localStorage.setItem('switchMine', switchMine);
-        
-        window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
-    }
-    
-    function gotoPrevprev(pageNum, pageAmount){
-       console.log("gotoPrevprev function called");
-       var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
-       console.log(prevprevPage);
-       // switchMine 값을 localStorage에 저장
-       localStorage.setItem('switchMine', switchMine);
-       window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
-    }
-    
-    function gotoNextnext(pageNum, pageAmount){
-       var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
-       console.log("nextnextPage : "+ nextnextPage);
-       // switchMine 값을 localStorage에 저장
-       localStorage.setItem('switchMine', switchMine);
-       window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
-    }
-
     
 $(document).ready(function () {
    
@@ -286,27 +275,23 @@ $(document).ready(function () {
        let usernickForm = $("#usernickForm");
        console.log("원래 스위치 값: "+switchMine);
        switchMine = !switchMine;
-       console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
+       console.log("변경된 스위치 값:"+switchMine);
        localStorage.setItem('switchMine', switchMine);
-       //loadTableData(switchMine);
-       let writer = $("#usernickForm").find("input[name='writer']").val();
-       if(switchMine){
-    	   e.preventDefault();
-    	   usernickForm.submit();
 
-    	   
+       if(switchMine){
+    	  e.preventDefault();
+    	 usernickForm.submit();
+       }else{
+    	   window.location.href= "http://localhost:8090/community/community";
        }
+    	   
     });   
     loadTableData(switchMine);
+    
     function loadTableData(switchMine){
         
        let data;
-       /*console.log("loadTableData의 switchmine:"+switchMine);
-       data = {
-               pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-               amount : $("#actionForm").find("input[name='amount']").val()
-       };
-       */
+
        if(switchMine){
            data = {
                    pageNum : $("#actionForm").find("input[name='pageNum']").val(),
@@ -332,7 +317,7 @@ $(document).ready(function () {
           success: function(data){
       	  
              let boardTbody = $("#communityBoardTable tbody");
-             boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
+             boardTbody.empty(); // 기존 테이블 행 삭제
                 
              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
              //for(let item of items) -> items == data, item ==board 역할
@@ -377,43 +362,32 @@ $(document).ready(function () {
        
       
       let actionForm = $("#actionForm");
+      let actionFormforMine = $("#actionFormforMine");
       $(".paginate_button a").on("click", function(e){
 
          //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
          e.preventDefault(); //이벤트 초기화
          //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
          console.log(actionForm);
-         /*
-         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-         actionForm.submit();
-         */
+         console.log(actionFormforMine);
+
          console.log("href : " + $(this).attr("href"));
           // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
           let newPageNum = $(this).attr("href");
          console.log("newPageNum : " + newPageNum);
           // pageNum이 비어있지 않은 경우에만 submit 실행
           if (newPageNum) {
-              actionForm.find("input[name='pageNum']").val(newPageNum);
-              actionForm.submit();
+                  actionForm.find("input[name='pageNum']").val(newPageNum);
+                  actionForm.submit();       		  
+        	  
+
           }
       });
     }
     
-    loadTableData(switchMine);
-    
-
 });
 
-
-
-
-
-
-
     </script>
-
-
-
 
 
 <%@include file="../includes/footer.jsp" %>

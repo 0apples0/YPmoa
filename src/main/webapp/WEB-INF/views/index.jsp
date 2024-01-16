@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<%@include file="includes/header_guest.jsp" %>
+<%@include file="includes/header.jsp" %>
 
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-5">
@@ -67,25 +67,13 @@
                                 </div>
                                 <div class="col-md-3_a">
                                     <select class="form-select">
-                                        <option selected>취업상태</option>
-                                        <option value="1">취업</option>
-                                        <option value="2">미취업</option>
+                                        <option selected>정책분야</option>
+                                        <option value="1">주거</option>
+                                        <option value="2">일자리</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3_a">
-                                    <div>
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="만 나이 입력" data-target="#date2" data-toggle="datetimepicker" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3_a">
-                                    <select class="form-select">
-                                        <option selected>소득범위</option>
-                                        <option value="1">소득없음</option>
-                                        <option value="2">세전 월 200만원 미만</option>
-                                        <option value="3">세전 월 200만원 이상 300만원 미만</option>
-                                    </select>
-                                </div>
+                               
+                               
                                 <div class="col-md-3_a">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
@@ -287,7 +275,16 @@
 
 
     <script type="text/javascript">
+    function formatDate(date) {
+    	  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    	  const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+
+    	  // '/'를 '-'로 바꿔서 반환
+    	  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
+
+    	}
     $(document).ready(function() {
+    	
         // Ajax 요청
         $.ajax({
             type: "POST",
@@ -306,7 +303,7 @@
     function processData(data) {
         // 테이블에 데이터 추가용
         $.each(data, function(index, policy) {
-        	
+        	policy.crtDt = formatDate(policy.crtDt);
             // 각 데이터에 대한 텍스트 길이 제한 
             var maxTextLength = 20; // 적절한 길이로 조절
 
@@ -315,9 +312,9 @@
 
             
             var row = "<tr>" +
-                        "<td class='mini_board_bold'>" + policy.sprvsnInstNm + "</td>" +
-                        "<td class='ellipsis'>" + policyNmText + "</td>" +
-                        "<td class='list_date'>" + policy.updtDt_date + "</td>" +
+                        "<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
+                        "<td class='ellipsis' id='mini_board_title'>" + policyNmText + "</td>" +
+                        "<td class='list_date'>" + policy.crtDt + "</td>" +
                      "</tr>";
             $("#policy").append(row);
         });

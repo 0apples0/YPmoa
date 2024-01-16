@@ -3011,7 +3011,7 @@ table.projects tr td:first-child {
 .login_section {
     
     background: #fff;
-    width: 640px;
+    width: 100%;
     box-shadow: 0 0 45px rgba(0, 0, 0, .08) !important;
     margin: 0px;
     padding: 0;
@@ -3069,12 +3069,9 @@ table.projects tr td:first-child {
 
 #login_inner_box{
     margin-top: 0px;
-    width: 650px;
 }
 
-#login_small_box{
-    width: 640px;
-}
+
 
 .login_form {
     padding: 50px 50px;

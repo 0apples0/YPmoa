@@ -198,11 +198,19 @@ public class UserService implements UserGenericService {
 	@Override
 	public boolean logIn(UserVO vo, HttpSession session) {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
-	    if (_vo != null && vo.getPW() != null && vo.getPW().equals(_vo.getPW())) {
-	        session.setAttribute("user", _vo);
-	        return true;
+	    if(_vo!=null) { //일단 들어온 값이 있을 때 :구글 네이버 일반 다 포함
+	    	System.out.println("일단 로그인은 시작되었어");
+			if (vo.getPW() != null && vo.getPW().equals(_vo.getPW())) { //pw가 있다면 << 일반 로그인 처리 추가해야함
+		        session.setAttribute("user", _vo);
+		        return true;
+		    }else if(vo.getPW() ==null && _vo.getPW() == null) {
+		    	session.setAttribute("user", _vo);
+		    	return true;
+		    }
 	    }
+
 	    return false;
+	    
 //		session.setAttribute("user", _vo);
 //		return true;
 		

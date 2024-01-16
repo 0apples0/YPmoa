@@ -366,8 +366,25 @@
 
 /*** myPage ***/
 
+.mypage_label{
+    text-align: center;
+}
 
 /*** Section Title ***/
+
+
+
+.mypage_section{
+    position: relative;
+    display: inline-block;
+    content: "";
+    background: var(--primary);
+    width: 70%;
+    height: 2px;   
+    margin-top: 30px;
+    left: 15%;
+}
+
 .section-title {
     position: relative;
     display: inline-block;
@@ -390,7 +407,7 @@
     width: 45px;
     height: 2px;    
     top: 25%;
-    left: 530px;
+    left: 460px;
     margin-top: -1px;
     background: var(--primary);
 }
@@ -423,7 +440,7 @@
     width: 45px;
     height: 2px;
     top: 25%;
-    right: 530px;
+    right: 350px;
     margin-top: -1px;
     background: var(--primary);
 }
@@ -743,7 +760,6 @@
 /*** register ***/
 #card-body{
     padding: 30px;
-    padding-top: 70px;
     padding-bottom: 50px;
 }
 
@@ -784,6 +800,10 @@
 
 #mini_board{
     padding-top: 0px;
+}
+
+#mini_board_title{
+	cursor: pointer;
 }
 
 .container h6{

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!-- 수정 24.01.10 -->
-<%@include file="../includes/header_guest.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
@@ -29,10 +29,10 @@
 <div class="container-xxl py-5">
 	<div class="container">
 
-		<div class="row g-5" id="login_box">
-			<div class="col-lg-6" id="login_inner_box">
-				<div class="row g-3">
-					<div class="col-6  wow zoomIn" id="login_small_box"
+		<div class="row">
+			<div class="col-lg-12" id="login_inner_box">
+			
+					<div class="col-lg-12  wow zoomIn justify-content-center d-flex"  style="align-items: center;"
 						data-wow-delay="0.1s">
 
 
@@ -41,16 +41,16 @@
 						<div class="col-xxl login_section">
 							<div class=" mb-4">
 
-								<div id="card-body">
+								<div id="card-body" style="padding-top:70px">
 									<form>
 
 
 
 										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label field"
+											<label class="col-sm-2 col-form-label field "
 												for="basic-default-email">아이디</label>
 											<div class="col-sm-10">
-												<input type="email" class="regi_sub_form-control" required name="Email"/>
+												<input type="email" class="regi_sub_form-control" placeholder="이메일 형식으로 입력하세요" required name="Email"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="idchk">중복확인</button>
 											</div>
 
@@ -107,7 +107,7 @@
 												for="basic-default-company">닉네임</label>
 											<div class="col-sm-10">
 												<input type="text" class="regi_sub_form-control" required
-													placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" name="nick" />
+													placeholder="한글 10글자, 영어 20자 이내" name="nick" />
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 											</div>
 										</div>
@@ -115,7 +115,7 @@
 										<div class="col-sm-12" id="regi_btn">
 											<button type="submit" class="btn btn-primary"
 												id="regi_regiBtn">회원가입</button>
-											<button type="reset" class="btn btn-primary">초기화</button>
+											<button type="reset" class="btn btn-secondary">초기화</button>
 										</div>
 
 									</form>
@@ -125,7 +125,6 @@
 
 
 
-					</div>
 
 
 				</div>
