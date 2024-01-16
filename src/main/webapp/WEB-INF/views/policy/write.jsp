@@ -203,7 +203,7 @@ if (!dateRegex.test(input.value)) {
 							minHeight : null,
 							maxHeight : null,
 							lang : "ko-KR",
-
+							 focus: true,
 							toolbar : [
 									['style',[ 'bold', 'italic', 'underline','clear' ] ],
 									[ 'font', [ 'strikethrough' ] ],
