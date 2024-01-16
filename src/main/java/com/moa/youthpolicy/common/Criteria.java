@@ -18,13 +18,17 @@ public class Criteria {
 	// 페이지에 따라 첫번째 글이 어디부터 시작해야 하는지 정하기위해
 	private int start;
 	
+	// 10페이지 앞으로가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 << 버튼 클릭 시 11페이지로 이동)
+	private int prevprevPage;
+	// 10페이지 뒤가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 >> 버튼 클릭 시 31페이지로 이동)
+	private int nextnextPage;
+	
 	// 검색에 사용되는 필드 선언
 	private String type;
 	private String keyword;
 
 
 	private String writer; //여기
-
 
 	
 	// policy검색조건
@@ -46,6 +50,18 @@ public class Criteria {
 	public int getStart() {
 		this.start = (this.pageNum-1)*this.amount;
 		return this.start;
+	}
+	
+	public int getPrevprevPage() {
+		this.prevprevPage = (int) (Math.floor((this.pageNum-this.amount)/this.amount)*this.amount+1);
+		return this.prevprevPage;
+		
+	}
+	
+	public int getNextnextPage() {
+		this.nextnextPage = (int) (Math.floor((this.pageNum+this.amount)/this.amount)*this.amount+1);
+		return this.nextnextPage;
+		
 	}
 	
 	// 미션: 이 메서드를 사용하여 검색 기능 구현하기

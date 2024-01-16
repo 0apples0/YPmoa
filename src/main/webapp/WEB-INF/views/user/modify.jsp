@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.moa.youthpolicy.user.domain.UserVO"%>
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="../includes/header.jsp"%>
 
 
 <!-- Page Header Start -->

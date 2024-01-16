@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.moa.youthpolicy.user.domain.UserVO"%>
-<%@include file="../includes/header_member.jsp"%>
+<%@include file="../includes/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta charset="UTF-8">
 
