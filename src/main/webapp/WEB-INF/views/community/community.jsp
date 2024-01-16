@@ -1,12 +1,11 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header_guest.jsp" %>
 
+        <!-- Page Header Start -->
 
-        <!-- Page Header Start 유민바보 -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -32,7 +31,6 @@
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
                                 src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
-
 
                     </div>
 
@@ -147,10 +145,9 @@
                             </div>
                             <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
 
-                                <button class="btn btn-warning w-100">내글보기</button>
+                                <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
                             </div>
                         </div>
-
 
 
                     </div>
@@ -220,7 +217,7 @@
                </c:when>
                <c:otherwise>
                   <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
-                  			<i class="fa fa-angle-double-right"
+                           <i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>
                </c:otherwise>     
                </c:choose>            
@@ -233,32 +230,45 @@
          <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
          <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
       </form>
+      <form id="usernickForm" action="/community/community" method="get">
+         <input type="hidden" name="writer" value="${user.nick}">
+      </form>
     </div>
 
 
     <script>
-
+    let storedValue = localStorage.getItem('switchMine');
+    console.log("저장된 switchMine 값:", storedValue);
+    let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
     function gotoNextPage(endPage) {
         // 아무 동작 없음
         console.log("gotoNextPage function called");
         console.log("endPage : " + endPage);
         //event.preventDefault();
         var nextPage = Number(endPage) + 1
+        // switchMine 값을 localStorage에 저장
+        localStorage.setItem('switchMine', switchMine);
+        
         window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
     }
     
     function gotoPrevprev(pageNum, pageAmount){
-    	console.log("gotoPrevprev function called");
-    	var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
-    	console.log(prevprevPage);
-    	window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
+       console.log("gotoPrevprev function called");
+       var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
+       console.log(prevprevPage);
+       // switchMine 값을 localStorage에 저장
+       localStorage.setItem('switchMine', switchMine);
+       window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
     }
     
     function gotoNextnext(pageNum, pageAmount){
-    	var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
-    	console.log("nextnextPage : "+ nextnextPage);
-    	window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
+       var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
+       console.log("nextnextPage : "+ nextnextPage);
+       // switchMine 값을 localStorage에 저장
+       localStorage.setItem('switchMine', switchMine);
+       window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
     }
+
     
 $(document).ready(function () {
     // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
@@ -275,27 +285,66 @@ $(document).ready(function () {
 
       
     });
-    
-    loadTableData();
-    
-    function loadTableData(){
 
+   
+
+    
+    $("#gotoMineBtn").on("click", function(e){
+       let usernickForm = $("#usernickForm");
+       console.log("원래 스위치 값: "+switchMine);
+       switchMine = !switchMine;
+       console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
+       localStorage.setItem('switchMine', switchMine);
+       //loadTableData(switchMine);
+       let writer = $("#usernickForm").find("input[name='writer']").val();
+       if(switchMine){
+    	   e.preventDefault();
+    	   usernickForm.submit();
+
+    	   
+       }
+    });   
+    loadTableData(switchMine);
+    function loadTableData(switchMine){
+        
+       let data;
+       /*console.log("loadTableData의 switchmine:"+switchMine);
+       data = {
+               pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+               amount : $("#actionForm").find("input[name='amount']").val()
+       };
+       */
+       if(switchMine){
+           data = {
+                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+                   amount : $("#actionForm").find("input[name='amount']").val(),
+                   writer: $("#usernickForm").find("input[name='writer']").val()
+                };  
+       } else{
+           data = {
+                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+                   amount : $("#actionForm").find("input[name='amount']").val(),
+                   writer: ''
+                };      	   
+       }
+
+  
+
+        console.log(data);
        $.ajax({
           url: "/community/community",// 요청할 서버 uri
           type: "POST", //요청방식 지정
           dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-          data:{
-            pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-            amount : $("#actionForm").find("input[name='amount']").val()
-          },
+          data:data,
           success: function(data){
+      	  
              let boardTbody = $("#communityBoardTable tbody");
-             
+             boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
                 
              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
              //for(let item of items) -> items == data, item ==board 역할
              $.each(data, function(index, board){
-                
+               
                 let regDate=new Date(board.regDate);
                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
@@ -325,14 +374,18 @@ $(document).ready(function () {
                  row.append(likeTd);
 
                 boardTbody.append(row);
+                console.log("pagemaker: "+${pageMaker.realEnd});
              });
           },
           error: function(e){
              console.log(e);
           }
        });
+       
+      
       let actionForm = $("#actionForm");
       $(".paginate_button a").on("click", function(e){
+
          //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
          e.preventDefault(); //이벤트 초기화
          //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
@@ -352,6 +405,9 @@ $(document).ready(function () {
           }
       });
     }
+    
+    loadTableData(switchMine);
+    
 
 });
 

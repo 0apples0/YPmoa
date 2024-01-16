@@ -24,21 +24,27 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CommunityController {
 	private final CommunityService communityService;
+	
+	
 	@RequestMapping(value="/community", method=RequestMethod.GET)// 전체 리스트 출력
 	//@GetMapping("/community") 
 	public void list(Criteria cri, Model model) {
-		log.info("-------controller in list ------");
-		log.info(cri);
+		log.info("contorller : "+ cri.getWriter());
+		
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
-		log.info(total);		
+		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
+
 		log.info("-------controller out list ------");
+		log.info("작성자 누구: "+cri.getWriter());
 
 		//log.info("Ajax");
 		//return communityService.getPage(cri);
 	}
+	
 	
 	@GetMapping("/get")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
@@ -48,8 +54,9 @@ public class CommunityController {
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
 	@RequestMapping(value="/community", method=RequestMethod.POST)
-	public List<CommunityVO> getList(Criteria cri){
-		log.info("Ajax");
+	public List<CommunityVO> getList(Criteria cri, Model model){
+		log.info("Ajax 호출");
+
 		return communityService.getPage(cri);
 	}
 }

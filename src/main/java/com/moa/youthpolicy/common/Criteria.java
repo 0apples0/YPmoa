@@ -22,10 +22,15 @@ public class Criteria {
 	private String type;
 	private String keyword;
 
+
+	private String writer; //여기
+
+
 	
 	// policy검색조건
 	private String rgnSeNm;
 	private String policyTypeNm;
+
 	
 	public Criteria() {
 		this(1,10);
@@ -36,7 +41,7 @@ public class Criteria {
 		this.amount = amount;            // pageNum    start
 		this.start = (pageNum-1)*amount; //    1   ->   0
 	}   // mapper에서 활용하는 방법 체크 //    2   ->   10
-	                                     //    3   ->   20 
+	//    3   ->   20 
 
 	public int getStart() {
 		this.start = (this.pageNum-1)*this.amount;
