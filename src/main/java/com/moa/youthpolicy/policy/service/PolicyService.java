@@ -92,10 +92,4 @@ public class PolicyService implements BoardGenericService {
 		return vo;
 	}
 
-	@Override
-	public <T> T getBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
