@@ -11,4 +11,5 @@ public interface UserGenericService {
 	public boolean logIn(UserVO vo, HttpSession session);
 	UserVO getCurrentUser();
 	boolean updatePassword(UserVO user, String currentPassword, String newPassword);
+	
 }

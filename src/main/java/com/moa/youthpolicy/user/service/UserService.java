@@ -45,6 +45,7 @@ public class UserService implements UserGenericService {
 	private static final String NSECRET = "GPSQ2FGPUb";
     private UserVO currentUser;
 	
+    
 	@Value("${google.url}")
 	private String googleUrl;
 	
@@ -102,10 +103,17 @@ public class UserService implements UserGenericService {
 
         return updatedRows > 0;
     }
+    
+    
     	
 	
 	public boolean chkEmail(String email) {
 		UserVO vo = mapper.selectUserByEmail(email);
+		System.out.println("---------서비스 chkEmail---------");
+        System.out.println("Email: " + email);
+        System.out.println("UserVO: " + vo);
+        System.out.println("---------------------------------");
+        
 		return vo == null;	
 	}
 	
@@ -190,17 +198,13 @@ public class UserService implements UserGenericService {
 	@Override
 	public boolean logIn(UserVO vo, HttpSession session) {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
-//		if(_vo.getPW() != null) {
-//			if(BCrypt.checkpw(vo.getPW(), _vo.getPW())) {
-//				session.setAttribute("user", _vo);
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}else {
-			session.setAttribute("user", _vo);
-			return true;
-//		}
+	    if (_vo != null && vo.getPW() != null && vo.getPW().equals(_vo.getPW())) {
+	        session.setAttribute("user", _vo);
+	        return true;
+	    }
+	    return false;
+//		session.setAttribute("user", _vo);
+//		return true;
 		
 	}
 
@@ -370,6 +374,13 @@ public class UserService implements UserGenericService {
     	
 		return uservo;
 	}
+
+	public boolean chkPW(UserVO vo) {
+		if(mapper.chkPW(vo) != null)
+			return true;
+		return false;
+	}
+
 
 
 }
