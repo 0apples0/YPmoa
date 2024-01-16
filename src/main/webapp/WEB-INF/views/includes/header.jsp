@@ -1,6 +1,9 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,11 +35,23 @@
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/js/helpers.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/config.js"></script>
 <!-- list CSS-->
-<script src="resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
+<script src="${pageContext.request.contextPath}/resources/css_sb/vendor/bootstrap/css/bootstrap.min.css"></script>
+<!-- 모달 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- 모달 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 부트스트랩 및 팝퍼.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 글쓰기 에디터 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+
+<!-- Summernote 추가 스크립트 -->
+<script src="${pageContext.request.contextPath}/resources/summerNote/js/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath}/resources/summerNote/js/lang/summernote-ko-KR.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summerNote/css/summernote-lite.css">
 
 </head>
 
@@ -51,13 +66,48 @@
                         <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
                     </a>
                 </div>
+                
+                <%-- 사용자에 따른 안내 문구 변경 --%>
                 <div id="nickname_box">
-                    <p id="nickname">관리자님 환영합니다!</p>
+                    <p id="nickname">
+                       <c:choose>
+                       <c:when test = "${user ne null && user.userType == 1}">
+                       	  관리자님,
+                       </c:when>
+                       <c:when test="${user ne null && user.nick ne null}">
+                          ${user.nick}님, 
+                       </c:when>
+                       </c:choose>  
+                          방문을 환영합니다!
+                      
+                    </p>
                 </div>
-                <div  id="admin_login_menu_box">
+ 
+ 				<%-- 사용자에 따른 상단 메뉴 변경 --%>               
+                <c:choose>
+				<c:when test="${user ne null && user.userType == 1}">
+				    <div  id="admin_login_menu_box">
                     <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
                     <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
+                	</div>
+				</c:when>
+                <c:when test="${user eq null && user.nick eq null}">
+                <div id="login_menu_box_guest">
+                    <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="/user/register"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
                 </div>
+                </c:when>
+                <c:otherwise>
+                <div id="login_menu_box">
+                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
+                        <p id="notify_letter">알림</p>
+                    </a>
+                  <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
+                        <p class="register_letter">로그아웃</p>
+                    </a>
+                </div>
+                </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <div class="col-lg-12">
@@ -69,10 +119,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0" id="main_menu">
+                    <div class="navbar-nav py-0" id="main_menu">
                         <a href="/policy/policy" class="nav-item nav-link">정책정보</a>
-                        <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
-                        <a href="/community/community" class="nav-item nav-link">꿀팁모음</a>
+
+
+                        <a href="index.html" class="nav-item nav-link">정책건의</a>
+                        <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
                     </div>
@@ -94,7 +146,14 @@
            window.location.href = "/user/mypage?Email=" + user_email;
        }
    }
+   
+   function resetSettings(){
+	   localStorage.setItem('switchMine', false);
+	   
+   }
 </script>
    
 </body>
+
+
 <!-- Header End -->

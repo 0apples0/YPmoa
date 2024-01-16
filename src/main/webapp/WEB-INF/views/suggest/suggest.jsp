@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="../includes/header_guest.jsp" %>
+<%@include file="../includes/header.jsp"%>
 
 <!-- jQuery 라이브러리 로드 -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
