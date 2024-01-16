@@ -89,12 +89,12 @@
                              <table id="suggestBoardTable" class="table table-hover commu_table commu_table_a">
                                  <thead>
                                      <tr>
-                                         <th data-sort="area">지역</th>
-                                         <th data-sort="category">건의분야</th>
+                                         <th data-sort="area" style="width:5%;">지역</th>
+                                         <th data-sort="category" style="width:8%;">건의분야</th>
                                          <th data-sort="title">제목</th>
-                                         <th data-sort="author">작성자</th>
-                                         <th data-sort="date">작성일</th>
-                                         <th data-sort="like" id="commu_likeBtn">좋아요</th>
+                                         <th data-sort="author" style="width:10%;">작성자</th>
+                                         <th data-sort="date" style="width:15%;">작성일</th>
+                                         <th data-sort="like" style="width:5%;">좋아요</th>
                                      </tr>
                                  </thead>
                                  <tbody>
@@ -295,7 +295,7 @@
     	                let row = $("<tr>");
     	                row.append($("<td>").text(board.region));
     	                row.append($("<td>").text(board.category));
-    	                let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+    	                let titleLink = $("<a>").addClass("commu_title").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
     	                let titleTd = $("<td>").append(titleLink);
     	                
     	                row.append(titleTd);
