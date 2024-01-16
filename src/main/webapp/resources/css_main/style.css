@@ -632,6 +632,7 @@
 }
 
 
+
 /*** admin ***/
 
 .admin_boardModal{
@@ -665,6 +666,11 @@
 
 /*** community ***/
 
+.commu_title{
+	color: #666565;
+	 font-family: 'LINESeedKR-Bd_light';
+}
+
 .commuGet_btn{
     text-align: right;
 }
@@ -693,6 +699,12 @@
 
 .commu_table_a{
 	text-align: left !important;
+}
+
+
+
+.commu_table_a{
+	
 }
 
 
@@ -752,6 +764,7 @@
 
 .commu_like{
     width: 23px;
+    margin-right: 5px;
 }
 
 

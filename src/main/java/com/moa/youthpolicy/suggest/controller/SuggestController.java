@@ -42,6 +42,7 @@ public class SuggestController {
 	// 게시글 상세보기
 	@GetMapping("/get")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
+
 		model.addAttribute("vo", suggestService.getBoard(bno));
 	}
 	
@@ -49,8 +50,14 @@ public class SuggestController {
 	@ResponseBody
 	@RequestMapping(value="/suggest", method=RequestMethod.POST)
 	public List<SuggestVO> getList(Criteria cri, Model model){
-		log.info("Ajax");
-		return suggestService.getPage(cri);
+        List<SuggestVO> suggestList = suggestService.getPage(cri);
+       
+        for (SuggestVO suggestVO : suggestList) {
+            int likeCount = suggestService.getLikeCount(suggestVO.getBno());
+            suggestVO.setLike(likeCount);
+        }
+
+        return suggestList;
 	}
 	
 

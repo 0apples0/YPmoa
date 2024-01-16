@@ -13,4 +13,5 @@ public interface SuggestMapper {
 	public int getTotalCount(Criteria cri);
 	public List<SuggestVO> getListWithPaging(Criteria cri);
 	public SuggestVO getBoard(Integer key);
+	public int getLikeCount(int bno); // 좋아요 수 가져오기
 }
