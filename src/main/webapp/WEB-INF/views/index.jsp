@@ -67,25 +67,13 @@
                                 </div>
                                 <div class="col-md-3_a">
                                     <select class="form-select">
-                                        <option selected>취업상태</option>
-                                        <option value="1">취업</option>
-                                        <option value="2">미취업</option>
+                                        <option selected>정책분야</option>
+                                        <option value="1">주거</option>
+                                        <option value="2">일자리</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3_a">
-                                    <div>
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="만 나이 입력" data-target="#date2" data-toggle="datetimepicker" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3_a">
-                                    <select class="form-select">
-                                        <option selected>소득범위</option>
-                                        <option value="1">소득없음</option>
-                                        <option value="2">세전 월 200만원 미만</option>
-                                        <option value="3">세전 월 200만원 이상 300만원 미만</option>
-                                    </select>
-                                </div>
+                               
+                               
                                 <div class="col-md-3_a">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
