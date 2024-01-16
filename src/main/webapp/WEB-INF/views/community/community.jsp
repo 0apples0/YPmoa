@@ -230,10 +230,10 @@
 
             </ul>
         </nav>
-        <form id="actionForm" action="/community/community" method="get">
+       <form id="actionForm" action="/community/community" method="get">
          <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
          <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-         <input type="hidden" name="writer" value="${pageMaker.cri.writer}">
+         <input type="hidden" name="writer" value="${pageMaker.cri.writer}">              
       </form>
     
       <form id="usernickForm" action="/community/community" method="get">
