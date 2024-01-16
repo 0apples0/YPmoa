@@ -41,15 +41,6 @@ public class UserVO {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-
-    // 확인 비밀번호 관련 메서드 추가
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
     
     // 추가: 전화번호 관련 메서드
     public String getPhone() {

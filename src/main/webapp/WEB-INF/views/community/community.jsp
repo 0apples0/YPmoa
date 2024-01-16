@@ -107,9 +107,16 @@
 
     <div class="container-xxl py-5_a">
         <div class="container">
+       
             <div class="row g-4">
                 <div class="wow fadeIn" data-wow-delay="0.1s">
+  <div id="policy_checkbox">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+                    <label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
+                </div>
 
+            </div>
                     <!-- table section -->
                     <div class="col-md-12">
                         <div class="white_shd_a full">
@@ -126,8 +133,7 @@
                                                 <th data-sort="title">제목</th>
                                                 <th data-sort="author">작성자</th>
                                                 <th data-sort="date">작성일</th>
-                                                <th data-sort="like" id="commu_likeBtn">좋아요 <i class="fa fa-angle-up"
-                                                        aria-hidden="true"></i></th>
+                                                <th data-sort="like" id="commu_likeBtn">좋아요</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -248,20 +254,7 @@
     let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
     
 $(document).ready(function () {
-    // 좋아요 th를 클릭할 때마다 아이콘 변경(오름-내림-원래로)
-    $("#commu_likeBtn").on("click", function () {
-        var icon = $(this).find("i");
-
-        if (icon.hasClass("fa-angle-up")) {
-            icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-        } else if (icon.hasClass("fa-angle-down")) {
-            icon.removeClass("fa-angle-down").addClass("fa-sort");
-        } else {
-            icon.removeClass("fa-sort").addClass("fa-angle-up");
-        }
-
-      
-    });
+   
 
    
 
