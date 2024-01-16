@@ -26,7 +26,7 @@ public class CommunityController {
 	private final CommunityService communityService;
 	
 	
-	@RequestMapping(value="/community", method=RequestMethod.GET)// 전체 리스트 출력
+	@RequestMapping(value="/community", method= {RequestMethod.GET, RequestMethod.POST})// 전체 리스트 출력
 	//@GetMapping("/community") 
 	public void list(Criteria cri, Model model) {
 		log.info("contorller : "+ cri.getWriter());
@@ -41,8 +41,6 @@ public class CommunityController {
 		log.info("-------controller out list ------");
 		log.info("작성자 누구: "+cri.getWriter());
 
-		//log.info("Ajax");
-		//return communityService.getPage(cri);
 	}
 	
 	
@@ -53,7 +51,7 @@ public class CommunityController {
 	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
-	@RequestMapping(value="/community", method=RequestMethod.POST)
+	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<CommunityVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출");
 

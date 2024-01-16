@@ -79,9 +79,22 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
+						<div class="col-md-3_b">
+                            <select class="form-select">
+                                <option selected>전체</option>
+                                <option value="1">제목</option>
+                                <option value="2">제목+내용</option>
+                            </select>
+                        </div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
+						<div class="col-md-2">
 
+							<input type="text"
+								class="form-control datetimepicker-input font_light"
+								placeholder="검색어를 입력하세요" name="keyword" />
+
+						</div>
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
 							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
@@ -97,12 +110,7 @@
 					<div class="row g-2 justify-content-center">
 
 
-						<div class="col-md-5 policy_search_box ">
-	
-							<input type="text" class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
-	
-						</div>
+						
 					</div>
 				</form>
 			</div>
@@ -168,11 +176,11 @@
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
 
-
+			<%-- <<버튼: 10페이지 이전 --%>
             <li class="paginate_button policy_page-item_prev prev">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-                  <a class="page-link" href="" onclick="gotoPrevprev(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})"><i class="fa fa-angle-double-left"
+                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>
                </c:when>
                <c:otherwise>
@@ -181,9 +189,11 @@
                </c:otherwise>     
                </c:choose>            
             </li> 
+            <%-- <버튼: 1페이지 이전 --%>
             <li class="paginate_button policy_page-item prev">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum) >1}">
+               	
                   <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>
                     </c:when>
@@ -191,16 +201,17 @@
                   <a class="page-link"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
-               </c:choose>      
+               </c:choose>            
             </li>            
 
-
+			<%-- 페이지 넘버 --%>
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                 <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                     <a class="page-link" href="${num}">${num}</a>
                 </li>
             </c:forEach>
 
+			<%-- >버튼: 1페이지 이동 --%>
             <li class="paginate_button policy_page-item next">
                <c:choose>
                <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
@@ -212,12 +223,13 @@
                            aria-hidden="true"></i></a>
                </c:when>               
                <c:otherwise>
-                  <a class="page-link" href="" onclick="gotoNextPage('${pageMaker.endPage}')"><i class="fa fa-angle-right"
+                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>   
                </c:otherwise>     
               </c:choose>            
             </li>              
-              
+            
+            <%-- >>버튼: 10페이지 이동 --%>  
             <li class="paginate_button page-item next">
                <c:choose>
                <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
@@ -226,13 +238,14 @@
 
                </c:when>
                <c:otherwise>
-                  <a class="page-link" href="" onclick="gotoNextnext(${pageMaker.cri.pageNum}, ${pageMaker.cri.amount})">
-                  			<i class="fa fa-angle-double-right"
+                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
+                           <i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>
                </c:otherwise>     
                </c:choose>            
             </li> 
             
+
             </ul>
         </nav>
         <form id="actionFrom" action="/policy/policy" method="post">
@@ -251,29 +264,6 @@
 
 <script>
 
-
-	function gotoNextPage(endPage) {
-	    // 아무 동작 없음
-	    console.log("gotoNextPage function called");
-	    console.log("endPage : " + endPage);
-	    //event.preventDefault();
-	    var nextPage = Number(endPage) + 1
-	    window.location.href="http://localhost:8090/community/community?pageNum="+ nextPage + "&amount=10";
-	}
-	
-	function gotoPrevprev(pageNum, pageAmount){
-		console.log("gotoPrevprev function called");
-		var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
-		console.log(prevprevPage);
-		window.location.href="http://localhost:8090/community/community?pageNum="+ prevprevPage + "&amount=" + pageAmount;
-	}
-	
-	function gotoNextnext(pageNum, pageAmount){
-		var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
-		console.log("nextnextPage : "+ nextnextPage);
-		window.location.href="http://localhost:8090/community/community?pageNum="+ nextnextPage + "&amount=" + pageAmount;
-	}
-	
 	function formatDate(date) {
 	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
 	    return new Date(date).toLocaleDateString('ko-KR', options);

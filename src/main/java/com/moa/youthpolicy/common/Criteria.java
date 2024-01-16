@@ -20,7 +20,7 @@ public class Criteria {
 	
 	// 각 화면에 표시되는 페이지의 수
 	private static final int pageAmount = 10;
-	
+
 	// 10페이지 앞으로가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 << 버튼 클릭 시 11페이지로 이동)
 	private int prevprevPage;
 	// 10페이지 뒤가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 >> 버튼 클릭 시 31페이지로 이동)
