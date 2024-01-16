@@ -50,9 +50,10 @@ public class PolicyController {
 		return service.getPage(cri);
 	}
 	@GetMapping("/get")
-	public void getpolicy(PolicyVO vo) {
+	public void getpolicy(PolicyVO vo, Model model) {
 		log.info("NO:" + vo.getNo());
-		// 글 자세히보기 해야됨
+		model.addAttribute("policy", service.getBoard(vo.getNo())); 
+		
 	}
 	
 	
