@@ -60,11 +60,13 @@ public class SuggestController {
 							 @RequestParam("category") String category,
 							 @RequestParam("title") String title,
 							 @RequestParam("content") String content,
+							 @RequestParam("region") String region,
 							 RedirectAttributes rttr) {
 		SuggestVO vo = suggestService.getBoard(bno);
 		vo.setCategory(category);
 		vo.setTitle(title);
 		vo.setContent(content);
+		vo.setRegion(region);
 		
 		if (suggestService.modifyBoard(vo)) {
 		rttr.addFlashAttribute("result", "success");

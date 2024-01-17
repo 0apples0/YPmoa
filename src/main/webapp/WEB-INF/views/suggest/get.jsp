@@ -23,6 +23,8 @@
                         <div class="full graph_head" style="padding-bottom: 7px;">
                             <div class="heading1 ">
                                 <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                <h3 style="font-size: 18px;">지역 : ${vo.region}</h3><br>
+                                <h3 style="font-size: 18px;">카테고리 : ${vo.category}</h3><br>
                                 <div>${vo.writer}</div>
                                 <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
                             </div>
