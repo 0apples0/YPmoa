@@ -39,7 +39,7 @@
 
                         <div class="row policy_row g-2">
                             <div class="row policy_row g-2">
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
 									<select class="form-select" name="rgnSeNm">
 										<%-- foreach문 사용하여 DB내의 지역 카테고리 반영 필요 --%>
 										<option value=""
@@ -58,7 +58,7 @@
 
 
 
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
 									<select class="form-select" name="policyTypeNm">
 										<option value=""
 											<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -70,7 +70,7 @@
 											<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 									</select>
                                 </div>
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
                                     <select class="form-select" name="type">
 	                                    <option value="" 
 	                                     	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
@@ -383,7 +383,7 @@ $(document).ready(function () {
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
-                let titleLink = $("<a>").addClass("commu_title").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);         
                 let titleTd = $("<td>").append(titleLink);
                 
                 row.append(titleTd);
