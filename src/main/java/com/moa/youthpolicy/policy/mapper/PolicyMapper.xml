@@ -88,4 +88,7 @@
 		SELECT * FROM policyboard
 		WHERE bno = #{no}
 	</select>
+	
+	
+	
 </mapper>

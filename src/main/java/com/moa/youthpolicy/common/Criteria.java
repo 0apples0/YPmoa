@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 선택값에 따라 원하는 결과가 다르게 나오게 할 경우에
-// 필요한 필드와 기능 구현
+// 필요한 필드와 기능 구현 
 @ToString
 @Setter
 @Getter
@@ -27,7 +27,7 @@ public class Criteria {
 	private int nextnextPage;
 	
 	// 검색에 사용되는 필드 선언
-	private String type;
+	private String type; 
 	private String keyword;
 
 
@@ -35,7 +35,7 @@ public class Criteria {
 
 	
 	// policy검색조건
-	private String rgnSeNm;
+	private String rgnSeNm; 
 	private String policyTypeNm;
 	private String selectedFilter;
 	

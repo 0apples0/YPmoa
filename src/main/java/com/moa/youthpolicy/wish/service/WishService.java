@@ -29,16 +29,18 @@ public class WishService implements BoardInterface {
 		return null;
 	}
 
-	@Override
-	public WishVO getBoard(Integer key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public WishVO getBoard(Integer key) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
