@@ -99,7 +99,7 @@
                 <c:otherwise>
                 <div id="login_menu_box">
                     <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
-                        <p id="notify_letter">알림</p>
+                        <p id="notify_letter">알림 <span class="badge">new</span></p>
                     </a>
                   <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>

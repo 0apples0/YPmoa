@@ -76,7 +76,7 @@
                                
                                 <div class="col-md-5">
                                     <div>
-                                        <input type="text" class="form-control datetimepicker-input"
+                                        <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
                                             placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
@@ -306,7 +306,7 @@
         $.each(data, function(index, policy) {
         	policy.crtDt = formatDate(policy.crtDt);
             // 각 데이터에 대한 텍스트 길이 제한 
-            var maxTextLength = 21; // 적절한 길이로 조절
+            var maxTextLength = 20; // 적절한 길이로 조절
 
             // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
             var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
