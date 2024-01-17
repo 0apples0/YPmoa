@@ -15,5 +15,6 @@ public interface CommunityMapper {
 	//추가
 	public int getCommentTotalCount(Integer key);
 	public List<CommunityCommentVO> getCommentListWithPaging(Criteria cri);
+	public List<CommunityCommentVO> getBestCommentList(Criteria cri);
 
 }

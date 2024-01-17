@@ -119,7 +119,7 @@
 				
 				
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
-				<div class="col-md-12">
+				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full"
 						style="padding: 30px; padding-bottom: 0px;">
 						<h4 style="padding-left: 10px;">
@@ -127,23 +127,13 @@
 								class="fa fa-fire text-primary commu_pic"></i>
 						</h4>
 						<div class="table-responsive-sm">
-							<table id="communityCommentTable"
+							<table id="communityBestCommentTable"
 								class="table table-basic commu_table policyGet_comment">
-
+ 
 								<tbody style="background-color: rgb(255, 239, 203);">
-									<tr>
-										<td style="width: 60%;"></td>
-										<td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
-										<td>2024-01-05</td>
-										<td><a><img class="commu_like policyGet_like"
-												src="resources/img/addLike.png" /></a> <span>32</span>개</td>
-										<td><img class="policyGet_report"
-											src="resources/img/report.png" style="width: 20px;" /> <a
-											href="#" class="policyGet_report">신고</a></td>
-									</tr>
-
-
+								
 								</tbody>
+								
 							</table>
 						</div>
 					</div>
@@ -324,7 +314,7 @@
     <script>
         $(document).ready(function () {
         	loadTableData();
-
+        	loadBestCommentTableData();
 
 			//좋아요 버튼에 이벤트 핸들러 추가
 			$(".commu_table").on("click", ".policyGet_likeBtn", function () {
@@ -486,10 +476,74 @@
                
              }
 
+            function loadBestCommentTableData(){
+                $.ajax({
+                   url: "/community/getBestCommentList",// 요청할 서버 uri
+                   type: "POST", //요청방식 지정
+                   dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+                   data:{
+                      bno : $("#actionForm").find("input[name='bno']").val() 
+                   },
+                   success: function(data){
+               	  	  
+                      let boardTbody = $("#communityBestCommentTable tbody");
+                      boardTbody.empty(); // 기존 테이블 행 삭제
+                      
+                      if(data.length > 0){
+                    	  $("#communityBestCommentDiv").show();
+                          //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+                          //for(let item of items) -> items == data, item ==board 역할
+                          $.each(data, function(index, board){
+                            
+                             let regDate=new Date(board.regDate);
+                             // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                             let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                             let formateDate = regDate.toLocaleString("ko-KR", options);
 
+                             // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                             // 동적으로 데이터 처리
+                             let row = $("<tr>");
+                             row.append($("<td>").text(board.content));
+                             row.append($("<td>").text(board.writer));
+                             row.append($("<td>").text(formateDate));
+                             
+                              // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
+                              let likeTd = $("<td>");
+                              let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                              let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                              // 이미지와 span을 <td> 엘리먼트에 추가
+                              likeTd.append(likeImg).append(likeSpan);
+                              
+                           	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                              let reportTd = $("<td>");
+                              let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
+                              						.css("width", "20px");
+                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                              // 이미지와 link를 <td> 엘리먼트에 추가
+                              reportTd.append(reportImg).append(reportLink);
+
+                              // 새로운 <td> 엘리먼트를 행에 추가
+                              row.append(likeTd);
+                              row.append(reportTd);
+                              
+                             boardTbody.append(row);
+                             console.log("pagemaker: "+${pageMaker.realEnd});
+                          });                   	  
+                      }else{
+                    	  $("#communityBestCommentDiv").hide();
+                      }
+
+                   },
+                   error: function(e){
+                      console.log(e);
+                   }
+                });
+                
+               
+             }
 
         }); // document.ready함수
 
-
+    
     </script>
 <%@include file="../includes/footer.jsp" %>
