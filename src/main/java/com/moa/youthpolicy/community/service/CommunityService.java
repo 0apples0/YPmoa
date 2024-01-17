@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.mapper.CommunityMapper;
 
@@ -54,17 +55,16 @@ public class CommunityService implements BoardGenericService{
 		return cnt;
 	}
 	// 추가
-	public List<CommunityVO> getCommentPage(Criteria cri) {
+	public List<CommunityCommentVO> getCommentPage(Criteria cri) {
 		log.info("------service in getList------");
-		log.info(cri);
-		List<CommunityVO> result = communityMapper.getCommentListWithPaging(cri);
+		List<CommunityCommentVO> result = communityMapper.getCommentListWithPaging(cri);
 		log.info("------service out getList------");
 		log.info(result);
 		return result;
 	}	
 	// 추가
-	public int getCommentTotalAmount(Criteria cri) {
-		int cnt = communityMapper.getCommentTotalCount(cri);
+	public int getCommentTotalAmount(Integer key) {
+		int cnt = communityMapper.getCommentTotalCount(key);
 		return cnt;
 	}
 
