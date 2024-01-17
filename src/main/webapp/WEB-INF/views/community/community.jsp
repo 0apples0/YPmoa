@@ -330,7 +330,13 @@ $(document).ready(function () {
 			e.preventDefault();
 			searchForm.submit();
 		});
-		
+
+	    $("#searchForm button[type='reset']").on("click", function (e) {
+	        // 검색어 입력 필드 초기화
+	        $("#searchForm input[name='keyword']").val('');
+	        $("#searchForm select").val('');
+			e.preventDefault();
+	    });
     function loadTableData(){
         
        $.ajax({
