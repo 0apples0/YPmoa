@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 선택값에 따라 원하는 결과가 다르게 나오게 할 경우에
-// 필요한 필드와 기능 구현
+// 필요한 필드와 기능 구현 
 @ToString
 @Setter
 @Getter
