@@ -150,7 +150,7 @@
 
 
 #login_menu_box{
-    width: 140px;
+    width: 150px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -235,6 +235,11 @@
 
 #adminMenu_letter{
 	padding-top: 3px;
+}
+
+
+#notify_letter{
+    width: 30px;
 }
 
 #notify{
@@ -357,6 +362,12 @@
     z-index: 1;
 }
 
+.index_booking{
+    position: relative;
+    margin-top: 0px !important;
+    z-index: 1;
+}
+
 .mypage_booking {
     position: relative;
     z-index: 1;
@@ -367,7 +378,7 @@
 /*** myPage ***/
 
 .mypage_label{
-    text-align: center;
+    text-align: right;
 }
 
 /*** Section Title ***/
@@ -632,7 +643,6 @@
 }
 
 
-
 /*** admin ***/
 
 .admin_boardModal{
@@ -666,10 +676,20 @@
 
 /*** community ***/
 
-.commu_title{
-	color: #666565;
-	 font-family: 'LINESeedKR-Bd_light';
+.commu_pic{
+    margin-right: 5px;
 }
+
+.commu_title{
+	color:#666565;
+	
+}
+
+.commu_like{
+	margin-right:3px;
+}
+
+
 
 .commuGet_btn{
     text-align: right;
@@ -699,12 +719,6 @@
 
 .commu_table_a{
 	text-align: left !important;
-}
-
-
-
-.commu_table_a{
-	
 }
 
 
@@ -764,20 +778,34 @@
 
 .commu_like{
     width: 23px;
-    margin-right: 5px;
 }
 
-
+/*** find login info ***/
+.userModi_findID{
+    margin-left: 5px;
+}
 
 
 /*** register ***/
 #card-body{
-    padding: 30px;
-    padding-bottom: 50px;
+ padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    width: 100%;
+}
+
+#usermodi_card-body{
+    padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    width: 50%;
 }
 
 #regi_pwd_letter{
     padding-right: 0px;
+    text-align: right;
 }
 
 .regi_checkBtn{
@@ -815,17 +843,13 @@
     padding-top: 0px;
 }
 
-#mini_board_title{
-	cursor: pointer;
-}
-
 .container h6{
     font-size: 50px;
     padding-top: 20px;
 }
 
 .list_date{
-    width: 115px;
+    width: 130px;
     text-align: right;
 }
 
@@ -1133,4 +1157,4 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
-}
+}   

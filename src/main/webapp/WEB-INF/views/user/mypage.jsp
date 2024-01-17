@@ -85,7 +85,7 @@
 						
 								<div id="card-body">
 									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label field mypage_label"
+										<label class="col-sm-2_a col-form-label field mypage_label"
 											for="basic-default-email">아이디</label>
 										<div class="col-sm-10">
 											<div class="input-group input-group-merge">
@@ -97,7 +97,7 @@
 										</div>
 									</div>
 									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
+										<label class="col-sm-2_a col-form-label mypage_label"
 											for="basic-default-company">이름</label>
 										<div class="col-sm-10" id="regi_input">
 											<input type="text" class="regi_pwd_form-control" required
@@ -105,7 +105,7 @@
 										</div>
 									</div>
 									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
+										<label class="col-sm-2_a col-form-label mypage_label"
 											for="basic-default-phone">연락처</label>
 										<div class="col-sm-10">
 											<input type="text" required
@@ -117,7 +117,7 @@
 										</div>
 									</div>
 									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
+										<label class="col-sm-2_a col-form-label mypage_label"
 											for="basic-default-company">닉네임</label>
 										<div class="col-sm-10">
 											<input type="text" class="regi_sub_form-control" required

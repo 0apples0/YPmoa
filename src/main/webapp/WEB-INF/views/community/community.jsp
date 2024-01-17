@@ -21,7 +21,7 @@
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Community</h6>
-            <h1 class="mb-5"><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
+            <h1 class="mb-5"><i class="fa fa-comments text-primary commu_pic"></i><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
         </div>
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -30,7 +30,7 @@
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
+						src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
                     </div>
 
@@ -39,7 +39,7 @@
 
                         <div class="row policy_row g-2">
                             <div class="row policy_row g-2">
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
 									<select class="form-select" name="rgnSeNm">
 										<%-- foreach문 사용하여 DB내의 지역 카테고리 반영 필요 --%>
 										<option value=""
@@ -58,7 +58,7 @@
 
 
 
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
 									<select class="form-select" name="policyTypeNm">
 										<option value=""
 											<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -70,7 +70,7 @@
 											<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 									</select>
                                 </div>
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
                                     <select class="form-select" name="type">
 	                                    <option value="" 
 	                                     	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
@@ -141,13 +141,13 @@
 
                                         <thead>
                                             <tr>
-                                                <th data-sort="area">지역</th>
-                                                <th data-sort="category">꿀팁분야</th>
-                                                <th data-sort="title">제목</th>
-                                                <th data-sort="author">작성자</th>
-                                                <th data-sort="date">작성일</th>
-                                                <th data-sort="like" id="commu_likeBtn">좋아요</th>
-                                            </tr>
+                                         <th data-sort="area" style="width:5%;">지역</th>
+                                         <th data-sort="category" style="width:8%;">꿀팁분야</th>
+                                         <th data-sort="title">제목</th>
+                                         <th data-sort="author" style="width:10%;">작성자</th>
+                                         <th data-sort="date" style="width:15%;">작성일</th>
+                                         <th data-sort="like" style="width:5%;">좋아요</th>
+                                     </tr>
                                         </thead>
                                         <tbody>
 
@@ -383,7 +383,7 @@ $(document).ready(function () {
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
-                let titleLink = $("<a>").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);         
                 let titleTd = $("<td>").append(titleLink);
                 
                 row.append(titleTd);
