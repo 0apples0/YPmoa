@@ -81,7 +81,7 @@
                           방문을 환영합니다!
                     </p>
                 </div>
- 
+  
  				<%-- 사용자에 따른 상단 메뉴 변경 --%>               
                 <c:choose>
 				<c:when test="${user ne null && user.userType == 1}">
