@@ -162,7 +162,7 @@
 	                       <c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
 	                            <div class="col-md-1 policy_writeBtn">
 	
-	                                <button class="btn btn-warning w-100">글쓰기</button>
+	                                <button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 	                            </div>
 	                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
 	
@@ -172,7 +172,7 @@
 	                       <c:otherwise>
 	                            <div class="col-md-1 policy_writeBtn">
 	
-	                                <button class="btn btn-warning w-100">글쓰기</button>
+	                                <button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 	                            </div>	                        
 	                       </c:otherwise>
 	                       </c:choose>
@@ -305,7 +305,7 @@ $(document).ready(function () {
     });
     
     
-    
+    // 내글 보기
     $("#gotoMineBtn").on("click", function(e){
 	   let checkwriterValue = $("#actionForm").find("input[name='writer']").val();
        if(checkwriterValue){
@@ -322,21 +322,32 @@ $(document).ready(function () {
 
     });   
     
-
-		let searchForm = $("#searchForm");
+	
+	let searchForm = $("#searchForm");
 		
-		$("#searchBtn").on("click",function(e){
-			searchForm.find("input[name='pageNum']").val("1");
-			e.preventDefault();
-			searchForm.submit();
-		});
+	$("#searchBtn").on("click",function(e){
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+		searchForm.submit();
+	});
 
-	    $("#searchForm button[type='reset']").on("click", function (e) {
-	        // 검색어 입력 필드 초기화
-	        $("#searchForm input[name='keyword']").val('');
-	        $("#searchForm select").val('');
-			e.preventDefault();
-	    });
+	$("#searchForm button[type='reset']").on("click", function (e) {
+	    // 검색어 입력 필드 초기화
+	    $("#searchForm input[name='keyword']").val('');
+	    $("#searchForm select").val('');
+		e.preventDefault();
+	});
+	
+	$("#writeBtn").on("click", function(){
+		userNick = $("#usernickForm input[name='writer']").val();
+		if(userNick != null && userNick!=""){
+			self.location = "/community/write";
+		}else{
+			alert("로그인이 필요한 서비스입니다.");
+			self.location = "/user/login";
+		}
+		
+	});
     function loadTableData(){
         
        $.ajax({

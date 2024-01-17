@@ -49,6 +49,10 @@ public class CommunityController {
 		model.addAttribute("vo", communityService.getBoard(bno));
 	}
 	
+	//글 작성 페이지로 이동
+	@GetMapping("/write")
+	public void getWrite() {}
+	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
