@@ -230,7 +230,7 @@
                <c:otherwise>
                   <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>   
-               </c:otherwise>     
+               </c:otherwise>      
               </c:choose>            
             </li>              
             
