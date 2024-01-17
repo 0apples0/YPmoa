@@ -11,7 +11,7 @@
 	
     <update id="modifyBoard" parameterType="com.moa.youthpolicy.suggest.domain.SuggestVO">
         UPDATE suggestedboard
-        SET title = #{title}, content = #{content}, category = #{category}
+        SET title = #{title}, content = #{content}, category = #{category}, region = #{region}
         WHERE bno = #{bno}
     </update>
 	

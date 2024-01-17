@@ -26,14 +26,37 @@
 	                        <div class="padding_infor_info">
 	                            <div class="row ">
 	                                <div class="" style="width: 15%;">
+	                                    <select class="form-select" id="region" name="region">
+	                                        <c:choose>
+		                                        <c:when test="${empty vo.region}">
+		                                            <option selected value="">지역</option>
+		                                        </c:when>
+		                                        <c:otherwise>
+		                                            <option value="${vo.region}">${vo.region}</option>
+		                                        </c:otherwise>
+											</c:choose>
+		                                    <option value="부천시">부천시</option>
+		                                    <option value="수원시">수원시</option>
+		                                    <option value="광명시">광명시</option>
+	                                    </select>
+	                                </div>
+	                                <div class="" style="width: 15%;">
 	                                    <select class="form-select" id="category" name="category">
-	                                    	<option value="${vo.category}">${vo.category}</option>
-	                                        <option value="1">주거</option>
-	                                        <option value="2">일자리</option>
+	                                        <c:choose>
+		                                        <c:when test="${empty vo.category}">
+		                                            <option selected value="">관심분야</option>
+		                                        </c:when>
+		                                        <c:otherwise>
+		                                            <option value="${vo.category}">${vo.category}</option>
+		                                        </c:otherwise>
+											</c:choose>
+		                                    <option value="주거">주거</option>
+		                                    <option value="교육">교육</option>
+		                                    <option value="신혼부부">신혼부부</option>
 	                                    </select>
 	                                </div>
 	                                <input class="form-control" id="titleInput" name="title"
-	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 84%;"
+	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 67%;"
 	                                    placeholder="제목을 입력해주세요"  value="${vo.title}">
 	                            </div>
 	                        </div>
