@@ -1,14 +1,12 @@
 package com.moa.youthpolicy.policy.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -88,7 +86,8 @@ public class PolicyService implements BoardGenericService {
 	public PolicyVO getBoard(Integer no) {
 		PolicyVO vo = mapper.getPolicy(no);
 		vo.setBoard(mapper.getBoard(no));
-		log.info(vo);
+		log.info(AuthUtil.getCurrentUserAccount());
+		
 		return vo;
 	}
 

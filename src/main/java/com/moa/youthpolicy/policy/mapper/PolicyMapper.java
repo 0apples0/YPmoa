@@ -12,4 +12,5 @@ public interface PolicyMapper {
 	public int getTotalCount(Criteria cri);
 	public PolicyVO getPolicy(Integer key);
 	public PolicyBoardVO getBoard(Integer key);
+	
 }
