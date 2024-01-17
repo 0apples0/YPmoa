@@ -5,7 +5,7 @@
 
 <mapper	namespace="com.moa.youthpolicy.policy.mapper.PolicyMapper">
 	<select id="getfiveboard" resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
-		SELECT * FROM policy ORDER BY no LIMIT 5
+		SELECT * FROM policy ORDER BY no DESC LIMIT 5
 	</select>
 	
 	<select id="getListWithPasing" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.common.Criteria">
@@ -78,4 +78,17 @@
 	        AND aplyPsbltyYn = 'N'
 	    </if>
 	</select>
+	
+	<select id="getPolicy" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="Integer">
+		SELECT * FROM policy
+		WHERE no = #{no}
+	</select>
+	
+	<select id="getBoard" resultType="com.moa.youthpolicy.policy.domain.PolicyBoardVO" parameterType="Integer">
+		SELECT * FROM policyboard
+		WHERE bno = #{no}
+	</select>
+	
+	
+	
 </mapper>

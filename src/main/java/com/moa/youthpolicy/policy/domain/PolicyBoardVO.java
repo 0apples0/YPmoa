@@ -10,5 +10,5 @@ public class PolicyBoardVO {
 	int like;
 	String imageName;
 	Character boardType;
-	int bno;
+	Integer bno;
 }

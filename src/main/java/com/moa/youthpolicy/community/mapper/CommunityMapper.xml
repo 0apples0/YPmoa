@@ -21,9 +21,33 @@
 			And writer = #{writer}
 
 		</if>
-		<if test="type != null and type !='' and keyword !=null and keyword!=''">
-			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+	    <if test="type != null and keyword != null and keyword != ''">
+		    
+	        <choose>
+	            <when test='type == "TC"'>
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
+	            <when test='type == "T"'>
+	                AND title LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	            <when test='type == "W"'>
+	                AND writer LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	        </choose>
 		</if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND region LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND category LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+	
+		
+		<!--
+		<if test="type != null and type !='' and keyword !=null and keyword!=''">
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%') 
+		</if>
+		-->
 		
 	</select>
 	
@@ -34,11 +58,35 @@
 			And writer = #{writer}
 
 		</if>
-		<if test="type != null and type !='' and keyword !=null and keyword!=''">
-				
-			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
-		</if>
-		ORDER BY bno DESC
+	    <if test="type != null and keyword != null and keyword != ''">
+	        <choose>
+	            <when test='type == "TC"'>
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
+	            <when test='type == "T"'>
+	                AND title LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	            <when test='type == "W"'>
+	                AND writer LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	        </choose>
+	    </if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND region LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND category LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+		
+		ORDER BY
+	    <choose>
+	        <when test="selectedFilter == 'like'">
+	            `like` DESC
+	        </when>
+	        <otherwise>
+	            bno DESC
+	        </otherwise>
+	    </choose>		
 		LIMIT #{start}, #{amount}
 	</select>
 	

@@ -1,6 +1,5 @@
 package com.moa.youthpolicy.common;
 
-import java.util.List;
 
 public interface BoardGenericService extends BoardInterface {
 	public <T> void writeBoard(T boardVO); // 글 쓰기

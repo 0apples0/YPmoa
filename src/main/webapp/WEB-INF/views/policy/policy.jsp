@@ -51,7 +51,7 @@
 				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
@@ -67,7 +67,7 @@
 							</select>
 						</div>
 						
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -79,22 +79,24 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
                             <select class="form-select">
                                 <option selected>전체</option>
                                 <option value="1">제목</option>
                                 <option value="2">제목+내용</option>
                             </select>
                         </div>
-					</div>
-					<div class="row g-2 justify-content-center policy_search_box">
-						<div class="col-md-2">
+                        <div class="col-md-3">
 
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
 								placeholder="검색어를 입력하세요" name="keyword" />
 
 						</div>
+                        
+					</div>
+					<div class="row g-2 justify-content-center policy_search_box">
+						
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
 							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
@@ -264,9 +266,13 @@
 
 <script>
 
-	function formatDate(date) {
-	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-	    return new Date(date).toLocaleDateString('ko-KR', options);
+function formatDate(date) {
+	  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+	  const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+
+	  // '/'를 '-'로 바꿔서 반환
+	  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
+
 	}
 
 
@@ -307,15 +313,29 @@
 	    });
 	
 	    // 리스트 위시 버튼
-	    $(".toggleLink").click(function (e) {
-	        e.preventDefault();
-	
-	        var $img = $("#" + $(this).data("target"));
-	
-	        $img.attr("src", function (_, oldSrc) {
-	            return oldSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-	        });
-	    });
+		 $(document).on("click", ".toggleLink", function(e) {
+		    e.preventDefault();
+		
+		    var $img = $("#" + $(this).data("target"));
+		
+		    // 현재 소스를 가져옴
+		    var currentSrc = $img.attr("src");
+		
+		    // 토글해서 새로운 소스를 설정
+		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
+		
+		    // 이미지 소스를 변경
+		    $img.attr("src", newSrc);
+		
+		    // 알림 창 표시
+		    var message = currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다";
+		    alert(message);
+		});
+
+
+	    
+	    
+	    
 			
 			let actionFrom = $("#actionFrom");
 			$(".paginate_button a").on("click", function(e) {
@@ -407,10 +427,13 @@
 		    	        '</a>' +
 		    	        '</div>' +
 		    	        '</div>' +
-		    	        '<div class="text-center p-4 mt-2 policy_detail">' +
-		    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '">' + displayPolicyName + '</a></h5>' +
-		    	        '<small class="policy_areaName">' + (policy.rgnSeNm) + '</small>' +
-		    	        '<small class="policy_startDate">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
+		    	        '<div class="p-4 mt-2 policy_detail">' +
+		    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
+		    	        		
+		    	        '<div class="d-flex">'+
+		    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
+		    	        '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
+		    	        '</div>'+
 		    	        '</div>' +
 		    	        '<div class="commuGet_btn" >' +
 		    	        '<button class="btn btn-primary">수정</button>' +

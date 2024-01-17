@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 선택값에 따라 원하는 결과가 다르게 나오게 할 경우에
-// 필요한 필드와 기능 구현
+// 필요한 필드와 기능 구현 
 @ToString
 @Setter
 @Getter
@@ -20,13 +20,14 @@ public class Criteria {
 	
 	// 각 화면에 표시되는 페이지의 수
 	private static final int pageAmount = 10;
+
 	// 10페이지 앞으로가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 << 버튼 클릭 시 11페이지로 이동)
 	private int prevprevPage;
 	// 10페이지 뒤가기 버튼 클릭 시 시작 페이지 지정 (24페이지에서 >> 버튼 클릭 시 31페이지로 이동)
 	private int nextnextPage;
 	
 	// 검색에 사용되는 필드 선언
-	private String type;
+	private String type; 
 	private String keyword;
 
 
@@ -34,7 +35,7 @@ public class Criteria {
 
 	
 	// policy검색조건
-	private String rgnSeNm;
+	private String rgnSeNm; 
 	private String policyTypeNm;
 	private String selectedFilter;
 	

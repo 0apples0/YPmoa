@@ -78,11 +78,6 @@ public class SuggestService implements BoardGenericService{
 		
 	}
 
-	@Override
-	public <T> T getBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 좋아요 값 가져오는거 추가
     public int getLikeCount(int bno) {
