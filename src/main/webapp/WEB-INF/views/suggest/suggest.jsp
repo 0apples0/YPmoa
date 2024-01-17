@@ -202,6 +202,7 @@
     var contextPath = "${pageContext.request.contextPath}";
     let storedValue = localStorage.getItem('switchMine');
     let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
+    let sortByLikes = false;
     
 	function gotoNextPage(endPage) {
 	    // 아무 동작 없음
@@ -228,129 +229,121 @@
 	
 
     $(document).ready(function () {
-    	
     	$("#gotoMineBtn").on("click", function(e){
-    	       let usernickForm = $("#usernickForm");
-    	       console.log("원래 스위치 값: "+switchMine);
-    	       switchMine = !switchMine;
-    	       console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
-    	       localStorage.setItem('switchMine', switchMine);
-    	       //loadTableData(switchMine);
-    	       let writer = $("#usernickForm").find("input[name='writer']").val();
-    	       if(switchMine){
-    	    	   e.preventDefault();
-    	    	   usernickForm.submit();
-
-    	    	   
-    	       }
-    	    });   
-    	    loadTableData(switchMine);
-    	    function loadTableData(switchMine){
-    	        
-    	       let data;
-    	       /*console.log("loadTableData의 switchmine:"+switchMine);
-    	       data = {
-    	               pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	               amount : $("#actionForm").find("input[name='amount']").val()
-    	       };
-    	       */
-    	       if(switchMine){
-    	           data = {
-    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                   amount : $("#actionForm").find("input[name='amount']").val(),
-    	                   writer: $("#usernickForm").find("input[name='writer']").val()
-    	                };  
-    	       } else{
-    	           data = {
-    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                   amount : $("#actionForm").find("input[name='amount']").val(),
-    	                   writer: ''
-    	                };      	   
-    	       }
-
-    	  
-
-    	        console.log(data);
-    	       $.ajax({
-    	          url: "/suggest/suggest",// 요청할 서버 uri
-    	          type: "POST", //요청방식 지정
-    	          dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-    	          data:data,
-    	          success: function(data){
-    	      	  
-    	             let boardTbody = $("#suggestBoardTable tbody");
-    	             boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
-    	                
-    	             //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-    	             //for(let item of items) -> items == data, item ==board 역할
-    	             $.each(data, function(index, board){
-    	               
-    	                let regDate=new Date(board.regDate);
-    	                // numeric: 숫자, 2-digit: 두자리 숫자 형식
-    	                let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-    	                let formateDate = regDate.toLocaleString("ko-KR", options);
-
-    	                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-    	                // 동적으로 데이터 처리
-    	                let row = $("<tr>");
-    	                row.append($("<td>").text(board.region));
-    	                row.append($("<td>").text(board.category));
-    	                let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
-    	                let titleTd = $("<td>").append(titleLink);
-    	                
-    	                row.append(titleTd);
-    	                row.append($("<td>").text(board.writer));
-    	                row.append($("<td>").text(formateDate));
-    	                
-    	                 // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-    	                 let likeTd = $("<td>");
-    	                 let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-    	                 // 수정된 부분: 서버에서 가져온 like 값 사용
-    	                 let likeSpan = $("<span>").text(board.like + "개");
-
-    	                 // 이미지와 span을 <td> 엘리먼트에 추가
-    	                 likeTd.append(likeImg).append(likeSpan);
-
-    	                 // 새로운 <td> 엘리먼트를 행에 추가
-    	                 row.append(likeTd);
-
-    	                boardTbody.append(row);
-    	                console.log("pagemaker: "+${pageMaker.realEnd});
-    	             });
-    	          },
-    	          error: function(e){
-    	             console.log(e);
-    	          }
-    	       });
-    	       
-    	      
-    	      let actionForm = $("#actionForm");
-    	      $(".paginate_button a").on("click", function(e){
-
-    	         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-    	         e.preventDefault(); //이벤트 초기화
-    	         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-    	         console.log(actionForm);
-    	         /*
-    	         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-    	         actionForm.submit();
-    	         */
-    	         console.log("href : " + $(this).attr("href"));
-    	          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-    	          let newPageNum = $(this).attr("href");
-    	         console.log("newPageNum : " + newPageNum);
-    	          // pageNum이 비어있지 않은 경우에만 submit 실행
-    	          if (newPageNum) {
-    	              actionForm.find("input[name='pageNum']").val(newPageNum);
-    	              actionForm.submit();
-    	          }
-    	      });
+    		let usernickForm = $("#usernickForm");
+    	    console.log("원래 스위치 값: "+switchMine);
+    	    switchMine = !switchMine;
+    	    console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
+    	    localStorage.setItem('switchMine', switchMine);
+    	    let writer = $("#usernickForm").find("input[name='writer']").val();
+    	    if(switchMine){
+    	    	e.preventDefault();
+    	    	usernickForm.submit();
     	    }
-    	    
-    	    loadTableData(switchMine);
-    	    
+		});   
+    	
+        $("#customCheck4").on("change", function () {
+            sortByLikes = $(this).prop("checked");
+            loadTableData(switchMine, sortByLikes);
+        });
 
-    	});
+    	//loadTableData(switchMine);
+    	loadTableData(switchMine, sortByLikes);
+    	    
+    	function loadTableData(switchMine, sortByLikes){
+    		
+    		let data;
+			
+    	    if(switchMine){
+    	        data = {
+    	        		pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+    	                amount : $("#actionForm").find("input[name='amount']").val(),
+    	                writer: $("#usernickForm").find("input[name='writer']").val(),
+    	                sortByLikes: sortByLikes
+    	         };  
+    	     } else{
+    	    	 data = {
+    	    	 		 pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+    	                 amount : $("#actionForm").find("input[name='amount']").val(),
+    	                 writer: '',
+    	                 sortByLikes: sortByLikes
+				 };      	   
+    	     }
+    	    
+    	    
+    	    $.ajax({
+    	    	url: "/suggest/suggest",// 요청할 서버 uri
+    	        type: "POST", //요청방식 지정
+    	        dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+    	        data:data,
+    	        success: function(data){
+    	        	let boardTbody = $("#suggestBoardTable tbody");
+ 	            	boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
+    	                
+					//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+					//for(let item of items) -> items == data, item ==board 역할
+					$.each(data, function(index, board){
+						let regDate=new Date(board.regDate);
+		    	        // numeric: 숫자, 2-digit: 두자리 숫자 형식
+		    	        let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+		    	        let formateDate = regDate.toLocaleString("ko-KR", options);
+		
+		    	        // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+		    	        // 동적으로 데이터 처리
+		    	        let row = $("<tr>");
+		    	        row.append($("<td>").text(board.region));
+		    	        row.append($("<td>").text(board.category));
+		    	        let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+		    	        let titleTd = $("<td>").append(titleLink);
+		    	                
+		    	        row.append(titleTd);
+		    	        row.append($("<td>").text(board.writer));
+		    	        row.append($("<td>").text(formateDate));
+		    	                
+						// 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+						let likeTd = $("<td>");
+						let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+						// 수정된 부분: 서버에서 가져온 like 값 사용
+						let likeSpan = $("<span>").text(board.like + "개");
+								
+						// 이미지와 span을 <td> 엘리먼트에 추가
+						likeTd.append(likeImg).append(likeSpan);
+								
+						// 새로운 <td> 엘리먼트를 행에 추가
+						row.append(likeTd);
+	
+	    	        	boardTbody.append(row);
+					});
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});
+    	}
+    	    
+    	    
+    	      
+		let actionForm = $("#actionForm");
+		$(".paginate_button a").on("click", function(e){
+	
+				//기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+				e.preventDefault(); //이벤트 초기화
+				//pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+				console.log(actionForm);
+				console.log("href : " + $(this).attr("href"));
+				// pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+				let newPageNum = $(this).attr("href");
+				console.log("newPageNum : " + newPageNum);
+				// pageNum이 비어있지 않은 경우에만 submit 실행
+				if (newPageNum) {
+					actionForm.find("input[name='pageNum']").val(newPageNum);
+					actionForm.submit();
+			}
+		});
+	
+		loadTableData(switchMine, sortByLikes);
+
+    });
 
 </script>
 
