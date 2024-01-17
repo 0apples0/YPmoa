@@ -11,4 +11,8 @@ public interface CommunityMapper {
 	public int getTotalCount(Criteria cri);
 	public List<CommunityVO> getListWithPaging(Criteria cri);
 	public CommunityVO getBoard(Integer key);
+	//추가
+	public int getCommentTotalCount(Criteria cri);
+	public List<CommunityVO> getCommentListWithPaging(Criteria cri);
+
 }

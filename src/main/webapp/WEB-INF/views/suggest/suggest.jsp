@@ -16,7 +16,7 @@
 <!-- Page Header End -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
     <h6 class="section-title text-center text-primary text-uppercase">Suggest</h6>
-    <h1 class="mb-5"><span class="text-primary text-uppercase">정책</span> 건의</h1>
+    <h1 class="mb-5"><i class="fa fa-file-signature text-primary commu_pic"></i><span class="text-primary text-uppercase">정책</span> 건의</h1>
 </div>
 <!-- Booking Start -->
 <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">

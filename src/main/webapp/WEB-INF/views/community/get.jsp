@@ -110,9 +110,9 @@
                     <div class="wow fadeIn" data-wow-delay="0.01s">
                         <h3 style="margin-left: 30px;">댓글</h3>
                         <div style="display: flex; justify-content: center;">
-                            <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
+                            <input type="text" class="form-control datetimepicker-input font_light commu_cmtInput" style="width: 88%;"
                                 placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary" disabled style="margin-left: 10px;">댓글 작성</button>
+                            <button class="btn btn-primary commu_commentBtn" disabled style="margin-left: 10px;">댓글 작성</button>
                         </div>
 
                         <!-- table section -->
@@ -260,7 +260,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">신고하기</button>
+                        <button type="submit" class="btn btn-primary commu_report">신고하기</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             취소
                         </button>
@@ -343,13 +343,13 @@
                     return $(this).val().trim() !== "";
                 }).length > 0;
 
-                $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+                $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
             }
 
 
             // 댓글창 내용 있어야 버튼 활성화
-            var commentInput = $(".form-control");
-            var submitButton = $(".btn-primary");
+            var commentInput = $(".commu_cmtInput");
+            var submitButton = $(".commu_commentBtn");
 
             commentInput.on("input", function () {
                 var isInputNotEmpty = commentInput.val().trim().length > 0;
