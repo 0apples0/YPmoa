@@ -81,7 +81,7 @@
 		ORDER BY
 	    <choose>
 	        <when test="selectedFilter == 'like'">
-	            `like` DESC
+	            `like` DESC, bno DESC
 	        </when>
 	        <otherwise>
 	            bno DESC
