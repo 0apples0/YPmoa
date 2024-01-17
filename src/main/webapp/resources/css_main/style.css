@@ -675,6 +675,9 @@
 
 
 /*** community ***/
+.commu_title{
+	margin-right:5px;
+}
 
 .commuGet_btn{
     text-align: right;
