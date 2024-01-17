@@ -232,7 +232,7 @@
                            aria-hidden="true"></i></a>   
                </c:otherwise>      
               </c:choose>            
-            </li>              
+            </li>
             
             <%-- >>버튼: 10페이지 이동 --%>  
             <li class="paginate_button page-item next">
