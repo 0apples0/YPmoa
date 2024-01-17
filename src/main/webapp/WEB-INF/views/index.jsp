@@ -54,9 +54,9 @@
         <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="bg-white shadow" style="padding: 35px;">
-                    <div class="row g-2">
+                    <div class="row g-2 justify-content-center">
                         <div class="col-md-10">
-                            <div class="row g-2">
+                            <div class="row g-2 justify-content-center">
                                 <div class="col-md-3_a">
                                     <select class="form-select">
                                         <option selected>지역선택</option>
@@ -74,17 +74,18 @@
                                 </div>
                                
                                
-                                <div class="col-md-3_a">
+                                <div class="col-md-5">
                                     <div>
                                         <input type="text" class="form-control datetimepicker-input"
                                             placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
+                                 <div class="col-md-2">
                             <button class="btn btn-primary w-100">정책검색</button>
                         </div>
+                            </div>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -305,7 +306,7 @@
         $.each(data, function(index, policy) {
         	policy.crtDt = formatDate(policy.crtDt);
             // 각 데이터에 대한 텍스트 길이 제한 
-            var maxTextLength = 20; // 적절한 길이로 조절
+            var maxTextLength = 21; // 적절한 길이로 조절
 
             // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
             var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
