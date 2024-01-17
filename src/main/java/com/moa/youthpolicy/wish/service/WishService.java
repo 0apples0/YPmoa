@@ -48,5 +48,10 @@ public class WishService implements BoardInterface {
 		return null;
 	}
 
+	public WishVO getEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

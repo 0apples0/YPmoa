@@ -31,8 +31,11 @@ public class Criteria {
 	private String keyword;
 
 
-	private String writer; //여기
-
+	private String writer; //내글보기 시 작성자
+	private int bno; //댓글 처리 시 글번호
+	
+	// 표시할 베스트 댓글 갯수
+	private static final int amountBestComment = 3;
 	
 	// policy검색조건
 	private String rgnSeNm; 

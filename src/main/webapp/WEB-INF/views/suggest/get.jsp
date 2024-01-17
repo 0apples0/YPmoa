@@ -22,7 +22,8 @@
                     <div class="white_shd_a full margin_bottom_30">
                         <div class="full graph_head" style="padding-bottom: 7px;">
                             <div class="heading1 ">
-                                <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                <h2 style="font-size: 30px;">[${vo.region}/${vo.category}] ${vo.title}</h2><br>
+                                
                                 <div>${vo.writer}</div>
                                 <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
                             </div>
@@ -33,7 +34,7 @@
                     <div class="white_shd_a full margin_bottom_30">
                         <div class="table_section padding_infor_info">
                             <div class="table-responsive-sm">
-                                <table class=" commu_table policy_dt_table commuGet_table">
+                                <table class="commu_table policy_dt_table commuGet_table">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -64,7 +65,7 @@
 					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-											<button id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+											<button id="deleteBtn" class="btn btn-warning commuGet_deleteBtn">삭제하기</button>
 										</c:when>
 					 					<c:otherwise>
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>

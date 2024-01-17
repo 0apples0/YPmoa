@@ -556,7 +556,7 @@
     margin-bottom: 0px !important;
 }
 
-.note-editable p{
+.note-editable p, .note-editable{
     font-family: 'LINESeedKR-Bd_light' !important;
 }
 
@@ -711,6 +711,10 @@
 
 .commuGet_table td{
     text-align: left !important;
+}
+
+.commuGet_table p{
+	 font-family: LINESeedKR-Bd_light;
 }
 
 .commu_table, .commu_table_a, .admin_userTable, .admin_boardTable, .admin_boardModal{
