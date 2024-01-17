@@ -9,5 +9,17 @@
 	    SELECT * FROM wish
 	    WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
 	</select>
+	
+	<!-- delWish -->
+	<delete id="delWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    DELETE FROM wish
+	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
+	</delete>
+	
+	<!-- addWish -->
+	<insert id="addWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    INSERT INTO wish (wishUser, wishPolicy)
+	    VALUES (#{wishUser}, #{wishPolicy})
+	</insert>
   
   </mapper>

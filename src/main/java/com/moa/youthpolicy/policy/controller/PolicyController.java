@@ -49,11 +49,18 @@ public class PolicyController {
 		log.info(cri);
 		return service.getPage(cri);
 	}
+	
 	@GetMapping("/get")
 	public void getpolicy(PolicyVO vo, Model model) {
 		log.info("NO:" + vo.getNo());
 		model.addAttribute("policy", service.getBoard(vo.getNo())); 
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("/toggleWish")
+	public void toggleWish(PolicyVO vo) {
+		service.toggleWish(vo);
 	}
 	
 	
