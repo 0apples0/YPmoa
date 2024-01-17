@@ -10,14 +10,8 @@ public class UserVO {
     String name;        // 이름
     String nick;        // 닉네임
     String phone;       // 전화번호 (문자열로 변경)
-
     String address;     // 주소
-    int age;            // 만 나이
-    int income;         // 소득
-    int isWork;         // 취업 상태
-    int isMarry;        // 결혼 여부
     String interestField; // 관심 분야
-
     int countReport;    // 신고당한 횟수
 
     // 새 비밀번호와 확인 비밀번호 관련 메서드 추가

@@ -79,7 +79,6 @@
                        </c:when>
                        </c:choose>  
                           방문을 환영합니다!
-                      
                     </p>
                 </div>
  
@@ -120,10 +119,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">
-                        <a href="/policy/policy" class="nav-item nav-link">정책정보</a>
-
-
-                        <a href="index.html" class="nav-item nav-link">정책건의</a>
+                        <a href="/policy/policy" class="nav-item nav-link" style="margin-left:80px">정책정보</a>
+                        <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <a href="index.html" class="nav-item nav-link">위시리스트</a>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}')">마이페이지</a>
@@ -139,8 +136,9 @@
        user_email = Email;
        
        if (!user_email) {
+           // 로그인 페이지로
            alert("로그인이 필요한 서비스입니다.");
-           // 로그인 페이지로 리다이렉트 
+           window.location.href = "/user/login";
        } else {
            // 마이페이지로 이동
            window.location.href = "/user/mypage?Email=" + user_email;

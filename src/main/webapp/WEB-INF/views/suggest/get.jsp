@@ -49,16 +49,29 @@
                                     <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
                                             style="width: 38px; cursor: pointer;" /></a>
                                     <div class="g-4">
-                                        <span class="policyGet_likeCount">3</span>
+                                        <span class="policyGet_likeCount">${vo.like}</span>
                                     </div>
                                     <div class="g-4 policyGet_letter">개</div>
                                 </div>
                                 <div class="commuGet_btn">
-                                    <button class="btn btn-primary commuGet_modifyBtn">목록</button>
-                                    <button class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+                                    <!-- <button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+                                    <button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button> -->
                                     <!-- 한번 알람이 떠서 ㄹㅇ삭제? 이런거 나왔으면 좋겠습니당-->
-                                    <button class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+                                    <!-- <button id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
                                     <button class="btn btn-warning commuGet_postReport">신고하기</button>
+                                     -->
+			                         <c:choose>
+					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
+											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+											<button id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+										</c:when>
+					 					<c:otherwise>
+											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button class="btn btn-warning commuGet_postReport">신고하기</button>
+										</c:otherwise>
+									</c:choose>
+									
                                 </div>
                             </div>
                         </div>
@@ -117,7 +130,7 @@
         </div>
     </div>
 </div>
-
+<!-- Modal End-->
 
 <script>
     $(document).ready(function () {
@@ -167,6 +180,17 @@
 
             $(".suggest_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
         }
+        
+        // 목록 버튼
+		$("#return").on("click", function(){
+			self.location = "/suggest/suggest";
+		});
+        
+        // 수정 버튼
+		$("#modifyBtn").on("click", function(){
+		    window.location.href = "/suggest/modify?bno=" + ${vo.bno};
+		});
+        
     }); // document.ready함수
 </script>
 

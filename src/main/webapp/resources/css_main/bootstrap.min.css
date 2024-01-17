@@ -1037,7 +1037,10 @@ progress {
     flex: 0 0 auto;
     width: 14.66667%
   }
-
+    .col-sm-2_b {
+    flex: 0 0 auto;
+    width: 20.66667%
+  }
   .col-sm-3 {
     flex: 0 0 auto;
     width: 25%
@@ -1072,6 +1075,10 @@ progress {
     flex: 0 0 auto;
     width: 66.66667%;
     margin-right: 40px;
+  }
+    .col-sm-8_b {
+    flex: 0 0 auto;
+    width: 70.66667%;
   }
 
   .col-sm-9 {

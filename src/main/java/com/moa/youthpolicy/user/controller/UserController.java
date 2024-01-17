@@ -47,8 +47,6 @@ public class UserController {
 	public String update(@ModelAttribute UserVO vo, Model model) {
 		String email = vo.getEmail();
 		userService.modify(vo);
-		model.addAttribute("isWorkText", vo.getIsWork() == 1 ? "취업" : "미취업");
-		model.addAttribute("isMarryText", vo.getIsMarry() == 1 ? "기혼" : "미혼");
 		return "redirect:/user/mypage?Email="+email;
 	}
 	
