@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
-import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 import com.moa.youthpolicy.suggest.mapper.SuggestMapper;
 
@@ -44,10 +43,10 @@ public class SuggestService implements BoardGenericService{
 		log.info(cri);
 		List<SuggestVO> result = suggestMapper.getListWithPaging(cri);
 		// 추가
-        for (SuggestVO suggestVO : result) {
-            int likeCount = suggestMapper.getLikeCount(suggestVO.getBno());
-            suggestVO.setLike(likeCount);
-        }
+//        for (SuggestVO suggestVO : result) {
+//            int likeCount = suggestMapper.getLikeCount(suggestVO.getBno());
+//            suggestVO.setLike(likeCount);
+//        }
 		// -----
 		log.info("------service out getList------");
 		log.info(result);
@@ -77,11 +76,5 @@ public class SuggestService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	// 좋아요 값 가져오는거 추가
-    public int getLikeCount(int bno) {
-        return suggestMapper.getLikeCount(bno);
-    }
 
 }

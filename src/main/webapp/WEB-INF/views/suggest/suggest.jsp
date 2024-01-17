@@ -26,7 +26,7 @@
                 <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
                         src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
             </div>
-            <form>
+            <form id="searchForm">
                 <div class="row policy_row g-2">
                     <div class="row policy_row g-2">
                         <div class="col-md-3_b">
@@ -71,7 +71,7 @@
                                 placeholder="검색어를 입력하세요" name="keyword"/>
                         </div>
                         <div class="col-md-1_a ">
-                            <button type="submit" class="btn btn-primary w-100" >검색하기</button>
+                            <button type="submit" id="searchBtn" class="btn btn-primary w-100" >검색하기</button>
                         </div>
                         <div class="col-md-auto">
                             <button type="reset" class="btn btn-secondary ">초기화</button>
@@ -88,54 +88,57 @@
         <div class="row g-4">
 			<div class="wow fadeIn" data-wow-delay="0.1s">
 				<div id="policy_checkbox">
-		  			<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
-								<c:out value="${pageMaker.cri.selectedFilter == null?'checked':'' }"/>
-							id="customCheck1">
-							<label class="custom-control-label" for="customCheck1">전체</label>
-					</div>
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input"
 							<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
-						id="customCheck4"> 
-						<label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
+							id="customCheck"> 
+						<label class="custom-control-label" for="customCheck">좋아요 많은 순</label>
 					</div>
-            	</div>
-             <!-- table section -->
-             <div class="col-md-12">
-                 <div class="white_shd_a full">
-                     <div class="table_section padding_infor_info_a">
-                         <div class="table-responsive-sm">
-                             <table id="suggestBoardTable" class="table table-hover commu_table commu_table_a">
-                                 <thead>
-                                     <tr>
-                                         <th data-sort="area" style="width:5%;">지역</th>
-                                         <th data-sort="category" style="width:8%;">건의분야</th>
-                                         <th data-sort="title">제목</th>
-                                         <th data-sort="author" style="width:10%;">작성자</th>
-                                         <th data-sort="date" style="width:15%;">작성일</th>
-                                         <th data-sort="like" style="width:5%;">좋아요</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                    <!-- 여기에 동적으로 생성되는 내용이 들어갈 자리입니다. -->
-                                 </tbody>
-                             </table>
-                         </div>
-                     </div>
-                 </div>
-                 <div id="policy_checkbox">
-                     <div class="col-md-1 policy_writeBtn">
-                         <button class="btn btn-warning w-100" id="sug_write">글쓰기</button>
-                     </div>
-                     <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
-                         <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
+				</div>
+            	<!-- table section -->
+				<div class="col-md-12">
+	                <div class="white_shd_a full">
+	                    <div class="table_section padding_infor_info_a">
+	                        <div class="table-responsive-sm">
+	                            <table id="suggestBoardTable" class="table table-hover commu_table commu_table_a">
+	                                <thead>
+	                                	<tr>
+	                                        <th data-sort="area" style="width:5%;">지역</th>
+	                                        <th data-sort="category" style="width:8%;">건의분야</th>
+	                                        <th data-sort="title">제목</th>
+	                                        <th data-sort="author" style="width:10%;">작성자</th>
+	                                        <th data-sort="date" style="width:15%;">작성일</th>
+	                                        <th data-sort="like"  id="commu_likeBtn" style="width:5%;">좋아요</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                   <!-- 여기에 동적으로 생성되는 내용이 들어갈 자리입니다. -->
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+					</div>
+					<div id="policy_checkbox">
+						<c:choose>
+		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+								<div class="col-md-1 policy_writeBtn">
+									<button class="btn btn-warning w-100">글쓰기</button>
+								</div>
+								<div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+									<button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
+								</div>	                       	  
+							</c:when>
+		 					<c:otherwise>
+								<div class="col-md-1 policy_writeBtn">
+									<button class="btn btn-warning w-100">글쓰기</button>
+								</div>	                        
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
 	<%-- 페이징 적용 --%>
 	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
 	    <ul class="pagination justify-content-center policy_page_navbox">
@@ -208,9 +211,15 @@
 			</li>
 		</ul>
 	</nav>
-	<form id="actionForm" action="/suggest/suggest" method="get">
+	<form id="actionForm" action="/suggest/suggest" method="post">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		<input type="hidden" id="writer" name="writer" value="${pageMaker.cri.writer}">
+		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
+		<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }">
+		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
 	</form>
 	<form id="usernickForm" action="/suggest/suggest" method="get">
 		<input type="hidden" name="writer" value="${user.nick}">
@@ -218,271 +227,138 @@
 </div>
 
 <script>
-	var baseURL = "http://localhost:8090/suggest/suggest";
-    var contextPath = "${pageContext.request.contextPath}";
-    let storedValue = localStorage.getItem('switchMine');
-    let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
-    let sortByLikes = false;
-    
-	function gotoNextPage(endPage) {
-	    // 아무 동작 없음
-	    console.log("gotoNextPage function called");
-	    console.log("endPage : " + endPage);
-	    var nextPage = Number(endPage) + 1
-	    window.location.href = baseURL + "?pageNum=" + nextPage + "&amount=10";	
-	}
 	
-	function gotoPrevprev(pageNum, pageAmount){
-		console.log("gotoPrevprev function called");
-		var prevprevPage = parseInt((pageNum-pageAmount)/pageAmount)*pageAmount+1
-		console.log(prevprevPage);
-	       localStorage.setItem('switchMine', switchMine);
-		window.location.href = baseURL + "?pageNum=" + prevprevPage + "&amount=" + pageAmount;
-	}
-	
-	function gotoNextnext(pageNum, pageAmount){
-		var nextnextPage = (parseInt((pageNum-1)/pageAmount)+1)*pageAmount+1;
-		console.log("nextnextPage : "+ nextnextPage);
-	       localStorage.setItem('switchMine', switchMine);
-		window.location.href = baseURL + "?pageNum=" + nextnextPage + "&amount=" + pageAmount;
-	}
-	
-
-    $(document).ready(function () {
-    	$("#gotoMineBtn").on("click", function(e){
-<<<<<<< HEAD
-    		let usernickForm = $("#usernickForm");
-    	    console.log("원래 스위치 값: "+switchMine);
-    	    switchMine = !switchMine;
-    	    console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
-    	    localStorage.setItem('switchMine', switchMine);
-    	    let writer = $("#usernickForm").find("input[name='writer']").val();
-    	    if(switchMine){
-    	    	e.preventDefault();
-    	    	usernickForm.submit();
-=======
-    	       let usernickForm = $("#usernickForm");
-    	       console.log("원래 스위치 값: "+switchMine);
-    	       switchMine = !switchMine;
-    	       console.log("버튼눌러서 값이 바뀌었니?:"+switchMine);
-    	       localStorage.setItem('switchMine', switchMine);
-    	       //loadTableData(switchMine);
-    	       let writer = $("#usernickForm").find("input[name='writer']").val();
-    	       if(switchMine){
-    	    	   e.preventDefault();
-    	    	   usernickForm.submit();
-
-    	    	   
-    	       }
-    	    });   
-    	    loadTableData(switchMine);
-    	    function loadTableData(switchMine){
-    	        
-    	       let data;
-    	       /*console.log("loadTableData의 switchmine:"+switchMine);
-    	       data = {
-    	               pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	               amount : $("#actionForm").find("input[name='amount']").val()
-    	       };
-    	       */
-    	       if(switchMine){
-    	           data = {
-    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                   amount : $("#actionForm").find("input[name='amount']").val(),
-    	                   writer: $("#usernickForm").find("input[name='writer']").val()
-    	                };  
-    	       } else{
-    	           data = {
-    	                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                   amount : $("#actionForm").find("input[name='amount']").val(),
-    	                   writer: ''
-    	                };      	   
-    	       }
-
-    	  
-
-    	        console.log(data);
-    	       $.ajax({
-    	          url: "/suggest/suggest",// 요청할 서버 uri
-    	          type: "POST", //요청방식 지정
-    	          dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-    	          data:data,
-    	          success: function(data){
-    	      	  
-    	             let boardTbody = $("#suggestBoardTable tbody");
-    	             boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
-    	                
-    	             //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-    	             //for(let item of items) -> items == data, item ==board 역할
-    	             $.each(data, function(index, board){
-    	               
-    	                let regDate=new Date(board.regDate);
-    	                // numeric: 숫자, 2-digit: 두자리 숫자 형식
-    	                let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-    	                let formateDate = regDate.toLocaleString("ko-KR", options);
-
-    	                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-    	                // 동적으로 데이터 처리
-    	                let row = $("<tr>");
-    	                row.append($("<td>").text(board.region));
-    	                row.append($("<td>").text(board.category));
-    	                let titleLink = $("<a>").addClass("commu_title").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
-    	                let titleTd = $("<td>").append(titleLink);
-    	                
-    	                row.append(titleTd);
-    	                row.append($("<td>").text(board.writer));
-    	                row.append($("<td>").text(formateDate));
-    	                
-    	                 // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-    	                 let likeTd = $("<td>");
-    	                 let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-    	                 // 수정된 부분: 서버에서 가져온 like 값 사용
-    	                 let likeSpan = $("<span>").text(board.like + "개");
-
-    	                 // 이미지와 span을 <td> 엘리먼트에 추가
-    	                 likeTd.append(likeImg).append(likeSpan);
-
-    	                 // 새로운 <td> 엘리먼트를 행에 추가
-    	                 row.append(likeTd);
-
-    	                boardTbody.append(row);
-    	                console.log("pagemaker: "+${pageMaker.realEnd});
-    	             });
-    	          },
-    	          error: function(e){
-    	             console.log(e);
-    	          }
-    	       });
-    	       
-    	      
-    	      let actionForm = $("#actionForm");
-    	      $(".paginate_button a").on("click", function(e){
-
-    	         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-    	         e.preventDefault(); //이벤트 초기화
-    	         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-    	         console.log(actionForm);
-    	         /*
-    	         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-    	         actionForm.submit();
-    	         */
-    	         console.log("href : " + $(this).attr("href"));
-    	          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-    	          let newPageNum = $(this).attr("href");
-    	         console.log("newPageNum : " + newPageNum);
-    	          // pageNum이 비어있지 않은 경우에만 submit 실행
-    	          if (newPageNum) {
-    	              actionForm.find("input[name='pageNum']").val(newPageNum);
-    	              actionForm.submit();
-    	          }
-    	      });
->>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
-    	    }
-		});   
-    	
-        $("#customCheck4").on("change", function () {
-            sortByLikes = $(this).prop("checked");
-            loadTableData(switchMine, sortByLikes);
-        });
-
-    	//loadTableData(switchMine);
-    	loadTableData(switchMine, sortByLikes);
-    	    
-    	function loadTableData(switchMine, sortByLikes){
-    		
-    		let data;
-			
-    	    if(switchMine){
-    	        data = {
-    	        		pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                amount : $("#actionForm").find("input[name='amount']").val(),
-    	                writer: $("#usernickForm").find("input[name='writer']").val(),
-    	                sortByLikes: sortByLikes
-    	         };  
-    	     } else{
-    	    	 data = {
-    	    	 		 pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-    	                 amount : $("#actionForm").find("input[name='amount']").val(),
-    	                 writer: '',
-    	                 sortByLikes: sortByLikes
-				 };      	   
-    	     }
-    	    
-    	    
-    	    $.ajax({
-    	    	url: "/suggest/suggest",// 요청할 서버 uri
-    	        type: "POST", //요청방식 지정
-    	        dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-    	        data:data,
-    	        success: function(data){
-    	        	let boardTbody = $("#suggestBoardTable tbody");
- 	            	boardTbody.empty(); // 기존 테이블 행 삭제 추추추가!!!
-    	                
-					//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-					//for(let item of items) -> items == data, item ==board 역할
-					$.each(data, function(index, board){
-						let regDate=new Date(board.regDate);
-		    	        // numeric: 숫자, 2-digit: 두자리 숫자 형식
-		    	        let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-		    	        let formateDate = regDate.toLocaleString("ko-KR", options);
+	$(document).ready(function () {
 		
-		    	        // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-		    	        // 동적으로 데이터 처리
-		    	        let row = $("<tr>");
-		    	        row.append($("<td>").text(board.region));
-		    	        row.append($("<td>").text(board.category));
-		    	        let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
-		    	        let titleTd = $("<td>").append(titleLink);
-		    	                
-		    	        row.append(titleTd);
-		    	        row.append($("<td>").text(board.writer));
-		    	        row.append($("<td>").text(formateDate));
-		    	                
-						// 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-						let likeTd = $("<td>");
-						let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-						// 수정된 부분: 서버에서 가져온 like 값 사용
-						let likeSpan = $("<span>").text(board.like + "개");
-								
-						// 이미지와 span을 <td> 엘리먼트에 추가
-						likeTd.append(likeImg).append(likeSpan);
-								
-						// 새로운 <td> 엘리먼트를 행에 추가
-						row.append(likeTd);
+		loadTableData();
+		
+	   	$("#customCheck").change(function () {
+		    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+		    let selectedFilter = "";
+		    if ($("#customCheck").is(":checked")) {
+		        selectedFilter = "like";
+		    }
+		    // 선택한 필터 값을 hidden input에 설정
+		    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+		    $("#actionForm input[name='pageNum']").val(1);
+		    // actionForm submit 호출
+		    actionForm.submit();
+		});
+	   	
+	    // 체크박스 중복 방지
+	    $('.custom-control-input').on('change', function () {
+	        if ($(this).prop('checked')) {
+	            $('.custom-control-input').not(this).prop('disabled', true);
+	        } else {
+	            $('.custom-control-input').prop('disabled', false);
+	        }
+	    });
+	    
+	    // 내 글 보기
+	    $("#gotoMineBtn").on("click", function(e){
+		   let checkwriterValue = $("#actionForm").find("input[name='writer']").val();
+	       if(checkwriterValue){
+	    	   $("#actionForm").find("input[name='writer']").val('');
+	    	   $("#actionForm").find("input[name='pageNum']").val(1);
+	       }else{
+	    	   $("#actionForm").find("input[name='writer']").val('${user.nick}');
+	    	   $("#actionForm").find("input[name='pageNum']").val(1);
+	    	   
+	       }
+	       let gotoMineForm = $("#actionForm");
+	   	   e.preventDefault();
+	   	   gotoMineForm.submit();
+	    });   
+	    
+		let searchForm = $("#searchForm");
+			
+		$("#searchBtn").on("click",function(e){
+			searchForm.find("input[name='pageNum']").val("1");
+			e.preventDefault();
+			searchForm.submit();
+		});
 	
-	    	        	boardTbody.append(row);
-					});
-				},
+	    $("#searchForm button[type='reset']").on("click", function (e) {
+	        // 검색어 입력 필드 초기화
+	        $("#searchForm input[name='keyword']").val('');
+	        $("#searchForm select").val('');
+			e.preventDefault();
+	    });
+	    
+	    function loadTableData(){
+			$.ajax({
+				url: "/suggest/getList",// 요청할 서버 uri
+	          	type: "POST", //요청방식 지정
+	          	dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+	          	data:{
+	          		pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+	              	amount : $("#actionForm").find("input[name='amount']").val(),
+	              	writer: $("#actionForm").find("input[name='writer']").val(),
+		          	type: $("#searchForm select[name='type']").val(),
+	  	          	keyword: $("#actionForm").find("input[name='keyword']").val(),
+	  	          	rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+	    		  	policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
+	    		  	selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
+	          	},
+	          	success: function(data){
+	          		let boardTbody = $("#suggestBoardTable tbody");
+	             	boardTbody.empty(); // 기존 테이블 행 삭제
+	                
+	             	//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+	             	//for(let item of items) -> items == data, item ==board 역할
+	             	$.each(data, function(index, board){
+	             		let regDate=new Date(board.regDate);
+	                	// numeric: 숫자, 2-digit: 두자리 숫자 형식
+	                	let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+	                	let formateDate = regDate.toLocaleString("ko-KR", options);
+	
+		                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+	    	            // 동적으로 데이터 처리
+	        	        let row = $("<tr>");
+	            	    row.append($("<td>").text(board.region));
+	                	row.append($("<td>").text(board.category));
+	                	let titleLink = $("<a>").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+	                	let titleTd = $("<td>").append(titleLink);
+	                	
+	                	row.append(titleTd);
+	                	row.append($("<td>").text(board.writer));
+	                	row.append($("<td>").text(formateDate));
+	                
+	                 	// 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+	                 	let likeTd = $("<td>");
+	                 	let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+	                 	let likeSpan = $("<span>").text(board.like+"개");
+	
+	                 	// 이미지와 span을 <td> 엘리먼트에 추가
+	                 	likeTd.append(likeImg).append(likeSpan);
+	
+		                 // 새로운 <td> 엘리먼트를 행에 추가
+	    	             row.append(likeTd);
+		                 
+		                 boardTbody.append(row);
+	    	             console.log("pagemaker: "+${pageMaker.realEnd});
+					}); // each
+				}, // success
 				error: function(e){
 					console.log(e);
 				}
-			});
-    	}
-    	    
-    	    
-    	      
-		let actionForm = $("#actionForm");
-		$(".paginate_button a").on("click", function(e){
-	
+	       }); // ajax
+	       
+			$(".paginate_button a").on("click", function(e){
 				//기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-				e.preventDefault(); //이벤트 초기화
-				//pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-				console.log(actionForm);
-				console.log("href : " + $(this).attr("href"));
-				// pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-				let newPageNum = $(this).attr("href");
-				console.log("newPageNum : " + newPageNum);
-				// pageNum이 비어있지 않은 경우에만 submit 실행
-				if (newPageNum) {
-					actionForm.find("input[name='pageNum']").val(newPageNum);
-					actionForm.submit();
-			}
-		});
-	
-		loadTableData(switchMine, sortByLikes);
-
-    });
-
+	           	e.preventDefault(); //이벤트 초기화
+	           	//pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+	           	let newPageNum = $(this).attr("href");
+	           	console.log("newPageNum : " + newPageNum);
+	           	// pageNum이 비어있지 않은 경우에만 submit 실행
+	           	let actionForm = $("#actionForm");
+	           	if (newPageNum) {
+	        	   actionForm.find("input[name='pageNum']").val(newPageNum);
+	               actionForm.submit();       		  
+				}
+			});      
+	    } // loadTableData()
+	}); // Document()
 </script>
 
 <%@include file="../includes/footer.jsp" %>
