@@ -675,9 +675,17 @@
 
 
 /*** community ***/
+
 .commu_title{
-	margin-right:5px;
+	color:#666565;
+	
 }
+
+.commu_like{
+	margin-right:3px;
+}
+
+
 
 .commuGet_btn{
     text-align: right;
