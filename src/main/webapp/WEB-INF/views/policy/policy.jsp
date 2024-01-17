@@ -51,7 +51,7 @@
 				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
@@ -67,7 +67,7 @@
 							</select>
 						</div>
 						
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -79,7 +79,7 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
                             <select class="form-select" name="type">
                                 <option value="TC" 
                                  	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
@@ -89,15 +89,17 @@
                                  	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
-					</div>
-					<div class="row g-2 justify-content-center policy_search_box">
-						<div class="col-md-2">
+                        <div class="col-md-3">
 
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
 								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 
 						</div>
+                        
+					</div>
+					<div class="row g-2 justify-content-center policy_search_box">
+						
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
 							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
@@ -267,9 +269,13 @@
 
 <script>
 
-	function formatDate(date) {
-	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-	    return new Date(date).toLocaleDateString('ko-KR', options);
+function formatDate(date) {
+	  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+	  const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+
+	  // '/'를 '-'로 바꿔서 반환
+	  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
+
 	}
 
 

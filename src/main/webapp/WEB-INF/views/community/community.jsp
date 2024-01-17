@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-md-1_a ">
 
-                                    <button type="submit" class="btn btn-primary w-100">검색하기</button>
+                                    <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>
                                 </div>
 
                                 <div class="col-md-auto">
@@ -122,17 +122,11 @@
             <div class="row g-4">
                 <div class="wow fadeIn" data-wow-delay="0.1s">
   <div id="policy_checkbox">
-  			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
-					<c:out value="${pageMaker.cri.selectedFilter == null?'checked':'' }"/>
-					id="customCheck1"> <label class="custom-control-label"
-					for="customCheck1">전체</label>
-			</div>
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
-					id="customCheck4"> <label class="custom-control-label"
-					for="customCheck4">좋아요 많은 순</label>
+					id="customCheck"> <label class="custom-control-label"
+					for="customCheck">좋아요 많은 순</label>
 			</div>
 
             </div>
@@ -164,14 +158,24 @@
                         </div>
                         <div id="policy_checkbox">
 
-                            <div class="col-md-1 policy_writeBtn">
-
-                                <button class="btn btn-warning w-100">글쓰기</button>
-                            </div>
-                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
-
-                                <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
-                            </div>
+	                       <c:choose>
+	                       <c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+	                            <div class="col-md-1 policy_writeBtn">
+	
+	                                <button class="btn btn-warning w-100">글쓰기</button>
+	                            </div>
+	                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+	
+	                                <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
+	                            </div>	                       	  
+	                       </c:when>
+	                       <c:otherwise>
+	                            <div class="col-md-1 policy_writeBtn">
+	
+	                                <button class="btn btn-warning w-100">글쓰기</button>
+	                            </div>	                        
+	                       </c:otherwise>
+	                       </c:choose>
                         </div>
 
 
@@ -276,12 +280,10 @@
 
 $(document).ready(function () {
 	loadTableData();
-   	$("#customCheck1, #customCheck4").change(function () {
+   	$("#customCheck").change(function () {
 	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
 	    let selectedFilter = "";
-	    if ($("#customCheck1").is(":checked")) {
-	        selectedFilter = "";
-	    } else if ($("#customCheck4").is(":checked")) {
+	    if ($("#customCheck").is(":checked")) {
 	        selectedFilter = "like";
 	    }
 
@@ -323,12 +325,18 @@ $(document).ready(function () {
 
 		let searchForm = $("#searchForm");
 		
-		$("#searchForm button").on("click",function(e){
+		$("#searchBtn").on("click",function(e){
 			searchForm.find("input[name='pageNum']").val("1");
 			e.preventDefault();
 			searchForm.submit();
 		});
-		
+
+	    $("#searchForm button[type='reset']").on("click", function (e) {
+	        // 검색어 입력 필드 초기화
+	        $("#searchForm input[name='keyword']").val('');
+	        $("#searchForm select").val('');
+			e.preventDefault();
+	    });
     function loadTableData(){
         
        $.ajax({
@@ -340,7 +348,7 @@ $(document).ready(function () {
               amount : $("#actionForm").find("input[name='amount']").val(),
               writer: $("#actionForm").find("input[name='writer']").val(),
 	          type: $("#searchForm select[name='type']").val(),
-  	          keyword: $("#searchForm").find("input[name='keyword']").val(),
+  	          keyword: $("#actionForm").find("input[name='keyword']").val(),
   	          rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
     		  policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
     		  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
@@ -374,7 +382,7 @@ $(document).ready(function () {
                  // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
                  let likeTd = $("<td>");
                  let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-                 let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
+                 let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
 
                  // 이미지와 span을 <td> 엘리먼트에 추가
                  likeTd.append(likeImg).append(likeSpan);
