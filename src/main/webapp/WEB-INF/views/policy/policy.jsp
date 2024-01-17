@@ -262,6 +262,10 @@
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 			<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
 		</form>
+		
+		<form id="usernickForm" action="/community/community" method="get">
+           <input type="hidden" name="writer" value="${user.nick}">
+        </form>
     </div>
 
 
@@ -331,21 +335,38 @@ function formatDate(date) {
 	    // 리스트 위시 버튼
 		 $(document).on("click", ".toggleLink", function(e) {
 		    e.preventDefault();
+		    userNick = $("#usernickForm input[name='writer']").val();
+		    if(userNick == null || userNick==""){
+		    	alert("로그인 필요");
+		    	return;
+		    }
 		
+		    var $link = $(this).closest("a");
+		    var hrefValue = $link.attr("href");		
+		    
 		    var $img = $("#" + $(this).data("target"));
 		
 		    // 현재 소스를 가져옴
 		    var currentSrc = $img.attr("src");
-		
-		    // 토글해서 새로운 소스를 설정
-		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-		
-		    // 이미지 소스를 변경
-		    $img.attr("src", newSrc);
-		
-		    // 알림 창 표시
-		    var message = currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다";
-		    alert(message);
+			
+		   
+		    $.ajax({
+		    	url: "/policy/toggleWish",
+		    	type: "POST",
+		    	data: {no : hrefValue},
+	    		success: function () {
+	    			 // 토글해서 새로운 소스를 설정
+	    		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
+	    			
+	    		    // 이미지 소스를 변경
+	    		    $img.attr("src", newSrc);
+	    			alert(currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다");
+	    		},
+	    		error: function (e) {
+	    			alert("실패");
+	  	            console.log(e);
+	  	        }
+		    });
 		});
 
 
@@ -427,7 +448,13 @@ function formatDate(date) {
 	
 		    
 		     function addPolicyToContainer(policy, index) {
-		    	    console.log(policy.policyNm);
+		    	 	var addWishImagePath = "addWish.png";
+		    	    var checkWishImagePath = "checkWish.png";
+
+		    	    // ...
+
+		    	    // 이미지 경로 사용
+		    	    var imagePath = policy.wishVO == null ? addWishImagePath : checkWishImagePath;
 		    	    
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
@@ -438,8 +465,8 @@ function formatDate(date) {
 		    	        '<div class="position-relative">' +
 		    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
 		    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
-		    	        '<a class="btn btn-square mx-1 toggleLink"  data-target="policy_heart_' + index + '">' +
-		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/addWish.png" />' +
+		    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
+		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
 		    	        '</a>' +
 		    	        '</div>' +
 		    	        '</div>' +
