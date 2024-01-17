@@ -11,12 +11,17 @@ import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
+import com.moa.youthpolicy.wish.domain.WishVO;
+import com.moa.youthpolicy.wish.mapper.WishMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
 public class PolicyService implements BoardGenericService {
+	
+	@Autowired
+	WishMapper wishMapper;
 	
 	@Autowired
 	PolicyMapper mapper;
@@ -86,8 +91,12 @@ public class PolicyService implements BoardGenericService {
 	public PolicyVO getBoard(Integer no) {
 		PolicyVO vo = mapper.getPolicy(no);
 		vo.setBoard(mapper.getBoard(no));
-		log.info(AuthUtil.getCurrentUserAccount());
 		
+		if(AuthUtil.isLogin()) {
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), no);
+			vo.setWishVO(wishMapper.getWish(wish));
+		}	
+		log.info("getBoard : " + vo);
 		return vo;
 	}
 

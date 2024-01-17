@@ -47,7 +47,7 @@
                                         -->
 								<div id="policyGet_heart_box">
 									<img
-										src="${pageContext.request.contextPath}/resources/img/addWish.png"
+										src="${pageContext.request.contextPath}/resources/img/${policy.wishVO == null ? 'addWish' : 'checkWish'}.png"
 										class="policy_get_heart" id="policyGet_heartBtn" />
 								</div>
 							</div>

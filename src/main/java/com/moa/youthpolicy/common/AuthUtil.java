@@ -23,6 +23,16 @@ public class AuthUtil {
 	    HttpSession httpSession = servletRequestAttribute.getRequest().getSession(true);
 	    return (UserVO)httpSession.getAttribute("user");
 	}
+	
+	public static boolean isLogin() {
+	    ServletRequestAttributes servletRequestAttribute = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	    HttpSession httpSession = servletRequestAttribute.getRequest().getSession(true);
+
+	    // Null 체크 추가
+	    UserVO user = (UserVO) httpSession.getAttribute("user");
+	    
+	    return user != null && user.getEmail() != null;
+	}
 
 
 	public static String getCurrentUserAccount() {

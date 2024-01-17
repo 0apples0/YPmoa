@@ -80,10 +80,13 @@
 							</select>
 						</div>
 						<div class="col-md-3_b">
-                            <select class="form-select">
-                                <option selected>전체</option>
-                                <option value="1">제목</option>
-                                <option value="2">제목+내용</option>
+                            <select class="form-select" name="type">
+                                <option value="TC" 
+                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+                                <option value="T" 
+                                 	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+                                <option value="C"
+                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
 					</div>
@@ -92,12 +95,12 @@
 
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
+								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 
 						</div>
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
-							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
+							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
 						</div>
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
@@ -274,37 +277,50 @@
     	 
 	   	loadTableData();
 	   	
-	   	$("#customCheck1, #customCheck2, #customCheck3, #customCheck4").change(function () {
-		    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
-		    let selectedFilter = "";
-		    if ($("#customCheck1").is(":checked")) {
-		        selectedFilter = "";
-		    } else if ($("#customCheck2").is(":checked")) {
-		        selectedFilter = "applyDate";
-		    } else if ($("#customCheck3").is(":checked")) {
-		        selectedFilter = "overDate";
-		    } else if ($("#customCheck4").is(":checked")) {
-		        selectedFilter = "like";
-		    }
-
-		    // 선택한 필터 값을 hidden input에 설정
-		    $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
-		    $("#actionFrom input[name='pageNum']").val(1);
-
-		    // actionForm submit 호출
-		    actionFrom.submit();
-		});
-	   	
-	   	
-	   	
-	    // 체크박스 중복 방지
-	    $('.custom-control-input').on('change', function () {
-	        if ($(this).prop('checked')) {
-	            $('.custom-control-input').not(this).prop('disabled', true);
-	        } else {
-	            $('.custom-control-input').prop('disabled', false);
-	        }
+	   	$("#searchForm button[type='reset']").on("click", function (e) {
+	        // 검색어 입력 필드 초기화
+	        $("#searchForm input[name='keyword']").val('');
+	        $("#searchForm select").val('');
+	        e.preventDefault();
 	    });
+	   	
+	   	//체크박스
+	   	$('.custom-control-input').on('change', function () {
+	   	    if ($(this).prop('checked')) {
+	   	        // 현재 선택된 체크박스의 ID
+	   	        var selectedId = $(this).attr('id');
+
+	   	        // 모든 체크박스 반복
+	   	        $('.custom-control-input').each(function () {
+	   	            // 현재 체크박스의 ID
+	   	            var currentId = $(this).attr('id');
+
+	   	            // 현재 체크박스가 선택된 체크박스가 아니라면 선택 해제
+	   	            if (currentId !== selectedId) {
+	   	                $(this).prop('checked', false);
+	   	            }
+	   	        });
+	   	        
+	   	        // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+	   	        let selectedFilter = "";
+	   	        if ($("#customCheck1").is(":checked")) {
+	   	            selectedFilter = "";
+	   	        } else if ($("#customCheck2").is(":checked")) {
+	   	            selectedFilter = "applyDate";
+	   	        } else if ($("#customCheck3").is(":checked")) {
+	   	            selectedFilter = "overDate";
+	   	        } else if ($("#customCheck4").is(":checked")) {
+	   	            selectedFilter = "like";
+	   	        }
+
+	   	        // 선택한 필터 값을 hidden input에 설정
+	   	        $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
+	   	        $("#actionFrom input[name='pageNum']").val(1);
+
+	   	        // actionForm submit 호출
+	   	        actionFrom.submit();
+	   	    }
+	   	}); //체크박스 끝
 	
 	    // 리스트 위시 버튼
 		 $(document).on("click", ".toggleLink", function(e) {
@@ -343,7 +359,7 @@
 			
 			let searchForm = $("#searchForm");
 			
-			$("#searchForm button").on("click",function(e){
+			$("#searchForm #searchBtn").on("click",function(e){
 				searchForm.find("input[name='pageNum']").val("1");
 				e.preventDefault();
 				searchForm.submit();
@@ -360,7 +376,7 @@
 		  	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
 		  	            amount: $("#actionFrom").find("input[name='amount']").val(),
 		  	            type: $("#searchForm select[name='type']").val(),
-		  	            keyword: $("#searchForm").find("input[name='keyword']").val(),
+		  	            keyword: $("#actionFrom").find("input[name='keyword']").val(),
 		  	            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
 	        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 	        			selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
