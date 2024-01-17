@@ -14,4 +14,7 @@ public interface PolicyMapper {
 	public PolicyVO getPolicy(Integer key);
 	public PolicyBoardVO getBoard(Integer key);
 	public LikeBoardVO getLike(LikeBoardVO vo);
+	public void delLike(LikeBoardVO like);
+	public void addLike(LikeBoardVO like);
+	public void modBoard(PolicyVO _vo);
 }

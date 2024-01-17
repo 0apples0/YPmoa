@@ -63,6 +63,12 @@ public class PolicyController {
 		service.toggleWish(vo);
 	}
 	
+	@ResponseBody
+	@PostMapping("/toggleLike")
+	public int toggleLike(PolicyVO vo) {
+		return service.likeToggle(vo).getLike();
+	}
+	
 	
 	
 }
