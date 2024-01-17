@@ -2,6 +2,7 @@ package com.moa.youthpolicy.policy.domain;
 
 import java.sql.Date;
 
+import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.wish.domain.WishVO;
 
 import lombok.Data;
@@ -28,5 +29,5 @@ public class PolicyVO {
 	
 	PolicyBoardVO board;
 	WishVO wishVO;
-
+	LikeBoardVO likeVO;
 }
