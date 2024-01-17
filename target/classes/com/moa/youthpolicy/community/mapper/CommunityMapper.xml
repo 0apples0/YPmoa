@@ -45,7 +45,7 @@
 		
 		<!--
 		<if test="type != null and type !='' and keyword !=null and keyword!=''">
-			AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+			AND ${type} LIKE CONCAT('%', #{keyword}, '%') 
 		</if>
 		-->
 		
