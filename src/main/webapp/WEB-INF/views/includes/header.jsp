@@ -136,8 +136,9 @@
        user_email = Email;
        
        if (!user_email) {
+           // 로그인 페이지로
            alert("로그인이 필요한 서비스입니다.");
-           // 로그인 페이지로 리다이렉트 
+           window.location.href = "/user/login";
        } else {
            // 마이페이지로 이동
            window.location.href = "/user/mypage?Email=" + user_email;
