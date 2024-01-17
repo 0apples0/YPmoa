@@ -25,7 +25,7 @@
                     			style="align-items: center;">
                         <div class="col-xxl login_section">
                             
-                                <div id="card-body">
+                                <div id="usermodi_card-body">
                                     <!--  컨트롤러에서 모델에 담긴 user 객체 가져오기 -->
 							  		<%
 							            UserVO user = (UserVO) session.getAttribute("user");
@@ -33,7 +33,7 @@
 							        %>
                                     <form action="/user/modify" method="post" id="pwUpdate" name="pwUpdate">
 									    <div class="row mb-3">
-											<div class="col-sm-10">
+											<div class="col-sm-8">
 												<div class="input-group input-group-merge">
 													<input type="text" class="regi_pwd_form-control" hidden="hidden" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
 												</div>
@@ -41,7 +41,7 @@
 										</div>
 									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">현재 비밀번호</label>
-									        <div class="col-sm-10">
+									        <div class="col-sm-9_a">
 									            <div class="input-group input-group-merge">
 											    <input type="password" class="regi_pwd_form-control"
 											           required
@@ -53,7 +53,7 @@
 									    </div>
 									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label">새 비밀번호</label>
-									        <div class="col-sm-10">
+									        <div class="col-sm-9_a">
 									            <div class="input-group input-group-merge">
 											    <input type="password" class="regi_pwd_form-control"
 											           required
@@ -65,7 +65,7 @@
 									    </div>
 							 				<div class="row mb-3">
                                             <label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호 확인</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-9_a">
                                                 <div class="input-group input-group-merge">
                                                     <!-- 새로운 비밀번호 확인 필드 추가 -->
                                                     <input type="password" class="regi_pwd_form-control"
