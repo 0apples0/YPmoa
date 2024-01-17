@@ -53,6 +53,20 @@ public class CommunityService implements BoardGenericService{
 		int cnt = communityMapper.getTotalCount(cri);
 		return cnt;
 	}
+	// 추가
+	public List<CommunityVO> getCommentPage(Criteria cri) {
+		log.info("------service in getList------");
+		log.info(cri);
+		List<CommunityVO> result = communityMapper.getCommentListWithPaging(cri);
+		log.info("------service out getList------");
+		log.info(result);
+		return result;
+	}	
+	// 추가
+	public int getCommentTotalAmount(Criteria cri) {
+		int cnt = communityMapper.getCommentTotalCount(cri);
+		return cnt;
+	}
 
 	@Override
 	public <T> void writeBoard(T boardVO) {
