@@ -21,7 +21,7 @@
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Community</h6>
-            <h1 class="mb-5"><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
+            <h1 class="mb-5"><i class="fa fa-comments text-primary commu_pic"></i><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
         </div>
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -30,7 +30,7 @@
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
+						src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
                     </div>
 

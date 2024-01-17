@@ -378,7 +378,7 @@
 /*** myPage ***/
 
 .mypage_label{
-    text-align: center;
+    text-align: right;
 }
 
 /*** Section Title ***/
@@ -567,7 +567,7 @@
 }
 
 .commu_page_nav{
-    margin-top: 0px;
+    margin-top: 30px;
 }
 
 
@@ -675,6 +675,10 @@
 
 
 /*** community ***/
+
+.commu_pic{
+    margin-right: 5px;
+}
 
 .commu_title{
 	color:#666565;
@@ -784,9 +788,11 @@
 
 /*** register ***/
 #card-body{
-    padding: 30px;
-    padding-top: 70px;
-    padding-bottom: 50px;
+ padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    width: 100%;
 }
 
 #usermodi_card-body{
