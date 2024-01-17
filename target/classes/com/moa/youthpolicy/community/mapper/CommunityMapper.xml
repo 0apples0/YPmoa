@@ -24,13 +24,13 @@
 	    <if test="type != null and keyword != null and keyword != ''">
 		    
 	        <choose>
-	            <when test="type == 'TC'">
+	            <when test='type == "TC"'>
 	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
-	            <when test="type == 'T'">
+	            <when test='type == "T"'>
 	                AND title LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
-	            <when test="type == 'W'">
+	            <when test='type == "W"'>
 	                AND writer LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	        </choose>
@@ -60,13 +60,13 @@
 		</if>
 	    <if test="type != null and keyword != null and keyword != ''">
 	        <choose>
-	            <when test="type == 'TC'">
+	            <when test='type == "TC"'>
 	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
-	            <when test="type == 'T'">
+	            <when test='type == "T"'>
 	                AND title LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
-	            <when test="type == 'W'">
+	            <when test='type == "W"'>
 	                AND writer LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	        </choose>

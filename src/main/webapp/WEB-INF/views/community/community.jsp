@@ -340,7 +340,7 @@ $(document).ready(function () {
               amount : $("#actionForm").find("input[name='amount']").val(),
               writer: $("#actionForm").find("input[name='writer']").val(),
 	          type: $("#searchForm select[name='type']").val(),
-  	          keyword: $("#searchForm").find("input[name='keyword']").val(),
+  	          keyword: $("#actionForm").find("input[name='keyword']").val(),
   	          rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
     		  policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
     		  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
@@ -374,7 +374,7 @@ $(document).ready(function () {
                  // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
                  let likeTd = $("<td>");
                  let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-                 let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
+                 let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
 
                  // 이미지와 span을 <td> 엘리먼트에 추가
                  likeTd.append(likeImg).append(likeSpan);

@@ -30,7 +30,7 @@ public class CommunityController {
 	//@GetMapping("/community") 
 	public void list(Criteria cri, Model model) {
 		log.info("contorller : "+ cri.getWriter());
-		
+		log.info("키워드 로그: "+cri.getKeyword());
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
 		log.info("totalpage: "+total);		
@@ -53,7 +53,7 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<CommunityVO> getList(Criteria cri, Model model){
-		log.info("Ajax 호출");
+		log.info("Ajax 호출"+cri.toString());
 
 		return communityService.getPage(cri);
 	}
