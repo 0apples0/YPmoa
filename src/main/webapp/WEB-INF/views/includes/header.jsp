@@ -87,7 +87,7 @@
 				<c:when test="${user ne null && user.userType == 1}">
 				    <div  id="admin_login_menu_box">
                     <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
-                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
+                    <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
                 	</div>
 				</c:when>
                 <c:when test="${user eq null && user.nick eq null}">
