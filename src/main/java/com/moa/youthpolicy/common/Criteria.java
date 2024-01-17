@@ -27,7 +27,7 @@ public class Criteria {
 	private int nextnextPage;
 	
 	// 검색에 사용되는 필드 선언
-	private String type;
+	private String type; 
 	private String keyword;
 
 
