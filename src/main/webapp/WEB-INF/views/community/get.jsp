@@ -106,47 +106,83 @@
 
 
 
-                <div class="row g-4">
-                    <div class="wow fadeIn" data-wow-delay="0.01s">
-                        <h3 style="margin-left: 30px;">댓글</h3>
-                        <div style="display: flex; justify-content: center;">
-                            <input type="text" class="form-control datetimepicker-input font_light commu_cmtInput" style="width: 88%;"
-                                placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary commu_commentBtn" disabled style="margin-left: 10px;">댓글 작성</button>
-                        </div>
+		<div class="row g-4">
+			<div class="wow fadeIn" data-wow-delay="0.01s">
+				<h3 style="margin-left: 30px;">댓글</h3>
+				<div style="display: flex; justify-content: center;">
+					<input type="text"
+						class="form-control datetimepicker-input font_light commu_cmtInput"
+						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
+					<button class="btn btn-primary commu_commentBtn" disabled
+						style="margin-left: 10px;">댓글 작성</button>
+				</div>
+				
+				
+				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
+				<div class="col-md-12">
+					<div class="white_shd_a full"
+						style="padding: 30px; padding-bottom: 0px;">
+						<h4 style="padding-left: 10px;">
+							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
+								class="fa fa-fire text-primary commu_pic"></i>
+						</h4>
+						<div class="table-responsive-sm">
+							<table id="communityCommentTable"
+								class="table table-basic commu_table policyGet_comment">
 
-                        <!-- table section -->
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_30">
-
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table id="communityCommentTable" class="table table-basic commu_table policyGet_comment">
-
-                                            <tbody>
-
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-
-
-
-
-
+								<tbody style="background-color: rgb(255, 239, 203);">
+									<tr>
+										<td style="width: 60%;"></td>
+										<td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇd</td>
+										<td>2024-01-05</td>
+										<td><a><img class="commu_like policyGet_like"
+												src="resources/img/addLike.png" /></a> <span>32</span>개</td>
+										<td><img class="policyGet_report"
+											src="resources/img/report.png" style="width: 20px;" /> <a
+											href="#" class="policyGet_report">신고</a></td>
+									</tr>
 
 
-                </div>
-            </div>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!-- table section -->
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
+
+						<div class="table_section padding_infor_info">
+							<div class="table-responsive-sm">
+								<table id="communityCommentTable"
+									class="table table-basic commu_table policyGet_comment">
+
+									<tbody>
+
+
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+
+
+
+
+
+
+		</div>
+	</div>
         <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
