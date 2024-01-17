@@ -5766,7 +5766,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function restoreRange() {
       if (this.lastRange) {
         this.lastRange.select();
-        this.focus();
+    
       }
     }
   }, {
@@ -5858,7 +5858,7 @@ var Editor_Editor = /*#__PURE__*/function () {
 
       document.execCommand('styleWithCSS', false, this.options.styleWithCSS); // keep focus on editable before command execution
 
-      this.focus();
+      
     }
     /**
      * after command
@@ -5956,7 +5956,7 @@ var Editor_Editor = /*#__PURE__*/function () {
 
         $image.show();
 
-        _this3.getLastRange().insertNode($image[0]);f
+        _this3.getLastRange().insertNode($image[0]);	
 
         _this3.setLastRange(range.createFromNodeAfter($image[0]).select());
 

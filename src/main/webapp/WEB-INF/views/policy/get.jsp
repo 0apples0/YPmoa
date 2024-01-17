@@ -47,7 +47,7 @@
                                         -->
 								<div id="policyGet_heart_box">
 									<img
-										src="${pageContext.request.contextPath}/resources/img/addWish.png"
+										src="${pageContext.request.contextPath}/resources/img/${policy.wishVO == null ? 'addWish' : 'checkWish'}.png"
 										class="policy_get_heart" id="policyGet_heartBtn" />
 								</div>
 							</div>
@@ -363,22 +363,62 @@
 		</div>
 	</div>
 </div>
-
+<form id="usernickForm" action="/community/community" method="get">
+     <input type="hidden" name="writer" value="${user.nick}">
+     <input type="hidden" name="no" value="${policy.no}">
+</form>
 
 
     <script>
         // 위시 버튼 클릭 시 이미지 변경
         $(document).ready(function () {
+        	let no = $("#usernickForm input[name='no']").val();
+        	function chkLogin(){
+        		userNick = $("#usernickForm input[name='writer']").val();
+            	if(userNick == null || userNick==""){
+            		alert("로그인 필요");
+    		    	return false;
+    		    }else{
+    		    	return true;
+    		    }
+        	}
+        	
             $("#policyGet_heartBtn").click(function () {
-                var currentSrc = $("#policyGet_heartBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-                $("#policyGet_heartBtn").attr("src", newSrc);
+            	if(!chkLogin()){
+            		
+            		return;
+            	}
+            	$.ajax({
+    		    	url: "/policy/toggleWish",
+    		    	type: "POST",
+    		    	data: {no : no},
+    		    	success: function () {
+    		    		var currentSrc = $("#policyGet_heartBtn").attr("src");
+    		    		var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
+    		    		$("#policyGet_heartBtn").attr("src", newSrc);
+    		    		alert(currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다");
+    		    	},
+    		    	error: function (e) {
+    	    			alert("실패");
+    	  	            console.log(e);
+    	  	        }
+            	});
+                
+                
+                
             });
 
 
             // 좋아요 버튼 클릭 시 이미지 변경
 
             $(".policyGet_likeBtn").click(function () {
+            	if(!chkLogin()){
+            		return;
+            	}
+            	$.ajax({
+            		url: "/policy/toggleLike"
+            		
+            	});
                 var currentSrc = $(".policyGet_likeBtn").attr("src");
                 var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
                 $(".policyGet_likeBtn").attr("src", newSrc);

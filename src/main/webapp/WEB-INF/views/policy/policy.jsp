@@ -24,7 +24,7 @@
 <!-- Page Header End -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
 	<h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
-	<h1 class="mb-5">
+	<h1 class="mb-5"><i class="fa fa-file-contract text-primary"></i>
 		<span class="text-primary text-uppercase">정책</span> 둘러보기
 	</h1>
 </div>
@@ -32,7 +32,7 @@
 <div class="container-fluid mypage_booking pb-5 wow fadeIn"
 	data-wow-delay="0.1s">
 	<div class="container_search">
-		<div class="bg-white mypage_shadow" style="padding: 35px;">
+		<div class="bg-white mypage_shadow" style="padding: 35px; padding-top:25px">
 			<div class="row g-2">
 
 				<h3 class=" text-center text-primary ">
@@ -51,7 +51,7 @@
 				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
@@ -67,7 +67,7 @@
 							</select>
 						</div>
 						
-						<div class="col-md-3_b">
+						<div class="col-md-auto">
 							<select class="form-select" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -79,25 +79,30 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 							</select>
 						</div>
-						<div class="col-md-3_b">
-                            <select class="form-select">
-                                <option selected>전체</option>
-                                <option value="1">제목</option>
-                                <option value="2">제목+내용</option>
+						<div class="col-md-auto">
+                            <select class="form-select" name="type">
+                                <option value="TC" 
+                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+                                <option value="T" 
+                                 	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+                                <option value="C"
+                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
-					</div>
-					<div class="row g-2 justify-content-center policy_search_box">
-						<div class="col-md-2">
+                        <div class="col-md-3">
 
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" />
+								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 
 						</div>
+                        
+					</div>
+					<div class="row g-2 justify-content-center policy_search_box">
+						
 						<!-- 조건+제목+내용 / 제목+내용 검색 -->
 						<div class="col-md-1 ">
-							<button type="submit"  class="btn btn-primary w-100">검색하기</button>
+							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
 						</div>
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
@@ -225,9 +230,9 @@
                <c:otherwise>
                   <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>   
-               </c:otherwise>     
+               </c:otherwise>      
               </c:choose>            
-            </li>              
+            </li>
             
             <%-- >>버튼: 10페이지 이동 --%>  
             <li class="paginate_button page-item next">
@@ -257,6 +262,10 @@
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 			<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
 		</form>
+		
+		<form id="usernickForm" action="/community/community" method="get">
+           <input type="hidden" name="writer" value="${user.nick}">
+        </form>
     </div>
 
 
@@ -264,9 +273,13 @@
 
 <script>
 
-	function formatDate(date) {
-	    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-	    return new Date(date).toLocaleDateString('ko-KR', options);
+function formatDate(date) {
+	  const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; 
+	  const formattedDate = new Date(date).toLocaleDateString('en-US', options); 
+
+	  // '/'를 '-'로 바꿔서 반환
+	  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
+
 	}
 
 
@@ -274,56 +287,86 @@
     	 
 	   	loadTableData();
 	   	
-	   	$("#customCheck1, #customCheck2, #customCheck3, #customCheck4").change(function () {
-		    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
-		    let selectedFilter = "";
-		    if ($("#customCheck1").is(":checked")) {
-		        selectedFilter = "";
-		    } else if ($("#customCheck2").is(":checked")) {
-		        selectedFilter = "applyDate";
-		    } else if ($("#customCheck3").is(":checked")) {
-		        selectedFilter = "overDate";
-		    } else if ($("#customCheck4").is(":checked")) {
-		        selectedFilter = "like";
-		    }
-
-		    // 선택한 필터 값을 hidden input에 설정
-		    $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
-		    $("#actionFrom input[name='pageNum']").val(1);
-
-		    // actionForm submit 호출
-		    actionFrom.submit();
-		});
-	   	
-	   	
-	   	
-	    // 체크박스 중복 방지
-	    $('.custom-control-input').on('change', function () {
-	        if ($(this).prop('checked')) {
-	            $('.custom-control-input').not(this).prop('disabled', true);
-	        } else {
-	            $('.custom-control-input').prop('disabled', false);
-	        }
+	   	$("#searchForm button[type='reset']").on("click", function (e) {
+	        // 검색어 입력 필드 초기화
+	        $("#searchForm input[name='keyword']").val('');
+	        $("#searchForm select").val('');
+	        e.preventDefault();
 	    });
+	   	
+	   	//체크박스
+	   	$('.custom-control-input').on('change', function () {
+	   	    if ($(this).prop('checked')) {
+	   	        // 현재 선택된 체크박스의 ID
+	   	        var selectedId = $(this).attr('id');
+
+	   	        // 모든 체크박스 반복
+	   	        $('.custom-control-input').each(function () {
+	   	            // 현재 체크박스의 ID
+	   	            var currentId = $(this).attr('id');
+
+	   	            // 현재 체크박스가 선택된 체크박스가 아니라면 선택 해제
+	   	            if (currentId !== selectedId) {
+	   	                $(this).prop('checked', false);
+	   	            }
+	   	        });
+	   	        
+	   	        // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+	   	        let selectedFilter = "";
+	   	        if ($("#customCheck1").is(":checked")) {
+	   	            selectedFilter = "";
+	   	        } else if ($("#customCheck2").is(":checked")) {
+	   	            selectedFilter = "applyDate";
+	   	        } else if ($("#customCheck3").is(":checked")) {
+	   	            selectedFilter = "overDate";
+	   	        } else if ($("#customCheck4").is(":checked")) {
+	   	            selectedFilter = "like";
+	   	        }
+
+	   	        // 선택한 필터 값을 hidden input에 설정
+	   	        $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
+	   	        $("#actionFrom input[name='pageNum']").val(1);
+
+	   	        // actionForm submit 호출
+	   	        actionFrom.submit();
+	   	    }
+	   	}); //체크박스 끝
 	
 	    // 리스트 위시 버튼
 		 $(document).on("click", ".toggleLink", function(e) {
 		    e.preventDefault();
+		    userNick = $("#usernickForm input[name='writer']").val();
+		    if(userNick == null || userNick==""){
+		    	alert("로그인 필요");
+		    	return;
+		    }
 		
+		    var $link = $(this).closest("a");
+		    var hrefValue = $link.attr("href");		
+		    
 		    var $img = $("#" + $(this).data("target"));
 		
 		    // 현재 소스를 가져옴
 		    var currentSrc = $img.attr("src");
-		
-		    // 토글해서 새로운 소스를 설정
-		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
-		
-		    // 이미지 소스를 변경
-		    $img.attr("src", newSrc);
-		
-		    // 알림 창 표시
-		    var message = currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다";
-		    alert(message);
+			
+		   
+		    $.ajax({
+		    	url: "/policy/toggleWish",
+		    	type: "POST",
+		    	data: {no : hrefValue},
+	    		success: function () {
+	    			 // 토글해서 새로운 소스를 설정
+	    		    var newSrc = currentSrc.includes("addWish.png") ? "${pageContext.request.contextPath}/resources/img/checkWish.png" : "${pageContext.request.contextPath}/resources/img/addWish.png";
+	    			
+	    		    // 이미지 소스를 변경
+	    		    $img.attr("src", newSrc);
+	    			alert(currentSrc.includes("addWish.png") ? "위시리스트에 등록되었습니다" : "위시리스트에서 해제되었습니다");
+	    		},
+	    		error: function (e) {
+	    			alert("실패");
+	  	            console.log(e);
+	  	        }
+		    });
 		});
 
 
@@ -343,7 +386,7 @@
 			
 			let searchForm = $("#searchForm");
 			
-			$("#searchForm button").on("click",function(e){
+			$("#searchForm #searchBtn").on("click",function(e){
 				searchForm.find("input[name='pageNum']").val("1");
 				e.preventDefault();
 				searchForm.submit();
@@ -360,7 +403,7 @@
 		  	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
 		  	            amount: $("#actionFrom").find("input[name='amount']").val(),
 		  	            type: $("#searchForm select[name='type']").val(),
-		  	            keyword: $("#searchForm").find("input[name='keyword']").val(),
+		  	            keyword: $("#actionFrom").find("input[name='keyword']").val(),
 		  	            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
 	        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 	        			selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
@@ -405,7 +448,13 @@
 	
 		    
 		     function addPolicyToContainer(policy, index) {
-		    	    console.log(policy.policyNm);
+		    	 	var addWishImagePath = "addWish.png";
+		    	    var checkWishImagePath = "checkWish.png";
+
+		    	    // ...
+
+		    	    // 이미지 경로 사용
+		    	    var imagePath = policy.wishVO == null ? addWishImagePath : checkWishImagePath;
 		    	    
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
@@ -416,8 +465,8 @@
 		    	        '<div class="position-relative">' +
 		    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
 		    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
-		    	        '<a class="btn btn-square mx-1 toggleLink"  data-target="policy_heart_' + index + '">' +
-		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/addWish.png" />' +
+		    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
+		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
 		    	        '</a>' +
 		    	        '</div>' +
 		    	        '</div>' +

@@ -106,70 +106,64 @@
 
 
 
-                <div class="row g-4">
-                    <div class="wow fadeIn" data-wow-delay="0.01s">
-                        <h3 style="margin-left: 30px;">댓글</h3>
-                        <div style="display: flex; justify-content: center;">
-                            <input type="text" class="form-control datetimepicker-input font_light" style="width: 88%;"
-                                placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary" disabled style="margin-left: 10px;">댓글 작성</button>
-                        </div>
+		<div class="row g-4">
+			<div class="wow fadeIn" data-wow-delay="0.01s">
+				<h3 style="margin-left: 30px;">댓글</h3>
+				<div style="display: flex; justify-content: center;">
+					<input type="text"
+						class="form-control datetimepicker-input font_light commu_cmtInput"
+						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
+					<button class="btn btn-primary commu_commentBtn" disabled
+						style="margin-left: 10px;">댓글 작성</button>
+				</div>
+				
+				
+				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
+				<div id="communityBestCommentDiv" class="col-md-12">
+					<div class="white_shd_a full"
+						style="padding: 30px; padding-bottom: 0px;">
+						<h4 style="padding-left: 10px;">
+							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
+								class="fa fa-fire text-primary commu_pic"></i>
+						</h4>
+						<div class="table-responsive-sm">
+							<table id="communityBestCommentTable"
+								class="table table-basic commu_table policyGet_comment">
+ 
+								<tbody style="background-color: rgb(255, 239, 203);">
+								
+								</tbody>
+								
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!-- table section -->
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
 
-                        <!-- table section -->
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_30">
+						<div class="table_section padding_infor_info">
+							<div class="table-responsive-sm">
+								<table id="communityCommentTable"
+									class="table table-basic commu_table policyGet_comment">
 
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table class="table table-basic commu_table policyGet_comment">
-
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 60%;">
-                                                        또낚임
-                                                    </td>
-                                                    <td>ㄹㅇ</td>
-                                                    <td>2024-02-11</td>
-                                                    <td><a><img class="commu_like policyGet_like"
-                                                                src="${pageContext.request.contextPath}/resources/img/addLike.png" /></a>
-                                                        <span>32</span>개
-                                                    </td>
-                                                    <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
-                                                            style="width: 20px;" />
-                                                        <a href="#" class="policyGet_report">신고</a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 60%;">
-                                                       비비큐 핫윙 ㄱ
-                                                    </td>
-                                                    <td>ㅇㅇ</td>
-                                                    <td>2024-02-11</td>
-                                                    <td><img class="commu_like policyGet_like"
-                                                            src="${pageContext.request.contextPath}/resources/img/addLike.png" />
-                                                        <span>32</span>개
-                                                    </td>
-                                                    <td>
-                                                        <img class="policyGet_report" src="${pageContext.request.contextPath}/resources/img/report.png"
-                                                            style="width: 20px;" />
-                                                        <a href="#" class="policyGet_report">신고</a>
-                                                    </td>
-                                                </tr>
+									<tbody>
 
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 
 
 
 
-                        </div>
-                    </div>
+				</div>
+			</div>
 
 
 
@@ -177,43 +171,84 @@
 
 
 
-                </div>
-            </div>
-            <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
-                <ul class="pagination justify-content-center policy_page_navbox">
-                    <li class="policy_page-item_prev prev">
-                        <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
-                                aria-hidden="true"></i></a>
-                    </li>
-                    <li class="policy_page-item prev">
-                        <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
-                                aria-hidden="true"></i></a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0);">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">4</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">5</a>
-                    </li>
-                    <li class="page-item next">
-                        <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
-                                aria-hidden="true"></i></a>
-                    </li>
-                    <li class="page-item next">
-                        <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
-                                aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-            </nav>
+		</div>
+	</div>
+        <%-- 페이징 적용 --%>
+        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+            <ul class="pagination justify-content-center policy_page_navbox">
+
+			<%-- <<버튼: 10페이지 이전 --%>
+            <li class="paginate_button policy_page-item_prev prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>  
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            <%-- <버튼: 1페이지 이전 --%>
+            <li class="paginate_button policy_page-item prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum) >1}">
+               	
+                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>
+                    </c:when>
+                    <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>  
+                    </c:otherwise>     
+               </c:choose>            
+            </li>            
+
+			<%-- 페이지 넘버 --%>
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+                    <a class="page-link" href="${num}">${num}</a>
+                </li>
+            </c:forEach>
+
+			<%-- >버튼: 1페이지 이동 --%>
+            <li class="paginate_button policy_page-item next">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when> 
+               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+                  <a class="page-link"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when>               
+               <c:otherwise>
+                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>   
+               </c:otherwise>     
+              </c:choose>            
+            </li>              
+            
+            <%-- >>버튼: 10페이지 이동 --%>  
+            <li class="paginate_button page-item next">
+               <c:choose>
+               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+                  <a class="page-link"><i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>  
+
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
+                           <i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            
+
+            </ul>
+        </nav>
         </div>
 
 
@@ -260,7 +295,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">신고하기</button>
+                        <button type="submit" class="btn btn-primary commu_report">신고하기</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             취소
                         </button>
@@ -268,37 +303,41 @@
                     </div>
                 </div>
             </div>
+        <form id="actionForm" action="/community/get" method="post">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+			<input type="hidden" name="bno" value="${vo.bno}">
+		</form>            
+            
         </div>
 
     <script>
         $(document).ready(function () {
-          
-            // 좋아요 버튼 클릭 시 이미지 변경
+        	loadTableData();
+        	loadBestCommentTableData();
 
-            $(".policyGet_likeBtn").click(function () {
-                var currentSrc = $(".policyGet_likeBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-                $(".policyGet_likeBtn").attr("src", newSrc);
-            });
+			//좋아요 버튼에 이벤트 핸들러 추가
+			$(".commu_table").on("click", ".policyGet_likeBtn", function () {
+			    var currentSrc = $(this).attr("src");
+			    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+			    $(this).attr("src", newSrc);
+			});
+			
+			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
+			$(".commu_table").on("click", ".commu_like", function () {
+			    var currentSrc = $(this).attr("src");
+			    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+			    $(this).attr("src", newSrc);
+			});
 
 
-            // 댓글 좋아요 버튼 클릭 시 이미지 변경
-            $(".commu_like").click(function () {
-                var currentSrc = $(this).attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-                $(this).attr("src", newSrc);
-            });
-
-
-
-            // 댓글 신고 모달창
-            $("td").click(function (event) {
-                event.preventDefault();
+			// 댓글 신고 모달창
+			$(".commu_table").on("click", ".policyGet_report", function (event) {
+				event.preventDefault();
                 if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
                     $("#modalCenter").modal("show");
                 }
-            });
-
+			});
             // 게시글 신고 모달창
             $(".commuGet_postReport").click(function(event){
                 $("#modalCenter").modal("show");
@@ -343,13 +382,13 @@
                     return $(this).val().trim() !== "";
                 }).length > 0;
 
-                $(".btn-primary").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+                $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
             }
 
 
             // 댓글창 내용 있어야 버튼 활성화
-            var commentInput = $(".form-control");
-            var submitButton = $(".btn-primary");
+            var commentInput = $(".commu_cmtInput");
+            var submitButton = $(".commu_commentBtn");
 
             commentInput.on("input", function () {
                 var isInputNotEmpty = commentInput.val().trim().length > 0;
@@ -357,12 +396,154 @@
                 submitButton.prop("disabled", !isInputNotEmpty);
             });
 
+            function loadTableData(){
+                $.ajax({
+                   url: "/community/getCommentList",// 요청할 서버 uri
+                   type: "POST", //요청방식 지정
+                   dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+                   data:{
+                 	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+                      amount : $("#actionForm").find("input[name='amount']").val(),   
+                      bno : $("#actionForm").find("input[name='bno']").val() 
+                   },
+                   success: function(data){
+               	  
+                      let boardTbody = $("#communityCommentTable tbody");
+                      boardTbody.empty(); // 기존 테이블 행 삭제
+                         
+                      //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+                      //for(let item of items) -> items == data, item ==board 역할
+                      $.each(data, function(index, board){
+                        
+                         let regDate=new Date(board.regDate);
+                         // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                         let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                         let formateDate = regDate.toLocaleString("ko-KR", options);
 
+                         // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                         // 동적으로 데이터 처리
+                         let row = $("<tr>");
+                         row.append($("<td>").text(board.content));
+                         row.append($("<td>").text(board.writer));
+                         row.append($("<td>").text(formateDate));
+                         
+                          // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
+                          let likeTd = $("<td>");
+                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                          let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                          // 이미지와 span을 <td> 엘리먼트에 추가
+                          likeTd.append(likeImg).append(likeSpan);
+                          
+                       	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                          let reportTd = $("<td>");
+                          let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
+                          						.css("width", "20px");
+                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                          // 이미지와 link를 <td> 엘리먼트에 추가
+                          reportTd.append(reportImg).append(reportLink);
 
+                          // 새로운 <td> 엘리먼트를 행에 추가
+                          row.append(likeTd);
+                          row.append(reportTd);
+                          
+                         boardTbody.append(row);
+                         console.log("pagemaker: "+${pageMaker.realEnd});
+                      });
+                   },
+                   error: function(e){
+                      console.log(e);
+                   }
+                });
+                
+                $(".paginate_button a").on("click", function(e){
 
+                    //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+                    e.preventDefault(); //이벤트 초기화
+                    //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+                     let newPageNum = $(this).attr("href");
+                    console.log("newPageNum : " + newPageNum);
+                     // pageNum이 비어있지 않은 경우에만 submit 실행
+                    
+                     
+                    let actionForm = $("#actionForm");
+                     if (newPageNum) {
+                             actionForm.find("input[name='pageNum']").val(newPageNum);
+                             actionForm.submit();       		  
+                   	  
+
+                     }
+                 });      
+               
+             }
+
+            function loadBestCommentTableData(){
+                $.ajax({
+                   url: "/community/getBestCommentList",// 요청할 서버 uri
+                   type: "POST", //요청방식 지정
+                   dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+                   data:{
+                      bno : $("#actionForm").find("input[name='bno']").val() 
+                   },
+                   success: function(data){
+               	  	  
+                      let boardTbody = $("#communityBestCommentTable tbody");
+                      boardTbody.empty(); // 기존 테이블 행 삭제
+                      
+                      if(data.length > 0){
+                    	  $("#communityBestCommentDiv").show();
+                          //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+                          //for(let item of items) -> items == data, item ==board 역할
+                          $.each(data, function(index, board){
+                            
+                             let regDate=new Date(board.regDate);
+                             // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                             let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                             let formateDate = regDate.toLocaleString("ko-KR", options);
+
+                             // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                             // 동적으로 데이터 처리
+                             let row = $("<tr>");
+                             row.append($("<td>").text(board.content));
+                             row.append($("<td>").text(board.writer));
+                             row.append($("<td>").text(formateDate));
+                             
+                              // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
+                              let likeTd = $("<td>");
+                              let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                              let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                              // 이미지와 span을 <td> 엘리먼트에 추가
+                              likeTd.append(likeImg).append(likeSpan);
+                              
+                           	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                              let reportTd = $("<td>");
+                              let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
+                              						.css("width", "20px");
+                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                              // 이미지와 link를 <td> 엘리먼트에 추가
+                              reportTd.append(reportImg).append(reportLink);
+
+                              // 새로운 <td> 엘리먼트를 행에 추가
+                              row.append(likeTd);
+                              row.append(reportTd);
+                              
+                             boardTbody.append(row);
+                             console.log("pagemaker: "+${pageMaker.realEnd});
+                          });                   	  
+                      }else{
+                    	  $("#communityBestCommentDiv").hide();
+                      }
+
+                   },
+                   error: function(e){
+                      console.log(e);
+                   }
+                });
+                
+               
+             }
 
         }); // document.ready함수
 
-
+    
     </script>
 <%@include file="../includes/footer.jsp" %>

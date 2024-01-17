@@ -33,7 +33,7 @@
 							        %>
                                     <form action="/user/modify" method="post" id="pwUpdate" name="pwUpdate">
 									    <div class="row mb-3">
-											<div class="col-sm-10">
+											<div class="col-sm-8">
 												<div class="input-group input-group-merge">
 													<input type="text" class="regi_pwd_form-control" hidden="hidden" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
 												</div>
@@ -41,7 +41,7 @@
 										</div>
 									    <div class="row mb-3">
 									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">현재 비밀번호</label>
-									        <div class="col-sm-10">
+									        <div class="col-sm-8_a">
 									            <div class="input-group input-group-merge">
 											    <input type="password" class="regi_pwd_form-control"
 											           required
@@ -52,8 +52,8 @@
 									        </div>
 									    </div>
 									    <div class="row mb-3">
-									        <label class="col-sm-2 col-form-label">새 비밀번호</label>
-									        <div class="col-sm-10">
+									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">새 비밀번호</label>
+									        <div class="col-sm-8_a">
 									            <div class="input-group input-group-merge">
 											    <input type="password" class="regi_pwd_form-control"
 											           required
@@ -65,7 +65,7 @@
 									    </div>
 							 				<div class="row mb-3">
                                             <label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호 확인</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-8_a">
                                                 <div class="input-group input-group-merge">
                                                     <!-- 새로운 비밀번호 확인 필드 추가 -->
                                                     <input type="password" class="regi_pwd_form-control"
@@ -77,8 +77,8 @@
 									        </div>
 									    </div>
 									    <div class="col-sm-12" id="regi_btn">
-									        <button type="submit" class="btn btn-primary">수정하기</button>
-									        <button type="reset" class="btn btn-secondary">초기화</button>
+									        <button type="submit" class="btn btn-primary" style="margin-right:5px">수정하기</button>
+									        <button type="reset" class="btn btn-secondary"  style="margin-right:5px">초기화</button>
 									        <button type="button" class="btn btn-warning">취소</button>
 									    </div>
 									</form>

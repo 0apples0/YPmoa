@@ -17,132 +17,117 @@
 <!-- Page Header End -->
 <!-- Booking Start -->
             <!--  컨트롤러에서 모델에 담긴 user 객체 가져오기 -->
-  		<%
-            UserVO user = (UserVO) session.getAttribute("user");
-            if (user != null) {
-        %>
+<%
+    UserVO user = (UserVO) session.getAttribute("user");
+    if (user != null) {
+%>
 <form method="post" action="/user/mypage" id="modifyForm">
-	<div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
-		<div class="container">
-			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-				  <div class="g-2 justify-content-center">  
-					  <h3 class="text-center text-primary "> <i class="fa fa-user-edit text-primary"></i> 맞춤 조건 설정</h3>
-					<div class="col-md-12">
-						<div class="row g-2 mypage_select"  style="justify-content: center;">
-							<div class="col-md-3_b">
-								<select class="form-select" name="address" >
-								<c:choose>
-						            <c:when test="${empty user.address}">
-						                <option selected value="">지역선택</option>
-						            </c:when>
-						            <c:otherwise>
-						                <option value="${user.address}">${user.address}</option>
-						            </c:otherwise>
-						        </c:choose>
-									<option value="부천시">부천시</option>
-									<option value="수원시">수원시</option>
-									<option value="광명시">광명시</option>
-								</select>
-							</div>
-							<div class="col-md-3_b">
-								<select class="form-select" name="interestField">
-									<c:choose>
-						            <c:when test="${empty user.interestField}">
-						                <option selected value="">관심분야</option>
-						            </c:when>
-						            <c:otherwise>
-						                <option value="${user.interestField}">${user.interestField}</option>
-						            </c:otherwise>
-						        	</c:choose>
-									<option value="주거">주거</option>
-									<option value="교육">교육</option>
-									<option value="신혼부부">신혼부부</option>
-								</select>
-							</div>
-							<div class="col-md-3_b">
-								<button class="btn btn-primary w-100">저장하기</button>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="mypage_section wow fadeInUp" data-wow-delay="0.5s"></div>
-		</div>
-	</div>
-	<!-- Booking End -->
-	<!-- Booking Start -->
-	<!-- Basic Layout -->
-	<div class="container-xxl py-5_a">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12" id="login_inner_box">
+    <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <div class="g-2 justify-content-center">
+                    <h3 class="text-center text-primary "> <i class="fa fa-user-edit text-primary"></i> 맞춤 조건 설정</h3>
+                    <div class="col-md-12">
+                        <div class="row g-2 mypage_select" style="justify-content: center;">
+                            <!-- Address 선택 -->
+                            <div class="col-md-3_b">
+                                <select class="form-select" name="address">
+                                    <c:choose>
+                                        <c:when test="${empty user.address}">
+                                            <option selected value="">지역선택</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${user.address}">${user.address}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <option value="부천시">부천시</option>
+                                    <option value="수원시">수원시</option>
+                                    <option value="광명시">광명시</option>
+                                </select>
+                            </div>
+                            <!-- Interest Field 선택 -->
+                            <div class="col-md-3_b">
+                                <select class="form-select" name="interestField">
+                                    <c:choose>
+                                        <c:when test="${empty user.interestField}">
+                                            <option selected value="">관심분야</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${user.interestField}">${user.interestField}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <option value="주거">주거</option>
+                                    <option value="교육">교육</option>
+                                    <option value="신혼부부">신혼부부</option>
+                                </select>
+                            </div>
+                            <!-- 저장하기 버튼 -->
+                            <div class="col-md-3_b">
+                                <button type="button" class="btn btn-primary w-100" id="saveButton">저장하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypage_section wow fadeInUp" data-wow-delay="0.5s"></div>
+        </div>
+    </div>
+    <!-- Booking End -->
 
-					<div class="col-lg-12  wow zoomIn justify-content-center d-flex"
-						id="login_small_box" data-wow-delay="0.1s"
-						style="align-items: center;">
-						<div class="login_section">
-						
-								<div id="card-body">
-									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label field mypage_label"
-											for="basic-default-email">아이디</label>
-										<div class="col-sm-10">
-											<div class="input-group input-group-merge">
-												<input type="text" class="regi_pwd_form-control" required
-													readonly="readonly"
-													aria-describedby="basic-default-password" id="Email"
-													name="Email" value="<%=user.getEmail()%>" />
-											</div>
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
-											for="basic-default-company">이름</label>
-										<div class="col-sm-10" id="regi_input">
-											<input type="text" class="regi_pwd_form-control" required
-												id="name" name="name" value="<%=user.getName()%>" />
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
-											for="basic-default-phone">연락처</label>
-										<div class="col-sm-10">
-											<input type="text" required
-												class="regi_sub_form-control phone-mask" id="phone"
-												name="phone" value="<%= user.getPhone().toString() %>"
-												aria-describedby="basic-default-phone" />
-											<button type="button" class="btn btn-primary  regi_checkBtn"
-												id="phoneck">중복확인</button>
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label mypage_label"
-											for="basic-default-company">닉네임</label>
-										<div class="col-sm-10">
-											<input type="text" class="regi_sub_form-control" required
-												id="nick" name="nick" value="<%=user.getNick()%>"
-												placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
-											<button type="button" class="btn btn-primary  regi_checkBtn"
-												id="nickchk">중복확인</button>
-										</div>
-									</div>
-									<div class="col-sm-12" id="regi_btn">
-										<button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
-										<button type="button" class="btn btn-primary"
-											id="modpw_regiBtn">비밀번호 변경</button>
-										<button type="reset" class="btn btn-primary">초기화</button>
-										<button type="button" class="btn btn-warning" id="user_delBtn">회원탈퇴</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Basic Layout -->
+    <div class="container-xxl py-5_a">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" id="login_inner_box">
+                    <div class="col-lg-12 wow zoomIn justify-content-center d-flex" id="login_small_box" data-wow-delay="0.1s" style="align-items: center;">
+                        <div class="login_section">
+                            <div id="card-body">
+                                <!-- 아이디 표시 -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2_a col-form-label field mypage_label" for="basic-default-email">아이디</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-merge">
+                                            <input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getEmail()%>" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 이름 표시 -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2_a col-form-label mypage_label" for="basic-default-company">이름</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getName()%>" />
+                                    </div>
+                                </div>
+                                <!-- 연락처 입력, 중복확인 버튼 -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2_a col-form-label mypage_label" for="basic-default-phone">연락처</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%= user.getPhone().toString() %>" aria-describedby="basic-default-phone" />
+                                        <button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
+                                    </div>
+                                </div>
+                                <!-- 닉네임 입력, 중복확인 버튼 -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2_a col-form-label mypage_label" for="basic-default-company">닉네임</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="regi_sub_form-control" required id="nick" name="nick" value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
+                                        <button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
+                                    </div>
+                                </div>
+                                <!-- 수정완료, 비밀번호 변경, 초기화, 회원탈퇴 버튼 -->
+                                <div class="col-sm-12" id="regi_btn">
+                                    <button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
+                                    <button type="button" class="btn btn-primary" id="modpw_regiBtn">비밀번호 변경</button>
+                                    <button type="reset" class="btn btn-primary">초기화</button>
+                                    <button type="button" class="btn btn-warning" id="user_delBtn">회원탈퇴</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
  		<%
             } else {
@@ -274,11 +259,18 @@ $(document).ready(function() {
         $("#mod_regiBtn").prop("disabled", true);
     }
     
+    // 저장하기 버튼
     $("#saveButton").on("click", function () {
+        var formData = {
+                address: $("select[name='address']").val(),
+                interestField: $("select[name='interestField']").val(),
+                Email: $("#Email").val()
+            };
+        
         $.ajax({
             type: "POST",
             url: "/user/modinfo", 
-            data: $("#modifyForm").serialize(),
+            data: formData,
             success: function (response) {
                 alert("저장되었습니다.");
                 location.reload();

@@ -118,8 +118,8 @@
 
                 $('#summernote').summernote({
                     height: 500,
-                    minHeight: null,
-                    maxHeight: null,
+                    minHeight: 500,
+                    maxHeight: 500,
                     lang: "ko-KR",					// 한글 설정
                     focus: true,
                     toolbar: [

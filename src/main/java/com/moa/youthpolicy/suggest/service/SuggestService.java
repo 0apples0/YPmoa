@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
-import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 import com.moa.youthpolicy.suggest.mapper.SuggestMapper;
 
@@ -43,12 +42,6 @@ public class SuggestService implements BoardGenericService{
 		log.info("------service in getList------");
 		log.info(cri);
 		List<SuggestVO> result = suggestMapper.getListWithPaging(cri);
-		// 추가
-        for (SuggestVO suggestVO : result) {
-            int likeCount = suggestMapper.getLikeCount(suggestVO.getBno());
-            suggestVO.setLike(likeCount);
-        }
-		// -----
 		log.info("------service out getList------");
 		log.info(result);
 		return result;
@@ -78,10 +71,13 @@ public class SuggestService implements BoardGenericService{
 		
 	}
 
+    // 게시글 수정 처리
+    public boolean modifyBoard(SuggestVO vo) {
+        log.info("수정 service : " + vo);
 
-	// 좋아요 값 가져오는거 추가
-    public int getLikeCount(int bno) {
-        return suggestMapper.getLikeCount(bno);
+        // 수정된 내용을 Mapper를 통해 DB에 반영
+        int result = suggestMapper.modifyBoard(vo);
+
+        return result == 1; // 수정된 행이 1개일 경우 true 반환
     }
-
 }

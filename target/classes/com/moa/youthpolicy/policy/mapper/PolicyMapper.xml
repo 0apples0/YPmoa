@@ -13,14 +13,14 @@
 	    WHERE no > 0
 	    <if test="type != null and keyword != null and keyword != ''">
 	        <choose>
-	            <when test="type == 'TC'">
-	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	            <when test='type == "TC"'>
+	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
-	            <when test="type == 'T'">
-	                AND title LIKE CONCAT('%', #{keyword}, '%')
+	            <when test='type == "T"'>
+	                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
-	            <when test="type == 'C'">
-	                AND content LIKE CONCAT('%', #{keyword}, '%')
+	            <when test='type == "C"'>
+	                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	        </choose>
 	    </if>
@@ -39,7 +39,7 @@
 	    ORDER BY
 	    <choose>
 	        <when test="selectedFilter == 'like'">
-	            `like` DESC
+	            `like` DESC, policy.no DESC
 	        </when>
 	        <otherwise>
 	            policy.no DESC
@@ -52,18 +52,17 @@
 	    SELECT COUNT(no) FROM policy
 	    WHERE no > 0
 	    <if test="type != null and keyword != null and keyword != ''">
-		    AND
 		    <choose>
-		        <when test="type == 'TC'">
-		            (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
-		        </when>
-		        <when test="type == 'T'">
-		            title LIKE CONCAT('%', #{keyword}, '%')
-		        </when>
-		        <when test="type == 'C'">
-		            content LIKE CONCAT('%', #{keyword}, '%')
-		        </when>
-		    </choose>
+	            <when test='type == "TC"'>
+	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
+	            <when test='type == "T"'>
+	                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	            <when test='type == "C"'>
+	                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	        </choose>
 		</if>
 	    <if test="rgnSeNm != null and rgnSeNm != ''">
 	        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
@@ -88,4 +87,7 @@
 		SELECT * FROM policyboard
 		WHERE bno = #{no}
 	</select>
+	
+	
+	
 </mapper>

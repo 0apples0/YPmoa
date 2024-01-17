@@ -47,7 +47,7 @@
 
 
 										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label field "
+											<label class="col-sm-2 col-form-label field " id="regi_pwd_letter"
 												for="basic-default-email">아이디</label>
 											<div class="col-sm-10">
 												<input type="email" class="regi_sub_form-control" placeholder="이메일 형식으로 입력하세요" required name="Email"/>
@@ -58,7 +58,7 @@
 
 
 										<div class="row mb-3 ">
-											<label class="col-sm-2 col-form-label">비밀번호</label>
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호</label>
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" name = "PW"
@@ -69,8 +69,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="row mb-3 ">
-											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호
+										<div class="row mb-3" style="align-items: center">
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호<br>
 												확인</label>
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
@@ -83,7 +83,7 @@
 											</div>
 										</div>
 										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
 												for="basic-default-company">이름</label>
 											<div class="col-sm-10" id="regi_input">
 												<input type="text" class="regi_pwd_form-control" required name="name"
@@ -93,7 +93,7 @@
 										</div>
 
 										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
 												for="basic-default-phone">연락처</label>
 											<div class="col-sm-10">
 												<input type="text" id="basic-default-phone" required
@@ -103,7 +103,7 @@
 											</div>
 										</div>
 										<div class="row mb-3">
-											<label class="col-sm-2 col-form-label"
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
 												for="basic-default-company">닉네임</label>
 											<div class="col-sm-10">
 												<input type="text" class="regi_sub_form-control" required

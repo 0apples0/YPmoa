@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.moa.youthpolicy.wish.mapper.WishMapper">
+  	
+  	<select id="getWish" resultType="com.moa.youthpolicy.wish.domain.WishVO" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    SELECT * FROM wish
+	    WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
+	</select>
+	
+	<!-- delWish -->
+	<delete id="delWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    DELETE FROM wish
+	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
+	</delete>
+	
+	<!-- addWish -->
+	<insert id="addWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    INSERT INTO wish (wishUser, wishPolicy)
+	    VALUES (#{wishUser}, #{wishPolicy})
+	</insert>
+  
+  
+  
+  </mapper>

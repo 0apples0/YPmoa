@@ -21,7 +21,7 @@
         <!-- Page Header End -->
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Community</h6>
-            <h1 class="mb-5"><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
+            <h1 class="mb-5"><i class="fa fa-comments text-primary commu_pic"></i><span class="text-primary text-uppercase">꿀팁</span> 모음</h1>
         </div>
         <!-- Booking Start -->
         <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -30,19 +30,16 @@
                     <div class="row g-2">
 
                         <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
+						src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
 
                     </div>
 
 
-                    <form id="searchFormCommunity">
+                    <form id="searchForm">
 
                         <div class="row policy_row g-2">
-
-
-
                             <div class="row policy_row g-2">
-                                <div class="col-md-3_b">
+                                <div class="col-md-auto">
 									<select class="form-select" name="rgnSeNm">
 										<%-- foreach문 사용하여 DB내의 지역 카테고리 반영 필요 --%>
 										<option value=""
@@ -61,8 +58,7 @@
 
 
 
-                                <div class="col-md-3_b">
-
+                                <div class="col-md-auto">
 									<select class="form-select" name="policyTypeNm">
 										<option value=""
 											<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -74,21 +70,26 @@
 											<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
 									</select>
                                 </div>
-                                <div class="col-md-3_b">
-                                    <select class="form-select">
-                                        <option selected>전체</option>
-                                        <option value="1">제목</option>
-                                        <option value="2">제목+내용</option>
-                                        <option value="3">글쓴이</option>
+                                <div class="col-md-auto">
+                                    <select class="form-select" name="type">
+	                                    <option value="" 
+	                                     	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+	                                    <option value="T" 
+	                                     	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+	                                    <option value="TC"
+	                                     	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>제목+내용</option>  
+	                                    <option value="W" 
+	                                     	<c:out value="${pageMaker.cri.type == 'W'?'selected':''}"/>>작성자</option>
+ 
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="검색어를 입력하세요" />
+                                        placeholder="검색어를 입력하세요" name="keyword"/>
                                 </div>
                                 <div class="col-md-1_a ">
 
-                                    <button class="btn btn-primary w-100">검색하기</button>
+                                    <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>
                                 </div>
 
                                 <div class="col-md-auto">
@@ -107,8 +108,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
 
     <!-- Booking End -->
 
@@ -123,10 +122,12 @@
             <div class="row g-4">
                 <div class="wow fadeIn" data-wow-delay="0.1s">
   <div id="policy_checkbox">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck4">
-                    <label class="custom-control-label" for="customCheck4">좋아요 많은 순</label>
-                </div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"
+					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
+					id="customCheck"> <label class="custom-control-label"
+					for="customCheck">좋아요 많은 순</label>
+			</div>
 
             </div>
                     <!-- table section -->
@@ -140,13 +141,13 @@
 
                                         <thead>
                                             <tr>
-                                                <th data-sort="area">지역</th>
-                                                <th data-sort="category">꿀팁분야</th>
-                                                <th data-sort="title">제목</th>
-                                                <th data-sort="author">작성자</th>
-                                                <th data-sort="date">작성일</th>
-                                                <th data-sort="like" id="commu_likeBtn">좋아요</th>
-                                            </tr>
+                                         <th data-sort="area" style="width:5%;">지역</th>
+                                         <th data-sort="category" style="width:8%;">꿀팁분야</th>
+                                         <th data-sort="title">제목</th>
+                                         <th data-sort="author" style="width:10%;">작성자</th>
+                                         <th data-sort="date" style="width:15%;">작성일</th>
+                                         <th data-sort="like" style="width:5%;">좋아요</th>
+                                     </tr>
                                         </thead>
                                         <tbody>
 
@@ -157,14 +158,24 @@
                         </div>
                         <div id="policy_checkbox">
 
-                            <div class="col-md-1 policy_writeBtn">
-
-                                <button class="btn btn-warning w-100">글쓰기</button>
-                            </div>
-                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
-
-                                <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
-                            </div>
+	                       <c:choose>
+	                       <c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+	                            <div class="col-md-1 policy_writeBtn">
+	
+	                                <button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
+	                            </div>
+	                            <div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+	
+	                                <button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
+	                            </div>	                       	  
+	                       </c:when>
+	                       <c:otherwise>
+	                            <div class="col-md-1 policy_writeBtn">
+	
+	                                <button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
+	                            </div>	                        
+	                       </c:otherwise>
+	                       </c:choose>
                         </div>
 
 
@@ -248,11 +259,16 @@
 
             </ul>
         </nav>
-       <form id="actionForm" action="/community/community" method="get">
-         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-         <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-         <input type="hidden" name="writer" value="${pageMaker.cri.writer}">              
-      </form>
+        <form id="actionForm" action="/community/community" method="post">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+			<input type="hidden" id="writer" name="writer" value="${pageMaker.cri.writer}">
+			<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
+			<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }">
+			<input type="hidden" name="type" value="${pageMaker.cri.type }">
+			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+			<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
+		</form>
     
       <form id="usernickForm" action="/community/community" method="get">
          <input type="hidden" name="writer" value="${user.nick}">
@@ -261,59 +277,93 @@
 
 
     <script>
-    let storedValue = localStorage.getItem('switchMine');
-    console.log("저장된 switchMine 값:", storedValue);
-    let switchMine = storedValue === 'false' || storedValue === null || storedValue === undefined ? false : true;
-    
+
 $(document).ready(function () {
-   
+	loadTableData();
+   	$("#customCheck").change(function () {
+	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+	    let selectedFilter = "";
+	    if ($("#customCheck").is(":checked")) {
+	        selectedFilter = "like";
+	    }
 
-   
+	    // 선택한 필터 값을 hidden input에 설정
+	    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+	    $("#actionForm input[name='pageNum']").val(1);
 
+	    // actionForm submit 호출
+	    actionForm.submit();
+	});
+   
+    // 체크박스 중복 방지
+    $('.custom-control-input').on('change', function () {
+        if ($(this).prop('checked')) {
+            $('.custom-control-input').not(this).prop('disabled', true);
+        } else {
+            $('.custom-control-input').prop('disabled', false);
+        }
+    });
     
+    
+    // 내글 보기
     $("#gotoMineBtn").on("click", function(e){
-       let usernickForm = $("#usernickForm");
-       console.log("원래 스위치 값: "+switchMine);
-       switchMine = !switchMine;
-       console.log("변경된 스위치 값:"+switchMine);
-       localStorage.setItem('switchMine', switchMine);
-
-       if(switchMine){
-    	  e.preventDefault();
-    	 usernickForm.submit();
+	   let checkwriterValue = $("#actionForm").find("input[name='writer']").val();
+       if(checkwriterValue){
+    	   $("#actionForm").find("input[name='writer']").val('');
+    	   $("#actionForm").find("input[name='pageNum']").val(1);
        }else{
-    	   window.location.href= "http://localhost:8090/community/community";
-       }
+    	   $("#actionForm").find("input[name='writer']").val('${user.nick}');
+    	   $("#actionForm").find("input[name='pageNum']").val(1);
     	   
-    });   
-    loadTableData(switchMine);
-    
-    function loadTableData(switchMine){
-        
-       let data;
-
-       if(switchMine){
-           data = {
-                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-                   amount : $("#actionForm").find("input[name='amount']").val(),
-                   writer: $("#usernickForm").find("input[name='writer']").val()
-                };  
-       } else{
-           data = {
-                   pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-                   amount : $("#actionForm").find("input[name='amount']").val(),
-                   writer: ''
-                };      	   
        }
+       let gotoMineForm = $("#actionForm");
+   	   e.preventDefault();
+   	   gotoMineForm.submit();
 
-  
+    });   
+    
+	
+	let searchForm = $("#searchForm");
+		
+	$("#searchBtn").on("click",function(e){
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+		searchForm.submit();
+	});
 
-        console.log(data);
+	$("#searchForm button[type='reset']").on("click", function (e) {
+	    // 검색어 입력 필드 초기화
+	    $("#searchForm input[name='keyword']").val('');
+	    $("#searchForm select").val('');
+		e.preventDefault();
+	});
+	
+	$("#writeBtn").on("click", function(){
+		userNick = $("#usernickForm input[name='writer']").val();
+		if(userNick != null && userNick!=""){
+			self.location = "/community/write";
+		}else{
+			alert("로그인이 필요한 서비스입니다.");
+			self.location = "/user/login";
+		}
+		
+	});
+    function loadTableData(){
+        
        $.ajax({
-          url: "/community/community",// 요청할 서버 uri
+          url: "/community/getList",// 요청할 서버 uri
           type: "POST", //요청방식 지정
           dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
-          data:data,
+          data:{
+        	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+              amount : $("#actionForm").find("input[name='amount']").val(),
+              writer: $("#actionForm").find("input[name='writer']").val(),
+	          type: $("#searchForm select[name='type']").val(),
+  	          keyword: $("#actionForm").find("input[name='keyword']").val(),
+  	          rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+    		  policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
+    		  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
+          },
           success: function(data){
       	  
              let boardTbody = $("#communityBoardTable tbody");
@@ -333,7 +383,7 @@ $(document).ready(function () {
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
-                let titleLink = $("<a>").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);         
                 let titleTd = $("<td>").append(titleLink);
                 
                 row.append(titleTd);
@@ -343,7 +393,7 @@ $(document).ready(function () {
                  // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
                  let likeTd = $("<td>");
                  let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-                 let likeSpan = $("<span>").text("3개"); // **이곳에 좋아요 수 반영 필요
+                 let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
 
                  // 이미지와 span을 <td> 엘리먼트에 추가
                  likeTd.append(likeImg).append(likeSpan);
@@ -360,29 +410,25 @@ $(document).ready(function () {
           }
        });
        
+       $(".paginate_button a").on("click", function(e){
+
+           //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+           e.preventDefault(); //이벤트 초기화
+           //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+            let newPageNum = $(this).attr("href");
+           console.log("newPageNum : " + newPageNum);
+            // pageNum이 비어있지 않은 경우에만 submit 실행
+           
+            
+           let actionForm = $("#actionForm");
+            if (newPageNum) {
+                    actionForm.find("input[name='pageNum']").val(newPageNum);
+                    actionForm.submit();       		  
+          	  
+
+            }
+        });      
       
-      let actionForm = $("#actionForm");
-      let actionFormforMine = $("#actionFormforMine");
-      $(".paginate_button a").on("click", function(e){
-
-         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-         e.preventDefault(); //이벤트 초기화
-         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-         console.log(actionForm);
-         console.log(actionFormforMine);
-
-         console.log("href : " + $(this).attr("href"));
-          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-          let newPageNum = $(this).attr("href");
-         console.log("newPageNum : " + newPageNum);
-          // pageNum이 비어있지 않은 경우에만 submit 실행
-          if (newPageNum) {
-                  actionForm.find("input[name='pageNum']").val(newPageNum);
-                  actionForm.submit();       		  
-        	  
-
-          }
-      });
     }
     
 });
