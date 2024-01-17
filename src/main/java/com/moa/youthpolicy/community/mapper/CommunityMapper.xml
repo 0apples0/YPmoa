@@ -93,4 +93,16 @@
 	<select id="getBoard" resultType="CommunityVO" parameterType="CommunityVO">
 		SELECT * FROM tipboard WHERE bno=#{bno}
 	</select>
+	
+	<select id="getCommentTotalCount" resultType="int" parameterType="CommunityVO">
+		SELECT COUNT(cno) FROM tipboardcomments
+		WHERE bno=#{bno}
+	</select>
+	
+	<select id="getCommentListWithPaging" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM tipboardcomments
+		WHERE cno>0 AND bno=#{bno}
+		ORDER BY cno DESC
+		LIMIT #{start}, #{amount}
+	</select>
 </mapper>

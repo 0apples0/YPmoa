@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.service.CommunityService;
 
@@ -43,10 +44,15 @@ public class CommunityController {
 
 	}
 	
-	
-	@GetMapping("/get")
-	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
+	//게시글 자세히 보기 시, 댓글 리스트도 함께 출력
+	@RequestMapping(value="/get", method={RequestMethod.GET, RequestMethod.POST})
+	public void getCommunity(@RequestParam("bno") Integer bno, Criteria cri, Model model) {
+		
 		model.addAttribute("vo", communityService.getBoard(bno));
+		int total = communityService.getCommentTotalAmount(bno); //전체 댓글 갯수
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("pageMaker", pageResult);
+		log.info("댓글 갯수 제발 잘 가져와줘: "+total);
 	}
 	
 	//글 작성 페이지로 이동
@@ -60,5 +66,15 @@ public class CommunityController {
 		log.info("Ajax 호출"+cri.toString());
 
 		return communityService.getPage(cri);
+	}
+	
+	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
+	@ResponseBody
+	@RequestMapping(value="/getCommentList", method=RequestMethod.POST)
+	public List<CommunityCommentVO> getCommentList(Criteria cri, Model model){
+		log.info(cri.toString());
+		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
+		return communityService.getCommentPage(cri);
+	
 	}
 }
