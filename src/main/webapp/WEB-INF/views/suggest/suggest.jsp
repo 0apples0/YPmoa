@@ -122,7 +122,7 @@
 						<c:choose>
 		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
 								<div class="col-md-1 policy_writeBtn">
-									<button class="btn btn-warning w-100">글쓰기</button>
+									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 								</div>
 								<div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
 									<button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
@@ -130,7 +130,7 @@
 							</c:when>
 		 					<c:otherwise>
 								<div class="col-md-1 policy_writeBtn">
-									<button class="btn btn-warning w-100">글쓰기</button>
+									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 								</div>	                        
 							</c:otherwise>
 						</c:choose>
@@ -285,6 +285,17 @@
 			e.preventDefault();
 	    });
 	    
+		$("#writeBtn").on("click", function(){
+			userNick = $("#usernickForm input[name='writer']").val();
+			if(userNick != null && userNick!=""){
+				self.location = "/suggest/write";
+			}else{
+				alert("로그인이 필요한 서비스입니다.");
+				self.location = "/user/login";
+			}
+			
+		});
+		
 	    function loadTableData(){
 			$.ajax({
 				url: "/suggest/getList",// 요청할 서버 uri

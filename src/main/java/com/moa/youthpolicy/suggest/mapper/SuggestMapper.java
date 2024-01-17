@@ -11,4 +11,6 @@ public interface SuggestMapper {
 	public int getTotalCount(Criteria cri);
 	public List<SuggestVO> getListWithPaging(Criteria cri);
 	public SuggestVO getBoard(Integer key);
+	public int update(SuggestVO board);
+	public int modifyBoard(SuggestVO suggestVO);
 }

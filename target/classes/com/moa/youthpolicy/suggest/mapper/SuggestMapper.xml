@@ -9,6 +9,12 @@
 		ORDER BY bno DESC
 	</select>
 	
+    <update id="modifyBoard" parameterType="com.moa.youthpolicy.suggest.domain.SuggestVO">
+        UPDATE tbl_suggest
+        SET title = #{title}, content = #{content}, category = #{category}
+        WHERE bno = #{bno}
+    </update>
+	
 	<select id="delete" parameterType="SuggestVO">
 		DELETE FROM suggestedboard
 		WHERE bno=#{bno}
