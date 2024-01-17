@@ -56,10 +56,21 @@ public class SuggestController {
 	
 	//글 수정
 	@PostMapping("/modify")
-	public String modifyPage(@RequestParam("bno") Integer bno, Model model) {
-	    SuggestVO vo = suggestService.getBoard(bno);
-	    model.addAttribute("vo", vo);
-	    return "redirect:/suggest/get?bno=" + bno;
+    public String modifyPage(@RequestParam("bno") Integer bno,
+							 @RequestParam("category") String category,
+							 @RequestParam("title") String title,
+							 @RequestParam("content") String content,
+							 RedirectAttributes rttr) {
+		SuggestVO vo = suggestService.getBoard(bno);
+		vo.setCategory(category);
+		vo.setTitle(title);
+		vo.setContent(content);
+		
+		if (suggestService.modifyBoard(vo)) {
+		rttr.addFlashAttribute("result", "success");
+		}
+		
+		return "redirect:/suggest/get?bno=" + bno;
 	}
 	
 	//글 삭제

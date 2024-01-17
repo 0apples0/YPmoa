@@ -10,7 +10,7 @@
 	</select>
 	
     <update id="modifyBoard" parameterType="com.moa.youthpolicy.suggest.domain.SuggestVO">
-        UPDATE tbl_suggest
+        UPDATE suggestedboard
         SET title = #{title}, content = #{content}, category = #{category}
         WHERE bno = #{bno}
     </update>
