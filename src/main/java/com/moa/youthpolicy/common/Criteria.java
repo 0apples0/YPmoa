@@ -35,7 +35,7 @@ public class Criteria {
 
 	
 	// policy검색조건
-	private String rgnSeNm;
+	private String rgnSeNm; 
 	private String policyTypeNm;
 	private String selectedFilter;
 	
