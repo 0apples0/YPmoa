@@ -32,7 +32,7 @@
 <div class="container-fluid mypage_booking pb-5 wow fadeIn"
 	data-wow-delay="0.1s">
 	<div class="container_search">
-		<div class="bg-white mypage_shadow" style="padding: 35px;">
+		<div class="bg-white mypage_shadow" style="padding: 35px; padding-top:25px">
 			<div class="row g-2">
 
 				<h3 class=" text-center text-primary ">
