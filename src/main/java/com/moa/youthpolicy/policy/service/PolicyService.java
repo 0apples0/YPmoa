@@ -10,6 +10,8 @@ import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
+import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
 import com.moa.youthpolicy.wish.domain.WishVO;
@@ -112,6 +114,7 @@ public class PolicyService implements BoardGenericService {
 		vo.setBoard(mapper.getBoard(no));
 
 		if (AuthUtil.isLogin()) {
+			log.info("로그인");
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), no);
 			vo.setWishVO(wishMapper.getWish(wish));
 			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), no);
@@ -132,6 +135,21 @@ public class PolicyService implements BoardGenericService {
 				wishMapper.addWish(wish);
 			}
 		}
+	}
+
+	public List<PolicyCommentVO> getCommentList(Criteria cri) {
+		List<PolicyCommentVO> result = mapper.getCommentListWithPaging(cri);
+		log.info(result);
+		return result;
+	}
+
+	public int getCommentTotalAmount(Integer bno) {		
+		return mapper.getCommentTotalCount(bno);
+	}
+
+	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
+		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
+		return result;
 	}
 
 }

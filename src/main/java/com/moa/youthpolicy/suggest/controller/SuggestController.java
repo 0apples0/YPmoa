@@ -2,6 +2,9 @@ package com.moa.youthpolicy.suggest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 import com.moa.youthpolicy.suggest.controller.SuggestController;
 import com.moa.youthpolicy.suggest.service.SuggestService;
+import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -53,6 +57,21 @@ public class SuggestController {
 	//글 작성
 	@GetMapping("/write")
 	public void getWrite() {}
+	
+	@PostMapping("/write") 
+		public String write(SuggestVO suggestVO, RedirectAttributes rttr, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:/user/login";
+		}
+		
+	    suggestVO.setWriter(user.getNick());
+		
+		suggestService.write(suggestVO);
+		rttr.addFlashAttribute("result", "success");
+		return "redirect:/suggest/suggest";
+	}
 	
 	//글 수정
 	@PostMapping("/modify")
