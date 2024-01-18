@@ -62,7 +62,7 @@ public class WishService implements BoardInterface {
 
 
 	public List<PolicyVO> getfiveboard() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		List<PolicyVO> list = mapper.getfiveboard();
 		return list;
 	}

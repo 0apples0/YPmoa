@@ -43,16 +43,15 @@ public class WishController {
 	}
 	
 	
-	// 위시리스트 띄우기
 	@ResponseBody
-	@RequestMapping(value = "/getList", method = RequestMethod.POST)
-	public List<PolicyVO> getList(){
-		log.info("위시 가져오기");
+	@RequestMapping(value = "/get", method = RequestMethod.POST)
+	public List<PolicyVO> get(){
+		log.info("등록한 위시 가져오기");
 		return wishService.getWishList();
 	}
 
-	// 검색
-	@RequestMapping(value = { "/wish"}, method = { RequestMethod.GET })
+	// wish페이지 띄우기
+	@RequestMapping(value = {"/wish"}, method = { RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
 		cri.setAmount(8);
 		int total = wishService.getTotalAmount(cri); 

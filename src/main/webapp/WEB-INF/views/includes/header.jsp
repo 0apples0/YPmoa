@@ -122,7 +122,11 @@
                         <a href="/policy/policy" class="nav-item nav-link" style="margin-left:80px">정책정보</a>
                         <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
-                        <a href="#" onclick="checkAndNavigateToMypage('${user.email}', 'wishlist')" class="nav-item nav-link">위시리스트</a>
+                        <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px;">
+						   
+						    <a href="#" onclick="submitForm()" id="header_wish" value="${user.email}">위시리스트</a><br>
+						     <input type="hidden" name="email" value="${user.email}">
+						</form>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}', 'mypage')">마이페이지</a>
                     </div>
                 </div>
@@ -130,7 +134,7 @@
         </div>
    </div>
    <script>
-   function checkAndNavigateToMypage(Email,page) {
+   function checkAndNavigateToMypage(Email) {
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
        var user_email = null;
        user_email = Email;
@@ -151,6 +155,17 @@
    function resetSettings(){
 	   localStorage.setItem('switchMine', false);
 	   
+   }
+   
+   function submitForm(Email) {
+	   var user_email = null;
+       user_email = Email;
+       
+	   if (!user_email) {
+           alert("로그인이 필요한 서비스입니다.");
+           window.location.href = "/user/login";
+       }
+       document.getElementById("myForm").submit();
    }
 </script>
    

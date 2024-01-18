@@ -111,7 +111,7 @@
                 <div class="row g-4" id="mini_table">
 
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="white_shd full margin_bottom_30">
+                        <div class="white_shd_b full margin_bottom_30">
                             <div class="full graph_head mini_board_more" >
                                     <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                                     <span class="mini_board_title">나의 위시 정책</span>
@@ -120,34 +120,10 @@
                             </div>
                             <div class="table_section padding_infor_info" >
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover index_table_a" style="text-align:left;" >
+                                    <table class="table table-hover index_table_a" id="wishList" style="text-align:left;" >
 
                                         <tbody>
-                                            <tr>
-                                                <td class="mini_board_bold">남양주시</td>
-                                                <td>햄버거 100개 지원 정책</td>
-                                                <td class="list_date">2024-06-10</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">남양주시</td>
-                                                <td>그냥 2000만원 지급</td>
-                                                <td class="list_date">2024-07-11</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">남양주시</td>
-                                                <td>집에가고싶은 사람 손들어</td>
-                                                <td class="list_date">2024-10-10</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">남양주시</td>
-                                                <td>집에가고싶은 사람 손들어</td>
-                                                <td class="list_date">2024-10-10</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mini_board_bold">남양주시</td>
-                                                <td>집에가고싶은 사람 손들어</td>
-                                                <td class="list_date">2024-10-10</td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -158,7 +134,7 @@
 
 
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="white_shd full margin_bottom_30">
+                        <div class="white_shd_b full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
                                 <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">정책정보</span>
@@ -177,7 +153,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="white_shd full margin_bottom_30">
+                        <div class="white_shd_b full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
                                 <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">꿀팁모음</span>
@@ -220,11 +196,11 @@
                         </div>
                     </div>
                     <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="white_shd full margin_bottom_30">
+                        <div class="white_shd_b	 full margin_bottom_30">
                             <div class="full graph_head mini_board_more">
                                 <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                                 <span class="mini_board_title">정책건의</span>
-                                <span class="mini_board_span"><a href="">더보기</a></span>
+                                <span class="mini_board_span"><a href="/wish/getList">더보기</a></span>
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
@@ -286,7 +262,7 @@
     	}
     $(document).ready(function() {
     	
-        // Ajax 요청
+        // 정책모음 게시판 가져오기
         $.ajax({
             type: "POST",
             url: "/policy/get5policy",
@@ -299,9 +275,29 @@
                 console.log("Error: " + error);
             }
         });
+        
+        // wish 가져오기
+        $.ajax({
+            type: "POST",
+            url: "/wish/getfiveBoard",
+            dataType: "json",
+            success: function(data) {
+                // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+                processData_Wish(data);
+            },
+            error: function(error) {
+                console.log("Error: " + error);
+            }
+        });
     });
 
+    // 정책모음 게시판 가져오기
     function processData(data) {
+    	if (data.length === 0) {
+            $("#wishList").html("<tr><td colspan='3'>게시판이 비어있습니다.</td></tr>");
+            $("#wishList").closest('table').css('text-align', 'center');
+            return;
+        }
         // 테이블에 데이터 추가용
         $.each(data, function(index, policy) {
         	policy.crtDt = formatDate(policy.crtDt);
@@ -314,7 +310,7 @@
             
             var row = "<tr>" +
                         "<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
-                        "<td class='ellipsis' id='mini_board_title'>" + policyNmText + "</td>" +
+                        "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
                         "<td class='list_date'>" + policy.crtDt + "</td>" +
                      "</tr>";
             $("#policy").append(row);
@@ -322,6 +318,37 @@
 
         
     }
+    
+    // 위시리스트 추가
+    function processData_Wish(data) {
+        // 데이터가 없으면 "위시리스트에 등록된 정책이 없습니다" 메시지 표시
+        if (data.length === 0) {
+            $("#wishList").html("<tr><td colspan='3'>위시리스트에 등록된 정책이 없습니다.<br>정책정보 게시판에서 마음에 드는 정책을 위시리스트에 담고<br>신청마감 알림도 받아보세요!</td></tr>");
+            $("#wishList").closest('table').css('text-align', 'center');
+            return;
+        }
+        
+        $.each(data, function(index, policy) {
+        	policy.crtDt = formatDate(policy.crtDt);
+            // 각 데이터에 대한 텍스트 길이 제한 
+            var maxTextLength = 20; // 적절한 길이로 조절
+
+            // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
+            var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
+
+            
+            var row = "<tr>" +
+                        "<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
+                        "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'	><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
+                        "<td class='list_date'>" + policy.crtDt + "</td>" +
+                     "</tr>";
+            $("#wishList").append(row);
+        });
+
+        
+    }
+    
+
 
 </script>
 
