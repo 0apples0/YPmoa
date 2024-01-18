@@ -138,7 +138,7 @@
                                                 <col style="width: 14%">
                                                 <col style="width: 36%">
                                                 <col style="width: 14%">
-                                                <col style="width: 36%">
+                                                <col style="width: 36%"> 
                                             </colgroup>
                                             <tbody>
 
