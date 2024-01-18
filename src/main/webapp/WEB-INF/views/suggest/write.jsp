@@ -33,7 +33,7 @@
 	                                </div>
 	                                <div class="" style="width: 15%;">
 	                                    <select class="form-select" id="category" name="category">
-	                                        <option selected value="" >관심분야</option>
+	                                        <option selected value="" >분야</option>
 		                                    <option value="주거">주거</option>
 		                                    <option value="교육">교육</option>
 		                                    <option value="신혼부부">신혼부부</option>

@@ -27,80 +27,87 @@
 
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
-
-                        <!-- table section -->
-                        <div class="col-md-12">
-                            <div class="white_shd_a full">
-
-
-                                <div class="padding_infor_info">
-                                    <div class="row ">
-                                        <div class="" style="width: 15%;">
-                                            <select class="form-select">
-                                                <option selected>말머리</option>
-                                                <option value="1">주거</option>
-                                                <option value="2">일자리</option>
-                                            </select>
-
-                                        </div>
-                                        <input class="form-control"
-                                            style="font-family: 'LINESeedKR-Bd_light'; width: 84%;"
-                                            placeholder="제목을 입력해주세요">
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_auto">
-
-                                <div class="table_section padding_infor_info">
-
-                                    <div class="table-responsive-sm">
-                                        <table class="table commu_table policy_dt_table policyWrite_table">
-                                            <colgroup>
-                                                <col style="width: 14%">
-                                                <col style="width: 36%">
-                                                <col style="width: 14%">
-                                                <col style="width: 36%">
-                                            </colgroup>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <form id="writeBoard" method="post">
-                                                            <textarea id="summernote" name="editordata"
-                                                                class="form-control"></textarea>
-                                                        </form>
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <br>
-
-                                        <div>
-                                            <button class="btn btn-primary">등록하기</button>
-                                            <button class="btn btn-warning">취소</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-
-
-                        </div>
+						<form> <!-- form태그 여기잇어요 -->
+	                        <!-- table section -->
+	                        <div class="col-md-12">
+	                            <div class="white_shd_a full">
+	
+	
+	                                <div class="padding_infor_info">
+		                            <div class="row ">
+		                                <div class="" style="width: 13%; margin-left:10px">
+		                                    <select class="form-select" id="region" name="region">
+		                                        <option selected value="" >지역</option>
+			                                    <option value="부천시">부천시</option>
+			                                    <option value="수원시">수원시</option>
+			                                    <option value="광명시">광명시</option>
+		                                    </select>
+		                                </div>
+		                                <div class="" style="width: 13%; padding-left:0px">
+		                                    <select class="form-select" id="category" name="category">
+		                                        <option selected value="" >관심분야</option>
+			                                    <option value="주거">주거</option>
+			                                    <option value="교육">교육</option>
+			                                    <option value="신혼부부">신혼부부</option>
+		                                    </select>
+		                                </div>
+		                                <input class="form-control" id="titleInput" name="title"
+		                                    style="font-family: 'LINESeedKR-Bd_light'; width: 71%;"
+		                                    placeholder="제목을 입력해주세요">
+		                            </div>
+		                        </div>
+	
+	                            </div>
+	
+	
+	
+	
+	                        </div>
+	                        <div class="col-md-12">
+	                            <div class="white_shd_a full margin_bottom_auto">
+	
+	                                <div class="table_section padding_infor_info">
+	
+	                                    <div class="table-responsive-sm">
+	                                        <table class="table commu_table policy_dt_table policyWrite_table">
+	                                            <colgroup>
+	                                                <col style="width: 14%">
+	                                                <col style="width: 36%">
+	                                                <col style="width: 14%">
+	                                                <col style="width: 36%">
+	                                            </colgroup>
+	                                            <tbody>
+	
+	                                                <tr>
+	                                                    <td colspan="4">
+	                                                        <form id="writeBoard" method="post">
+	                                                            <textarea id="summernote" name="editordata"
+	                                                                class="form-control"></textarea>
+	                                                        </form>
+	                                                    </td>
+	
+	                                                </tr>
+	
+	                                            </tbody>
+	                                        </table>
+	                                        <br>
+	
+	                                        <div>
+	                                            <button class="btn btn-primary">등록하기</button>
+	                                            <button class="btn btn-warning">취소</button>
+	                                        </div>
+	
+	                                    </div>
+	                                </div>
+	
+	
+	                            </div>
+	
+	
+	
+	
+	                        </div>
+                        </form>
                     </div>
 
                 </div>

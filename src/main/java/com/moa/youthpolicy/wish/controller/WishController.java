@@ -50,12 +50,12 @@ public class WishController {
 		return wishService.getWishList();
 	}
 
-	// wish페이지 띄우기
+	// wish페이지 띄우기, 페이징
 	@RequestMapping(value = {"/wish"}, method = { RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
 		cri.setAmount(8);
 		int total = wishService.getTotalAmount(cri); 
-		log.info(cri);
+		log.info("전체글"+ total);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 	}
