@@ -516,11 +516,21 @@
                               
                            	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                               let reportTd = $("<td>");
-                              let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
-                              						.css("width", "20px");
-                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                           	  
+                              let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                              let editLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("수정");
+                              
+                              let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
+                              let deleteLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("삭제");
+                              
+                              let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                              let reportLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("신고");
+
+                            
+
+                             
                               // 이미지와 link를 <td> 엘리먼트에 추가
-                              reportTd.append(reportImg).append(reportLink);
+                              reportTd.append(editImg, editLink, deleteImg, deleteLink, reportImg, reportLink);
 
                               // 새로운 <td> 엘리먼트를 행에 추가
                               row.append(likeTd);

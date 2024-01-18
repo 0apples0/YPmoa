@@ -499,8 +499,8 @@
 }
 
 
-.policyGet_report{
-    cursor: pointer;
+.policyGet_btn{
+   margin-right:5px;
 }
 
 .policyGet_letter{
