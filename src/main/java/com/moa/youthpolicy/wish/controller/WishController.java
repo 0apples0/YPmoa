@@ -42,7 +42,7 @@ public class WishController {
 		return list;
 	}
 	
-	
+	// 위시한 policy 리스트 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/get", method = RequestMethod.POST)
 	public List<PolicyVO> get(){

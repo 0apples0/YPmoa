@@ -311,7 +311,7 @@
         
     }
     
-    
+    // 커뮤니티 게시판
     function processCommunityData(data) {
     	if (data.length === 0) {
             $("#communityList").html("<tr><td colspan='3'>게시판이 비어있습니다.</td></tr>");
@@ -320,6 +320,7 @@
         }
         // 테이블에 데이터 추가용
         $.each(data, function(index, community) {
+        	community.regDate = formatDate(community.regDate);
         	//community.regDate = formatDate(community.regDate);
             // 각 데이터에 대한 텍스트 길이 제한 
             var maxTextLength = 20; // 적절한 길이로 조절
@@ -330,7 +331,6 @@
 
             
             var row = "<tr>" +
-                        "<td class='mini_board_bold'>" + community.title + "</td>" +
                         "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='community/get?bno="+ community.bno +"' id='index_wish'>" + communityTitleText + "</a></td>" +
                         "<td class='list_date'>" + community.regDate + "</td>" +
                      "</tr>";

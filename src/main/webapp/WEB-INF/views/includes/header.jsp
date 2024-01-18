@@ -124,7 +124,7 @@
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px; padding-right:0px">
 						   
-						    <a href="#" onclick="submitForm()" id="header_wish" value="${user.email}">위시리스트</a><br>
+						    <a href="#" onclick="submitForm()" id="header_wish">위시리스트</a><br>
 						     <input type="hidden" name="email" value="${user.email}">
 						</form>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}', 'mypage')">마이페이지</a>
@@ -161,11 +161,9 @@
 	   var user_email = null;
        user_email = Email;
        
-	   if (!user_email) {
-           alert("로그인이 필요한 서비스입니다.");
-           window.location.href = "/user/login";
-       }
-       document.getElementById("myForm").submit();
+	  document.getElementById("myForm").submit();
+       
+       
    }
 </script>
    

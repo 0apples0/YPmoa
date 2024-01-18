@@ -80,7 +80,7 @@ public class CommunityService implements BoardGenericService{
 	}	
 
 	public List<CommunityVO> getfiveboard() {
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		List<CommunityVO> list = communityMapper.getfiveboard();
 		return list;
 	}
