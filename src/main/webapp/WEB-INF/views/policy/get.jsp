@@ -170,6 +170,8 @@
 								</div>
 								<div class="commuGet_btn">
 									<button class="btn btn-primary">목록</button>
+									<button class="btn btn-primary">수정</button>
+									<button class="btn btn-warning">삭제</button>
 								</div>
 							</div>
 						</div>
