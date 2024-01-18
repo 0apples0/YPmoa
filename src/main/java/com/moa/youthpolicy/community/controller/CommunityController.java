@@ -70,6 +70,7 @@ public class CommunityController {
 	public void getWrite() {}
 
 	
+	
 	//private String realPath = "C:\summernote_image";
 	/*
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
