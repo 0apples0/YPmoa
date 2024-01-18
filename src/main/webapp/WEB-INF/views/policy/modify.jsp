@@ -55,56 +55,54 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                        ${policy.policyCn}
+                                                    	<textarea class="form-control">${policy.policyCn}</textarea>
+                                                        
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">시행 지역</th>
                                                     <td>
-                                                        ${policy.rgnSeNm}
+                                                        <input class="form-control" value="${policy.rgnSeNm}">
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
-                                                    <td>${policy.sprvsnInstNm}</td>
+                                                    
+                                                     <td>
+                                                        <input class="form-control" value="${policy.sprvsnInstNm}">
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">정책 유형</th>
-                                                    <td>
-                                                        ${policy.policyTypeNm}
+                                                  
+                                                      <td>
+                                                        <input class="form-control" value="${policy.policyTypeNm}">
                                                     </td>
-                                                    <th scope="row">지원 대상</th>
+                                                    <th scope="row">지원 규모</th>
                                                     <td>
-                                                        <!-- 이부분은 더미값 -->
-                                                        더미값
+                                                        <input class="form-control" value="${policy.policyTypeNm}">
                                                     </td>
                                                 </tr>
 
 
                                                 <tr>
                                                     <th scope="row">신청 시작 날짜</th>
-                                                    <td> ${policy.aplyBgngDt}
+                                                    <td>  <input class="form-control" value="${policy.aplyBgngDt}"> 
                                                     </td>
                                                     <th scope="row">신청 마감 날짜</th>
                                                     <td>
-                                                        ${policy.aplyEndDt}
+                                                        <input class="form-control" value=" ${policy.aplyEndDt}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policySd -->
-                                                    <th scope="row">지원규모</th>
-                                                    <td>${policy.policyScl}</td>
-                                                    <th scope="row">신청 사이트</th>
-                                                    <td><a
-                                                            href="#">${policy.dtlLinkUrl}</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <th scope="row">연락처</th>
-                                                    <td colspan="3">
-                                                        ${policy.policyEnq}
+                                                    <td><input class="form-control" value=" ${policy.policyScl}"></td>
+                                                    <th scope="row">신청 사이트</th>
+                                                    <td><input class="form-control" value=" ${policy.dtlLinkUrl}">
                                                     </td>
                                                 </tr>
+                                           
                                             </tbody>
                                         </table>
                                         <div class="mb-3">

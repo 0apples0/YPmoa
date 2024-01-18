@@ -122,7 +122,7 @@
                         <a href="/policy/policy" class="nav-item nav-link" style="margin-left:80px">정책정보</a>
                         <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
-                        <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px;">
+                        <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px; padding-right:0px">
 						   
 						    <a href="#" onclick="submitForm()" id="header_wish" value="${user.email}">위시리스트</a><br>
 						     <input type="hidden" name="email" value="${user.email}">

@@ -126,7 +126,7 @@
 /*** Header ***/
 
 #header_wish{
-	margin-right:0px;
+	margin-right:0px !important;
 	color:black;
 }
 
