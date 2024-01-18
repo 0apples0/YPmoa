@@ -71,7 +71,13 @@ public class SuggestService implements BoardGenericService{
 		
 	}
 
-    // 게시글 수정 처리
+	// 게시글 등록
+	public void write(SuggestVO vo) {
+		suggestMapper.write(vo);
+	}
+	
+	
+	// 게시글 수정 처리
     public boolean modifyBoard(SuggestVO vo) {
         log.info("수정 service : " + vo);
 
@@ -79,5 +85,7 @@ public class SuggestService implements BoardGenericService{
         int result = suggestMapper.modifyBoard(vo);
 
         return result == 1; // 수정된 행이 1개일 경우 true 반환
-    }
+    }    
+
+
 }

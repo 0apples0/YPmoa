@@ -55,17 +55,16 @@
                                     <div class="g-4 policyGet_letter">개</div>
                                 </div>
                                 <div class="commuGet_btn">
-                                    <!-- <button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-                                    <button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button> -->
                                     <!-- 한번 알람이 떠서 ㄹㅇ삭제? 이런거 나왔으면 좋겠습니당-->
-                                    <!-- <button id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-                                    <button class="btn btn-warning commuGet_postReport">신고하기</button>
-                                     -->
 			                         <c:choose>
 					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+<<<<<<< HEAD
+											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+=======
 											<button id="deleteBtn" class="btn btn-warning commuGet_deleteBtn">삭제하기</button>
+>>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 										</c:when>
 					 					<c:otherwise>
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
@@ -191,6 +190,9 @@
 		$("#modifyBtn").on("click", function(){
 		    window.location.href = "/suggest/modify?bno=" + ${vo.bno};
 		});
+        
+	    // 삭제 버튼
+
         
     }); // document.ready함수
 </script>

@@ -158,7 +158,7 @@
                                        
                                         <div>
                                             <button class="btn btn-primary">수정하기</button>
-                                            <button class="btn btn-warning">취소</button>
+                                            <button class="btn btn-warning">취소</button> 
                                         </div>
                                      
                                     </div>
