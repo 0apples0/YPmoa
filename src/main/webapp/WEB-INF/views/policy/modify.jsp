@@ -55,55 +55,54 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                        청소년기에서 청년기로 이행하며 사회에 첫발을 내딛는 청년들(만19~24세)의 교통비 부담 완화 및 이동권 보장을
-                                                        위한 대중교통비 지원
+                                                        ${policy.policyCn}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">시행 지역</th>
                                                     <td>
-                                                        영등포구
+                                                        ${policy.rgnSeNm}
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
-                                                    <td>서울시청 미래청년기획단</td>
+                                                    <td>${policy.sprvsnInstNm}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">정책 유형</th>
                                                     <td>
-                                                        주거
+                                                        ${policy.policyTypeNm}
                                                     </td>
                                                     <th scope="row">지원 대상</th>
                                                     <td>
                                                         <!-- 이부분은 더미값 -->
-                                                        시행지역 3년 이상 거주, 만 나이 25세 이상
+                                                        더미값
                                                     </td>
                                                 </tr>
 
 
                                                 <tr>
                                                     <th scope="row">신청 시작 날짜</th>
-                                                    <td> 2023. 12. 22.
+                                                    <td> ${policy.aplyBgngDt}
                                                     </td>
                                                     <th scope="row">신청 마감 날짜</th>
                                                     <td>
-                                                        2024. 05. 31.
+                                                        ${policy.aplyEndDt}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <!-- policySd -->
                                                     <th scope="row">지원규모</th>
-                                                    <td>150,000명</td>
+                                                    <td>${policy.policyScl}</td>
                                                     <th scope="row">신청 사이트</th>
                                                     <td><a
-                                                            href="#">http://gbyouth.co.kr/policy/list.tc?mn=2379&pageNo=5069&no=165</a>
+                                                            href="#">${policy.dtlLinkUrl}</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">연락처</th>
                                                     <td colspan="3">
-                                                        전화: 02-1234-1234, 메일: 123@aaa.com
+                                                        ${policy.policyEnq}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -147,7 +146,7 @@
                                                     <td colspan="4">
                                                         <form method="post">
                                                             <textarea id="summernote" name="editordata"
-                                                                class="form-control"></textarea>
+                                                                class="form-control">${policy.board.content}  </textarea>
                                                         </form>
                                                     </td>
 
@@ -198,7 +197,17 @@
                     ['height', ['height']],
                     ['picture', ['[picture]']],
                     ['insert', ['link', 'picture']],
-                ]
+                	],
+                	callbacks : {
+    					onImageUpload : function(files, editor, welEdit) {
+    						//alert("^^");
+    						//console.log('img upload: ', files);
+    						//이미지를 첨부하면 배열로 인식된다.
+    						//이것을 서버로 비동기식 통신을 하는 
+    						//함수를 호출하면서 보낸다.
+    						sendFile(files[0], editor, welEdit);
+    					}
+    				}
 
                 });
 
@@ -206,9 +215,46 @@
                 $('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
 
 
+                function sendFile(file, editor, welEdit) {
+                	console.log("file" + file);
+        			//파라미터를 전달하기 위해 form객체 만든다.
+        			var frm = new FormData();
 
+        			//위의 frm객체에 send_img이라는 파라미터를 지정!
+        			frm.append("send_img", file);
+        			//		frm.append("type", "saveImg");
+
+        			//비동기식 통신
+        			$.ajax({
+        				//			url: "saveImage.jsp",
+        				url : "/uploadImge",
+        				data : frm,
+        				cache : false,
+        				contentType : false,
+        				processData : false,
+        				type : "POST",
+        				dataType : "JSON" //나중 받을 데이터의 형식을 지정
+        			}).done(function(data) {
+        				//도착함수
+        				//alert(data.url);
+
+        				//에디터에 img태그로 저장하기 위해 
+        				//다음과 같이 img태그를 정의한다.
+        				//var image = $('<img>').attr('src',data.url);
+
+        				//에디터에 정의한 img태그를 보여준다.
+        				//$('#content').summernote('insertNode',image[0]);
+
+        				$('#summernote').summernote('insertImage', data.url);
+
+        			}).fail(function(e) {
+        				console.log(e);
+        			});
+        		}
  
             }); // 글쓰기에디터 ready함수 끝
+            
+            
 
 
 

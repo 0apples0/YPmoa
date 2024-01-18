@@ -52,7 +52,7 @@ public class PolicyController {
 		return service.getPage(cri);
 	}
 	
-	@RequestMapping(value="/get", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value={"/get", "/modify"}, method={RequestMethod.GET, RequestMethod.POST})
 	public void getpolicy(PolicyVO vo, Criteria cri , Model model) {		
 		model.addAttribute("policy", service.getBoard(vo.getNo())); 
 		int total = service.getCommentTotalAmount(vo.getNo());
@@ -88,6 +88,8 @@ public class PolicyController {
 		return service.getBestCommentPage(cri);
 	
 	}
+	
+	
 	
 	
 }
