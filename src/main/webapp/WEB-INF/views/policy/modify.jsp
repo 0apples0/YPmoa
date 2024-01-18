@@ -29,7 +29,8 @@
 
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
-
+                    <!-- form태그시작 -->
+					<form>
                         <!-- table section -->
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
@@ -142,10 +143,9 @@
 
                                                 <tr>
                                                     <td colspan="4">
-                                                        <form method="post">
                                                             <textarea id="summernote" name="editordata"
                                                                 class="form-control">${policy.board.content}  </textarea>
-                                                        </form>
+                                                       
                                                     </td>
 
                                                 </tr>
@@ -161,6 +161,9 @@
                                      
                                     </div>
                                 </div>
+                                
+                                
+                                
 
 
                             </div>
@@ -168,7 +171,8 @@
 
 
 
-                        </div>
+                        </div> <!-- 글쓰기에디터 끝 -->
+                        </form>
                     </div>
 
                 </div>
