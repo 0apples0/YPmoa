@@ -21,10 +21,10 @@
         WHERE bno = #{bno}
     </update>
 	
-	<select id="delete" parameterType="SuggestVO">
-		DELETE FROM suggestedboard
-		WHERE bno=#{bno}
-	</select>
+	<delete id="deleteBoard" parameterType="Integer">
+	    DELETE FROM suggestedboard
+	    WHERE bno=#{value}
+	</delete>
 	
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(bno) FROM suggestedboard

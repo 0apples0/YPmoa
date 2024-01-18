@@ -85,7 +85,14 @@ public class SuggestService implements BoardGenericService{
         int result = suggestMapper.modifyBoard(vo);
 
         return result == 1; // 수정된 행이 1개일 경우 true 반환
-    }    
+    }
 
+    // 게시글 삭제
+	public boolean removeBoard(Integer bno) {
+		// TODO Auto-generated method stub
+        int result = suggestMapper.deleteBoard(bno);
+
+        return result == 1; // 삭제가 성공하면 true, 실패하면 false를 반환합니다.
+    }
 
 }
