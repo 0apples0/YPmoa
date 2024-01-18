@@ -22,6 +22,88 @@
 	    VALUES (#{wishUser}, #{wishPolicy})
 	</insert>
   
+	<select id="wishList" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
+	   SELECT policy.* FROM policy
+	   
+		JOIN wish ON policy.no = wish.wishPolicy
+		
+	</select>
 
+	<select id="getfiveboard" resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
+		SELECT policy.* FROM policy
+		JOIN wish ON policy.no = wish.wishPolicy
+		ORDER BY no DESC LIMIT 5
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+	    SELECT COUNT(no) FROM policy
+	    WHERE no > 0
+	    <if test="type != null and keyword != null and keyword != ''">
+		    <choose>
+	            <when test='type == "TC"'>
+	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
+	            <when test='type == "T"'>
+	                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	            <when test='type == "C"'>
+	                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+	            </when>
+	        </choose>
+		</if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+	    <if test="selectedFilter == 'applyDate'">
+	        AND aplyPsbltyYn = 'Y'
+	    </if>
+	    <if test="selectedFilter == 'overDate'">
+	        AND aplyPsbltyYn = 'N'
+	    </if>
+	</select>
+	
+		<select id="getListWithPasing" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		    SELECT * FROM policy
+		    WHERE no > 0
+		    <if test="type != null and keyword != null and keyword != ''">
+		        <choose>
+		            <when test='type == "TC"'>
+		                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+		            </when>
+		            <when test='type == "T"'>
+		                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
+		            </when>
+		            <when test='type == "C"'>
+		                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+		            </when>
+		        </choose>
+		    </if>
+		    <if test="rgnSeNm != null and rgnSeNm != ''">
+		        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+		    </if>
+		    <if test="policyTypeNm != null and policyTypeNm != ''">
+		        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+		    </if>
+		    <if test="selectedFilter == 'applyDate'">
+		        AND aplyPsbltyYn = 'Y'
+		    </if>
+		    <if test="selectedFilter == 'overDate'">
+		        AND aplyPsbltyYn = 'N'
+		    </if>
+		    ORDER BY
+		    <choose>
+		        <when test="selectedFilter == 'like'">
+		            `like` DESC, policy.no DESC
+		        </when>
+		        <otherwise>
+		            policy.no DESC
+		        </otherwise>
+		    </choose>
+		    LIMIT #{start}, #{amount}
+	</select>
+	
   
   </mapper>

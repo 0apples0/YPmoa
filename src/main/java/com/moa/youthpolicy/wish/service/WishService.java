@@ -1,16 +1,22 @@
 package com.moa.youthpolicy.wish.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardInterface;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.wish.domain.WishVO;
 import com.moa.youthpolicy.wish.mapper.WishMapper;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class WishService implements BoardInterface {
 	
 	@Autowired
@@ -29,19 +35,19 @@ public class WishService implements BoardInterface {
 	}
 
 	@Override
-	public <T> List<T> getPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PolicyVO> getPage(Criteria cri){
+		List<PolicyVO> list = mapper.getWishList(cri);
+		log.info(cri);
+		return list;
 	}
 
-	
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		return mapper.getTotalCount(cri);
 
+	}
+	
 	@Override
 	public WishVO getBoard(Integer key) {
 		// TODO Auto-generated method stub
@@ -51,6 +57,20 @@ public class WishService implements BoardInterface {
 	public WishVO getEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	public List<PolicyVO> getfiveboard() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		List<PolicyVO> list = mapper.getfiveboard();
+		return list;
+	}
+	
+	
+	public List<PolicyVO> getWishList() {
+		List<PolicyVO> list = mapper.wishList();
+		return list;
 	}
 
 

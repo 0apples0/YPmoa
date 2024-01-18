@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 public class Criteria {
+	
 	// 현재 사용자의 페이지 위치
 	private int pageNum;
 	
