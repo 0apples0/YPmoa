@@ -286,6 +286,26 @@
 			});	
 
 
+
+			let actionFrom = $("#actionFrom");
+			$(".paginate_button a").on("click", function(e) {
+				// 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+				e.preventDefault(); // 이벤트 초기화
+				//pageNum값을 사용자가 누른 a태그의 href속성값으로 변경
+				// 3페이지 선택시 pageNum = 3;
+				actionFrom.find("input[name='pageNum']").val($(this).attr("href"));
+				actionFrom.submit();
+			});
+			
+			let searchForm = $("#searchForm");
+			
+			$("#searchForm #searchBtn").on("click",function(e){
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+				searchForm.submit();
+			});
+			
+            
             function loadTableData() {
 		    	//$("#policyContainer").empty();
 		  	    $.ajax({
@@ -336,7 +356,7 @@
 		              actionForm.submit();
 		          }
 		      });
-		  	}
+		  	} // ajax의 끝
 		 	  
             
             function addPolicyToContainer(policy, index) {

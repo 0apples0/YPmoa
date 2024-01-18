@@ -25,7 +25,7 @@
 	                    <div class="white_shd_a full">
 	                        <div class="padding_infor_info">
 	                            <div class="row ">
-	                                <div class="" style="width: 15%;">
+	                                <div class="" style="width: 13%; margin-left:10px">
 	                                    <select class="form-select" id="region" name="region">
 	                                        <c:choose>
 		                                        <c:when test="${empty vo.region}">
@@ -40,7 +40,7 @@
 		                                    <option value="광명시">광명시</option>
 	                                    </select>
 	                                </div>
-	                                <div class="" style="width: 15%;">
+	                                <div class="" style="width: 13%; padding-left:0px">
 	                                    <select class="form-select" id="category" name="category">
 	                                        <c:choose>
 		                                        <c:when test="${empty vo.category}">
@@ -56,7 +56,7 @@
 	                                    </select>
 	                                </div>
 	                                <input class="form-control" id="titleInput" name="title"
-	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 67%;"
+	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 71%;"
 	                                    placeholder="제목을 입력해주세요"  value="${vo.title}">
 	                            </div>
 	                        </div>
