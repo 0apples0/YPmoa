@@ -88,6 +88,25 @@
 		WHERE bno = #{no}
 	</select>
 	
+	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		SELECT * FROM likeboard
+	    WHERE Email LIKE #{Email} AND bno LIKE #{bno}
+	</select>
+	
+	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		DELETE FROM likeboard
+    	WHERE Email = #{Email} AND bno = #{bno}
+	</delete>
+	
+	<insert id="addLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+	    INSERT INTO likeboard (Email, bno, boardType)
+	    VALUES (#{Email}, #{bno}, 'P')
+	</insert>
+	
+	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
+	    UPDATE policy SET `like` = #{like}
+	    WHERE no = #{no}
+	</update>
 	
 	
 </mapper>

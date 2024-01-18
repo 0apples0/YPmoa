@@ -175,7 +175,7 @@
 								<div style="display: flex;" class="policyGet_likeBox">
 									<div class="g-4 policyGet_letter">좋아요</div>
 									<a> <img
-										src="${pageContext.request.contextPath}/resources/img/addLike.png"
+										src="${pageContext.request.contextPath}/resources/img/${policy.likeVO == null ? 'addLike' : 'checkLike'}.png"
 										class="policyGet_likeBtn"
 										style="width: 38px; cursor: pointer;" /></a>
 									<div class="g-4">
@@ -416,12 +416,20 @@
             		return;
             	}
             	$.ajax({
-            		url: "/policy/toggleLike"
-            		
+            		url: "/policy/toggleLike",
+            		type: "POST",
+            		data: {no : no},
+            		success: function(data){
+            			var currentSrc = $(".policyGet_likeBtn").attr("src");
+                        var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+                        $(".policyGet_likeBtn").attr("src", newSrc);
+                        $(".policyGet_likeCount").text(data); // 좋아요 개수 업데이트
+            		},
+            		error: function(e){
+            			console.log(e);
+            		}
             	});
-                var currentSrc = $(".policyGet_likeBtn").attr("src");
-                var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-                $(".policyGet_likeBtn").attr("src", newSrc);
+                
             });
 
 
