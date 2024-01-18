@@ -77,7 +77,18 @@ public class CommunityController {
 	@GetMapping("/write")
 	public void getWrite() {}
 
-	
+	//댓글 작성
+	@ResponseBody
+	@PostMapping("/writeComment")
+	public void addComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment) {
+		communityService.writeComment(comment);
+		log.info("여기!!!!!!"+comment.getWriter());
+		//model.addAttribute("vo", communityService.getBoard(bno));
+		//int total = communityService.getCommentTotalAmount(bno); //전체 댓글 갯수
+		//PageDTO pageResult = new PageDTO(cri, total);
+		//model.addAttribute("pageMaker", pageResult);
+		//log.info("댓글 갯수 제발 잘 가져와줘: "+total);
+	}	
 	
 
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석

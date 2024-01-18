@@ -110,7 +110,7 @@
 			<div class="wow fadeIn" data-wow-delay="0.01s">
 				<h3 style="margin-left: 30px;">댓글</h3>
 				<div style="display: flex; justify-content: center;">
-					<input type="text"
+					<input type="text" name="AddcommentInput" id="AddcommentInput"
 						class="form-control datetimepicker-input font_light commu_cmtInput"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
 					<button class="btn btn-primary commu_commentBtn" disabled
@@ -307,7 +307,7 @@
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 			<input type="hidden" name="bno" value="${vo.bno}">
-		</form>            
+		</form>	            
             
         </div>
 
@@ -396,6 +396,36 @@
                 submitButton.prop("disabled", !isInputNotEmpty);
             });
 
+            // 댓글 작성
+            $(".commu_commentBtn").on("click", function () {
+                var commentInput = $("#AddcommentInput").val();
+                var commentContent = commentInput.val().trim();
+				console.log("인풋값: "+ commentInput);
+                if (commentInput.length > 0) {
+                    
+                    $.ajax({
+                        url: "/community/writeComment",
+                        type: "POST",
+                        data: {
+                            bno: "${vo.bno}",
+                            content: commentContent
+                        },
+                        success: function (data) {
+                            
+                            console.log("댓글 작성 성공", data);
+
+                            // 댓글 작성 후 입력창 초기화
+                            commentInput.val("");
+
+                            // 댓글 목록을 다시 로드하는 함수 호출
+                            loadTableData();
+                        },
+                        error: function (error) {
+                            console.error("댓글 작성 실패", error);
+                        }
+                    });
+                }
+            });
             function loadTableData(){
                 $.ajax({
                    url: "/community/getCommentList",// 요청할 서버 uri

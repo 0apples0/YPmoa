@@ -118,4 +118,11 @@
 		ORDER BY cno DESC
 		LIMIT #{amountBestComment}
 	</select>
+
+	<insert id="writeComment" parameterType="CommunityCommentVO">
+		INSERT INTO tipboardcomments
+		(content, bno, writer)
+		values(#{content}, #{bno}, #{writer})
+	</insert>	
+	
 </mapper>

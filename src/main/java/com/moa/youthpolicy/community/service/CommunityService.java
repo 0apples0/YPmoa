@@ -84,7 +84,10 @@ public class CommunityService implements BoardGenericService{
 		List<CommunityVO> list = communityMapper.getfiveboard();
 		return list;
 	}
-	
+
+	public void writeComment(CommunityCommentVO comment) {
+		communityMapper.writeComment(comment);
+	}
 	@Override
 	public <T> void writeBoard(T boardVO) {
 		// TODO Auto-generated method stub

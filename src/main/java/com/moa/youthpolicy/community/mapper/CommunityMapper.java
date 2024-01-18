@@ -18,5 +18,6 @@ public interface CommunityMapper {
 	public List<CommunityCommentVO> getCommentListWithPaging(Criteria cri);
 	public List<CommunityCommentVO> getBestCommentList(Criteria cri);
 	public List<CommunityVO> getfiveboard();
+	public void writeComment(CommunityCommentVO comment);
 
 }
