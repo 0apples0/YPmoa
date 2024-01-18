@@ -88,6 +88,48 @@
 		WHERE bno = #{no}
 	</select>
 	
+	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		SELECT * FROM like_policy
+	    WHERE Email LIKE #{Email} AND bno LIKE #{bno}
+	</select>
+	
+	<select id="getCommentListWithPaging" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM policyboardcomments
+		WHERE cno>0 AND bno=#{bno}
+		ORDER BY cno DESC
+		LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getCommentTotalCount" resultType="int" parameterType="PolicyBoardVO">
+		SELECT COUNT(cno) FROM policyboardcomments
+		WHERE bno=#{no}
+	</select>
+	
+	<select id="getBestCommentList" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM policyboardcomments
+		WHERE cno>0 AND bno=#{bno} AND `like`>=10
+		ORDER BY cno DESC
+		LIMIT #{amountBestComment}
+	</select>
+	
+	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		DELETE FROM like_policy
+    	WHERE Email = #{Email} AND bno = #{bno}
+	</delete>
+	
+	<insert id="addLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+	    INSERT INTO like_policy (Email, bno, boardType)
+	    VALUES (#{Email}, #{bno}, 'P')
+	</insert>
+	
+	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
+	    UPDATE policy SET `like` = #{like}
+	    WHERE no = #{no}
+	</update>
+	
+	
+	
+	
 	
 	
 </mapper>

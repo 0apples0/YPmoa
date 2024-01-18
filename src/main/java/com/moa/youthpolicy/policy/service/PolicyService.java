@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.common.LikeBoardVO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
+import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
 import com.moa.youthpolicy.wish.domain.WishVO;
@@ -81,6 +84,23 @@ public class PolicyService implements BoardGenericService {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public PolicyVO likeToggle(PolicyVO vo) {
+		PolicyVO _vo = mapper.getPolicy(vo.getNo());
+		if (AuthUtil.isLogin()) {
+			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
+			if(mapper.getLike(like) != null) {
+				mapper.delLike(like);
+				_vo.setLike(_vo.getLike() - 1);
+			}else {
+				mapper.addLike(like);
+				_vo.setLike(_vo.getLike() + 1);
+			}
+			mapper.modBoard(_vo);
+			return _vo;
+		}
+		return null;
+	}
 
 	@Override
 	public void getBack() {
@@ -94,17 +114,19 @@ public class PolicyService implements BoardGenericService {
 		vo.setBoard(mapper.getBoard(no));
 
 		if (AuthUtil.isLogin()) {
+			log.info("로그인");
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), no);
 			vo.setWishVO(wishMapper.getWish(wish));
+			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), no);
+			vo.setLikeVO(mapper.getLike(like));
 		}
 		log.info("getBoard : " + vo);
 		return vo;
 	}
 
 	public void toggleWish(PolicyVO vo) {
-		PolicyVO _vo = mapper.getPolicy(vo.getNo());
 		if (AuthUtil.isLogin()) {
-			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), _vo.getNo());
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
 			if(wishMapper.getWish(wish) != null) {
 				log.info("null이 아니다 : "+ wish);
 				wishMapper.delWish(wish);
@@ -113,6 +135,21 @@ public class PolicyService implements BoardGenericService {
 				wishMapper.addWish(wish);
 			}
 		}
+	}
+
+	public List<PolicyCommentVO> getCommentList(Criteria cri) {
+		List<PolicyCommentVO> result = mapper.getCommentListWithPaging(cri);
+		log.info(result);
+		return result;
+	}
+
+	public int getCommentTotalAmount(Integer bno) {		
+		return mapper.getCommentTotalCount(bno);
+	}
+
+	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
+		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
+		return result;
 	}
 
 }

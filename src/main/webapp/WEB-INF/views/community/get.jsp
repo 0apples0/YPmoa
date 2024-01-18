@@ -106,38 +106,64 @@
 
 
 
-                <div class="row g-4">
-                    <div class="wow fadeIn" data-wow-delay="0.01s">
-                        <h3 style="margin-left: 30px;">댓글</h3>
-                        <div style="display: flex; justify-content: center;">
-                            <input type="text" class="form-control datetimepicker-input font_light commu_cmtInput" style="width: 88%;"
-                                placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-                            <button class="btn btn-primary commu_commentBtn" disabled style="margin-left: 10px;">댓글 작성</button>
-                        </div>
+		<div class="row g-4">
+			<div class="wow fadeIn" data-wow-delay="0.01s">
+				<h3 style="margin-left: 30px;">댓글</h3>
+				<div style="display: flex; justify-content: center;">
+					<input type="text"
+						class="form-control datetimepicker-input font_light commu_cmtInput"
+						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
+					<button class="btn btn-primary commu_commentBtn" disabled
+						style="margin-left: 10px;">댓글 작성</button>
+				</div>
+				
+				
+				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
+				<div id="communityBestCommentDiv" class="col-md-12">
+					<div class="white_shd_a full"
+						style="padding: 30px; padding-bottom: 0px;">
+						<h4 style="padding-left: 10px;">
+							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
+								class="fa fa-fire text-primary commu_pic"></i>
+						</h4>
+						<div class="table-responsive-sm">
+							<table id="communityBestCommentTable"
+								class="table table-basic commu_table policyGet_comment">
+ 
+								<tbody style="background-color: rgb(255, 239, 203);">
+								
+								</tbody>
+								
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!-- table section -->
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
 
-                        <!-- table section -->
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_30">
+						<div class="table_section padding_infor_info">
+							<div class="table-responsive-sm">
+								<table id="communityCommentTable"
+									class="table table-basic commu_table policyGet_comment">
 
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table id="communityCommentTable" class="table table-basic commu_table policyGet_comment">
-
-                                            <tbody>
+									<tbody>
 
 
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 
 
 
 
-                        </div>
-                    </div>
+				</div>
+			</div>
 
 
 
@@ -145,8 +171,8 @@
 
 
 
-                </div>
-            </div>
+		</div>
+	</div>
         <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
@@ -288,7 +314,7 @@
     <script>
         $(document).ready(function () {
         	loadTableData();
-
+        	loadBestCommentTableData();
 
 			//좋아요 버튼에 이벤트 핸들러 추가
 			$(".commu_table").on("click", ".policyGet_likeBtn", function () {
@@ -450,10 +476,74 @@
                
              }
 
+            function loadBestCommentTableData(){
+                $.ajax({
+                   url: "/community/getBestCommentList",// 요청할 서버 uri
+                   type: "POST", //요청방식 지정
+                   dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+                   data:{
+                      bno : $("#actionForm").find("input[name='bno']").val() 
+                   },
+                   success: function(data){
+               	  	  
+                      let boardTbody = $("#communityBestCommentTable tbody");
+                      boardTbody.empty(); // 기존 테이블 행 삭제
+                      
+                      if(data.length > 0){
+                    	  $("#communityBestCommentDiv").show();
+                          //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+                          //for(let item of items) -> items == data, item ==board 역할
+                          $.each(data, function(index, board){
+                            
+                             let regDate=new Date(board.regDate);
+                             // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                             let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                             let formateDate = regDate.toLocaleString("ko-KR", options);
 
+                             // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                             // 동적으로 데이터 처리
+                             let row = $("<tr>");
+                             row.append($("<td>").text(board.content));
+                             row.append($("<td>").text(board.writer));
+                             row.append($("<td>").text(formateDate));
+                             
+                              // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
+                              let likeTd = $("<td>");
+                              let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                              let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                              // 이미지와 span을 <td> 엘리먼트에 추가
+                              likeTd.append(likeImg).append(likeSpan);
+                              
+                           	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                              let reportTd = $("<td>");
+                              let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
+                              						.css("width", "20px");
+                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                              // 이미지와 link를 <td> 엘리먼트에 추가
+                              reportTd.append(reportImg).append(reportLink);
+
+                              // 새로운 <td> 엘리먼트를 행에 추가
+                              row.append(likeTd);
+                              row.append(reportTd);
+                              
+                             boardTbody.append(row);
+                             console.log("pagemaker: "+${pageMaker.realEnd});
+                          });                   	  
+                      }else{
+                    	  $("#communityBestCommentDiv").hide();
+                      }
+
+                   },
+                   error: function(e){
+                      console.log(e);
+                   }
+                });
+                
+               
+             }
 
         }); // document.ready함수
 
-
+    
     </script>
 <%@include file="../includes/footer.jsp" %>

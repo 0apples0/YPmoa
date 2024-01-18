@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
+import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.service.PolicyService;
 
@@ -50,11 +52,13 @@ public class PolicyController {
 		return service.getPage(cri);
 	}
 	
-	@GetMapping("/get")
-	public void getpolicy(PolicyVO vo, Model model) {
-		log.info("NO:" + vo.getNo());
+	@RequestMapping(value="/get", method={RequestMethod.GET, RequestMethod.POST})
+	public void getpolicy(PolicyVO vo, Criteria cri , Model model) {		
 		model.addAttribute("policy", service.getBoard(vo.getNo())); 
-		
+		int total = service.getCommentTotalAmount(vo.getNo());
+		cri.setBno(vo.getNo());
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("pageMaker", pageResult);
 	}
 	
 	@ResponseBody
@@ -63,6 +67,27 @@ public class PolicyController {
 		service.toggleWish(vo);
 	}
 	
+	@ResponseBody
+	@PostMapping("/toggleLike")
+	public int toggleLike(PolicyVO vo) {
+		return service.likeToggle(vo).getLike();
+	}
+	
+	@ResponseBody
+	@PostMapping("/getCommentList")
+	public List<PolicyCommentVO> getCommentList(Criteria cri){
+		log.info(cri);
+		return service.getCommentList(cri);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getBestCommentList", method=RequestMethod.POST)
+	public List<PolicyCommentVO> getBestCommentList(Criteria cri, Model model){
+		log.info(cri.toString());
+		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
+		return service.getBestCommentPage(cri);
+	
+	}
 	
 	
 }

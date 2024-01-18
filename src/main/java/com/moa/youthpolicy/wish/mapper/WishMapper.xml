@@ -22,4 +22,6 @@
 	    VALUES (#{wishUser}, #{wishPolicy})
 	</insert>
   
+
+  
   </mapper>

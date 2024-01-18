@@ -18,7 +18,7 @@
 <div class="container-xxl py-5_a">
     <div class="container">
         <div class="row g-4">
-            <div class="wow fadeInUp" data-wow-delay="0.1s">
+            <div class="wow fadeIn" data-wow-delay="0.1s">
                 <!-- table section -->
                 <form method="post" action="/suggest/modify">
 	                <div class="col-md-12">
@@ -76,7 +76,7 @@
 		                                    <tbody>
 		                                        <tr>
 		                                            <td colspan="4">
-	                                                    <textarea id="summernote" name="content" class="form-control">${vo.content}</textarea>
+	                                                    <textarea id="summernote" name="content" class="form-control"  style="font-family: 'LINESeedKR-Bd_light';">${vo.content}</textarea>
 		                                            </td>
 		                                        </tr>
 		                                    </tbody>

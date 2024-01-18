@@ -77,4 +77,14 @@ public class CommunityController {
 		return communityService.getCommentPage(cri);
 	
 	}
+	
+	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
+	@ResponseBody
+	@RequestMapping(value="/getBestCommentList", method=RequestMethod.POST)
+	public List<CommunityCommentVO> getBestCommentList(Criteria cri, Model model){
+		log.info(cri.toString());
+		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
+		return communityService.getBestCommentPage(cri);
+	
+	}
 }
