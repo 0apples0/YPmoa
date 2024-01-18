@@ -71,6 +71,7 @@ public class CommunityController {
 
 	
 	
+	
 	//private String realPath = "C:\summernote_image";
 	/*
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
