@@ -1,5 +1,6 @@
 package com.moa.youthpolicy.community.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.mapper.CommunityMapper;
+import com.moa.youthpolicy.policy.domain.PolicyVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -77,6 +79,12 @@ public class CommunityService implements BoardGenericService{
 		return result;
 	}	
 
+	public List<CommunityVO> getfiveboard() {
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		List<CommunityVO> list = communityMapper.getfiveboard();
+		return list;
+	}
+	
 	@Override
 	public <T> void writeBoard(T boardVO) {
 		// TODO Auto-generated method stub

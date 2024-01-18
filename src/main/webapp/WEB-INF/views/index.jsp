@@ -161,34 +161,10 @@
                             </div>
                             <div class="table_section padding_infor_info">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover index_table_b" style="text-align:left;">
+                                    <table class="table table-hover index_table_b" id="communityList" style="text-align:left;">
 
                                         <tbody>
-                                            <tr>
 
-                                                <td>와; 이번정책 도랏음 정부 미쳤음;</td>
-                                                <td class="list_date">2024-01-05</td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>미쳤따미쳤다 낮잠자고싶다</td>
-                                                <td class="list_date">2024-01-12</td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>임대주택 신청할때 이렇게 하세여 ㅋㅋ</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>임대주택 신청할때 이렇게 하세여 ㅋㅋ</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>임대주택 신청할때 이렇게 하세여 ㅋㅋ</td>
-                                                <td class="list_date">2024-04-05</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -275,6 +251,22 @@
                 console.log("Error: " + error);
             }
         });
+
+        // 꿀팁 게시판 가져오기
+        
+        $.ajax({
+            type: "POST",
+            url: "/community/get5community",
+            dataType: "json",
+            success: function(data) {
+                // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+                processCommunityData(data);
+                //console.log(data.tostring());
+            },
+            error: function(error) {
+                console.log("Error: " + error);
+            }
+        });
         
         // wish 가져오기
         $.ajax({
@@ -314,6 +306,35 @@
                         "<td class='list_date'>" + policy.crtDt + "</td>" +
                      "</tr>";
             $("#policy").append(row);
+        });
+
+        
+    }
+    
+    
+    function processCommunityData(data) {
+    	if (data.length === 0) {
+            $("#communityList").html("<tr><td colspan='3'>게시판이 비어있습니다.</td></tr>");
+            $("#communityList").closest('table').css('text-align', 'center');
+            return;
+        }
+        // 테이블에 데이터 추가용
+        $.each(data, function(index, community) {
+        	//community.regDate = formatDate(community.regDate);
+            // 각 데이터에 대한 텍스트 길이 제한 
+            var maxTextLength = 20; // 적절한 길이로 조절
+
+            // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
+			console.log("흑흑");
+            var communityTitleText = (community.title.length > maxTextLength) ? community.title.substring(0, maxTextLength) + '...' : community.title;
+
+            
+            var row = "<tr>" +
+                        "<td class='mini_board_bold'>" + community.title + "</td>" +
+                        "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='community/get?bno="+ community.bno +"' id='index_wish'>" + communityTitleText + "</a></td>" +
+                        "<td class='list_date'>" + community.regDate + "</td>" +
+                     "</tr>";
+            $("#communityList").append(row);
         });
 
         

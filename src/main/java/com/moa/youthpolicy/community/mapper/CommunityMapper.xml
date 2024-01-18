@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper	namespace="com.moa.youthpolicy.community.mapper.CommunityMapper">
+	<select id="getfiveboard" resultType="CommunityVO">
+		SELECT * FROM tipboard
+		ORDER BY bno
+		DESC LIMIT 5
+	</select>
+
 	<select id="select" resultType="CommunityVO">
 		select * from tipboard
 		ORDER BY bno DESC
