@@ -1,5 +1,9 @@
 package com.moa.youthpolicy.admin.mapper;
 
-public class AdminMapper {
+import com.moa.youthpolicy.common.Criteria;
+
+public interface AdminMapper {
+
+	public int getTotalCount(Criteria cri);
 
 }

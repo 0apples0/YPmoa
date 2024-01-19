@@ -5,6 +5,7 @@ import java.util.List;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
+import com.moa.youthpolicy.policy.domain.PolicyVO;
 
 public interface CommunityMapper {
 	public List<CommunityVO> select();
@@ -16,5 +17,8 @@ public interface CommunityMapper {
 	public int getCommentTotalCount(Integer key);
 	public List<CommunityCommentVO> getCommentListWithPaging(Criteria cri);
 	public List<CommunityCommentVO> getBestCommentList(Criteria cri);
+	public List<CommunityVO> getfiveboard();
+	public void writeComment(CommunityCommentVO comment);
+	public void deleteComment(Integer cno);
 
 }

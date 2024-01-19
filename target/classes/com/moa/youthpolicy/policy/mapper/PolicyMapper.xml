@@ -122,11 +122,25 @@
 	    VALUES (#{Email}, #{bno}, 'P')
 	</insert>
 	
-	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
+	<update id="modLike" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
 	    UPDATE policy SET `like` = #{like}
 	    WHERE no = #{no}
 	</update>
 	
+	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
+        UPDATE policy
+        SET aplyBgngDt = #{aplyBgngDt}, rgnSeNm = #{rgnSeNm},
+        policyCn = #{policyCn}, sprvsnInstNm = #{sprvsnInstNm}, policyTypeNm = #{policyTypeNm}, policyScl = #{policyScl},
+        aplyEndDt = #{aplyEndDt}, dtlLinkUrl = #{dtlLinkUrl}
+        WHERE no = #{no}   
+	</update>
+	
+	<update id="modp_Board" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
+	    UPDATE policyboard
+	    SET content = #{content}
+	    WHERE bno = #{bno}   
+	</update>
+
 	
 	
 	

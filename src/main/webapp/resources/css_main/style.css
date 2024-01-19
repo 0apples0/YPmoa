@@ -125,7 +125,10 @@
 
 /*** Header ***/
 
-
+#header_wish{
+	margin-right:0px !important;
+	color:black;
+}
 
 
 
@@ -373,7 +376,11 @@
     z-index: 1;
 }
 
-
+/*** index ***/
+#index_wish{
+	color: #666565;
+	font-family: 'LINESeedKR-Bd_light';
+}
 
 /*** myPage ***/
 
@@ -492,8 +499,8 @@
 }
 
 
-.policyGet_report{
-    cursor: pointer;
+.policyGet_btn{
+   margin-right:5px;
 }
 
 .policyGet_letter{

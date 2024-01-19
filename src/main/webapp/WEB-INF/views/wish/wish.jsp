@@ -243,7 +243,18 @@
         	
         	loadTableData();
         	
+    	   	$("#searchForm button[type='reset']").on("click", function (e) {
+    	        // 검색어 입력 필드 초기화
+    	        $("#searchForm input[name='keyword']").val('');
+    	        $("#searchForm select").val('');
+    	        e.preventDefault();
+    	    });
+        	
         	function formatDate(date) {
+        		
+        	    if (!date) {
+        	        return "상시모집";
+        	    }
         		  const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; 
         		  const formattedDate = new Date(date).toLocaleDateString('en-US', options); 
 
@@ -251,27 +262,7 @@
         		  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
 
         		}
-        	
-            // 체크박스 중복 방지
-            $('.custom-control-input').on('change', function () {
-                if ($(this).prop('checked')) {
-                    $('.custom-control-input').not(this).prop('disabled', true);
-                } else {
-                    $('.custom-control-input').prop('disabled', false);
-                }
-            });
-
-            // 리스트 위시 버튼
-            $(".toggleLink").click(function (e) {
-                e.preventDefault();
-
-                var $img = $("#" + $(this).data("target"));
-
-                $img.attr("src", function (_, oldSrc) {
-                    return oldSrc.includes("addWish.png") ? "resources/img/checkWish.png" : "resources/img/addWish.png";
-                });
-            });
-			
+    
             
             $(document).on("click", ".wish_alarm", function() {
 			    // 클릭된 버튼 요소 찾기
@@ -295,10 +286,30 @@
 			});	
 
 
+
+			let actionFrom = $("#actionFrom");
+			$(".paginate_button a").on("click", function(e) {
+				// 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+				e.preventDefault(); // 이벤트 초기화
+				//pageNum값을 사용자가 누른 a태그의 href속성값으로 변경
+				// 3페이지 선택시 pageNum = 3;
+				actionFrom.find("input[name='pageNum']").val($(this).attr("href"));
+				actionFrom.submit();
+			});
+			
+			let searchForm = $("#searchForm");
+			
+			$("#searchForm #searchBtn").on("click",function(e){
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+				searchForm.submit();
+			});
+			
+            
             function loadTableData() {
 		    	//$("#policyContainer").empty();
 		  	    $.ajax({
-		  	        url: "/wish/getList",
+		  	        url: "/wish/get",
 		  	        type: "POST",
 		  	        dataType: "json",
 		  	        data: {
@@ -315,7 +326,7 @@
 		 				console.log(data);
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
-		  	               policy.crtDt = formatDate(policy.crtDt);
+		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
 		  	               addPolicyToContainer(policy, index + 1);
 		  	            });
 		  	        },
@@ -345,7 +356,7 @@
 		              actionForm.submit();
 		          }
 		      });
-		  	}
+		  	} // ajax의 끝
 		 	  
             
             function addPolicyToContainer(policy, index) {
@@ -366,16 +377,16 @@
 	    	        '<div class="position-relative">' +
 	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
 	    	        '</div>' +
-	    	        '<div class="p-4 mt-2 policy_detail">' +
-	    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
+	    	        '<div class="p-4 mt-2">' +
+	    	        '<h5 class="fw-bold mb-4"><a href="/policy/get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
 	    	        		
 	    	        '<div class="d-flex">'+
 	    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
-	    	        '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
+	    	        '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + (policy.aplyEndDt) + '</small>' + // 날짜 부분만 표시
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
-	    	        '<button class="btn btn-primary">알림받기</button>' +
+	    	        '<button class="btn btn-primary wish_alarm">알림받기</button>' +
 	    	        '<button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';

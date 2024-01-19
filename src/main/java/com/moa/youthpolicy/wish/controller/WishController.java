@@ -42,24 +42,32 @@ public class WishController {
 		return list;
 	}
 	
-	
-	// 위시리스트 띄우기
-	@ResponseBody
-	@RequestMapping(value = "/getList", method = RequestMethod.POST)
-	public List<PolicyVO> getList(){
-		log.info("위시 가져오기");
-		return wishService.getWishList();
-	}
-
-	// 검색
-	@RequestMapping(value = { "/wish"}, method = { RequestMethod.GET })
+	// wish페이지 띄우기, 페이징 숫자 조절
+	@RequestMapping(value = {"/wish", "/wishPaging"}, method = { RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
 		cri.setAmount(8);
 		int total = wishService.getTotalAmount(cri); 
-		log.info(cri);
+		log.info("전체글"+ total);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
+		
 	}
+	
+	// 위시한 policy 리스트 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/get", method = RequestMethod.POST)
+	public List<PolicyVO> get(Criteria cri){
+		log.info("등록한 위시 가져오기");
+		log.info(cri);
+		return wishService.getWishList();
+	}
+
+	
+	
+
+	
+	
+	
 	
 	
 }

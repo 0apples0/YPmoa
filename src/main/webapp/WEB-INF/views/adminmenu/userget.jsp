@@ -116,6 +116,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <%-- 
                                             <tr>
                                                 <td>aaㅇㄹㅇㅇㄹaa@naver.com</td>
                                                 <td>동그란피자동그란피자</td>
@@ -142,7 +143,7 @@
                                                 </td>
                                                 <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td>
                                             </tr>
-                                           
+                                          --%> 
                                           
                                           
 
@@ -160,41 +161,92 @@
             </div>
         </div>
 
-        <nav aria-label="Page navigation" class="admin_page_nav wow fadeInUp">
+        <%-- 페이징 적용 --%>
+        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
-                <li class="policy_page-item_prev prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-left"
-                            aria-hidden="true"></i></a>
+
+			<%-- <<버튼: 10페이지 이전 --%>
+            <li class="paginate_button policy_page-item_prev prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-double-left"
+                           aria-hidden="true"></i></a>  
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            <%-- <버튼: 1페이지 이전 --%>
+            <li class="paginate_button policy_page-item prev">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum) >1}">
+               	
+                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>
+                    </c:when>
+                    <c:otherwise>
+                  <a class="page-link"><i class="fa fa-angle-left"
+                           aria-hidden="true"></i></a>  
+                    </c:otherwise>     
+               </c:choose>            
+            </li>            
+
+			<%-- 페이지 넘버 --%>
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+                    <a class="page-link" href="${num}">${num}</a>
                 </li>
-                <li class="policy_page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-left"
-                            aria-hidden="true"></i></a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
-                <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-right"
-                            aria-hidden="true"></i></a>
-                </li>
-                <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="fa fa-angle-double-right"
-                            aria-hidden="true"></i></a>
-                </li>
+            </c:forEach>
+
+			<%-- >버튼: 1페이지 이동 --%>
+            <li class="paginate_button policy_page-item next">
+               <c:choose>
+               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when> 
+               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+                  <a class="page-link"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>
+               </c:when>               
+               <c:otherwise>
+                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
+                           aria-hidden="true"></i></a>   
+               </c:otherwise>     
+              </c:choose>            
+            </li>              
+            
+            <%-- >>버튼: 10페이지 이동 --%>  
+            <li class="paginate_button page-item next">
+               <c:choose>
+               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+                  <a class="page-link"><i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>  
+
+               </c:when>
+               <c:otherwise>
+                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
+                           <i class="fa fa-angle-double-right"
+                           aria-hidden="true"></i></a>
+               </c:otherwise>     
+               </c:choose>            
+            </li> 
+            
+
             </ul>
         </nav>
+        <form id="actionForm" action="/adminmenu/userget" method="post">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		</form>
     </div>
+<script>
+$(document).ready(function () {
+	//loadTableData();
+	
+});
 
+</script>
 <%@include file="../includes/footer.jsp"%>

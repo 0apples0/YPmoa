@@ -23,7 +23,7 @@
 	                    <div class="white_shd_a full">
 	                        <div class="padding_infor_info">
 	                            <div class="row ">
-	                                <div class="" style="width: 15%;">
+	                                <div class="" style="width: 13%; margin-left:10px">
 	                                    <select class="form-select" id="region" name="region">
 	                                        <option selected value="" >지역</option>
 		                                    <option value="부천시">부천시</option>
@@ -31,16 +31,16 @@
 		                                    <option value="광명시">광명시</option>
 	                                    </select>
 	                                </div>
-	                                <div class="" style="width: 15%;">
+	                                <div class="" style="width: 13%; padding-left:0px">
 	                                    <select class="form-select" id="category" name="category">
-	                                        <option selected value="" >관심분야</option>
+	                                        <option selected value="" >분야</option>
 		                                    <option value="주거">주거</option>
 		                                    <option value="교육">교육</option>
 		                                    <option value="신혼부부">신혼부부</option>
 	                                    </select>
 	                                </div>
 	                                <input class="form-control" id="titleInput" name="title"
-	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 67%;"
+	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 70%;"
 	                                    placeholder="제목을 입력해주세요">
 	                                <input type="hidden" name="nick" value="${user.nick}">
 	                            </div>
