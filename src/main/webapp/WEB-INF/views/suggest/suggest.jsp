@@ -228,6 +228,8 @@
 
 <script>
 	
+	
+	
 	$(document).ready(function () {
 		
 		loadTableData();
@@ -311,6 +313,7 @@
 	    		  	policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 	    		  	selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
 	          	},
+	           
 	                success: function(data){
 	                	  
 	                    let boardTbody = $("#suggestBoardTable tbody");
@@ -319,39 +322,39 @@
 	                    //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
 	                    //for(let item of items) -> items == data, item ==board 역할
 	                    $.each(data, function(index, board){
-	                      
-	                       let regDate=new Date(board.regDate);
-	                       // numeric: 숫자, 2-digit: 두자리 숫자 형식
-	                       let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-	                       let formateDate = regDate.toLocaleString("ko-KR", options);
+	                        
+	                        let regDate=new Date(board.regDate);
+	                        // numeric: 숫자, 2-digit: 두자리 숫자 형식
+	                        let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" };
+	                        let formateDate = regDate.toLocaleString("ko-KR", options);
 
-	                       // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-	                       // 동적으로 데이터 처리
-	                       let row = $("<tr>");
-	                       row.append($("<td>").text(board.region));
-	                       row.append($("<td>").text(board.category));
-	                       let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
-	                       let titleTd = $("<td>").append(titleLink);
-	                       
-	                       row.append(titleTd);
-	                       row.append($("<td>").text(board.writer));
-	                       row.append($("<td>").text(formateDate));
-	                       
-	                        // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-	                        let likeTd = $("<td>");
-	                        let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-	                        let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+	                        // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+	                        // 동적으로 데이터 처리
+	                        let row = $("<tr>");
+	                        row.append($("<td>").text(board.region));
+	                        row.append($("<td>").text(board.category));
+	                        let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+	                        let titleTd = $("<td>").append(titleLink);
+	                        
+	                        row.append(titleTd);
+	                        row.append($("<td>").text(board.writer));
+	                        row.append($("<td>").text(formateDate));
+	                        
+	                         // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+	                         let likeTd = $("<td>");
+	                         let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+	                         let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
 
-	                        // 이미지와 span을 <td> 엘리먼트에 추가
-	                        likeTd.append(likeImg).append(likeSpan);
+	                         // 이미지와 span을 <td> 엘리먼트에 추가
+	                         likeTd.append(likeImg).append(likeSpan);
 
-	                        // 새로운 <td> 엘리먼트를 행에 추가
-	                        row.append(likeTd);
+	                         // 새로운 <td> 엘리먼트를 행에 추가
+	                         row.append(likeTd);
 
-	                       boardTbody.append(row);
-	                       console.log("pagemaker: "+${pageMaker.realEnd});
-	                    });
-	                 },
+	                        boardTbody.append(row);
+	                        console.log("pagemaker: "+${pageMaker.realEnd});
+	                     });
+	                  },
 	                 error: function(e){
 	                    console.log(e);
 	                 }

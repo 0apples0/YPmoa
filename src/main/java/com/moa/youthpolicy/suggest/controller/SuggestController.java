@@ -47,13 +47,12 @@ public class SuggestController {
 		log.info("작성자 누구: "+cri.getWriter());
 	}
 	
-	// 게시글 상세보기 및 수정 페이지 이동
+	// 게시글 상세보기 
 	// @GetMapping("/get")
 	@GetMapping({"/get","/modify"})
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
 		model.addAttribute("vo", suggestService.getBoard(bno));
 	}
-	
 	//글 작성
 	@GetMapping("/write")
 	public void getWrite() {}
@@ -110,6 +109,7 @@ public class SuggestController {
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<SuggestVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());	
+		log.info("Ajax 호출"+model);	
 		return suggestService.getPage(cri);
 		
 		
