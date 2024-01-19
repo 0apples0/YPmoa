@@ -167,10 +167,6 @@
 
 
 
-
-
-
-
 		</div>
 	</div>
         <%-- 페이징 적용 --%>
@@ -423,7 +419,7 @@
                         url: "/community/writeComment",
                         type: "POST",
                         data: {
-                            bno: "${vo.bno}",
+                            bno: $("#actionForm").find("input[name='bno']").val(),
                             content: commentContent,
                             writer: "${user.nick}"
                         },
@@ -432,7 +428,8 @@
                             // 댓글 작성 후 입력창 초기화
                             commentInput.val("");
                             // 댓글 목록을 다시 로드하는 함수 호출
-                            loadTableData();
+
+                            window.location.href = "/community/get?bno="+"${vo.bno}";
                         },
                         error: function (error) {
                             console.error("댓글 작성 실패", error);
@@ -442,10 +439,10 @@
             });
             
          
-         function bindCommentActionHandlers(row, cno) {
+         function bindCommentActionHandlers(row, cno, bno) {
         	  // 댓글 수정
         	  row.on("click", ".commuComment_modBtn", function(){
-        	        
+        		  event.preventDefault();
         	     	// 기존 내용 가져오기
         	        let content = row.find("td:eq(0)").text();
         	        let writer = row.find("td:eq(1)").text();
@@ -461,7 +458,7 @@
         	        row.append($("<td>").append(inputElement));
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                    let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "").text("수정 완료");
+                    let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
                     
                     let editCancelImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
@@ -476,20 +473,17 @@
                     	var isDifferentInput = (modifiedContent !== content); // 변경사항이 있는지 체크
 
                     	if(isInputNotEmpty && isDifferentInput){
-                        	
                         	 $.ajax({
                                  url: "/community/modifyComment",
                                  type: "POST",
                                  dataType: "json", 
                                  data: {
                                      cno: cno, // 수정 대상 댓글 번호
-                                     bno: ${vo.bno},
+                                     bno: bno,
                                      content: modifiedContent // 수정된 내용
                                  },
                                  success: function (response) {
                                      console.log("수정이 완료되었습니다.");
-                                     loadTableData();
-                                     loadBestCommentTableData();
                                  },
                                  error: function (error) {
                                      console.error("수정 중 오류가 발생했습니다.", error);
@@ -513,12 +507,11 @@
                     dataType: "json", 
                     data: {
                         cno: cno, // 삭제 대상 댓글 번호
-                        bno: ${vo.bno},
+                        bno: bno
                     },
                     success: function (response) {
+                    	alert(bno);
                         console.log("삭제가 완료되었습니다.");
-                        loadTableData();
-                        loadBestCommentTableData();
                     },
                     error: function (error) {
                         console.error("삭제 중 오류가 발생했습니다.", error);
@@ -569,13 +562,12 @@
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
+                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
                        
            
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                          //let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "").text("삭제");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                         
@@ -596,7 +588,7 @@
                          console.log("pagemaker: "+${pageMaker.realEnd});
                          
                          // 댓글 번호(cno)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
-                         bindCommentActionHandlers(row, board.cno);
+                         bindCommentActionHandlers(row, board.cno, board.bno);
                       });
                    },
                    error: function(e){
@@ -667,11 +659,10 @@
                               let reportTd = $("<td>");
                            	  
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                              let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
+                              let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                               
-                              //let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
                               let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "").text("삭제");
+                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                               let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
@@ -694,7 +685,7 @@
                              console.log("pagemaker: "+${pageMaker.realEnd});
                              
                              // 댓글 번호(cno)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
-                             bindCommentActionHandlers(row, board.cno);
+                             bindCommentActionHandlers(row, board.cno, board.bno);
                           });                   	  
                       }else{
                     	  $("#communityBestCommentDiv").hide();
