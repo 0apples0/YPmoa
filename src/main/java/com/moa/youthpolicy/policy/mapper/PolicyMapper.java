@@ -18,7 +18,9 @@ public interface PolicyMapper {
 	public LikeBoardVO getLike(LikeBoardVO vo);
 	public void delLike(LikeBoardVO like);
 	public void addLike(LikeBoardVO like);
+	public void modLike(PolicyVO _vo);
 	public void modBoard(PolicyVO _vo);
+	public void modp_Board(PolicyBoardVO _vo);
 	public List<PolicyCommentVO> getCommentListWithPaging(Criteria cri);
 	public int getCommentTotalCount(Integer no);
 	public List<PolicyCommentVO> getBestCommentList(Criteria cri);

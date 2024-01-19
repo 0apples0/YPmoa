@@ -42,9 +42,15 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> void modBoard(Class<T> board) {
+	public <T> void  modBoard(Class<T> board) {
 		// TODO Auto-generated method stub
-
+		
+	}
+	
+	public void modPolicy(PolicyVO vo) {
+		log.info("수정들어온 VO : " + vo);
+		mapper.modBoard(vo);
+		mapper.modp_Board(vo.getBoard());
 	}
 
 	/*
@@ -96,7 +102,7 @@ public class PolicyService implements BoardGenericService {
 				mapper.addLike(like);
 				_vo.setLike(_vo.getLike() + 1);
 			}
-			mapper.modBoard(_vo);
+			mapper.modLike(_vo);
 			return _vo;
 		}
 		return null;
@@ -114,13 +120,11 @@ public class PolicyService implements BoardGenericService {
 		vo.setBoard(mapper.getBoard(no));
 
 		if (AuthUtil.isLogin()) {
-			log.info("로그인");
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), no);
 			vo.setWishVO(wishMapper.getWish(wish));
 			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), no);
 			vo.setLikeVO(mapper.getLike(like));
 		}
-		log.info("getBoard : " + vo);
 		return vo;
 	}
 
@@ -128,10 +132,8 @@ public class PolicyService implements BoardGenericService {
 		if (AuthUtil.isLogin()) {
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
 			if(wishMapper.getWish(wish) != null) {
-				log.info("null이 아니다 : "+ wish);
 				wishMapper.delWish(wish);
 			}else {
-				log.info("null " + wish);
 				wishMapper.addWish(wish);
 			}
 		}
@@ -139,7 +141,6 @@ public class PolicyService implements BoardGenericService {
 
 	public List<PolicyCommentVO> getCommentList(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getCommentListWithPaging(cri);
-		log.info(result);
 		return result;
 	}
 

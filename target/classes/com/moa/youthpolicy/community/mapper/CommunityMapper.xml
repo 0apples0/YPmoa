@@ -124,5 +124,9 @@
 		(content, bno, writer)
 		values(#{content}, #{bno}, #{writer})
 	</insert>	
-	
+
+	<delete id="deleteComment" parameterType="Integer">
+		DELETE FROM tipboardcomments
+		WHERE cno=#{cno}
+	</delete>	
 </mapper>

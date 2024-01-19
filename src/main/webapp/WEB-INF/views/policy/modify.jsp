@@ -30,7 +30,7 @@
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
                     <!-- form태그시작 -->
-					<form>
+					<form method="POST" action="/policy/modpolicy" >
                         <!-- table section -->
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
@@ -56,7 +56,7 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                    	<textarea class="form-control">${policy.policyCn}</textarea>
+                                                    	<textarea class="form-control" name="policyCn">${policy.policyCn}</textarea>
                                                         
                                                     </td>
                                                 </tr>
@@ -64,43 +64,47 @@
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">시행 지역</th>
                                                     <td>
-                                                        <input class="form-control" value="${policy.rgnSeNm}">
+                                                        <input class="form-control" name="rgnSeNm" value="${policy.rgnSeNm}">
                                                     </td>
                                                     <!-- operInstNm -->
                                                     <th scope="row">주관 기관</th>
                                                     
                                                      <td>
-                                                        <input class="form-control" value="${policy.sprvsnInstNm}">
+                                                        <input class="form-control" name="sprvsnInstNm" value="${policy.sprvsnInstNm}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">정책 유형</th>
                                                   
                                                       <td>
-                                                        <input class="form-control" value="${policy.policyTypeNm}">
+                                                        <input class="form-control" name="policyTypeNm" value="${policy.policyTypeNm}">
                                                     </td>
                                                     <th scope="row">지원 규모</th>
                                                     <td>
-                                                        <input class="form-control" value="${policy.policyTypeNm}">
+                                                        <input class="form-control" name="policyTypeNm" value="${policy.policyScl}">
                                                     </td>
                                                 </tr>
 
 
                                                 <tr>
-                                                    <th scope="row">신청 시작 날짜</th>
-                                                    <td>  <input class="form-control" value="${policy.aplyBgngDt}"> 
-                                                    </td>
-                                                    <th scope="row">신청 마감 날짜</th>
-                                                    <td>
-                                                        <input class="form-control" value=" ${policy.aplyEndDt}">
-                                                    </td>
-                                                </tr>
+												    <th scope="row">신청 시작 날짜</th>
+												    <td> <input type="date" class="form-control" name="aplyBgngDt" value="${policy.aplyBgngDt}"> </td>
+												    <th scope="row">신청 마감 날짜</th>
+												    <td>
+												        <c:if test="${not empty policy.aplyEndDt}">
+												            <input type="date" class="form-control" name="aplyEndDt" value="${policy.aplyEndDt}">
+												        </c:if>
+												        <c:if test="${empty policy.aplyEndDt}">
+												            <input type="date" class="form-control" name="aplyEndDt" value="${policy.aplyEndDt}">
+												        </c:if>
+												    </td>
+												</tr>
                                                 <tr>
                                                     <!-- policySd -->
                                                     <th scope="row">연락처</th>
-                                                    <td><input class="form-control" value=" ${policy.policyScl}"></td>
+                                                    <td><input class="form-control" name="policyScl" value=" ${policy.policyScl}"></td>
                                                     <th scope="row">신청 사이트</th>
-                                                    <td><input class="form-control" value=" ${policy.dtlLinkUrl}">
+                                                    <td><input class="form-control" name="dtlLinkUrl" value=" ${policy.dtlLinkUrl}">
                                                     </td>
                                                 </tr>
                                            
@@ -143,11 +147,12 @@
 
                                                 <tr>
                                                     <td colspan="4">
-                                                            <textarea id="summernote" name="editordata"
+                                                            <textarea id="summernote" name="board.content"
                                                                 class="form-control">${policy.board.content}  </textarea>
-                                                       
+                                                      		<input type="hidden" name="board.bno" value="${policy.no }">
+                                                      		<input type="hidden" name="no" value="${policy.no }">
                                                     </td>
-
+												
                                                 </tr>
 
                                             </tbody>
@@ -155,7 +160,7 @@
                                         <br>
                                        
                                         <div>
-                                            <button class="btn btn-primary">수정하기</button>
+                                            <button onclick="submitForm()" class="btn btn-primary" >수정하기</button>
                                             <button class="btn btn-warning">취소</button> 
                                         </div>
                                      
@@ -182,6 +187,8 @@
 
 
         <script>
+        	
+        
             jQuery(document).ready(function ($) {
                 $('#summernote').summernote({
                     height: 500,                
@@ -260,7 +267,7 @@
 
 
 
-
+			
             // 정책 글쓰기 날짜 입력 함수
             function validateDateInput(input) {
                 var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
