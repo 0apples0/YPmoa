@@ -39,7 +39,7 @@ public class PageDTO {
 			System.out.println(realEnd);
 			
 			if(this.realEnd <= this.endPage) {
-
+				this.endPage = realEnd;
 			}
 			
 			this.prev = this.startPage > 1;
