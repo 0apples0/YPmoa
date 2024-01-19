@@ -41,6 +41,7 @@ public class PageDTO {
 			if(this.realEnd <= this.endPage) {
 				this.endPage = realEnd;
 			}
+			
 			this.prev = this.startPage > 1;
 			this.next = this.endPage < realEnd;
 			System.out.println("pageDTO next : "+next);	
