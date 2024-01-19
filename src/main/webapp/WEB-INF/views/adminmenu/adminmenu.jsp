@@ -32,7 +32,7 @@
               
                 <div class="row g-4" style="justify-content: center;">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="service-item rounded" href="">
+                        <a class="service-item rounded" href="/adminmenu/userget">
                             <div class="service-icon bg-transparent border rounded p-1">
                                 <div class="w-100 h-100 border rounded d-flex align-items-center_admin justify-content-center">
                                     <i class="fa fa-user fa-2x text-primary"></i>
