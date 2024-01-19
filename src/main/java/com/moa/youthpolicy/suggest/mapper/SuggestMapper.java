@@ -14,4 +14,5 @@ public interface SuggestMapper {
 	public SuggestVO getBoard(Integer key);
 	public int update(SuggestVO board);
 	public int modifyBoard(SuggestVO suggestVO);
+	public int deleteBoard(Integer bno);
 }

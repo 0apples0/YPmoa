@@ -95,16 +95,24 @@ public class SuggestController {
 	}
 	
 	//글 삭제
-	// @PostMapping("/remove")
-	
+	@PostMapping("/remove")
+	public String removePage(@RequestParam("bno") Integer bno, RedirectAttributes rttr) {
+	    if (suggestService.removeBoard(bno)) {
+	        rttr.addFlashAttribute("result", "success");
+	    }
+
+	    return "redirect:/suggest/suggest";
+	}
 	
 	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<SuggestVO> getList(Criteria cri, Model model){
-		log.info("Ajax 호출"+cri.toString());
+		log.info("Ajax 호출"+cri.toString());	
 		return suggestService.getPage(cri);
+		
+		
 	}
 
 }

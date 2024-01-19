@@ -60,11 +60,7 @@
 					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-<<<<<<< HEAD
 											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-=======
-											<button id="deleteBtn" class="btn btn-warning commuGet_deleteBtn">삭제하기</button>
->>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 										</c:when>
 					 					<c:otherwise>
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
@@ -132,8 +128,28 @@
 </div>
 <!-- Modal End-->
 
+<!-- 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 확인 팝업 모달 끝-->
 <script>
     $(document).ready(function () {
+    	
         // 좋아요 버튼 클릭 시 이미지 변경
         $(".policyGet_likeBtn").click(function () {
             var currentSrc = $(".policyGet_likeBtn").attr("src");
@@ -192,7 +208,30 @@
 		});
         
 	    // 삭제 버튼
+        // 삭제 버튼 클릭 시 확인 팝업 표시
+        $("#deleteBtn").on("click", function () {
+            $("#confirmDeleteModal").modal("show");
+        });
 
+        // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
+        $("#confirmDeleteBtn").on("click", function () {
+            // 여기에 삭제 요청을 보내는 코드 추가
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/suggest/remove",
+                data: {
+                    bno: ${vo.bno}
+                },
+                success: function (data) {
+                    // 삭제 성공 시에 처리할 내용 추가
+                    self.location = "/suggest/suggest";
+                },
+                error: function (error) {
+                    // 삭제 실패 시에 처리할 내용 추가
+                    console.error("삭제 실패: " + error);
+                }
+            });
+        });
         
     }); // document.ready함수
 </script>
