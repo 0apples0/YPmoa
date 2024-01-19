@@ -87,6 +87,13 @@ public class CommunityController {
 	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		communityService.delCommunityComment(cno);
 		return "redirect:/community/get?bno="+bno;
+	}
+	
+	// 댓글 수정
+	@RequestMapping(value="/modifyComment", method={RequestMethod.GET, RequestMethod.POST})
+	public String modCommunityComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment){
+		communityService.modCommunityComment(comment);
+		return "redirect:/community/get?bno="+bno;
 	}	
 
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
