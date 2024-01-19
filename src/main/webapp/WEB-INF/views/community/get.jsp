@@ -488,6 +488,8 @@
                                  },
                                  success: function (response) {
                                      console.log("수정이 완료되었습니다.");
+                                     loadTableData();
+                                     loadBestCommentTableData();
                                  },
                                  error: function (error) {
                                      console.error("수정 중 오류가 발생했습니다.", error);
@@ -515,6 +517,8 @@
                     },
                     success: function (response) {
                         console.log("삭제가 완료되었습니다.");
+                        loadTableData();
+                        loadBestCommentTableData();
                     },
                     error: function (error) {
                         console.error("삭제 중 오류가 발생했습니다.", error);
