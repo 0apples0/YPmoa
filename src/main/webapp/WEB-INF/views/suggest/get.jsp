@@ -151,20 +151,43 @@
     $(document).ready(function () {
     	
         // 좋아요 버튼 클릭 시 이미지 변경
-        $(".policyGet_likeBtn").click(function () {
-            var currentSrc = $(".policyGet_likeBtn").attr("src");
-            var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-            var loggedInUser = "${user}"; // 서버에서 받아온 사용자 정보
-            // 로그인 했을 때만 좋아요 버튼 누를 수 있음
-            if(loggedInUser !== "") {
-                $(".policyGet_likeBtn").attr("src", newSrc);
-                // 추가: 좋아요 버튼 클릭 시 서버에 데이터 전송
-                // ...
-            } else {
-                alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
-                window.location.href = "/user/login";
-            }
-        });
+		$(".policyGet_likeBtn").click(function () {
+		    var currentSrc = $(".policyGet_likeBtn").attr("src");
+		    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
+		        "${pageContext.request.contextPath}/resources/img/checkLike.png" :
+		        "${pageContext.request.contextPath}/resources/img/addLike.png";
+		
+	        var userString = '${user}';
+	        var emailStartIndex = userString.indexOf('Email=') + 'Email='.length;
+	        var emailEndIndex = userString.indexOf(',', emailStartIndex) !== -1 ? userString.indexOf(',', emailStartIndex) : userString.indexOf(')', emailStartIndex);
+	        var userEmail = userString.substring(emailStartIndex, emailEndIndex);
+		
+		    // 로그인 했을 때만 좋아요 버튼 누를 수 있음
+		    if (userEmail !== "") {
+		    	
+		    	
+		        $(".policyGet_likeBtn").attr("src", newSrc);
+		
+		        // 좋아요 버튼 클릭 시 서버에 데이터 전송
+		        $.ajax({
+		            type: "POST",
+		            url: "${pageContext.request.contextPath}/suggest/toggleLike",
+		            data: {
+		                bno: ${vo.bno},
+		                Email: userEmail
+		            },
+		            success: function (data) {
+		                window.location.reload(); // 성공 시 페이지 새로고침
+		            },
+		            error: function (error) {
+		                console.error("좋아요 토글 실패: " + JSON.stringify(error));
+		            }
+		        });
+		    } else {
+		        alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+		        window.location.href = "/user/login";
+		    }
+		});
 
         // 게시글 신고 모달창
         $(".commuGet_postReport").click(function(event){

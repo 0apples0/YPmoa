@@ -96,4 +96,19 @@
 		SELECT * FROM suggestedboard WHERE bno=#{bno}
 	</select>
 
+    <!-- 좋아요 추가 -->
+    <insert id="addLike" parameterType="Map">
+        INSERT INTO like_suggestboard (bno, Email) VALUES (#{bno}, #{Email})
+    </insert>
+    
+    <!-- 좋아요 삭제 -->
+    <delete id="removeLike" parameterType="Map">
+        DELETE FROM like_suggestboard WHERE bno = #{bno} AND Email = #{Email}
+    </delete>
+    
+    <!-- 사용자의 특정 게시글 좋아요 여부 확인 -->
+    <select id="checkUserLike" resultType="int" parameterType="Map">
+        SELECT COUNT(*) FROM like_suggestboard WHERE bno = #{bno} AND Email = #{Email}
+    </select>
+    
 </mapper>

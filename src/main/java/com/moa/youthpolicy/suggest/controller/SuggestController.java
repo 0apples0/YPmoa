@@ -114,8 +114,24 @@ public class SuggestController {
 		
 		
 	}
-	
-	// 글 좋아요
 
+	// 글 좋아요
+	@PostMapping("/toggleLike")
+	@ResponseBody
+	public int toggleLike(@RequestParam("bno") int bno, HttpSession session) {
+	    UserVO user = (UserVO) session.getAttribute("user");
+
+	    if (user == null) {
+	        return -1; // 로그인되지 않은 경우 -1 반환
+	    }
+
+	    SuggestVO suggestVO = new SuggestVO();
+	    suggestVO.setBno(bno);
+
+	    suggestService.toggleLike(suggestVO);
+
+	    // 좋아요 여부를 반환
+	    return suggestService.checkUserLike(bno, user.getEmail());
+	}
 
 }
