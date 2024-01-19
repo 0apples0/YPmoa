@@ -22,10 +22,17 @@
 	    VALUES (#{wishUser}, #{wishPolicy})
 	</insert>
   
-	<select id="wishList" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
-	   SELECT policy.* FROM policy
-	   
+	<select id="getWishList" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT policy.*
+		FROM policy
 		JOIN wish ON policy.no = wish.wishPolicy
+		ORDER BY 
+		  CASE 
+		    WHEN policy.aplyEndDt IS NOT NULL THEN policy.aplyEndDt 
+		    ELSE '9999-12-31' 
+		  END DESC, 
+		  policy.no ASC
+		LIMIT #{start}, #{amount};
 		
 	</select>
 
@@ -54,7 +61,7 @@
 		            </when>
 		            <when test='type == "C"'>
 		                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
-		            </when>
+		            </when>	
 		        </choose>
 		    </if>
 		    <if test="rgnSeNm != null and rgnSeNm != ''">
@@ -81,5 +88,7 @@
 		    LIMIT #{start}, #{amount}
 	</select>
 	
+	
+
   
   </mapper>

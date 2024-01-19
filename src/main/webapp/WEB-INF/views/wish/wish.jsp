@@ -217,7 +217,7 @@
 
             </ul>
         </nav>
-        <form id="actionFrom" action="/policy/policy" method="post">
+        <form id="actionForm" action="/wish/wish" method="post">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 			<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
@@ -227,7 +227,7 @@
 			<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
 		</form>
 		
-		<form id="usernickForm" action="/community/community" method="get">
+		<form id="usernickForm" action="wish/wish" method="get">
            <input type="hidden" name="writer" value="${user.nick}">
         </form>
     </div>
@@ -360,13 +360,7 @@
 		 	  
             
             function addPolicyToContainer(policy, index) {
-	    	 	var addWishImagePath = "addWish.png";
-	    	    var checkWishImagePath = "checkWish.png";
-
-	    	    // ...
-
-	    	    // 이미지 경로 사용
-	    	    var imagePath = policy.wishVO == null ? addWishImagePath : checkWishImagePath;
+	    	
 	    	    
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
@@ -387,7 +381,7 @@
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
 	    	        '<button class="btn btn-primary wish_alarm">알림받기</button>' +
-	    	        '<button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
+	    	        '<button class="btn btn-primary" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
 
@@ -397,8 +391,41 @@
 	    	   
 	    	    $("#wishContainer").append(policyHtml);
 	    	}
-     
-            
+     	
+		 
+		  	
+		  	// 위시 삭제
+            $(document).on("click", "#delBtn", function(e) {
+                e.preventDefault();
+                userNick = $("#usernickForm input[name='writer']").val();
+                if(userNick == null || userNick==""){
+                    alert("로그인 필요");
+                    return;
+                }
+                var no = $(this).closest('.col-lg-3').data('no');
+                // 확인을 눌렀을 때
+                if (confirm("위시리스트에서 삭제하시겠습니까?")) {
+                    $.ajax({
+                        url: "/wish/del",
+                        type: "POST",
+                        data: { no: no },
+                        success: function () {
+                            alert("삭제되었습니다.");
+                        },
+                        error: function (e) {
+                            alert("삭제 실패");
+                            console.log(e);
+                        }
+                    });
+                } else {
+                    // 취소를 눌렀을 때
+                    alert("취소되었습니다.");
+                }
+            });
+
+        
+		  	
+		  	
             
         }); // document.ready함수 끝
 

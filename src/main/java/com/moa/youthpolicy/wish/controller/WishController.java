@@ -59,7 +59,23 @@ public class WishController {
 	public List<PolicyVO> get(Criteria cri){
 		log.info("등록한 위시 가져오기");
 		log.info(cri);
-		return wishService.getWishList();
+		return wishService.getPage(cri);
+	}
+
+	
+	// 위시 삭제
+	@ResponseBody
+	@RequestMapping(value = "/del", method = RequestMethod.POST)
+	public String del(PolicyVO vo) {
+	    // 실제 삭제 작업
+	    wishService.delWish(vo);
+	    log.info("삭제완료");
+
+	    // 삭제 후의 데이터를 모델에 추가하고 싶은 경우에는 원하는 데이터를 모델에 추가
+	    // model.addAttribute("key", value);
+
+	    // 새로운 페이지의 뷰 이름을 반환
+	    return "wish/wish"; // 예시로 "wish/wish"를 반환하였습니다.
 	}
 
 	

@@ -10,6 +10,7 @@ import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardInterface;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.policy.mapper.PolicyMapper;
 import com.moa.youthpolicy.wish.domain.WishVO;
 import com.moa.youthpolicy.wish.mapper.WishMapper;
 
@@ -22,6 +23,8 @@ public class WishService implements BoardInterface {
 	@Autowired
 	WishMapper mapper;
 
+	@Autowired
+	PolicyMapper policyMapper;
 	@Override
 	public <T> void delBoard(Class<T> board) {
 		// TODO Auto-generated method stub
@@ -72,6 +75,22 @@ public class WishService implements BoardInterface {
 		List<PolicyVO> list = mapper.wishList();
 		return list;
 	}
+
+	public void delWish(PolicyVO vo) {
+		if (AuthUtil.isLogin()) {
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
+			mapper.delWish(wish);
+			log.info("삭제: "+ wish);
+			log.info("삭제중");
+		}else {
+			log.info("삭제실패");
+		}
+		
+	}
+
+
+	
+
 
 
 }
