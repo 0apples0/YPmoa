@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.moa.youthpolicy.common.Criteria;
@@ -78,22 +79,21 @@ public class CommunityController {
 
 	//댓글 작성
 	@ResponseBody
-	@PostMapping("/writeComment")
+	@RequestMapping(value="/writeComment",method={RequestMethod.GET, RequestMethod.POST})
 	public void addComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment) {
 		communityService.writeComment(comment);	
 	}	
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
-	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		communityService.delCommunityComment(cno);
-		return "redirect:/community/get?bno="+bno;
 	}
 	
 	// 댓글 수정
+	@ResponseBody
 	@RequestMapping(value="/modifyComment", method={RequestMethod.GET, RequestMethod.POST})
-	public String modCommunityComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment){
+	public void modCommunityComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment){
 		communityService.modCommunityComment(comment);
-		return "redirect:/community/get?bno="+bno;
 	}	
 
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
@@ -101,7 +101,6 @@ public class CommunityController {
 	@RequestMapping(value="/getList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<CommunityVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());
-
 		return communityService.getPage(cri);
 	}
 	
