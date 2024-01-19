@@ -149,6 +149,7 @@
 <!-- 확인 팝업 모달 끝-->
 <script>
     $(document).ready(function () {
+    	
         // 좋아요 버튼 클릭 시 이미지 변경
         $(".policyGet_likeBtn").click(function () {
             var currentSrc = $(".policyGet_likeBtn").attr("src");

@@ -109,8 +109,10 @@ public class SuggestController {
 	@ResponseBody
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<SuggestVO> getList(Criteria cri, Model model){
-		log.info("Ajax 호출"+cri.toString());
+		log.info("Ajax 호출"+cri.toString());	
 		return suggestService.getPage(cri);
+		
+		
 	}
 
 }

@@ -91,7 +91,7 @@
             var region = $('#region').val();
             var category = $('#category').val();
             var title = $('#titleInput').val();
-            var content = $('#summernote').val();
+            var content = $('#summernote').summernote('code'); 
 
             if (region === "") {
                 alert("지역을 선택해주세요.");
@@ -102,7 +102,7 @@
             }else if(title === ""){
                 alert("제목을 작성해주세요.");
                 event.preventDefault();
-            }else if(content === ""){
+            }else if(content === "<p><br></p>" || content.trim() === "" || content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span><br></p>'){
                 alert("내용을 작성해주세요.");
                 event.preventDefault();
             }
