@@ -440,6 +440,89 @@
                     });
                 }
             });
+            
+         
+         function bindCommentActionHandlers(row, cno) {
+        	  // 댓글 수정
+        	  row.on("click", ".commuComment_modBtn", function(){
+        	        
+        	     	// 기존 내용 가져오기
+        	        let content = row.find("td:eq(0)").text();
+        	        let writer = row.find("td:eq(1)").text();
+        	        let regDate = row.find("td:eq(2)").text();
+        	     	
+        	     	let totalWidth = 0;
+        	     	row.find("td:eq(1), td:eq(2), td:eq(3)").each(function(){
+        	     		totalWidth += $(this).width();
+        	     	});
+        	        // content, writer, regDate 부분 input 태그로 교체(input 태그 기본값은 기존에 작성된 댓글 내용으로 지정)
+        	        let inputElement = $("<input>").addClass("commuComment_modInput").attr("type", "text").css("width", totalWidth+"px").val(content);
+        	        row.find("td").remove();
+        	        row.append($("<td>").append(inputElement));
+
+        	        
+                    let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                    let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "").text("수정 완료");
+                    
+                    let editCancelImg = $("<i>").addClass("fa fa-pen text-primary");
+                    let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
+                    
+                    row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink));
+                    
+                    // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
+                    $(".commuComment_modDoneBtn").on("click", function(){
+                    	let modifiedContent = row.find(".commuComment_modInput").val();
+                    	
+                    	var isInputNotEmpty = modifiedContent.trim().length > 0; // 공백 제거 후 빈칸인지 체크
+                    	var isDifferentInput = (modifiedContent !== content); // 변경사항이 있는지 체크
+
+                    	if(isInputNotEmpty && isDifferentInput){
+                        	
+                        	 $.ajax({
+                                 url: "/community/modifyComment",
+                                 type: "POST",
+                                 dataType: "json", 
+                                 data: {
+                                     cno: cno, // 수정 대상 댓글 번호
+                                     bno: ${vo.bno},
+                                     content: modifiedContent // 수정된 내용
+                                 },
+                                 success: function (response) {
+                                     console.log("수정이 완료되었습니다.");
+                                 },
+                                 error: function (error) {
+                                     console.error("수정 중 오류가 발생했습니다.", error);
+                                 }
+                             });                    		
+                    	}else{ // 수정할 내용이 없거나, 공백일 경우 수정완료 버튼이 눌리지 않도록 설정
+                    		event.preventDefault();
+                    	}
+                    	
+
+                    	
+                    });
+                    
+        	  });
+        	  
+        	// 댓글 삭제
+        	row.on("click", ".commuComment_deleteBtn", function(){
+        		$.ajax({
+                    url: "/community/deleteComment",
+                    type: "POST",
+                    dataType: "json", 
+                    data: {
+                        cno: cno, // 삭제 대상 댓글 번호
+                        bno: ${vo.bno},
+                    },
+                    success: function (response) {
+                        console.log("삭제가 완료되었습니다.");
+                    },
+                    error: function (error) {
+                        console.error("삭제 중 오류가 발생했습니다.", error);
+                    }
+                });  
+        	});
+         }
            
             
             function loadTableData(){
@@ -483,11 +566,13 @@
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                          let editLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("수정");
+                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                           
+                       
+           
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
-                          
+                          //let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "").text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                         
@@ -506,6 +591,9 @@
                           
                          boardTbody.append(row);
                          console.log("pagemaker: "+${pageMaker.realEnd});
+                         
+                         // 댓글 번호(cno)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
+                         bindCommentActionHandlers(row, board.cno);
                       });
                    },
                    error: function(e){
@@ -576,10 +664,11 @@
                               let reportTd = $("<td>");
                            	  
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                              let editLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("수정");
+                              let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                               
+                              //let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
                               let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
+                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "").text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                               let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
@@ -600,6 +689,9 @@
                               
                              boardTbody.append(row);
                              console.log("pagemaker: "+${pageMaker.realEnd});
+                             
+                             // 댓글 번호(cno)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
+                             bindCommentActionHandlers(row, board.cno);
                           });                   	  
                       }else{
                     	  $("#communityBestCommentDiv").hide();

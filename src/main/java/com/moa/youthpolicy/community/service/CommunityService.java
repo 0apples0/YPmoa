@@ -90,9 +90,13 @@ public class CommunityService implements BoardGenericService{
 	public void writeComment(CommunityCommentVO comment) {
 		communityMapper.writeComment(comment);
 	}
-	//댓글 삭제
+	// 댓글 삭제
 	public void delCommunityComment(Integer cno) {
 		communityMapper.deleteComment(cno);		
+	}
+	// 댓글 수정
+	public void modCommunityComment(CommunityCommentVO comment) {
+		communityMapper.modComment(comment);
 	}
 	@Override
 	public <T> void writeBoard(T boardVO) {
@@ -111,6 +115,8 @@ public class CommunityService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 
