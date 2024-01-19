@@ -459,7 +459,6 @@
         	        let inputElement = $("<input>").addClass("commuComment_modInput").attr("type", "text").css("width", totalWidth+"px").val(content);
         	        row.find("td").remove();
         	        row.append($("<td>").append(inputElement));
-
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "").text("수정 완료");
