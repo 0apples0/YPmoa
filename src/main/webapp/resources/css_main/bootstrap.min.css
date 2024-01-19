@@ -2690,11 +2690,7 @@ textarea.form-control-lg {
   filter: brightness(90%)
 }
 
-.form-check-input:focus {
-  border-color: #ffd08b;
-  outline: 0;
-  box-shadow: 0 0 0 .25rem rgba(254, 161, 22, 0.25)
-}
+
 
 .form-check-input:checked {
   background-color: #16a9fe;
@@ -3637,7 +3633,7 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary:hover {
-  color: #000;
+  color: white;
   background-color: #16a9fe;
   border-color: #16a9fe
 }

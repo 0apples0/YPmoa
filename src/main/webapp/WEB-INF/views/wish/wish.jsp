@@ -131,10 +131,25 @@
 
 
 <div class="container-xxl py-5" >
+<div class="container" style="height:70px;">
+<div id="policy_checkbox" style="float:left;">
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="form-check-input"
+					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
+					id="customCheck"> <label class="custom-control-label"
+					for="customCheck">알림받은 정책보기</label>
+			</div>
+
+            </div>
+
+</div>
+
+
         <div class="container">
-        <!-- 테이블 나올 곳 -->
+      	
+       
             <div class="row g-4" id="wishContainer"> 
- 
+  				<!-- 값 들어갈 곳 -->
             </div> <!-- wishContainer 끝 -->
         </div>
         
@@ -264,26 +279,29 @@
         		}
     
             
-            $(document).on("click", ".wish_alarm", function() {
-			    // 클릭된 버튼 요소 찾기
-			    var button = $(this);
-			
-			    // 버튼에 설정된 데이터 속성에서 현재 상태 가져오기
-			    var currentStatus = button.data("status");
-			
-			    // 토글 처리
-			    if (currentStatus === "알림받기" || currentStatus === undefined) {
-			        // 알림받기 상태일 때 또는 초기 상태일 때
-			        button.text("알림해제");
-			        button.data("status", "알림해제");
-			        // 알림받기 로직 추가
-			    } else {
-			        // 알림해제 상태일 때
-			        button.text("알림받기");
-			        button.data("status", "알림받기");
-			        // 알림해제 로직 추가
-			    }
-			});	
+        	$(document).on("click", ".wish_alarm", function() {
+        	    // 클릭된 버튼 요소 찾기
+        	    var button = $(this);
+        	    
+        	    // 버튼에 설정된 데이터 속성에서 현재 상태 가져오기
+        	    var currentStatus = button.data("status");
+        	    
+        	    // 토글 처리
+        	    if (currentStatus === "알림받기" || currentStatus === undefined) {
+        	        // 알림받기 상태일 때 또는 초기 상태일 때
+        	        button.text("알림해제");
+        	        button.removeClass("btn-outline-primary").addClass("btn-primary");
+        	        button.data("status", "알림해제");
+        	        // 알림받기 로직 추가
+        	    } else {
+        	        // 알림해제 상태일 때
+        	        button.text("알림받기");
+        	        button.removeClass("btn-primary").addClass("btn-outline-primary");
+        	        button.data("status", "알림받기");
+        	        // 알림해제 로직 추가
+        	    }
+        	});
+
 
 
 
@@ -366,7 +384,7 @@
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 	    	
 
-	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
+	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy-no="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
 	    	        '<div class="position-relative">' +
 	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
@@ -380,8 +398,8 @@
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
-	    	        '<button class="btn btn-primary wish_alarm">알림받기</button>' +
-	    	        '<button class="btn btn-primary" id="delBtn" style="margin: 10px;">삭제</button>' +
+	    	        '<button class="btn btn-outline-primary wish_alarm">알림받기</button>' +
+	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
 
@@ -394,23 +412,28 @@
      	
 		 
 		  	
-		  	// 위시 삭제
+         	// 위시 삭제
             $(document).on("click", "#delBtn", function(e) {
                 e.preventDefault();
                 userNick = $("#usernickForm input[name='writer']").val();
-                if(userNick == null || userNick==""){
+                if (userNick == null || userNick == "") {
                     alert("로그인 필요");
                     return;
                 }
-                var no = $(this).closest('.col-lg-3').data('no');
+
+                var wishPolicy = $(this).closest('.col-lg-3').data('wish-policy-no');
+
+
+                console.log("위시jsp: " + wishPolicy);
                 // 확인을 눌렀을 때
                 if (confirm("위시리스트에서 삭제하시겠습니까?")) {
                     $.ajax({
                         url: "/wish/del",
                         type: "POST",
-                        data: { no: no },
+                        data: { wishPolicy: wishPolicy },
                         success: function () {
                             alert("삭제되었습니다.");
+                            location.reload(); // 페이지 리로딩
                         },
                         error: function (e) {
                             alert("삭제 실패");
@@ -422,6 +445,7 @@
                     alert("취소되었습니다.");
                 }
             });
+
 
         
 		  	

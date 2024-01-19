@@ -89,6 +89,10 @@
 	</select>
 	
 	
+<delete id="delWish2" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+    DELETE FROM wish
+    WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
+</delete>
 
   
   </mapper>
