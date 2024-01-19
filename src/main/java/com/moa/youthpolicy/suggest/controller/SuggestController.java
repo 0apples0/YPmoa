@@ -133,5 +133,18 @@ public class SuggestController {
 	    // 좋아요 여부를 반환
 	    return suggestService.checkUserLike(bno, user.getEmail());
 	}
+	// 좋아요 확인
+    @GetMapping("/checkUserLike")
+    public int checkUserLike(@RequestParam("bno") int bno, HttpSession session) {
+        UserVO user = (UserVO) session.getAttribute("user");
+
+        if (user == null) {
+            // 사용자가 로그인하지 않았을 경우, 좋아요하지 않았음을 나타내는 값 반환 (예: -1)
+            return -1;
+        }
+
+        String userEmail = user.getEmail();
+        return suggestService.checkUserLike(bno, userEmail);
+    }
 
 }

@@ -90,6 +90,7 @@ public class SuggestService implements BoardGenericService{
 	        suggestMapper.removeLike(suggestVO.getBno(), userEmail);
 	    }
 	}	
+	
 
 	public int checkUserLike(int bno, String userEmail) {
 	    return suggestMapper.checkUserLike(bno, userEmail);

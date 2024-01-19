@@ -149,8 +149,7 @@
 <!-- 확인 팝업 모달 끝-->
 <script>
     $(document).ready(function () {
-    	
-        // 좋아요 버튼 클릭 시 이미지 변경
+    	 // 좋아요 버튼 클릭 시 이미지 변경
 		$(".policyGet_likeBtn").click(function () {
 		    var currentSrc = $(".policyGet_likeBtn").attr("src");
 		    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
@@ -188,8 +187,8 @@
 		        window.location.href = "/user/login";
 		    }
 		});
-
-        // 게시글 신고 모달창
+    
+    // 게시글 신고 모달창
         $(".commuGet_postReport").click(function(event){
             $("#modalCenter").modal("show");
         });

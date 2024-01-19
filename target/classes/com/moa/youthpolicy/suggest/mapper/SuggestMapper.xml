@@ -111,4 +111,6 @@
         SELECT COUNT(*) FROM like_suggestboard WHERE bno = #{bno} AND Email = #{Email}
     </select>
     
+    
+    
 </mapper>
