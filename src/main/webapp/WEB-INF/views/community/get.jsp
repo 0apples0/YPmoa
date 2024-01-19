@@ -113,7 +113,7 @@
 					<input type="text" name="AddcommentInput" id="AddcommentInput"
 						class="form-control datetimepicker-input font_light commu_cmtInput"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-					<button class="btn btn-primary commu_commentBtn" disabled
+					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn" disabled
 						style="margin-left: 10px;">댓글 작성</button>
 				</div>
 				
@@ -303,6 +303,7 @@
                     </div>
                 </div>
             </div>
+            
         <form id="actionForm" action="/community/get" method="post">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -395,12 +396,27 @@
 
                 submitButton.prop("disabled", !isInputNotEmpty);
             });
+            
+            // 비로그인 시 댓글 작성 불가
+            $("#AddcommentInput").on("click", function(){
+            	if("${user.nick}"==null || "${user.nick}"==""){
+            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		window.location.href = "/user/login";
+            	}
+            });
+            $("#AddcommentBtn").on("click", function(){
+            	if("${user.nick}"==null || "${user.nick}"==""){
+            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		window.location.href = "/user/login";
+            	}
+            });           
+            
 
             // 댓글 작성
             $(".commu_commentBtn").on("click", function () {
-                var commentInput = $("#AddcommentInput").val();
+            	
+                var commentInput = $("#AddcommentInput");
                 var commentContent = commentInput.val().trim();
-				console.log("인풋값: "+ commentInput);
                 if (commentInput.length > 0) {
                     
                     $.ajax({
@@ -408,15 +424,13 @@
                         type: "POST",
                         data: {
                             bno: "${vo.bno}",
-                            content: commentContent
+                            content: commentContent,
+                            writer: "${user.nick}"
                         },
                         success: function (data) {
-                            
                             console.log("댓글 작성 성공", data);
-
                             // 댓글 작성 후 입력창 초기화
                             commentInput.val("");
-
                             // 댓글 목록을 다시 로드하는 함수 호출
                             loadTableData();
                         },
@@ -426,6 +440,8 @@
                     });
                 }
             });
+           
+            
             function loadTableData(){
                 $.ajax({
                    url: "/community/getCommentList",// 요청할 서버 uri
@@ -466,11 +482,23 @@
                           
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
-                          						.css("width", "20px");
+                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                          let editLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("수정");
+                          
+                          let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
+                          
+                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                        
                           // 이미지와 link를 <td> 엘리먼트에 추가
-                          reportTd.append(reportImg).append(reportLink);
+                          // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
+                          // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
+                          if("${user.nick}"!=null && board.writer === "${user.nick}"){
+                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                          }else{
+                        	  reportTd.append(reportImg, reportLink);
+                          }
 
                           // 새로운 <td> 엘리먼트를 행에 추가
                           row.append(likeTd);
@@ -548,19 +576,23 @@
                               let reportTd = $("<td>");
                            	  
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                              let editLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("수정");
+                              let editLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("수정");
                               
                               let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                              let deleteLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("삭제");
+                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/deleteComment?bno="+board.bno+"&cno="+board.cno).text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                              let reportLink = $("<a>").addClass("policyGet_btn").attr("href", "#").text("신고");
-
+                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                             
-
-                             
                               // 이미지와 link를 <td> 엘리먼트에 추가
-                              reportTd.append(editImg, editLink, deleteImg, deleteLink, reportImg, reportLink);
+                              // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
+                              // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
+                              if("${user.nick}"!=null && board.writer === "${user.nick}"){
+                            	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                              }else{
+                            	  reportTd.append(reportImg, reportLink);
+                              }
+                              
 
                               // 새로운 <td> 엘리먼트를 행에 추가
                               row.append(likeTd);
