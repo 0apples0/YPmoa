@@ -19,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor //생성될 때 communityService 주입
 @Log4j
 public class AdminController {
+	
 	private final AdminService adminService;
 	
 	@RequestMapping(value="/userget", method= {RequestMethod.GET, RequestMethod.POST})// 전체 리스트 출력
@@ -30,9 +31,6 @@ public class AdminController {
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
-
-		log.info("-------controller out list ------");
-		log.info("작성자 누구: "+cri.getWriter());
 
 	}	
 	@GetMapping("/adminmenu")

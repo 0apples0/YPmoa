@@ -76,16 +76,17 @@ public class WishService implements BoardInterface {
 		return list;
 	}
 
-	public void delWish(PolicyVO vo) {
+	public void delWish(WishVO vo) {
 		if (AuthUtil.isLogin()) {
-			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
-			mapper.delWish(wish);
-			log.info("삭제: "+ wish);
-			log.info("삭제중");
-		}else {
-			log.info("삭제실패");
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
+			log.info("wish 넘버 "+vo.getWishPolicy());
+			log.info("wish지우기" + wish);
+	
+				mapper.delWish2(wish);
+			
+			
+			
 		}
-		
 	}
 
 

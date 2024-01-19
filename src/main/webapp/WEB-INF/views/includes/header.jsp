@@ -86,7 +86,7 @@
                 <c:choose>
 				<c:when test="${user ne null && user.userType == 1}">
 				    <div  id="admin_login_menu_box">
-                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
+                    <a href="/adminmenu/adminmenu"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
                     <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
                 	</div>
 				</c:when>
@@ -123,9 +123,7 @@
                         <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px; padding-right:0px">
-						   
-						    <a href="#" onclick="submitForm()" id="header_wish">위시리스트</a><br>
-						     <input type="hidden" name="email" value="${user.email}">
+						    <a href="#" onclick="submitForm('${user.email}')" id="header_wish">위시리스트</a><br>
 						</form>
                         <a href="#" class="nav-item nav-link" onclick="checkAndNavigateToMypage('${user.email}', 'mypage')">마이페이지</a>
                     </div>
@@ -138,17 +136,14 @@
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
        var user_email = null;
        user_email = Email;
-       
+       console.log(user_email);
        if (!user_email) {
            // 로그인 페이지로
            alert("로그인이 필요한 서비스입니다.");
            window.location.href = "/user/login";
        } else {
-           if(page == 'wishlist'){
-        	   window.location.href = "/wish/wish?Email=" +user_email;
-           }else{
     	   window.location.href = "/user/mypage?Email=" + user_email;
-    	   }
+    	   
        }
    }
    
@@ -157,13 +152,17 @@
 	   
    }
    
+   // 위시리스트 로그인 상태만 이동
    function submitForm(Email) {
 	   var user_email = null;
        user_email = Email;
-       
-	  document.getElementById("myForm").submit();
-       
-       
+       console.log("로그인"+user_email);
+       if(!user_email){
+    	   alert("로그인이 필요한 서비스입니다.");
+           window.location.href = "/user/login";
+       }else{
+    	   document.getElementById("myForm").submit();
+       }
    }
 </script>
    
