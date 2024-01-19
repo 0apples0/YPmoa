@@ -15,4 +15,5 @@ public interface WishMapper {
 	public List<PolicyVO> getfiveboard();
 	public int getTotalCount(Criteria cri);
 	public List<PolicyVO> wishList();
+
 }
