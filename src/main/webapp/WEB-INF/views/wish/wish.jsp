@@ -130,9 +130,9 @@
 
 
 
-<div class="container-xxl py-5" >
-<div class="container" style="height:70px;">
-<div id="policy_checkbox" style="float:left;">
+<div class="container-xxl py-5">
+	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
+		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
@@ -140,120 +140,117 @@
 					for="customCheck">알림받은 정책보기</label>
 			</div>
 
-            </div>
+		</div>
 
+	</div>
+
+
+	<div class="container">
+
+
+		<div class="row g-4" id="wishContainer">
+			<!-- 값 들어갈 곳 -->
+		</div>
+		<!-- wishContainer 끝 -->
+	</div>
+
+
+
+
+	<%-- 페이징 적용 --%>
+	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+		<ul class="pagination justify-content-center policy_page_navbox">
+
+			<%-- <<버튼: 10페이지 이전 --%>
+			<li class="paginate_button policy_page-item_prev prev"><c:choose>
+					<c:when
+						test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+						<a class="page-link" href="${pageMaker.cri.prevprevPage}"><i
+							class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link"><i class="fa fa-angle-double-left"
+							aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+			<%-- <버튼: 1페이지 이전 --%>
+			<li class="paginate_button policy_page-item prev"><c:choose>
+					<c:when test="${(pageMaker.cri.pageNum) >1}">
+
+						<a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i
+							class="fa fa-angle-left" aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link"><i class="fa fa-angle-left"
+							aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+
+			<%-- 페이지 넘버 --%>
+			<c:forEach var="num" begin="${pageMaker.startPage}"
+				end="${pageMaker.endPage}">
+				<li
+					class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+					<a class="page-link" href="${num}">${num}</a>
+				</li>
+			</c:forEach>
+
+			<%-- >버튼: 1페이지 이동 --%>
+			<li class="paginate_button policy_page-item next"><c:choose>
+					<c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+						<a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i
+							class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</c:when>
+					<c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+						<a class="page-link"><i class="fa fa-angle-right"
+							aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.endPage+1}"><i
+							class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+
+			<%-- >>버튼: 10페이지 이동 --%>
+			<li class="paginate_button page-item next"><c:choose>
+					<c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+						<a class="page-link"><i class="fa fa-angle-double-right"
+							aria-hidden="true"></i></a>
+
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.cri.nextnextPage}"> <i
+							class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+
+
+		</ul>
+	</nav>
+	<form id="actionForm" action="/wish/wish" method="post">
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
+		<input type="hidden" name="policyTypeNm"
+			value="${pageMaker.cri.policyTypeNm }"> <input type="hidden"
+			name="type" value="${pageMaker.cri.type }"> <input
+			type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="selectedFilter"
+			value="${pageMaker.cri.selectedFilter }">
+	</form>
+
+	<form id="usernickForm" action="wish/wish" method="get">
+		<input type="hidden" name="writer" value="${user.nick}">
+	</form>
 </div>
 
 
-        <div class="container">
-      	
-       
-            <div class="row g-4" id="wishContainer"> 
-  				<!-- 값 들어갈 곳 -->
-            </div> <!-- wishContainer 끝 -->
-        </div>
-        
-        
-        
-     
- <%-- 페이징 적용 --%>
-        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
-            <ul class="pagination justify-content-center policy_page_navbox">
-
-			<%-- <<버튼: 10페이지 이전 --%>
-            <li class="paginate_button policy_page-item_prev prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>  
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            <%-- <버튼: 1페이지 이전 --%>
-            <li class="paginate_button policy_page-item prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum) >1}">
-               	
-                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>
-                    </c:when>
-                    <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>  
-                    </c:otherwise>     
-               </c:choose>            
-            </li>            
-
-			<%-- 페이지 넘버 --%>
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-                    <a class="page-link" href="${num}">${num}</a>
-                </li>
-            </c:forEach>
-
-			<%-- >버튼: 1페이지 이동 --%>
-            <li class="paginate_button policy_page-item next">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
-                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when> 
-               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-                  <a class="page-link"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when>               
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>   
-               </c:otherwise>      
-              </c:choose>            
-            </li>
-            
-            <%-- >>버튼: 10페이지 이동 --%>  
-            <li class="paginate_button page-item next">
-               <c:choose>
-               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-                  <a class="page-link"><i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>  
-
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
-                           <i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            
-
-            </ul>
-        </nav>
-        <form id="actionForm" action="/wish/wish" method="post">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-			<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
-			<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }">
-			<input type="hidden" name="type" value="${pageMaker.cri.type }">
-			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-			<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">			
-		</form>
-		
-		<form id="usernickForm" action="wish/wish" method="get">
-           <input type="hidden" name="writer" value="${user.nick}">
-        </form>
-    </div>
-
-
-        
-        
 
 
 
-    <script>
+
+
+<script>
         $(document).ready(function () {
         	
         	loadTableData();
@@ -277,31 +274,7 @@
         		  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
 
         		}
-    
-            
-        	$(document).on("click", ".wish_alarm", function() {
-        	    // 클릭된 버튼 요소 찾기
-        	    var button = $(this);
-        	    
-        	    // 버튼에 설정된 데이터 속성에서 현재 상태 가져오기
-        	    var currentStatus = button.data("status");
-        	    
-        	    // 토글 처리
-        	    if (currentStatus === "알림받기" || currentStatus === undefined) {
-        	        // 알림받기 상태일 때 또는 초기 상태일 때
-        	        button.text("알림해제");
-        	        button.removeClass("btn-outline-primary").addClass("btn-primary");
-        	        button.data("status", "알림해제");
-        	        // 알림받기 로직 추가
-        	    } else {
-        	        // 알림해제 상태일 때
-        	        button.text("알림받기");
-        	        button.removeClass("btn-primary").addClass("btn-outline-primary");
-        	        button.data("status", "알림받기");
-        	        // 알림해제 로직 추가
-        	    }
-        	});
-
+   
 
 
 
@@ -343,9 +316,9 @@
 		  	        	
 		 				console.log(data);
 		  	            // 정책 정보를 동적으로 추가
-		  	            data.forEach(function (policy, index) {
+		  	            data.forEach(function (policy, index, wish) {
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
-		  	               addPolicyToContainer(policy, index + 1);
+		  	               addPolicyToContainer(policy, index + 1, wish);
 		  	            });
 		  	        },
 		  	        error: function (e) {
@@ -377,7 +350,7 @@
 		  	} // ajax의 끝
 		 	  
             
-            function addPolicyToContainer(policy, index) {
+            function addPolicyToContainer(policy, index, wish) {
 	    	
 	    	    
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
@@ -398,7 +371,7 @@
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
-	    	        '<button class="btn btn-outline-primary wish_alarm">알림받기</button>' +
+	    	        '<button class="btn btn-outline-primary wish_alarm" id="wishAlarmBtn" data-wish-alarm="' + wish.isalert + '">알림받기</button>' +
 	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
@@ -447,7 +420,51 @@
             });
 
 
-        
+        	
+         	// 알람 눌렀을 때
+            $(document).on("click", "#wishAlarmBtn", function() {
+                var button = $(this);
+                var currentStatus = button.data("status");
+                var wishPolicy = button.closest('.col-lg-3').data('wish-policy-no');
+                var wishAlarm = button.data('wish-alarm');
+              	console.log(wishPolicy);
+				console.log(wishAlarm);
+                $.ajax({
+                    url: "/wish/alarm",
+                    type: "POST",
+                    data: { wishPolicy: wishPolicy, wishAlarm: wishAlarm },
+                    success: function(response) {
+                        if (response.success) {
+                            // 서버에서 성공적으로 응답 받았을 때
+
+                            // 토글 처리
+                            if (currentStatus === "알림받기" || currentStatus === undefined) {
+                                button.text("알림해제");
+                                button.removeClass("btn-outline-primary").addClass("btn-primary");
+                                button.data("status", "알림해제");
+                            } else {
+                                button.text("알림받기");
+                                button.removeClass("btn-primary").addClass("btn-outline-primary");
+                                button.data("status", "알림받기");
+                            }
+
+                            alert(response.message); // 서버에서 받은 메시지 출력
+
+                            // 추가적인 로직 수행 가능
+                        } else {
+                            // 서버에서 실패한 경우
+                            alert("알림 등록에 실패했습니다");
+                        }
+                    },
+                    error: function(e) {
+                        // 실패 시 알림창 표시
+                        alert("알림 등록에 실패했습니다");
+                        console.log(e);
+                    }
+                });
+            });
+
+
 		  	
 		  	
             
