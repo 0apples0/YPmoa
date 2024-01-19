@@ -83,6 +83,7 @@ public class CommunityController {
 	public void addComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment) {
 		communityService.writeComment(comment);	
 	}	
+	
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
 	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
