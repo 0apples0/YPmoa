@@ -17,4 +17,5 @@ public class SuggestVO {
 	String imageName;
 	Date regDate;
 	Character boardType;
+	
 }

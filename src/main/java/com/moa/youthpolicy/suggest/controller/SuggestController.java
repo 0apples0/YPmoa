@@ -114,5 +114,8 @@ public class SuggestController {
 		
 		
 	}
+	
+	// 글 좋아요
+
 
 }

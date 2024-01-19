@@ -47,7 +47,7 @@
                                 <div style="display: flex;" class="commuGet_likeBox">
                                     <div class="g-4 policyGet_letter">
                                         좋아요</div>
-                                    <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
+                                    <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" id="likeBtn" class="policyGet_likeBtn"
                                             style="width: 38px; cursor: pointer;" /></a>
                                     <div class="g-4">
                                         <span class="policyGet_likeCount">${vo.like}</span>
@@ -154,7 +154,16 @@
         $(".policyGet_likeBtn").click(function () {
             var currentSrc = $(".policyGet_likeBtn").attr("src");
             var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-            $(".policyGet_likeBtn").attr("src", newSrc);
+            var loggedInUser = "${user}"; // 서버에서 받아온 사용자 정보
+            // 로그인 했을 때만 좋아요 버튼 누를 수 있음
+            if(loggedInUser !== "") {
+                $(".policyGet_likeBtn").attr("src", newSrc);
+                // 추가: 좋아요 버튼 클릭 시 서버에 데이터 전송
+                // ...
+            } else {
+                alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+                window.location.href = "/user/login";
+            }
         });
 
         // 게시글 신고 모달창

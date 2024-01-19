@@ -2,6 +2,8 @@ package com.moa.youthpolicy.suggest.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.BoardGenericService;
@@ -18,6 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class SuggestService implements BoardGenericService{
 
 	private final SuggestMapper suggestMapper;
+	private final HttpSession session;
 
 	@Override
 	public <T> void delBoard(Class<T> board) {
@@ -59,11 +62,30 @@ public class SuggestService implements BoardGenericService{
 		
 	}
 
-	@Override
-	public <T> void toggleLike(T boardVO) {
-		// TODO Auto-generated method stub
-		
-	}
+	// 게시글 좋아요
+    @Override
+    public <T> void toggleLike(T boardVO) {
+        SuggestVO suggestVO = (SuggestVO) boardVO;
+
+        String email = (String) session.getAttribute("userEmail"); // 세션에서 이메일 가져오기
+
+        if (email == null) {
+            log.warn("로그인한 사용자의 이메일이 세션에 없습니다.");
+            return;
+        }
+
+        // 사용자의 특정 게시글 좋아요 여부 확인
+        int userLikeCount = suggestMapper.checkUserLike(suggestVO.getBno(), email);
+
+        if (userLikeCount == 0) {
+            // 좋아요 정보가 없으면 좋아요 추가
+            suggestMapper.addLike(suggestVO.getBno(), email);
+        } else {
+            // 좋아요 정보가 있으면 좋아요 삭제
+            suggestMapper.removeLike(suggestVO.getBno(), email);
+        }
+    }
+    
 
 	@Override
 	public void getBack() {

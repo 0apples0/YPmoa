@@ -95,5 +95,5 @@
 	<select id="getBoard" resultType="SuggestVO" parameterType="SuggestVO">
 		SELECT * FROM suggestedboard WHERE bno=#{bno}
 	</select>
-	
+
 </mapper>
