@@ -1,5 +1,7 @@
 package com.moa.youthpolicy.user.domain;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,7 @@ public class UserVO {
     String phone;       // 전화번호 (문자열로 변경)
     String address;     // 주소
     String interestField; // 관심 분야
+    Date regDate; // 가입일
     int countReport;    // 신고당한 횟수
 
     // 새 비밀번호와 확인 비밀번호 관련 메서드 추가

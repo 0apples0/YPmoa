@@ -79,15 +79,29 @@ public class WishService implements BoardInterface {
 	public void delWish(WishVO vo) {
 		if (AuthUtil.isLogin()) {
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
-			log.info("wish 넘버 "+vo.getWishPolicy());
+			log.info("wish 넘버 " + vo.getWishPolicy());
 			log.info("wish지우기" + wish);
-	
-				mapper.delWish2(wish);
-			
-			
-			
+
+			mapper.delWish(wish);
+
 		}
 	}
+
+	public boolean wishAlarm(WishVO vo) {
+	    if (AuthUtil.isLogin()) {
+	        WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy(), vo.isIsalert());
+	        log.info("wish 알람은 현재: " + vo.isIsalert());
+	        log.info("알람할 wish: " + wish);
+
+	        // 알람 상태 업데이트
+	        boolean updated = mapper.alarmWish(wish);
+	        log.info("업데이트 알람상태: "+updated);
+	        // 업데이트 성공 여부 반환
+	        return updated;
+	    }
+	    return false;
+	}
+
 
 
 	

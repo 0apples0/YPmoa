@@ -13,9 +13,10 @@
 	<!-- delWish -->
 	<delete id="delWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 	    DELETE FROM wish
-	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
+	    WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
 	</delete>
 	
+
 	<!-- addWish -->
 	<insert id="addWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 	    INSERT INTO wish (wishUser, wishPolicy)
@@ -88,11 +89,15 @@
 		    LIMIT #{start}, #{amount}
 	</select>
 	
-	
-<delete id="delWish2" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
-    DELETE FROM wish
-    WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
-</delete>
+<update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+    UPDATE wish
+    SET isalert = #{isalert ? 1 : 0}
+    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
+</update>
+
+
+
+
 
   
   </mapper>
