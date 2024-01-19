@@ -101,7 +101,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table class="table table-hover admin_userTable">
+                                    <table id="admin_userTable" class="table table-hover admin_userTable">
 
 
                                         <thead>
@@ -116,36 +116,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <%-- 
-                                            <tr>
-                                                <td>aaㅇㄹㅇㅇㄹaa@naver.com</td>
-                                                <td>동그란피자동그란피자</td>
-                                                <td>김피자
-                                                </td>
-                                                <td>010-5555-4444</td>
-                                                <td>2024-01-05</td>
-                                                <td>게시글 신고 <span>2</span>회
-                                                </td>
-                                                <td>댓글 신고 <span>2</span>회
-                                                </td>
-                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
-                                            </tr>
-                                            <tr>
-                                                <td>aaaa@naver.com</td>
-                                                <td>동그란피자</td>
-                                                <td>김피자
-                                                </td>
-                                                <td>010-5555-4444</td>
-                                                <td>2024-01-05</td>
-                                                <td>게시글 신고 <span>2</span>회
-                                                </td>
-                                                <td>댓글 신고 <span>2</span>회
-                                                </td>
-                                                <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td>
-                                            </tr>
-                                          --%> 
-                                          
-                                          
 
                                         </tbody>
                                     </table>
@@ -244,7 +214,82 @@
     </div>
 <script>
 $(document).ready(function () {
-	//loadTableData();
+	loadTableData();
+    function loadTableData(){
+        
+        $.ajax({
+           url: "/adminmenu/getUserList",// 요청할 서버 uri
+           type: "POST", //요청방식 지정
+           dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
+           data:{
+         	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+              amount : $("#actionForm").find("input[name='amount']").val(),             
+           },
+           success: function(data){
+       	  
+              let userTbody = $("#admin_userTable tbody");
+              userTbody.empty(); // 기존 테이블 행 삭제
+                 
+              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+              //for(let item of items) -> items == data, item ==board 역할
+              $.each(data, function(index, users){
+                
+                 let regDate=new Date(users.regDate);
+                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+                 let formateDate = regDate.toLocaleString("ko-KR", options);
+
+                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                 // 동적으로 데이터 처리
+                 console.log(users);
+                 let row = $("<tr>");
+                 row.append($("<td>").text(users.email));
+                 row.append($("<td>").text(users.nick));
+                 row.append($("<td>").text(users.name));
+                 row.append($("<td>").text(users.phone));
+                 row.append($("<td>").text(formateDate));
+                 
+                 let countReportTd = $("<td>").attr("colspan", "2");
+                 let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(users.countReport);
+                 countReportTd.append(countReportLink);
+                 row.append(countReportTd);
+                 let deleteTd = $("<td>");
+                 let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
+                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("삭제");                 
+                 
+                 deleteTd.append(deleteImg, deleteLink);
+                 row.append(deleteTd);
+
+                 userTbody.append(row);
+                 console.log("pagemaker: "+${pageMaker.realEnd});
+              });
+           },
+           error: function(e){
+              console.log(e);
+           }
+        });
+        
+        $(".paginate_button a").on("click", function(e){
+
+            //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+            e.preventDefault(); //이벤트 초기화
+            //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+             let newPageNum = $(this).attr("href");
+            console.log("newPageNum : " + newPageNum);
+             // pageNum이 비어있지 않은 경우에만 submit 실행
+            
+             
+            let actionForm = $("#actionForm");
+             if (newPageNum) {
+                     actionForm.find("input[name='pageNum']").val(newPageNum);
+                     actionForm.submit();       		  
+           	  
+
+             }
+         });      
+       
+     }
+	
 	
 });
 
