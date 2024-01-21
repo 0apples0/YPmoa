@@ -108,7 +108,7 @@
                                                     </td>
                                                 </tr>  
                                            
-                                            </tbody>
+                                            </tbody> 
                                         </table>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label"></label>

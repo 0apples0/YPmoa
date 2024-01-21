@@ -124,5 +124,15 @@
 		(content, bno, writer)
 		values(#{content}, #{bno}, #{writer})
 	</insert>	
+
+	<delete id="deleteComment" parameterType="Integer">
+		DELETE FROM tipboardcomments
+		WHERE cno=#{cno}
+	</delete>	
 	
+	<update id="modComment" parameterType="CommunityCommentVO">
+		UPDATE tipboardcomments
+		SET content=#{content}
+		WHERE cno=#{cno}
+	</update>
 </mapper>

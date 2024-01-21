@@ -19,5 +19,7 @@ public interface CommunityMapper {
 	public List<CommunityCommentVO> getBestCommentList(Criteria cri);
 	public List<CommunityVO> getfiveboard();
 	public void writeComment(CommunityCommentVO comment);
+	public void deleteComment(Integer cno);
+	public void modComment(CommunityCommentVO comment);
 
 }

@@ -56,7 +56,7 @@ public class CommunityService implements BoardGenericService{
 		int cnt = communityMapper.getTotalCount(cri);
 		return cnt;
 	}
-	// 추가
+	// 댓글 페이징
 	public List<CommunityCommentVO> getCommentPage(Criteria cri) {
 		log.info("------service in getList------");
 		List<CommunityCommentVO> result = communityMapper.getCommentListWithPaging(cri);
@@ -64,13 +64,13 @@ public class CommunityService implements BoardGenericService{
 		log.info(result);
 		return result;
 	}	
-	// 추가
+
 	public int getCommentTotalAmount(Integer key) {
 		int cnt = communityMapper.getCommentTotalCount(key);
 		return cnt;
 	}
 	
-	// 추가
+	// 베스트댓글 페이징
 	public List<CommunityCommentVO> getBestCommentPage(Criteria cri) {
 		log.info("------service in getList------");
 		List<CommunityCommentVO> result = communityMapper.getBestCommentList(cri);
@@ -79,14 +79,24 @@ public class CommunityService implements BoardGenericService{
 		return result;
 	}	
 
+	// index.jsp 내의 최신 5개 글
 	public List<CommunityVO> getfiveboard() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		List<CommunityVO> list = communityMapper.getfiveboard();
 		return list;
 	}
 
+	// 댓글 작성
 	public void writeComment(CommunityCommentVO comment) {
 		communityMapper.writeComment(comment);
+	}
+	// 댓글 삭제
+	public void delCommunityComment(Integer cno) {
+		communityMapper.deleteComment(cno);		
+	}
+	// 댓글 수정
+	public void modCommunityComment(CommunityCommentVO comment) {
+		communityMapper.modComment(comment);
 	}
 	@Override
 	public <T> void writeBoard(T boardVO) {
@@ -105,6 +115,10 @@ public class CommunityService implements BoardGenericService{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
 
 
 }

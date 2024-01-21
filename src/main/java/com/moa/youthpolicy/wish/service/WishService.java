@@ -10,6 +10,7 @@ import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardInterface;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.policy.mapper.PolicyMapper;
 import com.moa.youthpolicy.wish.domain.WishVO;
 import com.moa.youthpolicy.wish.mapper.WishMapper;
 
@@ -22,6 +23,8 @@ public class WishService implements BoardInterface {
 	@Autowired
 	WishMapper mapper;
 
+	@Autowired
+	PolicyMapper policyMapper;
 	@Override
 	public <T> void delBoard(Class<T> board) {
 		// TODO Auto-generated method stub
@@ -72,6 +75,37 @@ public class WishService implements BoardInterface {
 		List<PolicyVO> list = mapper.wishList();
 		return list;
 	}
+
+	public void delWish(WishVO vo) {
+		if (AuthUtil.isLogin()) {
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
+			log.info("wish 넘버 " + vo.getWishPolicy());
+			log.info("wish지우기" + wish);
+
+			mapper.delWish(wish);
+
+		}
+	}
+
+	public boolean wishAlarm(WishVO vo) {
+	    if (AuthUtil.isLogin()) {
+	        WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy(), vo.isIsalert());
+	        log.info("wish 알람은 현재: " + vo.isIsalert());
+	        log.info("알람할 wish: " + wish);
+
+	        // 알람 상태 업데이트
+	        boolean updated = mapper.alarmWish(wish);
+	        log.info("업데이트 알람상태: "+updated);
+	        // 업데이트 성공 여부 반환
+	        return updated;
+	    }
+	    return false;
+	}
+
+
+
+	
+
 
 
 }

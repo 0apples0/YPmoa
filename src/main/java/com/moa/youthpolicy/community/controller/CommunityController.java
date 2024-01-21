@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.moa.youthpolicy.common.Criteria;
@@ -70,7 +71,6 @@ public class CommunityController {
 		int total = communityService.getCommentTotalAmount(bno); //전체 댓글 갯수
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		log.info("댓글 갯수 제발 잘 가져와줘: "+total);
 	}
 	
 	//글 작성 페이지로 이동
@@ -79,33 +79,39 @@ public class CommunityController {
 
 	//댓글 작성
 	@ResponseBody
-	@PostMapping("/writeComment")
+	@RequestMapping(value="/writeComment",method={RequestMethod.GET, RequestMethod.POST})
 	public void addComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment) {
-		communityService.writeComment(comment);
-		log.info("여기!!!!!!"+comment.getWriter());
-		//model.addAttribute("vo", communityService.getBoard(bno));
-		//int total = communityService.getCommentTotalAmount(bno); //전체 댓글 갯수
-		//PageDTO pageResult = new PageDTO(cri, total);
-		//model.addAttribute("pageMaker", pageResult);
-		//log.info("댓글 갯수 제발 잘 가져와줘: "+total);
+		communityService.writeComment(comment);	
 	}	
 	
+	// 댓글 삭제
+	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
+	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+		communityService.delCommunityComment(cno);
+	}
+	
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping(value="/modifyComment", method={RequestMethod.GET, RequestMethod.POST})
+	public void modCommunityComment(@RequestParam("bno") Integer bno, CommunityCommentVO comment){
+		communityService.modCommunityComment(comment);
+	}	
 
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
-	@RequestMapping(value="/getList", method=RequestMethod.POST)
+	@RequestMapping(value="/getList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<CommunityVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());
-
 		return communityService.getPage(cri);
 	}
 	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
-	@RequestMapping(value="/getCommentList", method=RequestMethod.POST)
+	@RequestMapping(value="/getCommentList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<CommunityCommentVO> getCommentList(Criteria cri, Model model){
 		log.info(cri.toString());
 		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
+		model.addAttribute("commentvo", communityService.getCommentPage(cri));
 		return communityService.getCommentPage(cri);
 	
 	}
@@ -116,7 +122,9 @@ public class CommunityController {
 	public List<CommunityCommentVO> getBestCommentList(Criteria cri, Model model){
 		log.info(cri.toString());
 		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
+		model.addAttribute("bestcommentvo", communityService.getBestCommentPage(cri));
 		return communityService.getBestCommentPage(cri);
 	
 	}
+	
 }

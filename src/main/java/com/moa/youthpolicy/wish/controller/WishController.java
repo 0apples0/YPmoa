@@ -1,6 +1,8 @@
 package com.moa.youthpolicy.wish.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -59,10 +62,49 @@ public class WishController {
 	public List<PolicyVO> get(Criteria cri){
 		log.info("등록한 위시 가져오기");
 		log.info(cri);
-		return wishService.getWishList();
+		return wishService.getPage(cri);
 	}
 
 	
+	// 위시 삭제
+	@ResponseBody
+	@PostMapping("/del")
+	public void del(WishVO vo) {
+	    // 실제 삭제 작업
+	    wishService.delWish(vo);
+	    log.info("삭제완료");
+	}
+
+	
+	// 알림 받기
+	@ResponseBody
+	@PostMapping("/alarm")
+	public Map<String, Object> alarm(WishVO vo) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        if (AuthUtil.isLogin()) {
+	            WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy(), vo.isIsalert());
+	            log.info("wish 알람은 현재: " + vo.isIsalert());
+	            log.info("알람할 wish: " + wish);
+
+	            // 서비스에서 알림 상태를 업데이트하고 업데이트된 상태를 응답에 포함
+	            Boolean updatedIsAlert = wishService.wishAlarm(wish);
+	            response.put("isalert", updatedIsAlert);
+	            response.put("success", true);
+	            response.put("message", "알림 설정이 업데이트되었습니다.");
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "로그인이 필요합니다.");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "알림 설정 업데이트 중 오류가 발생했습니다.");
+	        log.error("알림 설정 업데이트 중 오류", e);
+	    }
+	    return response;
+	}
+
+
 	
 
 	
