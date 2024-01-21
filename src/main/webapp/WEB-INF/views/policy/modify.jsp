@@ -106,7 +106,7 @@
                                                     <th scope="row">신청 사이트</th>
                                                     <td><input class="form-control" name="dtlLinkUrl" value=" ${policy.dtlLinkUrl}">
                                                     </td>
-                                                </tr>
+                                                </tr>  
                                            
                                             </tbody>
                                         </table>
