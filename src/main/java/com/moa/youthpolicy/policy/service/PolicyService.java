@@ -26,7 +26,7 @@ public class PolicyService implements BoardGenericService {
 	@Autowired
 	WishMapper wishMapper;
 
-	@Autowired
+	@Autowired 
 	PolicyMapper mapper;
 
 	public List<PolicyVO> getfiveboard() {
@@ -39,6 +39,9 @@ public class PolicyService implements BoardGenericService {
 	public <T> void delBoard(Class<T> board) {
 		// TODO Auto-generated method stub
 
+	}
+	public void delBoard(PolicyVO vo) {
+		mapper.delPolicy(vo);
 	}
 
 	@Override
@@ -83,6 +86,13 @@ public class PolicyService implements BoardGenericService {
 	public <T> void writeBoard(T boardVO) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void wirteBoard(PolicyVO vo) {
+		mapper.writePolicy(vo);
+		vo.getBoard().setBno(vo.getNo());
+		log.info(vo);
+		mapper.writePlicyBoard(vo.getBoard());
 	}
 
 	@Override

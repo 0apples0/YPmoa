@@ -50,12 +50,11 @@
                                     <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" id="likeBtn" class="policyGet_likeBtn"
                                             style="width: 38px; cursor: pointer;" /></a>
                                     <div class="g-4">
-                                        <span class="policyGet_likeCount">${vo.like}</span>
+                                    	<span class="policyGet_likeCount" id="likeCountSpan">${vo.like}</span>
                                     </div>
                                     <div class="g-4 policyGet_letter">개</div>
-                                </div>
+                                </div> 
                                 <div class="commuGet_btn">
-                                    <!-- 한번 알람이 떠서 ㄹㅇ삭제? 이런거 나왔으면 좋겠습니당-->
 			                         <c:choose>
 					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
@@ -148,123 +147,158 @@
 </div>
 <!-- 확인 팝업 모달 끝-->
 <script>
-    $(document).ready(function () {
-    	 // 좋아요 버튼 클릭 시 이미지 변경
-		$(".policyGet_likeBtn").click(function () {
-		    var currentSrc = $(".policyGet_likeBtn").attr("src");
-		    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
-		        "${pageContext.request.contextPath}/resources/img/checkLike.png" :
-		        "${pageContext.request.contextPath}/resources/img/addLike.png";
-		
-	        var userString = '${user}';
-	        var emailStartIndex = userString.indexOf('Email=') + 'Email='.length;
-	        var emailEndIndex = userString.indexOf(',', emailStartIndex) !== -1 ? userString.indexOf(',', emailStartIndex) : userString.indexOf(')', emailStartIndex);
-	        var userEmail = userString.substring(emailStartIndex, emailEndIndex);
-		
-		    // 로그인 했을 때만 좋아요 버튼 누를 수 있음
-		    if (userEmail !== "") {
-		    	
-		    	
-		        $(".policyGet_likeBtn").attr("src", newSrc);
-		
-		        // 좋아요 버튼 클릭 시 서버에 데이터 전송
-		        $.ajax({
-		            type: "POST",
-		            url: "${pageContext.request.contextPath}/suggest/toggleLike",
-		            data: {
-		                bno: ${vo.bno},
-		                Email: userEmail
-		            },
-		            success: function (data) {
-		                window.location.reload(); // 성공 시 페이지 새로고침
-		            },
-		            error: function (error) {
-		                console.error("좋아요 토글 실패: " + JSON.stringify(error));
-		            }
-		        });
-		    } else {
-		        alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
-		        window.location.href = "/user/login";
-		    }
-		});
+$(document).ready(function () {
     
-    // 게시글 신고 모달창
-        $(".commuGet_postReport").click(function(event){
-            $("#modalCenter").modal("show");
-        });
-        
-        // 체크박스 중복 방지
-        $('.custom-control-input').on('change', function () {
-            if ($(this).prop('checked')) {
-                $('.custom-control-input').not(this).prop('disabled', true);
-            } else {
-                $('.custom-control-input').prop('disabled', false);
-            }
-        });
-        
-        // 기타 항목에 체크했을 때만 입력창 활성화
-        $(".custom-control-input").change(function () {
-            var isChecked = $(this).prop("checked");
-            $(".policyGet_reportDetail").prop("disabled", true);
-            if (isChecked) {
-                var textareaId = $(this).data("textarea-id");
-                $("#" + textareaId).prop("disabled", false);
-            }
-        });
+    // 화면 로딩 시에 좋아요 상태를 초기화
+    // 좋아요 상태를 서버에서 받아와 갱신
+    $.ajax({
+        type: "GET",
+        url: "${pageContext.request.contextPath}/suggest/checkUserLike",
+        data: {
+            bno: ${vo.bno}
+        },
+        success: function (data) {
+            var likeCount = data; // 서버에서 좋아요 개수를 직접 반환하는 것으로 가정합니다.
 
-       // 아무 체크도 안했을 때 선택버튼 비활성화
-        $(".custom-control-input").change(updateReportButtonState);
-        $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
-     
-        updateReportButtonState();
-
-        function updateReportButtonState() {
-            var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
-
-            var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
-                return $(this).val().trim() !== "";
-            }).length > 0;
-
-            $(".suggest_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+            // 좋아요 상태에 따라 버튼 이미지 업데이트
+            var likeStatus = likeCount > 0;
+            var likeBtnSrc = likeStatus ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
+            $(".policyGet_likeBtn").attr("src", likeBtnSrc);
+        },
+        error: function (error) {
+            console.error("좋아요 상태 초기화 실패: " + JSON.stringify(error));
         }
-        
-        // 목록 버튼
-		$("#return").on("click", function(){
-			self.location = "/suggest/suggest";
-		});
-        
-        // 수정 버튼
-		$("#modifyBtn").on("click", function(){
-		    window.location.href = "/suggest/modify?bno=" + ${vo.bno};
-		});
-        
-	    // 삭제 버튼
-        // 삭제 버튼 클릭 시 확인 팝업 표시
-        $("#deleteBtn").on("click", function () {
-            $("#confirmDeleteModal").modal("show");
-        });
+    });
+    
+    // 좋아요 버튼 클릭 시 이미지 변경
+    $(".policyGet_likeBtn").click(function () {
+        var currentSrc = $(".policyGet_likeBtn").attr("src");
+        var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
+            "${pageContext.request.contextPath}/resources/img/checkLike.png" :
+            "${pageContext.request.contextPath}/resources/img/addLike.png";
 
-        // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
-        $("#confirmDeleteBtn").on("click", function () {
-            // 여기에 삭제 요청을 보내는 코드 추가
+        var userString = '${user}';
+        var emailStartIndex = userString.indexOf('Email=') + 'Email='.length;
+        var emailEndIndex = userString.indexOf(',', emailStartIndex) !== -1 ? userString.indexOf(',', emailStartIndex) : userString.indexOf(')', emailStartIndex);
+        var userEmail = userString.substring(emailStartIndex, emailEndIndex);
+
+        // 로그인 했을 때만 좋아요 버튼 누를 수 있음
+        if (userEmail !== "") {
+            $(".policyGet_likeBtn").attr("src", newSrc);
+
+            // 좋아요 버튼 클릭 시 서버에 데이터 전송
             $.ajax({
                 type: "POST",
-                url: "${pageContext.request.contextPath}/suggest/remove",
+                url: "${pageContext.request.contextPath}/suggest/toggleLike",
                 data: {
-                    bno: ${vo.bno}
+                    bno: ${vo.bno},
+                    Email: userEmail
                 },
                 success: function (data) {
-                    // 삭제 성공 시에 처리할 내용 추가
-                    self.location = "/suggest/suggest";
+                    // 좋아요 개수를 서버에서 다시 가져오도록 수정
+                    $.ajax({
+                        type: "GET",
+                        url: "${pageContext.request.contextPath}/suggest/getLikeCount",
+                        data: {
+                            bno: ${vo.bno}
+                        },
+                        success: function (data) {
+                            // 좋아요 수 갱신
+                            $(".policyGet_likeCount").text(data);
+                            console.log('좋아요 수 갱신:', data);
+                        },
+                        error: function (error) {
+                            console.error("좋아요 개수 가져오기 실패: " + JSON.stringify(error));
+                        }
+                    });
                 },
                 error: function (error) {
-                    // 삭제 실패 시에 처리할 내용 추가
-                    console.error("삭제 실패: " + error);
+                    console.error("좋아요 토글 실패: " + JSON.stringify(error));
                 }
             });
+        } else {
+            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+            window.location.href = "/user/login";
+        }
+    });
+
+    // 게시글 신고 모달창
+    $(".commuGet_postReport").click(function (event) {
+        $("#modalCenter").modal("show");
+    });
+
+    // 체크박스 중복 방지
+    $('.custom-control-input').on('change', function () {
+        if ($(this).prop('checked')) {
+            $('.custom-control-input').not(this).prop('disabled', true);
+        } else {
+            $('.custom-control-input').prop('disabled', false);
+        }
+    });
+
+    // 기타 항목에 체크했을 때만 입력창 활성화
+    $(".custom-control-input").change(function () {
+        var isChecked = $(this).prop("checked");
+        $(".policyGet_reportDetail").prop("disabled", true);
+        if (isChecked) {
+            var textareaId = $(this).data("textarea-id");
+            $("#" + textareaId).prop("disabled", false);
+        }
+    });
+
+    // 아무 체크도 안했을 때 선택버튼 비활성화
+    $(".custom-control-input").change(updateReportButtonState);
+    $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
+
+    updateReportButtonState();
+
+    function updateReportButtonState() {
+        var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
+
+        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
+            return $(this).val().trim() !== "";
+        }).length > 0;
+
+        $(".suggest_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+    }
+
+    // 목록 버튼
+    $("#return").on("click", function () {
+        self.location = "/suggest/suggest";
+    });
+
+    // 수정 버튼
+    $("#modifyBtn").on("click", function () {
+        window.location.href = "/suggest/modify?bno=" + ${vo.bno};
+    });
+
+    // 삭제 버튼
+    // 삭제 버튼 클릭 시 확인 팝업 표시
+    $("#deleteBtn").on("click", function () {
+        $("#confirmDeleteModal").modal("show");
+    });
+
+    // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
+    $("#confirmDeleteBtn").on("click", function () {
+        // 여기에 삭제 요청을 보내는 코드 추가
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/suggest/remove",
+            data: {
+                bno: ${vo.bno}
+            },
+            success: function (data) {
+                // 삭제 성공 시에 처리할 내용 추가
+                self.location = "/suggest/suggest";
+            },
+            error: function (error) {
+                // 삭제 실패 시에 처리할 내용 추가
+                console.error("삭제 실패: " + error);
+            }
         });
-        
-    }); // document.ready함수
+    });
+
+}); // document.ready함수
 </script>
 
 <%@include file="../includes/footer.jsp" %>

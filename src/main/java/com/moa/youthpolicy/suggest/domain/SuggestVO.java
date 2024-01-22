@@ -15,7 +15,7 @@ public class SuggestVO {
 	String category;
 	int like;
 	String imageName;
-	java.util.Date regDate;
+	Date regDate;
 	Character boardType;
 	
 }

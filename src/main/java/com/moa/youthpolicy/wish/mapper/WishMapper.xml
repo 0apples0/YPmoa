@@ -87,7 +87,8 @@
 		        </otherwise>
 		    </choose>
 		    LIMIT #{start}, #{amount}
-	</select>
+	</select>	
+
 
 
 	<select id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO" resultType="java.lang.Integer">
@@ -111,4 +112,4 @@
 
 
   
-  </mapper>
+</mapper>

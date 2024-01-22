@@ -24,4 +24,7 @@ public interface PolicyMapper {
 	public List<PolicyCommentVO> getCommentListWithPaging(Criteria cri);
 	public int getCommentTotalCount(Integer no);
 	public List<PolicyCommentVO> getBestCommentList(Criteria cri);
+	public void writePolicy(PolicyVO vo);
+	public void writePlicyBoard(PolicyBoardVO vo);
+	public void delPolicy(PolicyVO vo);
 }

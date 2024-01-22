@@ -81,7 +81,7 @@
                                                     </td>
                                                     <th scope="row">지원 규모</th>
                                                     <td>
-                                                        <input class="form-control" name="policyTypeNm" value="${policy.policyScl}">
+                                                        <input class="form-control" name="policyScl" value="${policy.policyScl}">
                                                     </td>
                                                 </tr>
 
@@ -102,13 +102,13 @@
                                                 <tr>
                                                     <!-- policySd -->
                                                     <th scope="row">연락처</th>
-                                                    <td><input class="form-control" name="policyScl" value=" ${policy.policyScl}"></td>
+                                                    <td><input class="form-control" name="policyEnq" value=" ${policy.policyEnq}"></td>
                                                     <th scope="row">신청 사이트</th>
                                                     <td><input class="form-control" name="dtlLinkUrl" value=" ${policy.dtlLinkUrl}">
                                                     </td>
-                                                </tr>
+                                                </tr>  
                                            
-                                            </tbody>
+                                            </tbody> 
                                         </table>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label"></label>
@@ -160,8 +160,9 @@
                                         <br>
                                        
                                         <div>
-                                            <button onclick="submitForm()" class="btn btn-primary" >수정하기</button>
-                                            <button class="btn btn-warning">취소</button> 
+                                            <button type="submit" class="btn btn-primary" >수정하기</button>
+                                            <a href="/policy/get?no=${policy.no }"><button class="btn btn-warning">취소</button></a> 
+                                            
                                         </div>
                                      
                                     </div>
