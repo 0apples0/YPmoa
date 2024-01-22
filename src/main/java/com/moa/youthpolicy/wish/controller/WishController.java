@@ -82,7 +82,7 @@ public class WishController {
 	@PostMapping("/alarm")
 	public int alarm(@RequestBody WishVO vo) {
 	    int result = wishService.wishAlarm(vo);
-	    log.info("알람 설정 완료");
+	    log.info("알람 설정 완료 "+result);
 	    return result;
 	}
 	

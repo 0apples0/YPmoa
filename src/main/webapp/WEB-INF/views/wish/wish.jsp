@@ -403,7 +403,7 @@
 			            console.log("알람 설정 결과:", result);
 			
 			            // 여기서 result 값에 따라 추가적인 로직을 수행할 수 있습니다.
-			            if (result === 0) {
+			            if (result === 1) {
 			                alert("알림이 설정되었습니다.");
 			
 			                // 알림 설정이 성공하면 버튼 클래스와 텍스트를 업데이트
@@ -434,6 +434,7 @@
 			        success: function(buttonStates) {
 			            // 서버에서 받아온 상태를 기반으로 각 버튼을 초기화
 			            $(".wish_alarm").each(function(index, element) {
+			            	 console.log("서버에서 받아온 상태:", buttonStates);
 			                var wishPolicy = $(element).data("wish-policy");
 
 			                // 해당 정책에 대한 상태를 서버에서 받아온 값으로 설정
