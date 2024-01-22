@@ -117,6 +117,11 @@
     	WHERE Email = #{Email} AND bno = #{bno}
 	</delete>
 	
+	<delete id="delPolicy" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
+		DELETE FROM policy
+		WHERE no = #{no}
+	</delete>
+	
 	<insert id="addLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 	    INSERT INTO like_policy (Email, bno, boardType)
 	    VALUES (#{Email}, #{bno}, 'P')
@@ -141,9 +146,20 @@
 	    WHERE bno = #{bno}   
 	</update>
 
+	<insert id="writePolicy" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO"
+		keyColumn="no" keyProperty="no" useGeneratedKeys="true">
+		INSERT INTO policy
+		(policyNm, rgnSeNm, sprvsnInstNm, policyTypeNm, policyCnDtl, aplyBgngDt, aplyEndDt
+		,policyScl , dtlLinkUrl, policyEnq)
+		values (#{policyNm}, #{rgnSeNm}, #{sprvsnInstNm} , #{policyTypeNm} , #{policyCnDtl}
+		, #{aplyBgngDt}, #{aplyEndDt}, #{dtlLinkUrl}, #{policyScl}, #{policyEnq})
+	</insert>
 	
-	
-	
+	<insert id="writePlicyBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
+		INSERT INTO policyboard
+		(bno, content)
+		values (#{bno}, #{content})
+	</insert>
 	
 	
 </mapper>

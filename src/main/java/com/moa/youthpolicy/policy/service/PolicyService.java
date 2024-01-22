@@ -40,6 +40,9 @@ public class PolicyService implements BoardGenericService {
 		// TODO Auto-generated method stub
 
 	}
+	public void delBoard(PolicyVO vo) {
+		mapper.delPolicy(vo);
+	}
 
 	@Override
 	public <T> void  modBoard(Class<T> board) {
@@ -83,6 +86,13 @@ public class PolicyService implements BoardGenericService {
 	public <T> void writeBoard(T boardVO) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void wirteBoard(PolicyVO vo) {
+		mapper.writePolicy(vo);
+		vo.getBoard().setBno(vo.getNo());
+		log.info(vo);
+		mapper.writePlicyBoard(vo.getBoard());
 	}
 
 	@Override
