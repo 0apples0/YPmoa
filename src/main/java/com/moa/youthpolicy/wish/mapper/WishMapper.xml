@@ -88,12 +88,14 @@
 		    </choose>
 		    LIMIT #{start}, #{amount}
 	</select>
+
 	
-	 <!--  <update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	<update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 	    UPDATE wish
-	    SET isalert = #{isalert ? 1 : 0}
+	    SET isalert = #{isalert, jdbcType=TINYINT}
 	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
-	</update>-->
+	</update>
+
 
 
 
