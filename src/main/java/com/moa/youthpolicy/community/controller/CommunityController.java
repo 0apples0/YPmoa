@@ -127,4 +127,10 @@ public class CommunityController {
 	
 	}
 	
+	@ResponseBody
+	@PostMapping("/toggleLike")
+	public int toggleLike(CommunityVO vo) {
+		return communityService.likeToggle(vo).getLike();
+	}
+	
 }

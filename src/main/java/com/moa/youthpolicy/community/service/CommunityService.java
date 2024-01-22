@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
@@ -37,8 +39,13 @@ public class CommunityService implements BoardGenericService{
 
 	@Override
 	public CommunityVO getBoard(Integer key) {
-		log.info("getBoard test");
-		return communityMapper.getBoard(key);
+		CommunityVO _vo = communityMapper.getBoard(key);
+		if (AuthUtil.isLogin()) {
+			log.info("getBoard test");
+			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), key);
+			_vo.setLikeVO(communityMapper.getLike(like));
+		}
+		return _vo;
 	}
 
 	@Override
@@ -114,6 +121,23 @@ public class CommunityService implements BoardGenericService{
 	public void getBack() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public CommunityVO likeToggle(CommunityVO vo) {
+		CommunityVO _vo = communityMapper.getBoard(vo.getBno());
+		if (AuthUtil.isLogin()) {
+			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), vo.getBno());
+			if(communityMapper.getLike(like) != null) {
+				communityMapper.delLike(like);
+				_vo.setLike(_vo.getLike() - 1);
+			}else {
+				communityMapper.addLike(like);
+				_vo.setLike(_vo.getLike() + 1);
+			}
+			communityMapper.modLike(_vo);
+			return _vo;
+		}
+		return null;
 	}
 
 

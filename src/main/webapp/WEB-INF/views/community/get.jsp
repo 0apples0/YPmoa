@@ -71,19 +71,18 @@
                                         <div style="display: flex;" class="commuGet_likeBox">
                                             <div class="g-4 policyGet_letter">
                                                 좋아요</div>
-                                            <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" class="policyGet_likeBtn"
-                                                    style="width: 38px; cursor: pointer;" /></a>
+										<a> <img
+											src="${pageContext.request.contextPath}/resources/img/${vo.likeVO == null ? 'addLike' : 'checkLike'}.png"
+											class="policyGet_likeBtn"
+											style="width: 38px; cursor: pointer;" /></a>
                                             <div class="g-4">
-                                                <span class="policyGet_likeCount">3</span>
+                                                <span class="policyGet_likeCount">${vo.like}</span>
                                             </div>
                                             <div class="g-4 policyGet_letter">개</div>
                                         </div>
                                         <div class="commuGet_btn">
                                             <button class="btn btn-primary commuGet_modifyBtn">목록</button>
                                             <button class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-
-
-                                            <!-- 한번 알람이 떠서 ㄹㅇ삭제? 이런거 나왔으면 좋겠습니당-->
                                             <button class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
 
 
@@ -305,20 +304,58 @@
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 			<input type="hidden" name="bno" value="${vo.bno}">
 		</form>	            
-            
+		<form id="usernickForm" action="/community/community" method="get">
+			<input type="hidden" name="nick" value="${user.nick}"> 
+			
+		</form>            
         </div>
 
     <script>
         $(document).ready(function () {
         	loadTableData();
         	loadBestCommentTableData();
+    		function chkLogin() {
+    			userNick = $("#usernickForm input[name='nick']")
+    					.val();
+    			if (userNick == null || userNick == "") {
+    				alert("로그인 필요");
+    				return false;
+    			} else {
+    				return true;
+    			}
+    		}			
+        	// 좋아요 버튼 클릭 시 이미지 변경
+			$(".policyGet_likeBtn").click(function() {
+					if (!chkLogin()) {
+						return;
+					}
+					$.ajax({
+							url : "/community/toggleLike",
+							type : "POST",
+							data : {
+								bno : ${vo.bno}
+							},
+							success : function(data) {
+								var currentSrc = $(
+										".policyGet_likeBtn")
+										.attr("src");
+								var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png"
+										: "${pageContext.request.contextPath}/resources/img/addLike.png";
+								$(
+										".policyGet_likeBtn")
+										.attr(
+												"src",
+												newSrc);
+								$(
+										".policyGet_likeCount")
+										.text(data); // 좋아요 개수 업데이트
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
 
-			//좋아요 버튼에 이벤트 핸들러 추가
-			$(".commu_table").on("click", ".policyGet_likeBtn", function () {
-			    var currentSrc = $(this).attr("src");
-			    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-			    $(this).attr("src", newSrc);
-			});
+				});
 			
 			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
 			$(".commu_table").on("click", ".commu_like", function () {
