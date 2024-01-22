@@ -444,7 +444,6 @@
             	}
             });           
             
-
             // 댓글 작성
             $(".commu_commentBtn").on("click", function () {
             	
