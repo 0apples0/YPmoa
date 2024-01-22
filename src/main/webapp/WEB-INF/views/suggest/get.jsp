@@ -50,7 +50,6 @@
                                     <a> <img src="${pageContext.request.contextPath}/resources/img/addLike.png" id="likeBtn" class="policyGet_likeBtn"
                                             style="width: 38px; cursor: pointer;" /></a>
                                     <div class="g-4">
-                                        <!-- <span class="policyGet_likeCount" id="likeCountSpan">${vo.like}</span> -->
                                     	<span class="policyGet_likeCount" id="likeCountSpan">${vo.like}</span>
                                     </div>
                                     <div class="g-4 policyGet_letter">개</div>
@@ -165,9 +164,6 @@ $(document).ready(function () {
             var likeStatus = likeCount > 0;
             var likeBtnSrc = likeStatus ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
             $(".policyGet_likeBtn").attr("src", likeBtnSrc);
-
-            // 좋아요 개수를 span에 표시
-            $(".policyGet_likeCount").text(likeCount);
         },
         error: function (error) {
             console.error("좋아요 상태 초기화 실패: " + JSON.stringify(error));
