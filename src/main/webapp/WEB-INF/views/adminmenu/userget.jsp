@@ -223,8 +223,6 @@
             
 
             </ul>
-            <h1>${pageMaker.cri.pageNum}
-            </h1>
         </nav>
         <form id="actionForm" action="/adminmenu/userget" method="post">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
