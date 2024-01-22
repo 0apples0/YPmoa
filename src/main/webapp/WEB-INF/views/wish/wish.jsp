@@ -135,7 +135,7 @@
 		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input"
-					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
+					<c:out value="${pageMaker.cri.selectedFilter == 'alarm'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
 			</div>
