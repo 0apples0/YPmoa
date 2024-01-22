@@ -71,7 +71,7 @@
                 <div id="nickname_box">
                     <p id="nickname">
                        <c:choose>
-                       <c:when test = "${user ne null && user.userType == 1}">
+                       <c:when test = "${user ne null && user.userType == 0}">
                        	  관리자님,
                        </c:when>
                        <c:when test="${user ne null && user.nick ne null}">
@@ -84,7 +84,7 @@
   
  				<%-- 사용자에 따른 상단 메뉴 변경 --%>               
                 <c:choose>
-				<c:when test="${user ne null && user.userType == 1}">
+				<c:when test="${user ne null && user.userType == 0}">
 				    <div  id="admin_login_menu_box">
                     <a href="/adminmenu/adminmenu"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
                     <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
