@@ -56,17 +56,20 @@
                                 </div> 
                                 <div class="commuGet_btn">
 			                         <c:choose>
-					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0 && user.nick == vo.writer}">
+					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
 											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
 										</c:when>
+					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+										</c:when>
 					 					<c:otherwise>
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-											<button class="btn btn-warning commuGet_postReport">신고하기</button>
+											<button id="repot" class="btn btn-warning commuGet_postReport">신고하기</button>
 										</c:otherwise>
 									</c:choose>
-									
                                 </div>
                             </div>
                         </div>
@@ -224,7 +227,16 @@ $(document).ready(function () {
 
     // 게시글 신고 모달창
     $(".commuGet_postReport").click(function (event) {
-        $("#modalCenter").modal("show");
+        var userString = '${user}';
+        var emailStartIndex = userString.indexOf('Email=') + 'Email='.length;
+        var emailEndIndex = userString.indexOf(',', emailStartIndex) !== -1 ? userString.indexOf(',', emailStartIndex) : userString.indexOf(')', emailStartIndex);
+        var userEmail = userString.substring(emailStartIndex, emailEndIndex);
+    	if (userEmail !== "") {
+        	$("#modalCenter").modal("show");
+    	} else {
+            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+            window.location.href = "/user/login";
+        }
     });
 
     // 체크박스 중복 방지
