@@ -86,7 +86,7 @@
 	<select id="getBoard" resultType="com.moa.youthpolicy.policy.domain.PolicyBoardVO" parameterType="Integer">
 		SELECT * FROM policyboard
 		WHERE bno = #{no}
-	</select>
+	</select> 
 	
 	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		SELECT * FROM like_policy
@@ -112,6 +112,11 @@
 		LIMIT #{amountBestComment}
 	</select>
 	
+	<select id="getReportComment" resultType="com.moa.youthpolicy.common.CommentsReportVO" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
+		SELECT * FROM commentsreport
+		WHERE reporter = #{reporter} AND boardType = #{boardType} AND policycno = #{policycno}	
+	</select>
+	
 	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		DELETE FROM like_policy
     	WHERE Email = #{Email} AND bno = #{bno}
@@ -123,8 +128,8 @@
 	</delete>
 	
 	<insert id="addLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
-	    INSERT INTO like_policy (Email, bno, boardType)
-	    VALUES (#{Email}, #{bno}, 'P')
+	    INSERT INTO like_policy (Email, bno)
+	    VALUES (#{Email}, #{bno})
 	</insert>
 	
 	<update id="modLike" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
@@ -161,5 +166,27 @@
 		values (#{bno}, #{content})
 	</insert>
 	
+	<insert id="writeComment" parameterType="PolicyCommentVO">
+		INSERT INTO policyboardcomments
+		(content, bno, writer)
+		values(#{content}, #{bno}, #{writer})
+	</insert>	
+	
+	<insert id="reportcomment" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
+		INSERT INTO commentsreport
+		(policycno, reasonCategory, reporter, reason, boardType)
+		values(#{policycno},#{reasonCategory},#{reporter},#{reason},#{boardType})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="Integer">
+		DELETE FROM policyboardcomments
+		WHERE cno=#{cno}
+	</delete>	
+	
+	<update id="modComment" parameterType="PolicyCommentVO">
+		UPDATE policyboardcomments
+		SET content=#{content}
+		WHERE cno=#{cno}
+	</update>
 	
 </mapper>
