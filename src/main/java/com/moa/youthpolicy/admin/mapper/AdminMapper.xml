@@ -5,11 +5,13 @@
   
 <mapper	namespace="com.moa.youthpolicy.admin.mapper.AdminMapper">
 	<select id="getTotalCount" resultType="int">
-		select COUNT(Email) from user
+		SELECT COUNT(Email) FROM user
+		WHERE userType=1
 	</select>
 
 	<select id="getListWithPaging" resultType="UserVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM user
+		WHERE userType=1
 		<!--  
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}

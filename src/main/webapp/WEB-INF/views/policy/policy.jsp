@@ -138,7 +138,7 @@
 <div class="container-xxl py-5">
 	<div class="container">
  <div class="commuGet_btn">
-                <button class="btn btn-primary">글쓰기</button>
+                <a href="/policy/write"><button class="btn btn-primary">글쓰기</button></a>
             </div>
 
 		<!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
@@ -479,8 +479,8 @@ function formatDate(date) {
 		    	        '</div>'+
 		    	        '</div>' +
 		    	        '<div class="commuGet_btn" >' +
-		    	        '<button class="btn btn-primary">수정</button>' +
-		    	        '<button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
+		    	        '<a href="modify?no="'+(policy.no)+'><button class="btn btn-primary">수정</button></a>' +
+		    	        '<a href="delPolicy?no='+(policy.no)+'"><button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
 		    	        '</div>' +
 		    	        '</div>';
 	

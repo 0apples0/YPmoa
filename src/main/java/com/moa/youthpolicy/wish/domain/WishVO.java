@@ -1,7 +1,6 @@
 package com.moa.youthpolicy.wish.domain;
 
 
-import com.mysql.cj.log.Log;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j;

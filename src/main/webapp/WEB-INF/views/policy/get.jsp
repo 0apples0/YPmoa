@@ -169,8 +169,8 @@
 									<div class="g-4 policyGet_letter">개</div>
 								</div>
 								<div class="commuGet_btn">
-									<button class="btn btn-primary">목록</button>
-									<button class="btn btn-primary">수정</button>
+									<a href="/policy/policy"><button class="btn btn-primary">목록</button></a>
+									<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
 									<button class="btn btn-warning">삭제</button>
 								</div>
 							</div>
@@ -383,6 +383,7 @@
 
 
 <script>
+
 	$(document).ready(function() {
 		loadTableData();
 		loadBestCommentTableData();

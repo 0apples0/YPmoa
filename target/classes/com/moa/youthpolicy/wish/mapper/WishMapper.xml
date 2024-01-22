@@ -88,16 +88,27 @@
 		    </choose>
 		    LIMIT #{start}, #{amount}
 	</select>
+
 	
+<<<<<<< HEAD
 <!-- <update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
     UPDATE wish
     SET isalert = #{isalert ? 1 : 0}
     WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
 </update>
  -->
+=======
+	<update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+	    UPDATE wish
+	    SET isalert = #{isalert, jdbcType=TINYINT}
+	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
+	</update>
+
+
+>>>>>>> branch 'main' of https://github.com/0apples0/YPmoa.git
 
 
 
 
   
-  </mapper>
+</mapper>
