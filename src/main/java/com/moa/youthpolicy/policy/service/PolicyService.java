@@ -26,7 +26,7 @@ public class PolicyService implements BoardGenericService {
 	@Autowired
 	WishMapper wishMapper;
 
-	@Autowired
+	@Autowired 
 	PolicyMapper mapper;
 
 	public List<PolicyVO> getfiveboard() {
