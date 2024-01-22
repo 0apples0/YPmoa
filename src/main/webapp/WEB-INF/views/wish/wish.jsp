@@ -371,7 +371,7 @@
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
-	    	        '<button class="btn btn-outline-primary wish_alarm" id="wishAlarmBtn" data-wish-alarm="' + wish.isalert + '">알림받기</button>' +
+	    	        '<button class="btn btn-outline-primary wish_alarm" id="wishAlarmBtn" data-wish-alarm="' + (wish.isalert ? 'true' : 'false') + '">알림받기</button>' +
 	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
