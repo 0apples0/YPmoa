@@ -44,6 +44,9 @@ public class Criteria {
 	private String policyTypeNm;
 	private String selectedFilter;
 	
+	// user검색조건
+	private String userType;
+	
 	public Criteria() {
 		this(1,10);
 	}
