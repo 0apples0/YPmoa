@@ -6,61 +6,74 @@
 <mapper	namespace="com.moa.youthpolicy.admin.mapper.AdminMapper">
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(Email) FROM user
-		<if test='userType == "1" or userType == null'>
-			WHERE userType = 1
-		</if>
-		<if test='userType == "2"'>
-			WHERE userType = 2
-		</if>
-		<if test='userType == "3"'>
-			WHERE userType = 3
-		</if>
+		<choose>
+			<when test='userType == "1" or userType == null'>
+				WHERE userType = 1
+			</when>
+			<when test='userType == "2"'>
+				WHERE userType = 2
+			</when>
+			<when test='userType == "3"'>
+				WHERE userType = 3
+			</when>		
+		</choose>
 		<if test='type == "nick" or type == null'>
-			<if test="keyword != null and keyword != ''">
-				AND nick LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="keyword == null or keyword ==''">
-				AND nick LIKE CONCAT('%', '', '%')
-			</if>
+			<choose>
+				<when test="keyword != null and keyword != ''">
+					AND nick LIKE CONCAT('%', #{keyword}, '%')
+				</when>		
+				<otherwise>
+					AND nick LIKE CONCAT('%', '', '%')
+				</otherwise>	
+			</choose>
 		</if>
 		<if test='type == "Email"'>
-			<if test="keyword != null and keyword != ''">
-				AND Email LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="keyword == null or keyword ==''">
-				AND Email LIKE CONCAT('%', '', '%')
-			</if>
+			<choose>
+				<when test="keyword != null and keyword != ''">
+					AND Email LIKE CONCAT('%', #{keyword}, '%')
+				</when>		
+				<otherwise>
+					AND Email LIKE CONCAT('%', '', '%')
+				</otherwise>	
+			</choose>
 		</if>
 
 	</select>
 
 	<select id="getListWithPaging" resultType="UserVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM user
-		<if test='userType == "1" or userType == null'>
-			WHERE userType = 1
-		</if>
-		<if test='userType == "2"'>
-			WHERE userType = 2
-		</if>
-		<if test='userType == "3"'>
-			WHERE userType = 3
-		</if>
+		<choose>
+			<when test='userType == "1" or userType == null'>
+				WHERE userType = 1
+			</when>
+			<when test='userType == "2"'>
+				WHERE userType = 2
+			</when>
+			<when test='userType == "3"'>
+				WHERE userType = 3
+			</when>		
+		</choose>
+
 		
 		<if test='type == "nick" or type == null'>
-			<if test="keyword != null and keyword != ''">
-				AND nick LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="keyword == null or keyword ==''">
-				AND nick LIKE CONCAT('%', '', '%')
-			</if>
+			<choose>
+				<when test="keyword != null and keyword != ''">
+					AND nick LIKE CONCAT('%', #{keyword}, '%')
+				</when>		
+				<otherwise>
+					AND nick LIKE CONCAT('%', '', '%')
+				</otherwise>	
+			</choose>
 		</if>
 		<if test='type == "Email"'>
-			<if test="keyword != null and keyword != ''">
-				AND Email LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="keyword == null or keyword ==''">
-				AND Email LIKE CONCAT('%', '', '%')
-			</if>
+			<choose>
+				<when test="keyword != null and keyword != ''">
+					AND Email LIKE CONCAT('%', #{keyword}, '%')
+				</when>		
+				<otherwise>
+					AND Email LIKE CONCAT('%', '', '%')
+				</otherwise>	
+			</choose>
 		</if>
 		ORDER BY regDate DESC
 
@@ -71,7 +84,8 @@
 	<!-- 회원 강제 탈퇴 시 userType을 3으로 변경 -->
 	<update id="delMember" parameterType="UserVO">
 		UPDATE user
-		SET userType = 3
+		SET userType = 3,
+			leaveDate = CURRENT_TIMESTAMP
 		WHERE Email = #{Email}
 	</update>
 </mapper>

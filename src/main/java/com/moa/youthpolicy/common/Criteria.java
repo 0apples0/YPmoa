@@ -1,4 +1,5 @@
 package com.moa.youthpolicy.common;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
+@AllArgsConstructor
 public class Criteria {
 	
 	// 현재 사용자의 페이지 위치
@@ -45,7 +47,7 @@ public class Criteria {
 	private String selectedFilter;
 	
 	// user검색조건
-	private String userType;
+	private Integer userType;
 	
 	public Criteria() {
 		this(1,10);

@@ -48,7 +48,7 @@
                                 <div class="col-md-auto">
                                     <select class="form-select" name="userType">
 										<option value="1"
-											<c:out value="${pageMaker.cri.userType == '1'?'selected':'' }"/>>일반회원</option>
+											<c:out value="${pageMaker.cri.userType == '1' or pageMaker.cri.userType == null ?'selected':'' }"/>>일반회원</option>
 										<option value="2"
 											<c:out value="${pageMaker.cri.userType == '2'?'selected':'' }"/>>탈퇴회원</option>
 										<option value="3"
@@ -122,7 +122,14 @@
                                                 <th data-sort="author">연락처</th>
                                                 <th data-sort="date">가입일자</th>
                                                 <th data-sort="like"  colspan="2">신고이력</th>
-                                                <th data-sort="like" >회원삭제 </th>
+                                                <c:choose>
+						                            <c:when test="${pageMaker.cri.userType == 2 or pageMaker.cri.userType == 3}">
+						                                <th data-sort="like">탈퇴일자</th>
+						                            </c:when>
+						                            <c:otherwise>
+						                                <th data-sort="like">회원삭제</th>
+						                            </c:otherwise>
+					                            </c:choose>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -216,6 +223,8 @@
             
 
             </ul>
+            <h1>${pageMaker.cri.pageNum}
+            </h1>
         </nav>
         <form id="actionForm" action="/adminmenu/userget" method="post">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
@@ -274,8 +283,8 @@ $(document).ready(function () {
            data:{
          	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
               amount : $("#actionForm").find("input[name='amount']").val(),
-              userType: $("#actionForm select[name='userType']").val(),
-	          type: $("#actionForm select[name='type']").val(),
+              userType: $("#searchForm select[name='userType']").val(),
+	          type: $("#searchForm select[name='type']").val(),
   	          keyword: $("#actionForm").find("input[name='keyword']").val()
            },
            success: function(data){
@@ -306,12 +315,22 @@ $(document).ready(function () {
                  let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(users.countReport);
                  countReportTd.append(countReportLink);
                  row.append(countReportTd);
+                 
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
                  let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("삭제");                 
                  
-                 deleteTd.append(deleteImg, deleteLink);
-                 row.append(deleteTd);
+                 let leaveDate = new Date(users.leaveDate);
+                 let formateLeaveDate = leaveDate.toLocaleString("ko-KR", options);
+                 
+                 // 일반 회원 검색이라면, 삭제 버튼 표시
+                 if(users.userType == 1){
+                     deleteTd.append(deleteImg, deleteLink);
+                     row.append(deleteTd);                	 
+                 }else{ // 탈퇴회원, 강제탈퇴 회원 검색이라면, 탈퇴일자 표시
+                     let leaveDateTd = $("<td>").text(formateLeaveDate);
+    				 row.append(leaveDateTd);                	 
+                 }
 
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});

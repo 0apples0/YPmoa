@@ -36,15 +36,26 @@ public class AdminController {
 		log.info("contorller : ");
 		log.info("type: "+cri.getType());
 		log.info("userType: "+cri.getUserType());
+		if(cri.getUserType() == null) {
+			cri.setUserType(1);
+		}
+		
 		int total = adminService.getTotalAmount(cri); //전체 회원 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info("리얼엔드:"+pageResult.getRealEnd());
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
 		
 	}	
 	@GetMapping("/adminmenu")
 	public void adminmenu() {}	
+	
+	@GetMapping("/reportboardget")
+	public void reportboard() {}	
+	
+	@GetMapping("/reportcommentget")
+	public void reportcomment() {}	
 	
 	@ResponseBody
 	@RequestMapping(value="/getUserList", method={RequestMethod.GET, RequestMethod.POST})
