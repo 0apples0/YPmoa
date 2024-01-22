@@ -91,15 +91,12 @@ public class WishService implements BoardInterface {
 
 		public int wishAlarm(WishVO vo) {
 			 int currentIsAlert = mapper.alarmWish(vo);
-			    
 			    // 새로운 isAlert 값을 계산 (0과 1을 반전)
 			    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
-
 			    // 새로운 isAlert 값을 업데이트
 			    vo.setIsAlert(newIsAlert);
 			    int result = mapper.updateIsAlert(vo);
-
-			    return result;
+			    return newIsAlert;
 	    
 		  
 		}
