@@ -1,6 +1,7 @@
 package com.moa.youthpolicy.suggest.domain;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class SuggestVO {
 	String imageName;
 	java.util.Date regDate;
 	Character boardType;
+	
 }

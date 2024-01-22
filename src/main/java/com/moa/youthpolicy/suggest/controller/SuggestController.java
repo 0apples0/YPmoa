@@ -47,13 +47,12 @@ public class SuggestController {
 		log.info("작성자 누구: "+cri.getWriter());
 	}
 	
-	// 게시글 상세보기 및 수정 페이지 이동
+	// 게시글 상세보기 
 	// @GetMapping("/get")
 	@GetMapping({"/get","/modify"})
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
 		model.addAttribute("vo", suggestService.getBoard(bno));
 	}
-	
 	//글 작성
 	@GetMapping("/write")
 	public void getWrite() {}
@@ -110,9 +109,42 @@ public class SuggestController {
 	@RequestMapping(value="/getList", method=RequestMethod.POST)
 	public List<SuggestVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());	
+		log.info("Ajax 호출"+model);	
 		return suggestService.getPage(cri);
 		
 		
 	}
+
+	// 글 좋아요
+	@PostMapping("/toggleLike")
+	@ResponseBody
+	public int toggleLike(@RequestParam("bno") int bno, HttpSession session) {
+	    UserVO user = (UserVO) session.getAttribute("user");
+
+	    if (user == null) {
+	        return -1; // 로그인되지 않은 경우 -1 반환
+	    }
+
+	    SuggestVO suggestVO = new SuggestVO();
+	    suggestVO.setBno(bno);
+
+	    suggestService.toggleLike(suggestVO);
+
+	    // 좋아요 여부를 반환
+	    return suggestService.checkUserLike(bno, user.getEmail());
+	}
+	// 좋아요 확인
+    @GetMapping("/checkUserLike")
+    public int checkUserLike(@RequestParam("bno") int bno, HttpSession session) {
+        UserVO user = (UserVO) session.getAttribute("user");
+
+        if (user == null) {
+            // 사용자가 로그인하지 않았을 경우, 좋아요하지 않았음을 나타내는 값 반환 (예: -1)
+            return -1;
+        }
+
+        String userEmail = user.getEmail();
+        return suggestService.checkUserLike(bno, userEmail);
+    }
 
 }

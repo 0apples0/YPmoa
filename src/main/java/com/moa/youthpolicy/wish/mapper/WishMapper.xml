@@ -88,6 +88,7 @@
 		    </choose>
 		    LIMIT #{start}, #{amount}
 	</select>
+
 	
 	<update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 	    UPDATE wish
