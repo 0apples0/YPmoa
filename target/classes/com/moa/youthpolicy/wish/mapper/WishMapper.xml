@@ -89,11 +89,27 @@
 		    LIMIT #{start}, #{amount}
 	</select>	
 
-	<update id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
-	    UPDATE wish
-	    SET isalert = #{isalert, jdbcType=TINYINT}
-	    WHERE wishUser = #{wishUser} AND wishPolicy = #{wishPolicy}
-	</update>
+
+
+	<select id="alarmWish" parameterType="com.moa.youthpolicy.wish.domain.WishVO" resultType="java.lang.Integer">
+	    SELECT isAlert
+	    FROM wish
+	    WHERE wishPolicy = #{wishPolicy}
+	</select>
+
+	 <update id="updateIsAlert" parameterType="com.moa.youthpolicy.wish.domain.WishVO">
+        UPDATE wish
+        SET isAlert = #{isAlert}
+        WHERE wishPolicy = #{wishPolicy}
+    </update>
+
+<select id="getAlarm" resultType="com.moa.youthpolicy.wish.domain.WishVO">
+    SELECT wishPolicy, isAlert
+    FROM wish;
+</select>
+
+
+
 
   
 </mapper>
