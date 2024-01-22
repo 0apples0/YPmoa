@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
+import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.service.PolicyService;
@@ -91,6 +94,7 @@ public class PolicyController {
 	@ResponseBody
 	@PostMapping("/toggleLike")
 	public int toggleLike(PolicyVO vo) {
+		log.info(vo);
 		return service.likeToggle(vo).getLike();
 	}
 	
@@ -107,7 +111,29 @@ public class PolicyController {
 	
 	}
 	
+	@ResponseBody
+	@PostMapping("/writeComment")
+	public void addComment(PolicyCommentVO vo) {
+		service.writeComment(vo);
+	}
+	// 댓글 삭제
+	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
+	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+		service.delCommunityComment(cno);
+	}
 	
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping(value="/modifyComment", method={RequestMethod.GET, RequestMethod.POST})
+	public void modCommunityComment(@RequestParam("bno") Integer bno, PolicyCommentVO comment){
+		service.modCommunityComment(comment);
+	}
 	
+	@ResponseBody
+	@PostMapping("/reportcomment")
+	public boolean reportcomment(CommentsReportVO vo) {
+		
+		return service.reportcomment(vo);
+	}
 	
 }
