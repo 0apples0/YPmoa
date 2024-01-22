@@ -2,11 +2,15 @@ package com.moa.youthpolicy.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.admin.service.AdminService;
@@ -30,10 +34,16 @@ public class AdminController {
 	@RequestMapping(value="/userget", method= {RequestMethod.GET, RequestMethod.POST})// 전체 리스트 출력
 	public void list(Criteria cri, Model model) {
 		log.info("contorller : ");
+		log.info("type: "+cri.getType());
+		log.info("userType: "+cri.getUserType());
+		if(cri.getUserType() == null) {
+			cri.setUserType(1);
+		}
 		
 		int total = adminService.getTotalAmount(cri); //전체 회원 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info("리얼엔드:"+pageResult.getRealEnd());
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
 		
@@ -41,10 +51,23 @@ public class AdminController {
 	@GetMapping("/adminmenu")
 	public void adminmenu() {}	
 	
+	@GetMapping("/reportboardget")
+	public void reportboard() {}	
+	
+	@GetMapping("/reportcommentget")
+	public void reportcomment() {}	
+	
 	@ResponseBody
 	@RequestMapping(value="/getUserList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<UserVO> getList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());
 		return adminService.getPage(cri);
+	}
+	
+	// 회원 강제 탈퇴
+	@ResponseBody
+	@RequestMapping(value="/deleteUser", method={RequestMethod.GET, RequestMethod.POST})
+	public void deleteMember(UserVO userVO){
+		adminService.delMember(userVO);
 	}
 }

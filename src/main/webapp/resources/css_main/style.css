@@ -652,33 +652,60 @@
 
 /*** admin ***/
 
+.admin_modalBox{
+	   height: 300px;
+     overflow-y: auto;
+}
+
 .admin_boardModal{
     text-align: center;
+    vertical-align: middle;
+ 
 }
 
-
-.admin_boardModal tbody tr td:nth-child(2){
-    width: 50%;
-    text-align: left;
+.admin_boardModal thead tr th{
+	
+    vertical-align: middle;
 }
+
+.admin_boardModal thead tr th:first-child{
+	width: 20%;
+}
+.admin_boardModal thead tr th:last-child{
+	width: 20%;
+}
+
 
 
 .admin_userTable tbody tr td, .admin_boardTable tbody tr td, .admin_boardModal tbody tr td{
     font-family: 'LINESeedKR-Bd_light';
 }
 
-.admin_boardTable tbody tr td:nth-child(2){
-    width: 60%;
-    cursor: pointer;
-}
 
-.admin_boardTable tbody tr td:nth-child(4), .admin_boardTable tbody tr td:nth-child(5){
+.admin_boardTable tbody tr td:nth-child(3), .admin_boardTable tbody tr td:nth-child(5){
     cursor: pointer;
 }
 
 .admin_page_nav{
     padding-top: 30px;
 }
+
+.admin_boardTable thead tr th:nth-child(1){
+	width: 7%;
+}
+.admin_boardTable thead tr th:nth-child(2){
+	width: 15%;
+}
+.admin_boardTable thead tr th:nth-child(6){
+	width: 7%;
+}
+.admin_boardTable thead tr th:nth-child(4){
+	width: 12%;
+}
+.admin_boardTable thead tr th:nth-child(5){
+	width: 7%;
+}
+
 
 
 /*** community ***/

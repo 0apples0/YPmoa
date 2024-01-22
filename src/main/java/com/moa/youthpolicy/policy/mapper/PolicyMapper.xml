@@ -86,7 +86,7 @@
 	<select id="getBoard" resultType="com.moa.youthpolicy.policy.domain.PolicyBoardVO" parameterType="Integer">
 		SELECT * FROM policyboard
 		WHERE bno = #{no}
-	</select>
+	</select> 
 	
 	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		SELECT * FROM like_policy

@@ -1,7 +1,9 @@
 package com.moa.youthpolicy.wish.service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,20 +89,33 @@ public class WishService implements BoardInterface {
 		}
 	}
 
-	public boolean wishAlarm(WishVO vo) {
-	    if (AuthUtil.isLogin()) {
-	        WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy(), vo.isIsalert());
-	        log.info("wish 알람은 현재: " + vo.isIsalert());
-	        log.info("알람할 wish: " + wish);
+		public int wishAlarm(WishVO vo) {
+			 int currentIsAlert = mapper.alarmWish(vo);
+			    // 새로운 isAlert 값을 계산 (0과 1을 반전)
+			    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
+			    // 새로운 isAlert 값을 업데이트
+			    vo.setIsAlert(newIsAlert);
+			    int result = mapper.updateIsAlert(vo);
+			    return newIsAlert;
+	    
+		  
+		}
 
-	        // 알람 상태 업데이트
-	        boolean updated = mapper.alarmWish(wish);
-	        log.info("업데이트 알람상태: "+updated);
-	        // 업데이트 성공 여부 반환
-	        return updated;
-	    }
-	    return false;
-	}
+		  public Map<Integer, Integer> clearAlarm() {
+		        // 데이터베이스에서 모든 정책의 알람 상태를 가져오기
+		        List<WishVO> wishList = mapper.getAlarm();
+
+		        // 정책 ID와 알람 상태를 담을 맵 초기화
+		        Map<Integer, Integer> buttonStates = new HashMap<>();
+
+		        // 가져온 정보를 맵에 저장
+		        for (WishVO wish : wishList) {
+		            buttonStates.put(wish.getWishPolicy(), wish.getIsAlert());
+		        }
+
+		        return buttonStates;
+		    }
+
 
 
 

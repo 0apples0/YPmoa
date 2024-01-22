@@ -43,7 +43,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <a class="service-item rounded" href="">
+                        <a class="service-item rounded" href="/adminmenu/reportboardget">
                             <div class="service-icon bg-transparent border rounded p-1">
                                 <div class="w-100 h-100 border rounded d-flex align-items-center_admin justify-content-center">
                                     <i class="fa fa-clipboard fa-2x text-primary"></i>
@@ -54,7 +54,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="service-item rounded" href="">
+                        <a class="service-item rounded" href="/adminmenu/reportcommentget">
                             <div class="service-icon bg-transparent border rounded p-1">
                                 <iv class="w-100 h-100 border rounded d-flex align-items-center_admin justify-content-center">
                                     <i class="fa fa-keyboard fa-2x text-primary"></i>

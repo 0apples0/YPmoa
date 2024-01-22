@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,30 +80,20 @@ public class WishController {
 	// 알림 받기
 	@ResponseBody
 	@PostMapping("/alarm")
-	public Map<String, Object> alarm(WishVO vo) {
-	    Map<String, Object> response = new HashMap<>();
-	    try {
-	        if (AuthUtil.isLogin()) {
-	            WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy(), vo.isIsalert());
-	            log.info("wish 알람은 현재: " + vo.isIsalert());
-	            log.info("알람할 wish: " + wish);
-
-	            // 서비스에서 알림 상태를 업데이트하고 업데이트된 상태를 응답에 포함
-	            Boolean updatedIsAlert = wishService.wishAlarm(wish);
-	            response.put("isalert", updatedIsAlert);
-	            response.put("success", true);
-	            response.put("message", "알림 설정이 업데이트되었습니다.");
-	        } else {
-	            response.put("success", false);
-	            response.put("message", "로그인이 필요합니다.");
-	        }
-	    } catch (Exception e) {
-	        response.put("success", false);
-	        response.put("message", "알림 설정 업데이트 중 오류가 발생했습니다.");
-	        log.error("알림 설정 업데이트 중 오류", e);
-	    }
-	    return response;
+	public int alarm(@RequestBody WishVO vo) {
+	    int result = wishService.wishAlarm(vo);
+	    log.info("알람 설정 완료 "+result);
+	    return result;
 	}
+	
+	@ResponseBody
+	@GetMapping("/alarmClear")
+	  public Map<Integer, Integer> alarmClear() {
+        // 서비스에서 현재 버튼 상태를 가져오는 메서드 호출
+        Map<Integer, Integer> buttonStates = wishService.clearAlarm();
+        return buttonStates;
+    }
+
 
 
 	

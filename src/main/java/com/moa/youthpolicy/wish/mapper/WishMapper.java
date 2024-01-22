@@ -15,6 +15,8 @@ public interface WishMapper {
 	public List<PolicyVO> getfiveboard();
 	public int getTotalCount(Criteria cri);
 	public List<PolicyVO> wishList();
-	public boolean alarmWish(WishVO vo);
-
+	public Integer alarmWish(WishVO vo);
+	public int updateIsAlert(WishVO vo);
+	public int alarmClear(WishVO vo);
+	public List<WishVO> getAlarm();
 }
