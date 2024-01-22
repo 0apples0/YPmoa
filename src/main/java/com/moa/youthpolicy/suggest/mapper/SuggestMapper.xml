@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper	namespace="com.moa.youthpolicy.suggest.mapper.SuggestMapper">
+	<select id="getfiveboard" resultType="SuggestVO">
+		SELECT * FROM suggestedboard
+		ORDER BY bno
+		DESC LIMIT 5
+	</select>
+
 	<select id="select" resultType="SuggestVO">
 		SELECT * FROM suggestedboard
 		ORDER BY bno DESC

@@ -1,5 +1,6 @@
 package com.moa.youthpolicy.suggest.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,13 @@ public class SuggestService implements BoardGenericService{
 	private final SuggestMapper suggestMapper;
 	private final HttpSession session;
 	
-
+	// index.jsp 내의 최신 5개 글
+	public List<SuggestVO> getfiveboard() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		List<SuggestVO> list = suggestMapper.getfiveboard();
+		return list;
+	}
+	
 	@Override
 	public <T> void delBoard(Class<T> board) {
 		// TODO Auto-generated method stub

@@ -31,6 +31,14 @@ import lombok.extern.log4j.Log4j;
 public class SuggestController {
 	
 	private final SuggestService suggestService;
+	
+	// 메인화면 미리보기
+	@ResponseBody
+	@PostMapping("/get5suggest")
+	public List<SuggestVO> getfiveBoard(){
+		List<SuggestVO> list = suggestService.getfiveboard();
+		return list;
+	}
 
 	// 전체 리스트 출력
 	@RequestMapping(value="/suggest", method= {RequestMethod.GET, RequestMethod.POST})

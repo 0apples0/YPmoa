@@ -17,7 +17,7 @@ public interface SuggestMapper {
 	public int update(SuggestVO board);
 	public int modifyBoard(SuggestVO suggestVO);
 	public int deleteBoard(Integer bno);
-	
+	public List<SuggestVO> getfiveboard();
     public int addLike(@Param("bno") int bno, @Param("Email") String email);
     public int removeLike(@Param("bno") int bno, @Param("Email") String email);
     int checkUserLike(@Param("bno") int bno, @Param("Email") String Email);
