@@ -2,7 +2,6 @@ package com.moa.youthpolicy.suggest.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
-import com.moa.youthpolicy.suggest.controller.SuggestController;
 import com.moa.youthpolicy.suggest.service.SuggestService;
 import com.moa.youthpolicy.user.domain.UserVO;
 
@@ -48,8 +46,20 @@ public class SuggestController {
 	}
 	
 	// 게시글 상세보기 
-	// @GetMapping("/get")
-	@GetMapping({"/get","/modify"})
+	@GetMapping("/get")
+	public void getCommunity(@RequestParam("bno") Integer bno, Model model, HttpSession session) {
+	    UserVO user = (UserVO) session.getAttribute("user");
+	    
+	    if (user != null) {
+	        int likeStatus = suggestService.checkUserLike(bno, user.getEmail());
+	        model.addAttribute("likeStatus", likeStatus);
+	    }
+
+	    model.addAttribute("vo", suggestService.getBoard(bno));
+	}
+	
+	// 게시글 수정
+	@GetMapping("/modify")
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
 		model.addAttribute("vo", suggestService.getBoard(bno));
 	}
@@ -122,29 +132,37 @@ public class SuggestController {
 	    UserVO user = (UserVO) session.getAttribute("user");
 
 	    if (user == null) {
-	        return -1; // 로그인되지 않은 경우 -1 반환
+	        return 0; // 로그인되지 않은 경우 0 반환
 	    }
 
 	    SuggestVO suggestVO = new SuggestVO();
 	    suggestVO.setBno(bno);
 
-	    suggestService.toggleLike(suggestVO);
+	    //suggestService.toggleLike(suggestVO);
 
-	    // 좋아요 여부를 반환
-	    return suggestService.checkUserLike(bno, user.getEmail());
+	   // 좋아요 여부를 반환
+	   //return suggestService.checkUserLike(bno, user.getEmail());
+	    return suggestService.toggleLike(suggestVO, user.getEmail());
 	}
+	
 	// 좋아요 확인
-    @GetMapping("/checkUserLike")
-    public int checkUserLike(@RequestParam("bno") int bno, HttpSession session) {
-        UserVO user = (UserVO) session.getAttribute("user");
+	@GetMapping("/checkUserLike")
+	@ResponseBody
+	public int checkUserLike(@RequestParam("bno") int bno, HttpSession session) {
+	    UserVO user = (UserVO) session.getAttribute("user");
 
-        if (user == null) {
-            // 사용자가 로그인하지 않았을 경우, 좋아요하지 않았음을 나타내는 값 반환 (예: -1)
-            return -1;
-        }
+	    if (user == null) {
+	        return 0;
+	    }
 
-        String userEmail = user.getEmail();
-        return suggestService.checkUserLike(bno, userEmail);
+	    String userEmail = user.getEmail();
+	    return suggestService.checkUserLike(bno, userEmail);
+	}
+	
+    // 좋아요 개수 가져오기
+    @GetMapping("/getLikeCount")
+    @ResponseBody
+    public int getLikeCount(@RequestParam("bno") int bno) {
+        return suggestService.getLikeCount(bno);
     }
-
 }

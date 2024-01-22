@@ -106,11 +106,31 @@
         DELETE FROM like_suggestboard WHERE bno = #{bno} AND Email = #{Email}
     </delete>
     
-    <!-- 사용자의 특정 게시글 좋아요 여부 확인 -->
-    <select id="checkUserLike" resultType="int" parameterType="Map">
-        SELECT COUNT(*) FROM like_suggestboard WHERE bno = #{bno} AND Email = #{Email}
-    </select>
-    
-    
+    <!-- 좋아요 확인 -->
+	<select id="checkUserLike" resultType="int">
+	    SELECT COUNT(*) FROM like_suggestboard
+	    WHERE bno = #{bno} AND Email = #{Email}
+	</select>
+
+    <!-- 좋아요 수 갱신 쿼리 추가 -->
+	<update id="updateSuggestedBoardLikeCount" parameterType="Map">
+	    UPDATE suggestedboard sb
+	    SET sb.`like` = (
+	        SELECT COUNT(ls.bno)
+	        FROM like_suggestboard ls
+	        WHERE ls.bno = sb.bno
+	    )
+	    WHERE sb.bno = #{bno}
+	</update>
+	
+	<!-- 좋아요 개수 가져오기 -->
+	<select id="getLikeCount" resultType="int" parameterType="int">
+	    SELECT `like` FROM suggestedboard WHERE bno = #{bno}
+	</select>
+	
+	<!-- 좋아요 갯수 출력 -->
+	<select id="policyGet_likeCount" resultType="int" parameterType="Map">
+	    SELECT `like` FROM suggestedboard WHERE bno = #{bno}
+	</select>
     
 </mapper>

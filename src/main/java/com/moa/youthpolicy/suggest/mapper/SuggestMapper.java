@@ -20,5 +20,10 @@ public interface SuggestMapper {
 	
     public int addLike(@Param("bno") int bno, @Param("Email") String email);
     public int removeLike(@Param("bno") int bno, @Param("Email") String email);
-    public int checkUserLike(@Param("bno") int bno, @Param("Email") String email);
+    int checkUserLike(@Param("bno") int bno, @Param("Email") String Email);
+    // 좋아요 수 갱신 메서드 추가
+    int updateSuggestedBoardLikeCount(@Param("bno") int bno, @Param("like") int like);
+    // 좋아요 수 가져오기
+    int getLikeCount(@Param("bno") int bno);
+    
 }
