@@ -103,10 +103,10 @@
         WHERE wishPolicy = #{wishPolicy}
     </update>
 
-<select id="getAlarm" resultType="com.moa.youthpolicy.wish.domain.WishVO">
-    SELECT wishPolicy, isAlert
-    FROM wish;
-</select>
+	<select id="getAlarm" resultType="com.moa.youthpolicy.wish.domain.WishVO">
+	    SELECT wishPolicy, isAlert
+	    FROM wish;
+	</select>
 
 
 
