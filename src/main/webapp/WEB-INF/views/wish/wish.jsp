@@ -254,6 +254,7 @@
         $(document).ready(function () {
         	
         	loadTableData();
+        	buttonClear();
         	
     	   	$("#searchForm button[type='reset']").on("click", function (e) {
     	        // 검색어 입력 필드 초기화
@@ -316,9 +317,9 @@
 		  	        	
 		 				console.log(data);
 		  	            // 정책 정보를 동적으로 추가
-		  	            data.forEach(function (policy, index, wish) {
+		  	            data.forEach(function (policy, index) {
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
-		  	               addPolicyToContainer(policy, index + 1, wish);
+		  	               addPolicyToContainer(policy, index + 1	);
 		  	            });
 		  	        },
 		  	        error: function (e) {
@@ -350,14 +351,18 @@
 		  	} // ajax의 끝
 		 	  
             
-            function addPolicyToContainer(policy, index, wish) {
+            function addPolicyToContainer(policy, index) {
 	    	
 	    	    
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
+	    	    console.log(policy.no);
+
 	    	
 
-	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy-no="' + policy.no + '">' +
+
+
+	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
 	    	        '<div class="position-relative">' +
 	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
@@ -371,19 +376,82 @@
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
-	    	        '<button class="btn btn-outline-primary wish_alarm" id="wishAlarmBtn" data-wish-alarm="' + (wish.isalert ? 'true' : 'false') + '">알림받기</button>' +
+	    	        '<button class="btn btn-outline-primary wish_alarm" data-wish-policy="' + policy.no + '">알림받기</button>' +
 	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
 
 
-	    	
-
-	    	   
 	    	    $("#wishContainer").append(policyHtml);
 	    	}
      	
-		 
+         	// 알람 눌렀을 때
+        // 이벤트 위임을 사용하여 body에 클릭 이벤트를 설정
+			$("body").on("click", ".wish_alarm", function() {
+			    var wishPolicy = $(this).data("wish-policy");
+			    var $button = $(this); // 버튼 jQuery 객체 저장
+			
+			    // Ajax 요청
+			    $.ajax({
+			        type: "POST",
+			        url: "/wish/alarm",
+			        contentType: "application/json",
+			        data: JSON.stringify({ wishPolicy: wishPolicy }), 
+			
+			        success: function(result) {
+			            // Ajax 요청 성공 시 실행할 로직
+			            console.log("알람 설정 결과:", result);
+			
+			            // 여기서 result 값에 따라 추가적인 로직을 수행할 수 있습니다.
+			            if (result === 0) {
+			                alert("알림이 설정되었습니다.");
+			
+			                // 알림 설정이 성공하면 버튼 클래스와 텍스트를 업데이트
+			                if ($button.hasClass("btn-outline-primary")) {
+			                    $button.removeClass("btn-outline-primary").addClass("btn-primary").text("알림해제");
+			                }
+			            } else {
+			                alert("알림이 해제되었습니다.");
+			
+			                // 알림 해제가 성공하면 버튼 클래스와 텍스트를 업데이트
+			                if ($button.hasClass("btn-primary")) {
+			                    $button.removeClass("btn-primary").addClass("btn-outline-primary").text("알림받기");
+			                }
+			            }
+			        },
+			        error: function(xhr, status, error) {
+			            // Ajax 요청 실패 시 실행할 로직f
+			            console.error("Ajax 요청 실패:", status, error);
+			        }
+			    });
+			});
+         	
+         	
+			function buttonClear() {
+			    $.ajax({
+			        type: "GET",
+			        url: "/wish/alarmClear", // 해당 URL을 서버에 맞게 수정
+			        success: function(buttonStates) {
+			            // 서버에서 받아온 상태를 기반으로 각 버튼을 초기화
+			            $(".wish_alarm").each(function(index, element) {
+			                var wishPolicy = $(element).data("wish-policy");
+
+			                // 해당 정책에 대한 상태를 서버에서 받아온 값으로 설정
+			                if (buttonStates[wishPolicy] === 1) {
+			                    $(element).removeClass("btn-outline-primary").addClass("btn-primary").text("알림해제");
+			                } else {
+			                    $(element).removeClass("btn-primary").addClass("btn-outline-primary").text("알림받기");
+			                }
+			            });
+			        },
+			        error: function(xhr, status, error) {
+			            // 초기화 실패에 대한 처리
+			            console.error("초기화 실패:", status, error);
+			        }
+			    });
+			}
+
+
 		  	
          	// 위시 삭제
             $(document).on("click", "#delBtn", function(e) {
@@ -421,49 +489,7 @@
 
 
         	
-         	// 알람 눌렀을 때
-            $(document).on("click", "#wishAlarmBtn", function() {
-                var button = $(this);
-                var currentStatus = button.data("status");
-                var wishPolicy = button.closest('.col-lg-3').data('wish-policy-no');
-                var wishAlarm = button.data('wish-alarm');
-              	console.log(wishPolicy);
-				console.log(wishAlarm);
-                $.ajax({
-                    url: "/wish/alarm",
-                    type: "POST",
-                    data: { wishPolicy: wishPolicy, wishAlarm: wishAlarm },
-                    success: function(response) {
-                        if (response.success) {
-                            // 서버에서 성공적으로 응답 받았을 때
-
-                            // 토글 처리
-                            if (currentStatus === "알림받기" || currentStatus === undefined) {
-                                button.text("알림해제");
-                                button.removeClass("btn-outline-primary").addClass("btn-primary");
-                                button.data("status", "알림해제");
-                            } else {
-                                button.text("알림받기");
-                                button.removeClass("btn-primary").addClass("btn-outline-primary");
-                                button.data("status", "알림받기");
-                            }
-
-                            alert(response.message); // 서버에서 받은 메시지 출력
-
-                            // 추가적인 로직 수행 가능
-                        } else {
-                            // 서버에서 실패한 경우
-                            alert("알림 등록에 실패했습니다");
-                        }
-                    },
-                    error: function(e) {
-                        // 실패 시 알림창 표시
-                        alert("알림 등록에 실패했습니다");
-                        console.log(e);
-                    }
-                });
-            });
-
+        
 
 		  	
 		  	
