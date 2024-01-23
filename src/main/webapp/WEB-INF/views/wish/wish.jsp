@@ -106,7 +106,7 @@
 							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-1_a">
-							<button type="reset" onclick="resetSelect()" class="btn btn-secondary ">초기화</button>
+							<button type="reset"  class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center">
@@ -232,19 +232,14 @@
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
-		<input type="hidden" name="policyTypeNm"
-			value="${pageMaker.cri.policyTypeNm }"> 
-		<input type="hidden"
-			name="type" value="${pageMaker.cri.type }"> 
-		<input
-			type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-			<input
-			type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
-		<input type="hidden" name="selectedFilter"
-			value="${pageMaker.cri.selectedFilter }">
+		<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }"> 
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
+		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">
 	</form>
 
-	<form id="usernickForm" action="wish/wish" method="post">
+	<form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 	</form>
 </div>
@@ -293,13 +288,19 @@
 				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 				actionForm.submit();
 			});
+		
+		  let searchForm = $("#searchForm");
 			
-			
+			$("#searchForm #searchBtn").on("click",function(e){
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+				searchForm.submit();
+			});
 			
 			
             
             function loadTableData() {
-		    	//$("#policyContainer").empty();
+            	
 		  	    $.ajax({
 		  	        url: "/wish/get",
 		  	        type: "POST",
@@ -329,55 +330,47 @@
 		  	        }
 		  	    });
 		  	    
-		  	  let actionForm = $("#actionForm");
-		      $(".paginate_button a").on("click", function(e){
-		      
-		         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		         e.preventDefault(); //이벤트 초기화
-		         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		         console.log(actionForm);
-		         /*
-		         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		         actionForm.submit();
-		         */
-		         console.log("href : " + $(this).attr("href"));
-		          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		          let newPageNum = $(this).attr("href");
-		         console.log("newPageNum : " + newPageNum);
-		          // pageNum이 비어있지 않은 경우에만 submit 실행
-		          if (newPageNum) {
-		              actionForm.find("input[name='pageNum']").val(newPageNum);
-		              actionForm.submit();
-		          }
-		      });
-		      
-		      // 체크박스 변경 시 이벤트 핸들러
-	          $('.wish_check').on('change', function () {
-			    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
-			
-			    let selectedFilter = $("#customCheck").is(":checked") ? 1 : 0;
-			    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
-			    $("#actionForm input[name='pageNum']").val(1);
-			
-			    loadTableData(); // 체크박스 변경 시 데이터 새로고침
-			    buttonClear();
-			});
-
+			      $(".paginate_button a").on("click", function(e){
+			      
+			         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			         e.preventDefault(); //이벤트 초기화
+			         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			         console.log(actionForm);
+			         /*
+			         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			         actionForm.submit();
+			         */
+			         console.log("href : " + $(this).attr("href"));
+			          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			          let newPageNum = $(this).attr("href");
+			         console.log("newPageNum : " + newPageNum);
+			          // pageNum이 비어있지 않은 경우에만 submit 실행
+			          if (newPageNum) {
+			              actionForm.find("input[name='pageNum']").val(newPageNum);
+			              actionForm.submit();
+			          }
+			      });
+			      
+			      // 체크박스 변경 시 이벤트 핸들러
+		          $('.wish_check').on('change', function () {
+				    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
+				
+				    let selectedFilter = $("#customCheck").is(":checked") ? 1 : 0;
+				    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+				    $("#actionForm input[name='pageNum']").val(1);
+					
+				    buttonClear();
+				});
+		  	 
+		  	} // ajax의 끝
+		 	
 
 	            $("#customCheck").on("change", function() {
-	                loadTableData(); // 체크박스 변경 시 데이터 새로고침
+	            	loadTableData(); // 체크박스 변경 시 데이터 새로고침
 	                buttonClear();
 	            });
 	            
-	            let searchForm = $("#searchForm");
-				
-				$("#searchForm #searchBtn").on("click",function(e){
-					searchForm.find("input[name='pageNum']").val("1");
-					e.preventDefault();
-					searchForm.submit();
-				});
-		  	} // ajax의 끝
-		 	  
+	          
 		  	
 		  	
             
@@ -445,7 +438,7 @@
 			            }
 			        },
 			        error: function(xhr, status, error) {
-			            // Ajax 요청 실패 시 실행할 로직f
+			            // Ajax 요청 실패 시 실행할 로직
 			            console.error("Ajax 요청 실패:", status, error);
 			        }
 			    });
@@ -521,7 +514,7 @@
                 let newPageNum = $(this).attr("href");
                 if (newPageNum) {
                     $("#actionForm input[name='pageNum']").val(newPageNum);
-                    loadTableData(); // 페이지 번호 클릭 시 데이터 새로고침
+                     // 페이지 번호 클릭 시 데이터 새로고침
                     buttonClear();
                 }
             });
