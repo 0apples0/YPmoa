@@ -205,7 +205,7 @@
             </div>
         </div>
 
-<!-- Modal End -->
+<!-- Modal End! -->
 
 <script type="text/javascript">
 	function formatDate(date) {
