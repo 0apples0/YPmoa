@@ -56,9 +56,6 @@ public class AdminController {
 	@GetMapping("/reportboardget")
 	public void reportboard() {}	
 	
-	@GetMapping("/reportcommentget")
-	public void reportcomment() {}	
-	
 	@ResponseBody
 	@RequestMapping(value="/getUserList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<UserVO> getList(Criteria cri, Model model){
