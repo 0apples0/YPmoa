@@ -5,6 +5,7 @@ import java.util.List;
 import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
+import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -32,4 +33,9 @@ public interface PolicyMapper {
 	public void modComment(PolicyCommentVO comment);
 	public void reportcomment(CommentsReportVO vo);
 	public CommentsReportVO getReportComment(CommentsReportVO vo);
+	public LikeCommentVO getLikeComment(LikeCommentVO vo);
+	public void delLikeComment(LikeCommentVO vo);
+	public void addLikeComment(LikeCommentVO vo);
+	public void modLikeComment(PolicyCommentVO vo);
+	public PolicyCommentVO getComment(PolicyCommentVO vo);
 }

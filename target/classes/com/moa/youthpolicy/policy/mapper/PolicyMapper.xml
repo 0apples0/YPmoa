@@ -117,6 +117,16 @@
 		WHERE reporter = #{reporter} AND boardType = #{boardType} AND policycno = #{policycno}	
 	</select>
 	
+	<select id="getLikeComment" resultType="com.moa.youthpolicy.common.LikeCommentVO" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+		SELECT * FROM like_policyboardcomments
+		WHERE cno = #{cno} AND Email = #{Email}
+	</select>
+	
+	<select id="getComment" resultType="PolicyCommentVO" parameterType="Integer">
+		SELECT * FROM policyboardcomments
+		WHERE cno = #{cno}
+	</select>
+	
 	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		DELETE FROM like_policy
     	WHERE Email = #{Email} AND bno = #{bno}
@@ -135,6 +145,11 @@
 	<update id="modLike" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">
 	    UPDATE policy SET `like` = #{like}
 	    WHERE no = #{no}
+	</update>
+	
+	<update id="modLikeComment" parameterType="com.moa.youthpolicy.policy.domain.PolicyCommentVO">
+		UPDATE policyboardcomments SET `like` = #{like}
+		WHERE cno = #{cno}
 	</update>
 	
 	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
@@ -178,10 +193,21 @@
 		values(#{policycno},#{reasonCategory},#{reporter},#{reason},#{boardType})
 	</insert>
 	
+	<insert id="addLikeComment" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+		INSERT INTO like_policyboardcomments
+		(cno, Email)
+		values(#{cno}, #{Email})
+	</insert>
+	
 	<delete id="deleteComment" parameterType="Integer">
 		DELETE FROM policyboardcomments
 		WHERE cno=#{cno}
 	</delete>	
+	
+	<delete id="delLikeComment" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+		DELETE FROM like_policyboardcomments
+		WHERE cno = #{cno} AND Email = #{Email}
+	</delete>
 	
 	<update id="modComment" parameterType="PolicyCommentVO">
 		UPDATE policyboardcomments

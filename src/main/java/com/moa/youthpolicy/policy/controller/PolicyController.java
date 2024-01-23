@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeCommentVO;
@@ -139,10 +140,9 @@ public class PolicyController {
 	
 	@ResponseBody
 	@PostMapping("/toggleCommentLike")
-	public int toggleCommentLike(LikeCommentVO vo) {
-		log.info(vo);
-		return 1;
-		//return service.toggleCommentLike(vo);
+	public int toggleCommentLike(PolicyCommentVO vo) {
+				
+		return service.toggleCommentLike(vo).getLike();		
 	}
 	
 }
