@@ -716,11 +716,16 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
       	});
       	
       	row.on("click", ".commu_like", function() {
+      		/*
       		if("${user.nick}"==null || "${user.nick}"==""){
         		alert("로그인 후 이용 가능한 서비스 입니다.");
         		//window.location.href = "/user/login";
         		return;
-        	}
+        	}*/
+			if (!chkLogin()) {
+				return;
+			}
+        	var likeButton = $(this); // 현재 클릭한 좋아요 버튼을 저장
       		$.ajax({
                 url: "/policy/toggleCommentLike",
                 type: "POST",
@@ -728,6 +733,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                     cno: cno,
                     bno : bno
                 },
+                /*
                 success: function (response) {
                     // 서버에서 좋아요 토글에 대한 응답을 받으면 이미지와 좋아요 갯수를 업데이트
                     let likeImg = row.find(".commu_like");
@@ -742,6 +748,13 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 
                     // 좋아요 갯수 업데이트
                     likeCountSpan.text(response + "개");
+                },*/
+                success: function (response) {
+                	var currentSrc = likeButton.attr("src");
+		            var newSrc = (currentSrc === "/resources/img/addLike.png") ? "/resources/img/checkLike.png" : "/resources/img/addLike.png";
+		            
+		            likeButton.attr("src", newSrc); // 현재 클릭한 좋아요 버튼만 변경
+		            likeButton.siblings(".like-count").text(response+"개");
                 },
                 error: function (error) {
                     console.error("좋아요 토글 중 오류가 발생했습니다.", error);
@@ -882,8 +895,11 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                          
                           // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
                           let likeTd = $("<td>");
-                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
-                          let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                          //let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src",
+                        		  board.likevo  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png");
+                          let likeSpan = $("<span>").addClass("like-count").text(board.like + "개"); // 좋아요 갯수를 표시할 클래스 추가
+                          // let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
                           // 이미지와 span을 <td> 엘리먼트에 추가
                           likeTd.append(likeImg).append(likeSpan);
                           
@@ -892,15 +908,25 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
                           						.css("width", "20px");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           // 이미지와 link를 <td> 엘리먼트에 추가
-                          reportTd.append(reportImg).append(reportLink);
+                          let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
 
+                          
+                          if("${user.nick}"!=null && board.writer === "${user.nick}"){
+                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                          }else{
+                        	  reportTd.append(reportImg, reportLink);
+                          }
                           // 새로운 <td> 엘리먼트를 행에 추가
                           row.append(likeTd);
                           row.append(reportTd);
                           
                          boardTbody.append(row);
                          console.log("pagemaker: "+${pageMaker.realEnd});
+                         bindCommentActionHandlers(row, board.cno, board.bno);
                       });                   	  
                   }else{
                 	  $("#communityBestCommentDiv").hide();
