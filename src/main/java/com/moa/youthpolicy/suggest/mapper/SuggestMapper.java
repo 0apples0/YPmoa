@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
 
@@ -25,5 +26,8 @@ public interface SuggestMapper {
     int updateSuggestedBoardLikeCount(@Param("bno") int bno, @Param("like") int like);
     // 좋아요 수 가져오기
     int getLikeCount(@Param("bno") int bno);
+    // 게시글 신고
+	public BoardReportVO getReportBoard(BoardReportVO vo);
+	public void reportBoard(BoardReportVO vo);
     
 }
