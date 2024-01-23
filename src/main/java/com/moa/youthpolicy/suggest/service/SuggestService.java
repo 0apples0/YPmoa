@@ -83,16 +83,6 @@ public class SuggestService implements BoardGenericService{
 	public int toggleLike(SuggestVO boardVO, String userEmail) {
 	    log.info("Toggle Like service");
 	    int userLikeCount = suggestMapper.checkUserLike(boardVO.getBno(), userEmail);
-	    
-	    //UserVO user = (UserVO) session.getAttribute("user");
-	    //if (user == null) {
-	    //    log.warn("로그인한 사용자의 정보가 세션에 없습니다.");
-	    //    return -1; // 로그인되지 않은 경우 -1 반환
-	    //}
-	    //String userEmail = user.getEmail();
-
-//	    int userLikeCount = suggestMapper.checkUserLike(boardVO.getBno(), userEmail);
-
 	    if (userLikeCount == 0) {
 	        // 좋아요 정보가 없으면 좋아요 추가
 	        suggestMapper.addLike(boardVO.getBno(), userEmail);
