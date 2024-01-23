@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,17 +94,25 @@ public class WishController {
         return buttonStates;
     }
 
-
 	@ResponseBody
-	@GetMapping("/search")
-	public List<PolicyVO> search(Criteria cri) {
-	    // 여기서 받은 파라미터를 이용하여 검색 로직을 수행하고, 결과를 반환합니다.
-	    List<PolicyVO> searchResult = wishService.searchWish(cri);
-	    return searchResult;
+	@GetMapping("/endAlarm")
+	public int endAlarm() {
+		int response = wishService.endDateAlarm();
+		log.info("받아온 카운드 값: "+response);
+
+		if(response > 0) {
+			return response;
+		}
+		
+		return 0;
+		
 	}
-
 	
-
+    @GetMapping("/getCurrentTime")
+    public ResponseEntity<Long> getCurrentTime() {
+        // 현재 시간을 밀리초 단위로 전송
+        return ResponseEntity.ok(System.currentTimeMillis());
+    }
 	
 	
 	
