@@ -120,7 +120,7 @@
 					</div>
 					<div id="policy_checkbox">
 						<c:choose>
-		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1}">
 								<div class="col-md-1 policy_writeBtn">
 									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 								</div>
