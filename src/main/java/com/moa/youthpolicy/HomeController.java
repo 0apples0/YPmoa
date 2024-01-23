@@ -103,6 +103,9 @@ public class HomeController {
 		map.put("url", "http://localhost:8090"+application.getContextPath()+"/resources/save_img/"+imgname);
 		
 		return map;
+		
+		
+		
 	}
 	
 }

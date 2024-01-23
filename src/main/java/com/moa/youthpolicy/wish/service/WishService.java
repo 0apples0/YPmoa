@@ -123,9 +123,12 @@ public class WishService implements BoardInterface {
 		        return buttonStates;
 		    }
 
-		public List<PolicyVO> searchWish(Criteria cri) {
-			// TODO Auto-generated method stub
-			return null;
+	
+
+		public int endDateAlarm() {
+			int result = mapper.getEndAlarm();
+			log.info("마감알람 개수: "+result);
+			return result;
 		}
 
 
