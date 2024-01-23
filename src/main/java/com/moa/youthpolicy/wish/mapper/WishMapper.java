@@ -19,4 +19,5 @@ public interface WishMapper {
 	public int updateIsAlert(WishVO vo);
 	public int alarmClear(WishVO vo);
 	public List<WishVO> getAlarm();
+	public List<PolicyVO> getListWithPasing(Criteria cri);
 }

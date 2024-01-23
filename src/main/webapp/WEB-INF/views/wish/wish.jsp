@@ -45,7 +45,7 @@
                     <div class="row policy_row g-2">
 
 
-                        <form id="searchForm">
+                        <form id="searchForm" action="/wish/search" method="get">
 
 					<div class="row  policy_row g-2">
 						<div class="col-md-auto">
@@ -78,12 +78,14 @@
 						</div>
 						<div class="col-md-auto">
                             <select class="form-select" name="type">
-                                <option value="TC" 
+                                <option value="" 
                                  	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
                                 <option value="T" 
                                  	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
                                 <option value="C"
-                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>내용</option>  
+                                 	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
+                                <option value="TC"
+                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>제목+내용</option>  
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -133,13 +135,14 @@
 <div class="container-xxl py-5">
 	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
 		<div id="policy_checkbox" style="float: left;">
+		<form id="checkForm">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input wish_check"
-					<c:out value="${pageMaker.cri.selectedFilter == 'alarm'?'checked':'' }"/>
+					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
 			</div>
-
+		</form>
 		</div>
 
 	</div>
@@ -232,14 +235,18 @@
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
 		<input type="hidden" name="policyTypeNm"
-			value="${pageMaker.cri.policyTypeNm }"> <input type="hidden"
-			name="type" value="${pageMaker.cri.type }"> <input
+			value="${pageMaker.cri.policyTypeNm }"> 
+		<input type="hidden"
+			name="type" value="${pageMaker.cri.type }"> 
+		<input
 			type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+			<input
+			type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
 		<input type="hidden" name="selectedFilter"
 			value="${pageMaker.cri.selectedFilter }">
 	</form>
 
-	<form id="usernickForm" action="wish/wish" method="get">
+	<form id="usernickForm" action="wish/wish" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 	</form>
 </div>
@@ -279,15 +286,16 @@
 
 
 
-			let actionFrom = $("#actionFrom");
+			let actionForm = $("#actionForm");
 			$(".paginate_button a").on("click", function(e) {
 				// 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
 				e.preventDefault(); // 이벤트 초기화
 				//pageNum값을 사용자가 누른 a태그의 href속성값으로 변경
 				// 3페이지 선택시 pageNum = 3;
-				actionFrom.find("input[name='pageNum']").val($(this).attr("href"));
-				actionFrom.submit();
+				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+				actionForm.submit();
 			});
+			
 			
 			let searchForm = $("#searchForm");
 			
@@ -305,12 +313,13 @@
 		  	        type: "POST",
 		  	        dataType: "json",
 		  	        data: {
-		  	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
-		  	            amount: $("#actionFrom").find("input[name='amount']").val(),
+		  	            pageNum: $("#actionForm").find("input[name='pageNum']").val(),
+		  	            amount: $("#actionForm").find("input[name='amount']").val(),
 		  	            type: $("#searchForm select[name='type']").val(),
-		  	            keyword: $("#actionFrom").find("input[name='keyword']").val(),
-		  	            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+		  	            keyword: $("#actionForm").find("input[name='keyword']").val(),
+		  	            rgnSeNm: $("#actionForm select[name='rgnSeNm']").val(),
 	        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
+	        			isAlert: $("#checkForm input[name='isAlert']").val(),
 	        			selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
 		  	        },
 		  	        success: function (data) {
@@ -383,7 +392,6 @@
 	    	}
      	
          	// 알람 눌렀을 때
-        // 이벤트 위임을 사용하여 body에 클릭 이벤트를 설정
 			$("body").on("click", ".wish_alarm", function() {
 			    var wishPolicy = $(this).data("wish-policy");
 			    var $button = $(this); // 버튼 jQuery 객체 저장
@@ -495,31 +503,39 @@
                 if (newPageNum) {
                     $("#actionForm input[name='pageNum']").val(newPageNum);
                     loadTableData(); // 페이지 번호 클릭 시 데이터 새로고침
+                    buttonClear();
                 }
             });
 
             
             
-            // 체크박스 변경 시 이벤트 핸들러
+         // 체크박스 변경 시 이벤트 핸들러
             $('.wish_check').on('change', function () {
-                if ($(this).prop('checked')) {
-                    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
-                    let selectedFilter = "";
-                    if ($("#customCheck").is(":checked")) {
-                        selectedFilter = "alarm";
-                    }else {
-                        selectedFilter = "";
-                    }
+                // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
+                console.log("체크박스 상태: " + $("#customCheck").is(":checked"));
 
-                    $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
-                    $("#actionFrom input[name='pageNum']").val(1);
-                
-                    loadTableData(); // 체크박스 변경 시 데이터 새로고침
+                let selectedFilter = "";
+                if ($("#customCheck").is(":checked")) {
+                    selectedFilter = "isAlert";
+                } else {
+                    selectedFilter = "";
                 }
+
+                $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+                $("#actionForm input[name='pageNum']").val(1);
+
+                loadTableData(); // 체크박스 변경 시 데이터 새로고침
+                buttonClear();
             });
 
+
+            $("#customCheck").on("change", function() {
+                loadTableData(); // 체크박스 변경 시 데이터 새로고침
+                buttonClear();
+            });
 		  	
-		  	
+            
+    
             
         }); // document.ready함수 끝
 

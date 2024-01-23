@@ -40,6 +40,8 @@ public class Criteria {
 	// 표시할 베스트 댓글 갯수
 	private static final int amountBestComment = 3;
 	
+	// wish 검색조건
+	private int isAlert;
 	
 	// policy검색조건
 	private String rgnSeNm; 

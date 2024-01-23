@@ -41,9 +41,9 @@ public class WishService implements BoardInterface {
 
 	@Override
 	public List<PolicyVO> getPage(Criteria cri){
-		List<PolicyVO> list = mapper.getWishList(cri);
+//		List<PolicyVO> list = mapper.getWishListPasing(cri);
 		log.info(cri);
-		return list;
+		return null;
 	}
 
 
@@ -115,6 +115,13 @@ public class WishService implements BoardInterface {
 
 		        return buttonStates;
 		    }
+
+		public List<PolicyVO> searchWish(Criteria cri) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
 
 
 
