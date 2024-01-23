@@ -57,7 +57,7 @@ public class WishController {
 		
 	}
 	
-	// 위시한 policy 리스트 가져오기
+	// 위시한 policy 리스트 가져오기 
 	@ResponseBody
 	@RequestMapping(value = "/get", method = RequestMethod.POST)
 	public List<PolicyVO> get(Criteria cri){
@@ -95,6 +95,13 @@ public class WishController {
     }
 
 
+	@ResponseBody
+	@GetMapping("/search")
+	public List<PolicyVO> search(Criteria cri) {
+	    // 여기서 받은 파라미터를 이용하여 검색 로직을 수행하고, 결과를 반환합니다.
+	    List<PolicyVO> searchResult = wishService.searchWish(cri);
+	    return searchResult;
+	}
 
 	
 

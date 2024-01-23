@@ -38,7 +38,7 @@
                    
 
 
-                    <form>
+                    <form id="searchForm">
 
                         <div class="row policy_row g-2">
 
@@ -46,22 +46,32 @@
 
                             <div class="row policy_row g-2" style="justify-content: right;">
                                 <div class="col-md-auto">
-                                    <select class="form-select">
-                                        <option selected>전체</option>
-                                        <option value="1">닉네임</option>
-                                        <option value="2">탈퇴회원</option>
+                                    <select class="form-select" name="userType">
+										<option value="1"
+											<c:out value="${pageMaker.cri.userType == '1' or pageMaker.cri.userType == null ?'selected':'' }"/>>일반회원</option>
+										<option value="2"
+											<c:out value="${pageMaker.cri.userType == '2'?'selected':'' }"/>>탈퇴회원</option>
+										<option value="3"
+											<c:out value="${pageMaker.cri.userType == '3'?'selected':'' }"/>>강제탈퇴회원</option>											
                                     </select>
                                 </div>
 
-
+                                <div class="col-md-auto">
+                                    <select class="form-select" name="type">
+										<option value="nick"
+											<c:out value="${pageMaker.cri.type == 'nick'?'selected':'' }"/>>닉네임</option>
+										<option value="Email"
+											<c:out value="${pageMaker.cri.type == 'Email'?'selected':'' }"/>>이메일</option>										
+                                    </select>
+                                </div>
                              
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="검색어를 입력하세요" />
+                                        placeholder="검색어를 입력하세요" name="keyword"/>
                                 </div>
                                 <div class="col-md-auto">
 
-                                    <button class="btn btn-primary w-100">검색하기</button>
+                                    <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>
                                 </div>
 
                                 <div class="col-md-auto">
@@ -112,7 +122,14 @@
                                                 <th data-sort="author">연락처</th>
                                                 <th data-sort="date">가입일자</th>
                                                 <th data-sort="like"  colspan="2">신고이력</th>
-                                                <th data-sort="like" >회원삭제 </th>
+                                                <c:choose>
+						                            <c:when test="${pageMaker.cri.userType == 2 or pageMaker.cri.userType == 3}">
+						                                <th data-sort="like">탈퇴일자</th>
+						                            </c:when>
+						                            <c:otherwise>
+						                                <th data-sort="like">회원삭제</th>
+						                            </c:otherwise>
+					                            </c:choose>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -210,11 +227,51 @@
         <form id="actionForm" action="/adminmenu/userget" method="post">
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+			<input type="hidden" name="userType" value="${pageMaker.cri.userType }">
+			<input type="hidden" name="type" value="${pageMaker.cri.type }">
+			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
     </div>
 <script>
 $(document).ready(function () {
 	loadTableData();
+	
+	let searchForm = $("#searchForm");
+	
+	$("#searchBtn").on("click",function(e){
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+		searchForm.submit();
+	});
+
+	$("#searchForm button[type='reset']").on("click", function (e) {
+	    // 검색어 입력 필드 초기화
+	    $("#searchForm input[name='keyword']").val('');
+	    $("#searchForm select:eq(0)").val('1');
+	    $("#searchForm select:eq(1)").val('nick');
+		e.preventDefault();
+	});
+	
+	// 회원 강제탈퇴
+	function bindCommentActionHandlers(row, Email) {
+		row.on("click", ".user_deleteBtn", function(){
+    		$.ajax({
+                url: "/adminmenu/deleteUser",
+                type: "POST",
+                dataType: "json", 
+                data: {
+                	Email: Email // 삭제 대상 아이디(이메일)
+                },
+                success: function (response) {
+                    console.log("회원 강제탈퇴가 완료되었습니다.");
+                },
+                error: function (error) {
+                    console.error("강제탈퇴 처리 중 오류가 발생했습니다.", error);
+                }
+            });  			
+		});
+	}
+	
     function loadTableData(){
         
         $.ajax({
@@ -223,7 +280,10 @@ $(document).ready(function () {
            dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
            data:{
          	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
-              amount : $("#actionForm").find("input[name='amount']").val(),             
+              amount : $("#actionForm").find("input[name='amount']").val(),
+              userType: $("#searchForm select[name='userType']").val(),
+	          type: $("#searchForm select[name='type']").val(),
+  	          keyword: $("#actionForm").find("input[name='keyword']").val()
            },
            success: function(data){
        	  
@@ -253,15 +313,28 @@ $(document).ready(function () {
                  let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(users.countReport);
                  countReportTd.append(countReportLink);
                  row.append(countReportTd);
+                 
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
                  let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("삭제");                 
                  
-                 deleteTd.append(deleteImg, deleteLink);
-                 row.append(deleteTd);
+                 let leaveDate = new Date(users.leaveDate);
+                 let formateLeaveDate = leaveDate.toLocaleString("ko-KR", options);
+                 
+                 // 일반 회원 검색이라면, 삭제 버튼 표시
+                 if(users.userType == 1){
+                     deleteTd.append(deleteImg, deleteLink);
+                     row.append(deleteTd);                	 
+                 }else{ // 탈퇴회원, 강제탈퇴 회원 검색이라면, 탈퇴일자 표시
+                     let leaveDateTd = $("<td>").text(formateLeaveDate);
+    				 row.append(leaveDateTd);                	 
+                 }
 
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
+                 
+                 // 회원 아이디(Email)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
+                 bindCommentActionHandlers(row, users.email);
               });
            },
            error: function(e){

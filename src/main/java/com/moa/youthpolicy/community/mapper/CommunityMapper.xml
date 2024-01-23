@@ -135,4 +135,25 @@
 		SET content=#{content}
 		WHERE cno=#{cno}
 	</update>
+	
+	<!-- 게시글 좋아요 기능 -->
+	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		SELECT Email, bno FROM like_tipboard
+	    WHERE Email = #{Email} AND bno = #{bno}
+	</select>
+	
+	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+		DELETE FROM like_tipboard
+    	WHERE Email = #{Email} AND bno = #{bno}
+	</delete>
+	
+	<insert id="addLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
+	    INSERT INTO like_tipboard (Email, bno)
+	    VALUES (#{Email}, #{bno})
+	</insert>
+	
+	<update id="modLike" parameterType="com.moa.youthpolicy.community.domain.CommunityVO">
+	    UPDATE tipboard SET `like` = #{like}
+	    WHERE bno = #{bno}
+	</update>
 </mapper>

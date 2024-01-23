@@ -2,9 +2,9 @@ package com.moa.youthpolicy.policy.mapper;
 
 import java.util.List;
 
+import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
-import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -27,4 +27,9 @@ public interface PolicyMapper {
 	public void writePolicy(PolicyVO vo);
 	public void writePlicyBoard(PolicyBoardVO vo);
 	public void delPolicy(PolicyVO vo);
+	public void writeComment(PolicyCommentVO comment);
+	public void deleteComment(Integer cno);
+	public void modComment(PolicyCommentVO comment);
+	public void reportcomment(CommentsReportVO vo);
+	public CommentsReportVO getReportComment(CommentsReportVO vo);
 }
