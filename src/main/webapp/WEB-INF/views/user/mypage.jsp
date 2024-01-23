@@ -103,7 +103,7 @@
                                     <label class="col-sm-2_a col-form-label mypage_label" for="basic-default-phone">연락처</label>
                                     <div class="col-sm-10">
                                         <input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%= user.getPhone().toString() %>" aria-describedby="basic-default-phone" />
-                                        <button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
+                                        <button type="button" class="btn btn-primary regi_checkBtn" id="phoneck">중복확인</button>
                                     </div>
                                 </div>
                                 <!-- 닉네임 입력, 중복확인 버튼 -->

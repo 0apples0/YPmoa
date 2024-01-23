@@ -103,7 +103,7 @@
 						</div>
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
-							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
+							<button class="btn btn-warning w-100" id="applyConditionsBtn">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-1_a">
 							<button type="reset"  class="btn btn-secondary ">초기화</button>
@@ -264,7 +264,7 @@ function applyUserConditions(e) {
         address: "${user.address}",
         interestField: "${user.interestField}"
     };
-
+	console.log(user);
     // 주소 선택
     var addressSelect = document.getElementsByName("rgnSeNm")[0];
     for (var i = 0; i < addressSelect.options.length; i++) {
@@ -308,7 +308,7 @@ function applyUserConditions(e) {
 
         		}
    
-
+			
 
 
 			let actionForm = $("#actionForm");
@@ -356,11 +356,15 @@ function applyUserConditions(e) {
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
 		  	               addPolicyToContainer(policy, index + 1	);
 		  	            });
+		  	            
+		  	          buttonClear();
 		  	        },
 		  	        error: function (e) {
 		  	            console.log(e);
 		  	        }
 		  	    });
+		  	    
+		  	  	
 		  	    
 			      $(".paginate_button a").on("click", function(e){
 			      
@@ -403,7 +407,12 @@ function applyUserConditions(e) {
 	            });
 	            
 	          
-		  	
+	            function hideButtonIfDateNull(policy) {
+	    	        // 날짜가 null이면 알림받기 버튼을 숨깁니다.
+	    	        if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "상시모집") {
+	    	            $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
+	    	        }
+	    	    }
 		  	
             
             function addPolicyToContainer(policy, index) {
@@ -434,6 +443,7 @@ function applyUserConditions(e) {
 
 
 	    	    $("#wishContainer").append(policyHtml);
+	    	    hideButtonIfDateNull(policy);
 	    	}
      	
          	// 알람 눌렀을 때
