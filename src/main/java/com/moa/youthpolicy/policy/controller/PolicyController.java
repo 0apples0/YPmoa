@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
+import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
@@ -134,6 +135,14 @@ public class PolicyController {
 	public boolean reportcomment(CommentsReportVO vo) {
 		
 		return service.reportcomment(vo);
+	}
+	
+	@ResponseBody
+	@PostMapping("/toggleCommentLike")
+	public int toggleCommentLike(LikeCommentVO vo) {
+		log.info(vo);
+		return 1;
+		//return service.toggleCommentLike(vo);
 	}
 	
 }

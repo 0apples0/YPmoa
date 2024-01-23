@@ -89,7 +89,7 @@
 	</select> 
 	
 	<select id="getLike" resultType="com.moa.youthpolicy.common.LikeBoardVO" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
-		SELECT * FROM like_policy
+		SELECT Email, bno FROM like_policy
 	    WHERE Email LIKE #{Email} AND bno LIKE #{bno}
 	</select>
 	

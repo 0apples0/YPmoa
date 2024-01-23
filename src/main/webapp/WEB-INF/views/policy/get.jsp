@@ -498,7 +498,6 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 						});
 
 		// 좋아요 버튼 클릭 시 이미지 변경
-
 		$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
 						return;
@@ -525,13 +524,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 
 				});
 
-		// 댓글 좋아요 버튼 클릭 시 이미지 변경
-		$(".commu_like").click(function() {
-					var currentSrc = $(this).attr("src");
-					var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png"
-							: "${pageContext.request.contextPath}/resources/img/addLike.png";
-					$(this).attr("src", newSrc);
-				});
+		
 
 		// 신고 모달창
 		$("td").click(function(event) {
@@ -721,6 +714,45 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                   }
               });  
       	});
+      	
+      	row.on("click", ".commu_like", function() {
+      		if("${user.nick}"==null || "${user.nick}"==""){
+        		alert("로그인 후 이용 가능한 서비스 입니다.");
+        		//window.location.href = "/user/login";
+        		return;
+        	}
+      		$.ajax({
+                url: "/policy/toggleCommentLike",
+                type: "POST",
+                data: {
+                    cno: cno,
+                    Email: "${user.nick}"
+                },
+                success: function (response) {
+                    // 서버에서 좋아요 토글에 대한 응답을 받으면 이미지와 좋아요 갯수를 업데이트
+                    let likeImg = row.find(".commu_like");
+                    let likeCountSpan = row.find(".like-count");
+
+                    // 이미지 변경
+                    let currentSrc = likeImg.attr("src");
+                    let newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
+                        "${pageContext.request.contextPath}/resources/img/checkLike.png" :
+                        "${pageContext.request.contextPath}/resources/img/addLike.png";
+                    likeImg.attr("src", newSrc);
+
+                    // 좋아요 갯수 업데이트
+                    likeCountSpan.text(response.like + "개");
+                },
+                error: function (error) {
+                    console.error("좋아요 토글 중 오류가 발생했습니다.", error);
+                }
+            });
+      	  //  var currentSrc = $(this).attr("src");
+      	   // var newSrc = (currentSrc === "/resources/img/addLike.png") ? "/resources/img/checkLike.png"
+      	     //           : "/resources/img/addLike.png";
+      	    //$(this).attr("src", newSrc);
+      	});
+      	
        }
 		
 		function loadTableData(){
@@ -757,11 +789,12 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
                           let likeTd = $("<td>");
                           let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
-                          let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                          let likeSpan = $("<span>").addClass("like-count").text(board.like + "개"); // 좋아요 갯수를 표시할 클래스 추가
+                          //let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
                           // 이미지와 span을 <td> 엘리먼트에 추가
                           likeTd.append(likeImg).append(likeSpan);
                           
-                       	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                          // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
