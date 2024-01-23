@@ -41,5 +41,4 @@ public interface CommunityMapper {
 	// 글수정
 	public int modifyBoard(CommunityVO vo);
 	
-
 }
