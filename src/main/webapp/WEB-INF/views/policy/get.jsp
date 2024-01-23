@@ -914,7 +914,6 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
 
-                          
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
                         	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
                           }else{
