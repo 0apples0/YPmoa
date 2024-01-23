@@ -121,6 +121,7 @@
 	 		as tmp
 		)
 	</select>
+	
 	<!-- 
 	<select id="getCommentTotalCount" resultType="int" parameterType="PolicyBoardVO">
 		SELECT COUNT(cno) FROM policyboardcomments
