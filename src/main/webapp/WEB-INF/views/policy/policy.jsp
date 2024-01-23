@@ -63,6 +63,8 @@
 									<c:out value="${pageMaker.cri.rgnSeNm == '안동시'?'selected':'' }"/>>안동시</option>
 								<option value="울진군"
 									<c:out value="${pageMaker.cri.rgnSeNm == '울진군'?'selected':'' }"/>>울진군</option>
+								<option value="부천시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '부천시'?'selected':'' }"/>>부천시</option>
 									
 							</select>
 						</div>
@@ -81,12 +83,12 @@
 						</div>
 						<div class="col-md-auto">
                             <select class="form-select" name="type">
-                                <option value="TC" 
+                                <option value="" 
                                  	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
                                 <option value="T" 
                                  	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
                                 <option value="C"
-                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>내용</option>  
+                                 	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -106,7 +108,7 @@
 						</div>
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
-							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
+							<button id="applyConditionsBtn" class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-1_a">
 							<button type="reset" class="btn btn-secondary ">초기화</button>
@@ -272,6 +274,39 @@
 
 
 <script>
+
+document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
+function applyUserConditions(e) {
+	e.preventDefault();
+	if("${user.address}" == null){
+		
+		return;
+	}
+    // 사용자 정보 가져오기
+    var user = {
+        address: "${user.address}",
+        interestField: "${user.interestField}"
+    };
+
+    // 주소 선택
+    var addressSelect = document.getElementsByName("rgnSeNm")[0];
+    for (var i = 0; i < addressSelect.options.length; i++) {
+        if (addressSelect.options[i].value === user.address) {
+            addressSelect.options[i].selected = true;
+            break;
+        }
+    }
+
+    // 관심 분야 선택
+    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
+    for (var j = 0; j < interestFieldSelect.options.length; j++) {
+        if (interestFieldSelect.options[j].value === user.interestField) {
+            interestFieldSelect.options[j].selected = true;
+            break;
+        }
+    }
+}
+
 
 function formatDate(date) {
 	  const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; 
