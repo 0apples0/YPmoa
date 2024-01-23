@@ -35,7 +35,7 @@
                                 
                                 <div class="full graph_head" style="padding-bottom: 7px;">
                                     <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                        <h2 style="font-size: 30px;">[${vo.region}/${vo.category}] ${vo.title}</h2><br>
                                         <div>${vo.writer}</div>
 
                                         <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
