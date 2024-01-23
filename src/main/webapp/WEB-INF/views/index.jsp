@@ -57,7 +57,7 @@
                             <select class="form-select">
                                 <option selected>지역선택</option>
                                 <option value="1">부천시</option>
-                                <option value="2">수원시</option>
+                                <option value="2">수원시</option> 
                                 <option value="3">광명시</option>
                             </select>
                         </div>
