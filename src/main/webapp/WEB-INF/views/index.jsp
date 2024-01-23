@@ -213,6 +213,9 @@
 	}
 	
 	$(document).ready(function() {
+		
+		$("#modalCenter").modal("show");
+		
 	     // 정책모음 게시판 가져오기
 	     $.ajax({
 	         type: "POST",
