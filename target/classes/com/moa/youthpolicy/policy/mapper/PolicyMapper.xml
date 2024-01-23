@@ -92,23 +92,45 @@
 		SELECT Email, bno FROM like_policy
 	    WHERE Email LIKE #{Email} AND bno LIKE #{bno}
 	</select>
-	
+	<!--  
 	<select id="getCommentListWithPaging" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM policyboardcomments
 		WHERE cno>0 AND bno=#{bno}
 		ORDER BY cno DESC
 		LIMIT #{start}, #{amount}
 	</select>
+	-->
+	<select id="getCommentListWithPaging" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM policyboardcomments
+		WHERE cno>0 AND bno=#{bno}
+		AND cno NOT IN(
+			SELECT * FROM(
+				SELECT cno from policyboardcomments WHERE cno> 0 AND bno = #{bno} AND `like`>=10 ORDER BY `like` DESC LIMIT #{amountBestComment})
+	 		as tmp
+		)
+		ORDER BY cno DESC
+		LIMIT #{start}, #{amount}
+	</select>
 	
+	<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT COUNT(cno) FROM policyboardcomments
+		WHERE bno=#{bno}
+		AND cno NOT IN(
+			SELECT * FROM(
+				SELECT cno from policyboardcomments WHERE cno> 0 AND bno = #{bno} AND `like`>=10 ORDER BY `like` DESC LIMIT #{amountBestComment})
+	 		as tmp
+		)
+	</select>
+	<!-- 
 	<select id="getCommentTotalCount" resultType="int" parameterType="PolicyBoardVO">
 		SELECT COUNT(cno) FROM policyboardcomments
 		WHERE bno=#{no}
 	</select>
-	
+	 -->
 	<select id="getBestCommentList" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM policyboardcomments
 		WHERE cno>0 AND bno=#{bno} AND `like`>=10
-		ORDER BY cno DESC
+		ORDER BY `like` DESC
 		LIMIT #{amountBestComment}
 	</select>
 	

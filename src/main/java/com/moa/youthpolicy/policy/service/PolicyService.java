@@ -163,11 +163,14 @@ public class PolicyService implements BoardGenericService {
 		}
 		return result;
 	}
-
+/*
 	public int getCommentTotalAmount(Integer bno) {		
 		return mapper.getCommentTotalCount(bno);
 	}
-
+*/
+	public int getCommentTotalAmount(Criteria cri) {		
+		return mapper.getCommentTotalCount(cri);
+	}
 	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
 		return result;

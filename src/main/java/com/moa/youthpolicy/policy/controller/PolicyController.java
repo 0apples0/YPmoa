@@ -81,9 +81,11 @@ public class PolicyController {
 	public void getpolicy(PolicyVO vo, Criteria cri , Model model) {		
 		model.addAttribute("policy", service.getBoard(vo.getNo()));
 		log.info(service.getBoard(vo.getNo()));
-		int total = service.getCommentTotalAmount(vo.getNo());
+		//int total = service.getCommentTotalAmount(vo.getNo());
 		cri.setBno(vo.getNo());
+		int total = service.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info(pageResult.toString());
 		model.addAttribute("pageMaker", pageResult);
 	}
 	
