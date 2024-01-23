@@ -194,5 +194,4 @@ public class CommunityController {
 		log.info(vo.toString());
 		return communityService.likeCommentToggle(vo).getLike();
 	}
-	
 }
