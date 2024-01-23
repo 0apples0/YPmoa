@@ -57,7 +57,7 @@
                             <select class="form-select">
                                 <option selected>지역선택</option>
                                 <option value="1">부천시</option>
-                                <option value="2">수원시</option>
+                                <option value="2">수원시</option> 
                                 <option value="3">광명시</option>
                             </select>
                         </div>
@@ -163,6 +163,49 @@
     </div>
 </div>
 <!-- Service End -->
+
+ <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">정보 수정하기</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                       
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label mypage_label"
+                                for="basic-default-phone">닉네임</label>
+                            <div class="col-sm-10" >
+                                <input type="text" id="basic-default-phone" required style="margin-left: 0px;"
+                                    class="regi_sub_form-control phone-mask" placeholder="닉네임을 입력해주세요"/>
+                                <button type="button"
+                                    class="btn btn-outline-primary regi_checkBtn">중복확인</button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label mypage_label"
+                                for="basic-default-phone">연락처</label>
+                            <div class="col-sm-10" >
+                                <input type="text" id="basic-default-phone" required style="margin-left: 0px;"  
+                                    class="regi_sub_form-control phone-mask" placeholder="연락처를 입력해주세요" />
+                                <button type="button"
+                                    class="btn btn-outline-primary  regi_checkBtn">중복확인</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">확인</button>
+                        <button type="submit" class="btn btn-warning">로그아웃</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal End! -->
 
 <script type="text/javascript">
 	function formatDate(date) {

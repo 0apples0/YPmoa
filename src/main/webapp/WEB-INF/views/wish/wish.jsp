@@ -103,10 +103,10 @@
 						</div>
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-2">
-							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
+							<button class="btn btn-warning w-100" id="applyConditionsBtn">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-1_a">
-							<button type="reset" onclick="resetSelect()" class="btn btn-secondary ">초기화</button>
+							<button type="reset"  class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center">
@@ -232,19 +232,14 @@
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
-		<input type="hidden" name="policyTypeNm"
-			value="${pageMaker.cri.policyTypeNm }"> 
-		<input type="hidden"
-			name="type" value="${pageMaker.cri.type }"> 
-		<input
-			type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-			<input
-			type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
-		<input type="hidden" name="selectedFilter"
-			value="${pageMaker.cri.selectedFilter }">
+		<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }"> 
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
+		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">
 	</form>
 
-	<form id="usernickForm" action="wish/wish" method="post">
+	<form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 	</form>
 </div>
@@ -256,6 +251,38 @@
 
 
 <script>
+
+document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
+function applyUserConditions(e) {
+	e.preventDefault();
+	if("${user.address}" == null){
+		
+		return;
+	}
+    // 사용자 정보 가져오기
+    var user = {
+        address: "${user.address}",
+        interestField: "${user.interestField}"
+    };
+	console.log(user);
+    // 주소 선택
+    var addressSelect = document.getElementsByName("rgnSeNm")[0];
+    for (var i = 0; i < addressSelect.options.length; i++) {
+        if (addressSelect.options[i].value === user.address) {
+            addressSelect.options[i].selected = true;
+            break;
+        }
+    }
+
+    // 관심 분야 선택
+    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
+    for (var j = 0; j < interestFieldSelect.options.length; j++) {
+        if (interestFieldSelect.options[j].value === user.interestField) {
+            interestFieldSelect.options[j].selected = true;
+            break;
+        }
+    }
+}
         $(document).ready(function () {
         	
         	loadTableData();
@@ -281,7 +308,7 @@
 
         		}
    
-
+			
 
 
 			let actionForm = $("#actionForm");
@@ -293,13 +320,19 @@
 				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 				actionForm.submit();
 			});
+		
+		  let searchForm = $("#searchForm");
 			
-			
+			$("#searchForm #searchBtn").on("click",function(e){
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+				searchForm.submit();
+			});
 			
 			
             
             function loadTableData() {
-		    	//$("#policyContainer").empty();
+            	
 		  	    $.ajax({
 		  	        url: "/wish/get",
 		  	        type: "POST",
@@ -323,62 +356,63 @@
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
 		  	               addPolicyToContainer(policy, index + 1	);
 		  	            });
+		  	            
+		  	          buttonClear();
 		  	        },
 		  	        error: function (e) {
 		  	            console.log(e);
 		  	        }
 		  	    });
 		  	    
-		  	  let actionForm = $("#actionForm");
-		      $(".paginate_button a").on("click", function(e){
-		      
-		         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		         e.preventDefault(); //이벤트 초기화
-		         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		         console.log(actionForm);
-		         /*
-		         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		         actionForm.submit();
-		         */
-		         console.log("href : " + $(this).attr("href"));
-		          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		          let newPageNum = $(this).attr("href");
-		         console.log("newPageNum : " + newPageNum);
-		          // pageNum이 비어있지 않은 경우에만 submit 실행
-		          if (newPageNum) {
-		              actionForm.find("input[name='pageNum']").val(newPageNum);
-		              actionForm.submit();
-		          }
-		      });
-		      
-		      // 체크박스 변경 시 이벤트 핸들러
-	          $('.wish_check').on('change', function () {
-			    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
-			
-			    let selectedFilter = $("#customCheck").is(":checked") ? 1 : 0;
-			    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
-			    $("#actionForm input[name='pageNum']").val(1);
-			
-			    loadTableData(); // 체크박스 변경 시 데이터 새로고침
-			    buttonClear();
-			});
-
+		  	  	
+		  	    
+			      $(".paginate_button a").on("click", function(e){
+			      
+			         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			         e.preventDefault(); //이벤트 초기화
+			         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			         console.log(actionForm);
+			         /*
+			         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			         actionForm.submit();
+			         */
+			         console.log("href : " + $(this).attr("href"));
+			          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			          let newPageNum = $(this).attr("href");
+			         console.log("newPageNum : " + newPageNum);
+			          // pageNum이 비어있지 않은 경우에만 submit 실행
+			          if (newPageNum) {
+			              actionForm.find("input[name='pageNum']").val(newPageNum);
+			              actionForm.submit();
+			          }
+			      });
+			      
+			      // 체크박스 변경 시 이벤트 핸들러
+		          $('.wish_check').on('change', function () {
+				    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
+				
+				    let selectedFilter = $("#customCheck").is(":checked") ? 1 : 0;
+				    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+				    $("#actionForm input[name='pageNum']").val(1);
+					
+				    buttonClear();
+				});
+		  	 
+		  	} // ajax의 끝
+		 	
 
 	            $("#customCheck").on("change", function() {
-	                loadTableData(); // 체크박스 변경 시 데이터 새로고침
+	            	loadTableData(); // 체크박스 변경 시 데이터 새로고침
 	                buttonClear();
 	            });
 	            
-	            let searchForm = $("#searchForm");
-				
-				$("#searchForm #searchBtn").on("click",function(e){
-					searchForm.find("input[name='pageNum']").val("1");
-					e.preventDefault();
-					searchForm.submit();
-				});
-		  	} // ajax의 끝
-		 	  
-		  	
+	          
+	            function hideButtonIfDateNull(policy) {
+	    	        // 날짜가 null이면 알림받기 버튼을 숨깁니다.
+	    	        if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "상시모집") {
+	    	            $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
+	    	        }
+	    	    }
 		  	
             
             function addPolicyToContainer(policy, index) {
@@ -409,6 +443,7 @@
 
 
 	    	    $("#wishContainer").append(policyHtml);
+	    	    hideButtonIfDateNull(policy);
 	    	}
      	
          	// 알람 눌렀을 때
@@ -445,7 +480,7 @@
 			            }
 			        },
 			        error: function(xhr, status, error) {
-			            // Ajax 요청 실패 시 실행할 로직f
+			            // Ajax 요청 실패 시 실행할 로직
 			            console.error("Ajax 요청 실패:", status, error);
 			        }
 			    });
@@ -521,7 +556,7 @@
                 let newPageNum = $(this).attr("href");
                 if (newPageNum) {
                     $("#actionForm input[name='pageNum']").val(newPageNum);
-                    loadTableData(); // 페이지 번호 클릭 시 데이터 새로고침
+                     // 페이지 번호 클릭 시 데이터 새로고침
                     buttonClear();
                 }
             });

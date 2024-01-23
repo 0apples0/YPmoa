@@ -138,5 +138,17 @@
 	<select id="policyGet_likeCount" resultType="int" parameterType="Map">
 	    SELECT `like` FROM suggestedboard WHERE bno = #{bno}
 	</select>
-    
+	
+	<!-- 게시글 신고 확인 -->
+    <select id="getReportBoard" resultType="com.moa.youthpolicy.common.BoardReportVO" parameterType="com.moa.youthpolicy.common.BoardReportVO">
+		SELECT * FROM boardreport
+		WHERE reporter = #{reporter} AND boardType = #{boardType} AND suggestbno = #{suggestbno}	
+	</select>
+	
+	<!-- 게시글 신고 제출 -->
+	<insert id="reportBoard" parameterType="com.moa.youthpolicy.common.BoardReportVO">
+		INSERT INTO boardreport
+		(suggestbno, reasonCategory, reporter, reason, boardType)
+		values(#{suggestbno},#{reasonCategory},#{reporter},#{reason},#{boardType})
+	</insert>
 </mapper>

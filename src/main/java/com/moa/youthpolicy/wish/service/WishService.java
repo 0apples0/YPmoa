@@ -42,6 +42,7 @@ public class WishService implements BoardInterface {
 	@Override
 	public List<PolicyVO> getPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
+		log.info(cri);
 		if (AuthUtil.isLogin()) {
 			for (PolicyVO vo : list) {
 
