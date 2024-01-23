@@ -11,6 +11,7 @@ import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
+import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
@@ -153,13 +154,23 @@ public class PolicyService implements BoardGenericService {
 
 	public List<PolicyCommentVO> getCommentList(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getCommentListWithPaging(cri);
+		
+		if(AuthUtil.isLogin()) {
+			for(PolicyCommentVO rs : result) {
+				LikeCommentVO _vo = new LikeCommentVO(AuthUtil.getCurrentUserAccount(), rs.getCno());
+				rs.setLikevo(mapper.getLikeComment(_vo)); 
+			}
+		}
 		return result;
 	}
-
+/*
 	public int getCommentTotalAmount(Integer bno) {		
 		return mapper.getCommentTotalCount(bno);
 	}
-
+*/
+	public int getCommentTotalAmount(Criteria cri) {		
+		return mapper.getCommentTotalCount(cri);
+	}
 	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
 		return result;
@@ -186,6 +197,22 @@ public class PolicyService implements BoardGenericService {
 			return false;
 		}
 		
+	}
+	
+	public PolicyCommentVO toggleCommentLike(PolicyCommentVO vo) {
+		String email = AuthUtil.getCurrentUserAccount();
+		LikeCommentVO like = new LikeCommentVO(email, vo.getCno());
+		LikeCommentVO _vo = mapper.getLikeComment(like);
+		vo = mapper.getComment(vo);
+		if(_vo != null) {
+			mapper.delLikeComment(like);
+			vo.setLike(vo.getLike() - 1);
+		}else {
+			mapper.addLikeComment(like);
+			vo.setLike(vo.getLike() + 1);
+		}
+		mapper.modLikeComment(vo);
+		return vo;
 	}
 
 }

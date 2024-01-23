@@ -396,11 +396,11 @@
 	<input type="hidden" name="no" value="${policy.no}"> 
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+	
 </form>  
 
 <form id="usernickForm" action="/policy/policy" method="get">
 	<input type="hidden" name="writer" value="${user.nick}"> 
-	
 </form>
 
 
@@ -436,7 +436,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 				reasonCategory : selectedOption,
 				reporter : reporter,
 				reason : $("#textarea1").val(),
-				boardType : "Policy"
+				boardType : "P",
 			},
 			success : function(data){
 				$("#modalCenter").modal("hide");
@@ -726,7 +726,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                 type: "POST",
                 data: {
                     cno: cno,
-                    Email: "${user.nick}"
+                    bno : bno
                 },
                 success: function (response) {
                     // 서버에서 좋아요 토글에 대한 응답을 받으면 이미지와 좋아요 갯수를 업데이트
@@ -735,22 +735,18 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 
                     // 이미지 변경
                     let currentSrc = likeImg.attr("src");
-                    let newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ?
+                    let newSrc = (currentSrc == "${pageContext.request.contextPath}/resources/img/addLike.png") ?
                         "${pageContext.request.contextPath}/resources/img/checkLike.png" :
                         "${pageContext.request.contextPath}/resources/img/addLike.png";
                     likeImg.attr("src", newSrc);
 
                     // 좋아요 갯수 업데이트
-                    likeCountSpan.text(response.like + "개");
+                    likeCountSpan.text(response + "개");
                 },
                 error: function (error) {
                     console.error("좋아요 토글 중 오류가 발생했습니다.", error);
                 }
             });
-      	  //  var currentSrc = $(this).attr("src");
-      	   // var newSrc = (currentSrc === "/resources/img/addLike.png") ? "/resources/img/checkLike.png"
-      	     //           : "/resources/img/addLike.png";
-      	    //$(this).attr("src", newSrc);
       	});
       	
        }
@@ -788,7 +784,8 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                          
                           // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
                           let likeTd = $("<td>");
-                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
+                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src",
+                        		  board.likevo  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png");
                           let likeSpan = $("<span>").addClass("like-count").text(board.like + "개"); // 좋아요 갯수를 표시할 클래스 추가
                           //let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
                           // 이미지와 span을 <td> 엘리먼트에 추가

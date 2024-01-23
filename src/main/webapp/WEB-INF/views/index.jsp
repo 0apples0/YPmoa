@@ -57,7 +57,7 @@
                             <select class="form-select">
                                 <option selected>지역선택</option>
                                 <option value="1">부천시</option>
-                                <option value="2">수원시</option>
+                                <option value="2">수원시</option> 
                                 <option value="3">광명시</option>
                             </select>
                         </div>
@@ -163,6 +163,46 @@
     </div>
 </div>
 <!-- Service End -->
+
+
+<!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">정보 수정하기</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="form-label">닉네임</label>
+
+                                <input type="text" placeholder="닉네임을 작성해주세요"
+                                    class="form-control font_light">
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="form-label">연락처</label>
+
+                                <input type="text"  placeholder="연락처를 작성해주세요"
+                                    class="form-control font_light">
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">확인</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Modal End -->
 
 <script type="text/javascript">
 	function formatDate(date) {

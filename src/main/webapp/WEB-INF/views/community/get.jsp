@@ -167,6 +167,7 @@
 
 
 		</div>
+		            
 	</div>
         <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
@@ -243,6 +244,7 @@
             
 
             </ul>
+
         </nav>
         </div>
 
@@ -306,7 +308,7 @@
 		</form>	            
 		<form id="usernickForm" action="/community/community" method="get">
 			<input type="hidden" name="nick" value="${user.nick}"> 
-			
+			<input type="hidden" name="Email" value="${user.email}"> 
 		</form>            
         </div>
 
@@ -357,12 +359,7 @@
 
 				});
 			
-			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
-			$(".commu_table").on("click", ".commu_like", function () {
-			    var currentSrc = $(this).attr("src");
-			    var newSrc = (currentSrc === "${pageContext.request.contextPath}/resources/img/addLike.png") ? "${pageContext.request.contextPath}/resources/img/checkLike.png" : "${pageContext.request.contextPath}/resources/img/addLike.png";
-			    $(this).attr("src", newSrc);
-			});
+
 
 
 			// 댓글 신고 모달창
@@ -554,6 +551,36 @@
                     }
                 });  
         	});
+        	
+        	// 댓글 좋아요
+        	
+			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
+			row.on("click", ".commu_like", function(){
+				if (!chkLogin()) {
+					return;
+				}
+				//추가
+				var likeButton = $(this); // 현재 클릭한 좋아요 버튼을 저장
+				
+				$.ajax({
+						url : "/community/toggleCommentLike",
+						type : "POST",
+						data : {
+							cno : cno
+						},
+						success : function(data) {
+							var currentSrc = likeButton.attr("src");
+				            var newSrc = (currentSrc === "/resources/img/addLike.png") ? "/resources/img/checkLike.png" : "/resources/img/addLike.png";
+				            
+				            likeButton.attr("src", newSrc); // 현재 클릭한 좋아요 버튼만 변경
+				            likeButton.siblings(".Comment_likeCount").text(data+"개");
+				            
+						},
+						error : function(e) {
+							console.log(e);
+						}
+					});
+			});
          }
            
             
@@ -590,8 +617,9 @@
                          
                           // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
                           let likeTd = $("<td>");
-                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
-                          let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                          let likeImg = $("<img>").addClass("commu_like Comment_likeBtn").attr("src",
+                                  board.likeVO  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png").css("cursor", "pointer");
+                          let likeSpan = $("<span>").addClass("Comment_likeCount").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
                           // 이미지와 span을 <td> 엘리먼트에 추가
                           likeTd.append(likeImg).append(likeSpan);
                           
@@ -686,8 +714,11 @@
                              
                               // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
                               let likeTd = $("<td>");
-                              let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src", "${pageContext.request.contextPath}/resources/img/addLike.png");
-                              let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                              
+                              let likeImg = $("<img>").addClass("commu_like Comment_likeBtn").attr("src",
+                                      board.likeVO  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png").css("cursor", "pointer");
+                              
+                              let likeSpan = $("<span>").addClass("Comment_likeCount").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
                               // 이미지와 span을 <td> 엘리먼트에 추가
                               likeTd.append(likeImg).append(likeSpan);
                               

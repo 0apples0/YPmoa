@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeCommentVO;
@@ -65,7 +66,7 @@ public class PolicyController {
 	@RequestMapping(value = { "/policy", "/policyPost" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public void policy(Criteria cri, Model model) {
 		cri.setAmount(8);
-		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
+		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수ㄹ
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 	}
@@ -80,9 +81,11 @@ public class PolicyController {
 	public void getpolicy(PolicyVO vo, Criteria cri , Model model) {		
 		model.addAttribute("policy", service.getBoard(vo.getNo()));
 		log.info(service.getBoard(vo.getNo()));
-		int total = service.getCommentTotalAmount(vo.getNo());
+		//int total = service.getCommentTotalAmount(vo.getNo());
 		cri.setBno(vo.getNo());
+		int total = service.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info(pageResult.toString());
 		model.addAttribute("pageMaker", pageResult);
 	}
 	
@@ -139,10 +142,9 @@ public class PolicyController {
 	
 	@ResponseBody
 	@PostMapping("/toggleCommentLike")
-	public int toggleCommentLike(LikeCommentVO vo) {
-		log.info(vo);
-		return 1;
-		//return service.toggleCommentLike(vo);
+	public int toggleCommentLike(PolicyCommentVO vo) {
+				
+		return service.toggleCommentLike(vo).getLike();		
 	}
 	
 }

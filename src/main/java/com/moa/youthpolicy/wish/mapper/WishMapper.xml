@@ -27,6 +27,28 @@
 		SELECT policy.*
 		FROM policy
 		JOIN wish ON policy.no = wish.wishPolicy
+		  <if test="type != null and keyword != null and keyword != ''">
+		        <choose>
+		            <when test='type == ""'>
+		                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+		            </when>
+		            <when test='type == "T"'>
+		                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
+		            </when>
+		            <when test='type == "C"'>
+		                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+		            </when>	
+		        </choose>
+		    </if>
+		       <if test="rgnSeNm != null and rgnSeNm != ''">
+		        AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+		    </if>
+		    <if test="policyTypeNm != null and policyTypeNm != ''">
+		        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+		    </if>
+		    <if test="selectedFilter == 1">
+			   AND wish.isAlert = 1
+			</if>
 		ORDER BY 
 		  CASE 
 		    WHEN policy.aplyEndDt IS NOT NULL THEN policy.aplyEndDt 
@@ -44,10 +66,34 @@
 	</select>
 	
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	    SELECT COUNT(wishPolicy) FROM wish
-	    WHERE wishPolicy > 0
-	
-	</select>
+   SELECT COUNT(policy.no)
+   FROM policy
+   JOIN wish ON policy.no = wish.wishPolicy
+   <if test="type != null and keyword != null and keyword != ''">
+       <choose>
+           <when test='type == ""'>
+               AND (policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%'))
+           </when>
+           <when test='type == "T"'>
+               AND policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
+           </when>
+           <when test='type == "C"'>
+               AND policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
+           </when>
+       </choose>
+   </if>
+   <if test="rgnSeNm != null and rgnSeNm != ''">
+       AND policy.rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+   </if>
+   <if test="policyTypeNm != null and policyTypeNm != ''">
+       AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+   </if>
+   <if test="selectedFilter == 1">
+       AND wish.isAlert = 1
+   </if>
+</select>
+
+
 	
 		<select id="getListWithPasing" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		    SELECT * FROM policy
@@ -108,7 +154,7 @@
 	    FROM wish;
 	</select>
 
-
+	 
 
 
   

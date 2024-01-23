@@ -45,7 +45,7 @@
                     <div class="row policy_row g-2">
 
 
-                        <form id="searchForm" action="/wish/search" method="get">
+                        <form id="searchForm" >
 
 					<div class="row  policy_row g-2">
 						<div class="col-md-auto">
@@ -79,13 +79,11 @@
 						<div class="col-md-auto">
                             <select class="form-select" name="type">
                                 <option value="" 
-                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>selected>전체</option>
                                 <option value="T" 
-                                 	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+                                 	<c:out value="${pageMaker.cri.type == 'T'}"/>>제목</option>
                                 <option value="C"
-                                 	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
-                                <option value="TC"
-                                 	<c:out value="${pageMaker.cri.type == 'TC'?'selected':''}"/>>제목+내용</option>  
+                                 	<c:out value="${pageMaker.cri.type == 'C'}"/>>내용</option>  
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -108,7 +106,7 @@
 							<button class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-1_a">
-							<button type="reset" class="btn btn-secondary ">초기화</button>
+							<button type="reset"  class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center">
@@ -137,7 +135,7 @@
 		<div id="policy_checkbox" style="float: left;">
 		<form id="checkForm">
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="form-check-input wish_check"
+				<input type="checkbox" class="form-check-input wish_check" name="isAlert"
 					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
@@ -234,19 +232,14 @@
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
-		<input type="hidden" name="policyTypeNm"
-			value="${pageMaker.cri.policyTypeNm }"> 
-		<input type="hidden"
-			name="type" value="${pageMaker.cri.type }"> 
-		<input
-			type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-			<input
-			type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
-		<input type="hidden" name="selectedFilter"
-			value="${pageMaker.cri.selectedFilter }">
+		<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }"> 
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
+		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">
 	</form>
 
-	<form id="usernickForm" action="wish/wish" method="post">
+	<form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 	</form>
 </div>
@@ -258,6 +251,38 @@
 
 
 <script>
+
+document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
+function applyUserConditions(e) {
+	e.preventDefault();
+	if("${user.address}" == null){
+		
+		return;
+	}
+    // 사용자 정보 가져오기
+    var user = {
+        address: "${user.address}",
+        interestField: "${user.interestField}"
+    };
+
+    // 주소 선택
+    var addressSelect = document.getElementsByName("rgnSeNm")[0];
+    for (var i = 0; i < addressSelect.options.length; i++) {
+        if (addressSelect.options[i].value === user.address) {
+            addressSelect.options[i].selected = true;
+            break;
+        }
+    }
+
+    // 관심 분야 선택
+    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
+    for (var j = 0; j < interestFieldSelect.options.length; j++) {
+        if (interestFieldSelect.options[j].value === user.interestField) {
+            interestFieldSelect.options[j].selected = true;
+            break;
+        }
+    }
+}
         $(document).ready(function () {
         	
         	loadTableData();
@@ -295,9 +320,8 @@
 				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 				actionForm.submit();
 			});
-			
-			
-			let searchForm = $("#searchForm");
+		
+		  let searchForm = $("#searchForm");
 			
 			$("#searchForm #searchBtn").on("click",function(e){
 				searchForm.find("input[name='pageNum']").val("1");
@@ -305,26 +329,27 @@
 				searchForm.submit();
 			});
 			
+			
             
             function loadTableData() {
-		    	//$("#policyContainer").empty();
+            	
 		  	    $.ajax({
 		  	        url: "/wish/get",
 		  	        type: "POST",
 		  	        dataType: "json",
-		  	        data: {
-		  	            pageNum: $("#actionForm").find("input[name='pageNum']").val(),
-		  	            amount: $("#actionForm").find("input[name='amount']").val(),
-		  	            type: $("#searchForm select[name='type']").val(),
-		  	            keyword: $("#actionForm").find("input[name='keyword']").val(),
-		  	            rgnSeNm: $("#actionForm select[name='rgnSeNm']").val(),
-	        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
-	        			isAlert: $("#checkForm input[name='isAlert']").val(),
-	        			selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
-		  	        },
+			  	      data: {
+			  	        pageNum: $("#actionForm").find("input[name='pageNum']").val(),
+			  	        amount: $("#actionForm").find("input[name='amount']").val(),
+			  	        type: $("#searchForm select[name='type']").val(),
+			  	        keyword: $("#actionForm").find("input[name='keyword']").val(),
+			  	        rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+			  	        policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
+			  	        selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val(),
+			  	        isAlert: $("#checkForm input[name='isAlert']").is(":checked") ? "isAlert" : ""
+			  	    },
+
 		  	        success: function (data) {
 		  	        	
-		 				console.log(data);
 		 				 $("#wishContainer").empty();
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
@@ -337,29 +362,49 @@
 		  	        }
 		  	    });
 		  	    
-		  	  let actionForm = $("#actionForm");
-		      $(".paginate_button a").on("click", function(e){
-		      
-		         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		         e.preventDefault(); //이벤트 초기화
-		         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		         console.log(actionForm);
-		         /*
-		         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		         actionForm.submit();
-		         */
-		         console.log("href : " + $(this).attr("href"));
-		          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		          let newPageNum = $(this).attr("href");
-		         console.log("newPageNum : " + newPageNum);
-		          // pageNum이 비어있지 않은 경우에만 submit 실행
-		          if (newPageNum) {
-		              actionForm.find("input[name='pageNum']").val(newPageNum);
-		              actionForm.submit();
-		          }
-		      });
+			      $(".paginate_button a").on("click", function(e){
+			      
+			         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			         e.preventDefault(); //이벤트 초기화
+			         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			         console.log(actionForm);
+			         /*
+			         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			         actionForm.submit();
+			         */
+			         console.log("href : " + $(this).attr("href"));
+			          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			          let newPageNum = $(this).attr("href");
+			         console.log("newPageNum : " + newPageNum);
+			          // pageNum이 비어있지 않은 경우에만 submit 실행
+			          if (newPageNum) {
+			              actionForm.find("input[name='pageNum']").val(newPageNum);
+			              actionForm.submit();
+			          }
+			      });
+			      
+			      // 체크박스 변경 시 이벤트 핸들러
+		          $('.wish_check').on('change', function () {
+				    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
+				
+				    let selectedFilter = $("#customCheck").is(":checked") ? 1 : 0;
+				    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+				    $("#actionForm input[name='pageNum']").val(1);
+					
+				    buttonClear();
+				});
+		  	 
 		  	} // ajax의 끝
-		 	  
+		 	
+
+	            $("#customCheck").on("change", function() {
+	            	loadTableData(); // 체크박스 변경 시 데이터 새로고침
+	                buttonClear();
+	            });
+	            
+	          
+		  	
+		  	
             
             function addPolicyToContainer(policy, index) {
 	    	
@@ -425,7 +470,7 @@
 			            }
 			        },
 			        error: function(xhr, status, error) {
-			            // Ajax 요청 실패 시 실행할 로직f
+			            // Ajax 요청 실패 시 실행할 로직
 			            console.error("Ajax 요청 실패:", status, error);
 			        }
 			    });
@@ -439,7 +484,6 @@
 			        success: function(buttonStates) {
 			            // 서버에서 받아온 상태를 기반으로 각 버튼을 초기화
 			            $(".wish_alarm").each(function(index, element) {
-			            	 console.log("서버에서 받아온 상태:", buttonStates);
 			                var wishPolicy = $(element).data("wish-policy");
 
 			                // 해당 정책에 대한 상태를 서버에서 받아온 값으로 설정
@@ -502,39 +546,16 @@
                 let newPageNum = $(this).attr("href");
                 if (newPageNum) {
                     $("#actionForm input[name='pageNum']").val(newPageNum);
-                    loadTableData(); // 페이지 번호 클릭 시 데이터 새로고침
+                     // 페이지 번호 클릭 시 데이터 새로고침
                     buttonClear();
                 }
             });
 
             
             
-         // 체크박스 변경 시 이벤트 핸들러
-            $('.wish_check').on('change', function () {
-                // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
-                console.log("체크박스 상태: " + $("#customCheck").is(":checked"));
-
-                let selectedFilter = "";
-                if ($("#customCheck").is(":checked")) {
-                    selectedFilter = "isAlert";
-                } else {
-                    selectedFilter = "";
-                }
-
-                $("#actionForm input[name='selectedFilter']").val(selectedFilter);
-                $("#actionForm input[name='pageNum']").val(1);
-
-                loadTableData(); // 체크박스 변경 시 데이터 새로고침
-                buttonClear();
-            });
-
-
-            $("#customCheck").on("change", function() {
-                loadTableData(); // 체크박스 변경 시 데이터 새로고침
-                buttonClear();
-            });
+        
 		  	
-            
+       
     
             
         }); // document.ready함수 끝
