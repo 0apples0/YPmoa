@@ -46,8 +46,8 @@ public class WishController {
 		return list;
 	}
 	
-	// wish페이지 띄우기, 페이징 숫자 조절
-	@RequestMapping(value = {"/wish", "/wishPaging"}, method = { RequestMethod.POST })
+	
+	@RequestMapping(value = {"/wish", "/wishPaging"}, method = {RequestMethod.GET,  RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
 		cri.setAmount(8);
 		int total = wishService.getTotalAmount(cri); 
@@ -59,11 +59,10 @@ public class WishController {
 	
 	// 위시한 policy 리스트 가져오기 
 	@ResponseBody
-	@RequestMapping(value = "/get", method = RequestMethod.POST)
+	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){
-		log.info("등록한 위시 가져오기");
-		log.info(cri);
-		return wishService.getPage(cri);
+		List<PolicyVO> result =  wishService.getPage(cri);
+		return result;
 	}
 
 	

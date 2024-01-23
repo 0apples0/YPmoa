@@ -41,7 +41,7 @@ public class Criteria {
 	private static final int amountBestComment = 3;
 	
 	// wish 검색조건
-	private int isAlert;
+	private String isAlert;
 	
 	// policy검색조건
 	private String rgnSeNm; 
