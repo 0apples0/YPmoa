@@ -11,4 +11,6 @@ public class LikeCommentVO {
 		this.Email = Email;
 		this.cno = cno;
 	}
+	
+	public LikeCommentVO() {};
 }
