@@ -930,7 +930,6 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                   }else{
                 	  $("#communityBestCommentDiv").hide();
                   }
-
                },
                error: function(e){
                   console.log(e);
