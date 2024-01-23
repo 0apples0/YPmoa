@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.suggest.domain.SuggestVO;
@@ -62,7 +63,6 @@ public class SuggestController {
 	        int likeStatus = suggestService.checkUserLike(bno, user.getEmail());
 	        model.addAttribute("likeStatus", likeStatus);
 	    }
-
 	    model.addAttribute("vo", suggestService.getBoard(bno));
 	}
 	
@@ -71,6 +71,7 @@ public class SuggestController {
 	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
 		model.addAttribute("vo", suggestService.getBoard(bno));
 	}
+	
 	//글 작성
 	@GetMapping("/write")
 	public void getWrite() {}
@@ -107,7 +108,6 @@ public class SuggestController {
 		if (suggestService.modifyBoard(vo)) {
 		rttr.addFlashAttribute("result", "success");
 		}
-		
 		return "redirect:/suggest/get?bno=" + bno;
 	}
 	
@@ -117,10 +117,8 @@ public class SuggestController {
 	    if (suggestService.removeBoard(bno)) {
 	        rttr.addFlashAttribute("result", "success");
 	    }
-
 	    return "redirect:/suggest/suggest";
 	}
-	
 	
 	// Ajax가 호출하는 메서드, 반환타입은 json으로 설정하라는 주석
 	@ResponseBody
@@ -129,8 +127,6 @@ public class SuggestController {
 		log.info("Ajax 호출"+cri.toString());	
 		log.info("Ajax 호출"+model);	
 		return suggestService.getPage(cri);
-		
-		
 	}
 
 	// 글 좋아요
@@ -138,18 +134,12 @@ public class SuggestController {
 	@ResponseBody
 	public int toggleLike(@RequestParam("bno") int bno, HttpSession session) {
 	    UserVO user = (UserVO) session.getAttribute("user");
-
 	    if (user == null) {
 	        return 0; // 로그인되지 않은 경우 0 반환
 	    }
-
 	    SuggestVO suggestVO = new SuggestVO();
 	    suggestVO.setBno(bno);
-
-	    //suggestService.toggleLike(suggestVO);
-
 	   // 좋아요 여부를 반환
-	   //return suggestService.checkUserLike(bno, user.getEmail());
 	    return suggestService.toggleLike(suggestVO, user.getEmail());
 	}
 	
@@ -158,7 +148,6 @@ public class SuggestController {
 	@ResponseBody
 	public int checkUserLike(@RequestParam("bno") int bno, HttpSession session) {
 	    UserVO user = (UserVO) session.getAttribute("user");
-
 	    if (user == null) {
 	        return 0;
 	    }
@@ -173,4 +162,11 @@ public class SuggestController {
     public int getLikeCount(@RequestParam("bno") int bno) {
         return suggestService.getLikeCount(bno);
     }
+    
+    // 게시글 신고
+	@ResponseBody
+	@PostMapping("/reportBoard")
+	public boolean reportBoard(BoardReportVO vo) {
+		return suggestService.reportBoard(vo);
+	}
 }
