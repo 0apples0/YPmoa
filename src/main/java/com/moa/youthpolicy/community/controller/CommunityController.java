@@ -68,7 +68,9 @@ public class CommunityController {
 	public void getCommunity(@RequestParam("bno") Integer bno, Criteria cri, Model model) {
 		
 		model.addAttribute("vo", communityService.getBoard(bno));
-		int total = communityService.getCommentTotalAmount(bno); //전체 댓글 갯수
+		
+		
+		int total = communityService.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 	}
@@ -123,6 +125,7 @@ public class CommunityController {
 		log.info(cri.toString());
 		log.info("댓글 Ajax 호출 + bno"+ cri.getBno());
 		model.addAttribute("bestcommentvo", communityService.getBestCommentPage(cri));
+		
 		return communityService.getBestCommentPage(cri);
 	
 	}
@@ -131,6 +134,13 @@ public class CommunityController {
 	@PostMapping("/toggleLike")
 	public int toggleLike(CommunityVO vo) {
 		return communityService.likeToggle(vo).getLike();
+	}
+
+	@ResponseBody
+	@PostMapping("/toggleCommentLike")
+	public int toggleCommentLike(CommunityCommentVO vo) {
+		log.info(vo.toString());
+		return communityService.likeCommentToggle(vo).getLike();
 	}
 	
 }

@@ -9,6 +9,7 @@ import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
+import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
@@ -69,13 +70,21 @@ public class CommunityService implements BoardGenericService{
 		List<CommunityCommentVO> result = communityMapper.getCommentListWithPaging(cri);
 		log.info("------service out getList------");
 		log.info(result);
+
+        if(AuthUtil.isLogin()) {
+            for(CommunityCommentVO rs : result) {
+                LikeCommentVO _vo = new LikeCommentVO(AuthUtil.getCurrentUserAccount(), rs.getCno());
+                rs.setLikeVO(communityMapper.getCommentLike(_vo));
+            }
+        }
 		return result;
 	}	
 
-	public int getCommentTotalAmount(Integer key) {
-		int cnt = communityMapper.getCommentTotalCount(key);
+	public int getCommentTotalAmount(Criteria cri) {
+		int cnt = communityMapper.getCommentTotalCount(cri);
 		return cnt;
 	}
+
 	
 	// 베스트댓글 페이징
 	public List<CommunityCommentVO> getBestCommentPage(Criteria cri) {
@@ -83,6 +92,12 @@ public class CommunityService implements BoardGenericService{
 		List<CommunityCommentVO> result = communityMapper.getBestCommentList(cri);
 		log.info("------service out getList------");
 		log.info(result);
+        if(AuthUtil.isLogin()) {
+            for(CommunityCommentVO rs : result) {
+                LikeCommentVO _vo = new LikeCommentVO(AuthUtil.getCurrentUserAccount(), rs.getCno());
+                rs.setLikeVO(communityMapper.getCommentLike(_vo));
+            }
+        }
 		return result;
 	}	
 
@@ -139,6 +154,27 @@ public class CommunityService implements BoardGenericService{
 		}
 		return null;
 	}
+
+	public CommunityCommentVO likeCommentToggle(CommunityCommentVO vo) {
+		CommunityCommentVO _vo = communityMapper.getComment(vo.getCno());
+		if (AuthUtil.isLogin()) {
+			LikeCommentVO like = new LikeCommentVO(AuthUtil.getCurrentUserAccount(), vo.getCno());
+			System.out.println(like.toString());
+			if(communityMapper.getCommentLike(like) != null) {
+				communityMapper.delCommentLike(like);
+				_vo.setLike(_vo.getLike() - 1);
+			}else {
+				communityMapper.addCommentLike(like);
+				_vo.setLike(_vo.getLike() + 1);
+			}
+			communityMapper.modCommentLike(_vo);
+			return _vo;
+		}
+		return null;
+	}
+
+
+	
 
 
 

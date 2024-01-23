@@ -100,22 +100,33 @@
 		SELECT * FROM tipboard WHERE bno=#{bno}
 	</select>
 	
-	<select id="getCommentTotalCount" resultType="int" parameterType="CommunityVO">
+	<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(cno) FROM tipboardcomments
 		WHERE bno=#{bno}
+		AND cno NOT IN(
+			SELECT * FROM(
+				SELECT cno from tipboardcomments WHERE cno> 0 AND bno = #{bno} AND `like`>=10 ORDER BY `like` DESC LIMIT #{amountBestComment})
+	 		as tmp
+		)
 	</select>
-	
-	<select id="getCommentListWithPaging" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+
+  	<select id="getCommentListWithPaging" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM tipboardcomments
-		WHERE cno>0 AND bno=#{bno}
+		WHERE cno > 0  
+		AND bno = #{bno}
+		AND cno NOT IN(
+			SELECT * FROM(
+				SELECT cno from tipboardcomments WHERE cno> 0 AND bno = #{bno} AND `like`>=10 ORDER BY `like` DESC LIMIT #{amountBestComment})
+	 		as tmp
+		)
 		ORDER BY cno DESC
 		LIMIT #{start}, #{amount}
 	</select>
-	
+		
 	<select id="getBestCommentList" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM tipboardcomments
 		WHERE cno>0 AND bno=#{bno} AND `like`>=10
-		ORDER BY cno DESC
+		ORDER BY `like` DESC
 		LIMIT #{amountBestComment}
 	</select>
 
@@ -155,5 +166,32 @@
 	<update id="modLike" parameterType="com.moa.youthpolicy.community.domain.CommunityVO">
 	    UPDATE tipboard SET `like` = #{like}
 	    WHERE bno = #{bno}
+	</update>
+	
+	<!-- 댓글 좋아요 기능 -->
+	
+	<select id="getComment" resultType="com.moa.youthpolicy.community.domain.CommunityCommentVO" parameterType="int">
+		SELECT * FROM tipboardcomments
+	    WHERE cno = #{cno}
+	</select>
+	
+	<select id="getCommentLike" resultType="com.moa.youthpolicy.common.LikeCommentVO" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+		SELECT Email, cno FROM like_tipboardcomments
+	    WHERE Email = #{Email} AND cno = #{cno}
+	</select>
+	
+	<delete id="delCommentLike" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+		DELETE FROM like_tipboardcomments
+    	WHERE Email = #{Email} AND cno = #{cno}
+	</delete>
+	
+	<insert id="addCommentLike" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
+	    INSERT INTO like_tipboardcomments (Email, cno)
+	    VALUES (#{Email}, #{cno})
+	</insert>
+	
+	<update id="modCommentLike" parameterType="com.moa.youthpolicy.community.domain.CommunityCommentVO">
+	    UPDATE tipboardcomments SET `like` = #{like}
+	    WHERE cno = #{cno}
 	</update>
 </mapper>
