@@ -2,6 +2,8 @@ package com.moa.youthpolicy.community.domain;
 
 import java.util.Date;
 
+import com.moa.youthpolicy.common.LikeBoardVO;
+
 import lombok.Data;
 
 @Data
@@ -17,4 +19,5 @@ public class CommunityVO {
 	Date regDate;
 	Character boardType;
 	
+	LikeBoardVO likeVO;
 }

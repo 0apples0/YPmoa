@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
+import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
@@ -133,6 +134,7 @@ public class PolicyService implements BoardGenericService {
 			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), no);
 			vo.setWishVO(wishMapper.getWish(wish));
 			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), no);
+			log.info(like);
 			vo.setLikeVO(mapper.getLike(like));
 		}
 		return vo;
@@ -161,6 +163,29 @@ public class PolicyService implements BoardGenericService {
 	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
 		return result;
+	}
+	
+	public void writeComment(PolicyCommentVO comment) {
+		mapper.writeComment(comment);
+	}
+	
+	public void delCommunityComment(Integer cno) {
+		mapper.deleteComment(cno);		
+	}
+	// 댓글 수정
+	public void modCommunityComment(PolicyCommentVO comment) {
+		mapper.modComment(comment);
+	}
+
+	public boolean reportcomment(CommentsReportVO vo) {
+		CommentsReportVO _vo = mapper.getReportComment(vo);
+		if(_vo == null) {
+			mapper.reportcomment(vo);
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 }
