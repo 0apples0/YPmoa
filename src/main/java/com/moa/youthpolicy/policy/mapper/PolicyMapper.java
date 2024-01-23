@@ -23,7 +23,8 @@ public interface PolicyMapper {
 	public void modBoard(PolicyVO _vo);
 	public void modp_Board(PolicyBoardVO _vo);
 	public List<PolicyCommentVO> getCommentListWithPaging(Criteria cri);
-	public int getCommentTotalCount(Integer no);
+	//public int getCommentTotalCount(Integer no);
+	public int getCommentTotalCount(Criteria cri);
 	public List<PolicyCommentVO> getBestCommentList(Criteria cri);
 	public void writePolicy(PolicyVO vo);
 	public void writePlicyBoard(PolicyBoardVO vo);
