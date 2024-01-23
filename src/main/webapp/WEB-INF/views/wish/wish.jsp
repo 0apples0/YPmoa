@@ -251,6 +251,38 @@
 
 
 <script>
+
+document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
+function applyUserConditions(e) {
+	e.preventDefault();
+	if("${user.address}" == null){
+		
+		return;
+	}
+    // 사용자 정보 가져오기
+    var user = {
+        address: "${user.address}",
+        interestField: "${user.interestField}"
+    };
+
+    // 주소 선택
+    var addressSelect = document.getElementsByName("rgnSeNm")[0];
+    for (var i = 0; i < addressSelect.options.length; i++) {
+        if (addressSelect.options[i].value === user.address) {
+            addressSelect.options[i].selected = true;
+            break;
+        }
+    }
+
+    // 관심 분야 선택
+    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
+    for (var j = 0; j < interestFieldSelect.options.length; j++) {
+        if (interestFieldSelect.options[j].value === user.interestField) {
+            interestFieldSelect.options[j].selected = true;
+            break;
+        }
+    }
+}
         $(document).ready(function () {
         	
         	loadTableData();
