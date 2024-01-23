@@ -134,7 +134,7 @@
 	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
 		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="form-check-input"
+				<input type="checkbox" class="form-check-input wish_check"
 					<c:out value="${pageMaker.cri.selectedFilter == 'alarm'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
@@ -316,6 +316,7 @@
 		  	        success: function (data) {
 		  	        	
 		 				console.log(data);
+		 				 $("#wishContainer").empty();
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
@@ -357,10 +358,6 @@
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 	    	    console.log(policy.no);
-
-	    	
-
-
 
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
@@ -426,7 +423,7 @@
 			    });
 			});
          	
-         	
+         	// 버튼 상태 DB저장
 			function buttonClear() {
 			    $.ajax({
 			        type: "GET",
@@ -463,7 +460,7 @@
                     return;
                 }
 
-                var wishPolicy = $(this).closest('.col-lg-3').data('wish-policy-no');
+                var wishPolicy = $(this).closest('.col-lg-3').data('wish-policy');
 
 
                 console.log("위시jsp: " + wishPolicy);
@@ -490,7 +487,36 @@
 
 
         	
-        
+
+            // 페이지 번호 클릭 시 이벤트 핸들러
+            $(document).on("click", ".paginate_button a", function (e) {
+                e.preventDefault();
+                let newPageNum = $(this).attr("href");
+                if (newPageNum) {
+                    $("#actionForm input[name='pageNum']").val(newPageNum);
+                    loadTableData(); // 페이지 번호 클릭 시 데이터 새로고침
+                }
+            });
+
+            
+            
+            // 체크박스 변경 시 이벤트 핸들러
+            $('.wish_check').on('change', function () {
+                if ($(this).prop('checked')) {
+                    // 체크박스 상태에 따라 actionForm의 값을 변경하고 데이터를 새로고침
+                    let selectedFilter = "";
+                    if ($("#customCheck").is(":checked")) {
+                        selectedFilter = "alarm";
+                    }else {
+                        selectedFilter = "";
+                    }
+
+                    $("#actionFrom input[name='selectedFilter']").val(selectedFilter);
+                    $("#actionFrom input[name='pageNum']").val(1);
+                
+                    loadTableData(); // 체크박스 변경 시 데이터 새로고침
+                }
+            });
 
 		  	
 		  	
