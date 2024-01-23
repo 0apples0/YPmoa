@@ -9,6 +9,12 @@
 		WHERE userType=1
 	</select>
 
+	<select id="getCommentTotalCount" resultType="int">
+		SELECT COUNT(tc.cno) 
+		FROM tipboardcomments tc
+		INNER JOIN commentsreport cr ON tc.cno = cr.tipcno;
+	</select>
+
 	<select id="getListWithPaging" resultType="UserVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM user
 		WHERE userType=1
@@ -49,6 +55,14 @@
 	    </choose>	
 	    -->	
 		LIMIT #{start}, #{amount}
-		
 	</select>
+	
+	<select id="commentListPaging" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
+	    SELECT tc.* 
+	    FROM tipboardcomments tc
+	    INNER JOIN commentsreport cr ON tc.cno = cr.tipcno
+	    ORDER BY tc.regDate DESC
+	    LIMIT #{start}, #{amount};
+	</select>
+	
 </mapper>

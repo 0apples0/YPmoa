@@ -69,32 +69,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>동그란피자</td>
-                                            <td>
-                                                너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
-                                                너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
-                                                너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
-                                                너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
-                                                너네몇번찍엇냐; 양심잇으면 대댓 ㅋㅋ
-                                            </td>
-                                            <td>2024-05-11
-                                            </td>
-                                          
-                                            <td class="admin_boardReport">게시글 신고 <span>2</span>회
-                                            </td>
-                                            <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
-                                        </tr>
-                                        <tr>
-                                            <td>부드러운아보카도</td>
-                                            <td>진짜 아보카도혐오하는사람들 디져라</td>
-                                            <td>2024-05-11  
-                                            </td>
-                                          
-                                            <td class="admin_boardReport">게시글 신고 <span>2</span>회
-                                            </td>
-                                            <td><a href="#"> <i class="fa fa-minus-circle fa-2x text-primary"></i></a></td> 
-                                        </tr>
+                                       <!-- 동적으로 생성 된 테이블 들어갈 자리 -->
                                     </tbody>
                                 </table>
                             </div>
@@ -286,8 +261,8 @@
 	              amount : $("#actionForm").find("input[name='amount']").val(),             
 	           },
 	           success: function(data){
-	              let userTbody = $("#admin_commentTable tbody");
-	              userTbody.empty(); // 기존 테이블 행 삭제
+	              let commentTbody = $("#admin_commentTable tbody");
+	              commentTbody.empty(); // 기존 테이블 행 삭제
 	              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
 	              //for(let item of items) -> items == data, item ==board 역할
 	              $.each(data, function(index, comments){
@@ -295,28 +270,32 @@
 	                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
 	                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
 	                 let formateDate = regDate.toLocaleString("ko-KR", options);
+	                 
+					 // tipCount와 policyCount 중에서 어떤 값을 보여줄지 결정
+					 let countToShow = comments.tipcno ? comments.tipcno : comments.policycno;
+					 
 	                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
 	                 // 동적으로 데이터 처리
 	                 console.log(comments);
 	                 let row = $("<tr>");
-	                 row.append($("<td>").text(comments.email));
-	                 row.append($("<td>").text(comments.nick));
-	                 row.append($("<td>").text(comments.name));
-	                 row.append($("<td>").text(comments.phone));
-	                 row.append($("<td>").text(formateDate));
-	                 
+	                 row.append($("<td>").text(comments.writer));
+	                 row.append($("<td>").text(comments.content));
+	                 row.append($("<td>").text(formateDate)); // 작성일
+	                 row.append($("<td>").text(countToShow)); // 신고갯수 들어갈 자리
+
 	                 let countReportTd = $("<td>").attr("colspan", "2");
-	                 let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(users.countReport);
+					 let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(countToShow);
+	                 // let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(comments.countReport);
 	                 countReportTd.append(countReportLink);
 	                 row.append(countReportTd);
 	                 let deleteTd = $("<td>");
 	                 let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
-	                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("삭제");                 
+	                 let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "").text("삭제");                 
 	                 
 	                 deleteTd.append(deleteImg, deleteLink);
 	                 row.append(deleteTd);
 
-	                 userTbody.append(row);
+	                 commentTbody.append(row);
 	                 console.log("pagemaker: "+${pageMaker.realEnd});
 	              });
 	           },
