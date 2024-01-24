@@ -230,6 +230,15 @@
     
 	
 	$(document).ready(function() {
+		
+		
+		if("${user.email}" != "")
+		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "")
+		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
+				$("#modalCenter").modal("show");
+			}
+		
+		
 		// 초기화 시 확인 버튼 상태 업데이트
 		enableOrDisableConfirmButton();
 		
@@ -259,6 +268,7 @@
         });
         var userPhone = "${user.phone}";
         if (userPhone) {
+        	phoneNumberCheckDone = true;
             $("#phoneInput").val(userPhone);
             $("#phoneInput").prop("disabled", true);
             $("#checkPhoneNumberBtn").prop("disabled", true);
@@ -270,11 +280,7 @@
 		console.log($("#usernickForm input[name='Email']").val());
 		console.log($("#usernickForm input[name='phone']").val());
 		
-		if($("#usernickForm input[name=Email]").val() != null && $("#usernickForm input[name=Email]").val().trim() != ""){
-			if($("#usernickForm input[name=phone]").val() == null || $("#usernickForm input[name=phone]").val().trim() == ""){
-				$("#modalCenter").modal("show");
-			}
-		}
+		
 		
 	     // 정책모음 게시판 가져오기
 	     $.ajax({
@@ -510,8 +516,8 @@
 		            phone: $("#phoneInput").val(),
 		            nick: $("#nickInput").val()
 				},
-				success:{
-					$("#modalCenter").modal("hide");
+				success: function (){
+					window.location.href = "/";
 				}
 			});
 						
