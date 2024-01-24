@@ -12,7 +12,7 @@
 
 	<update id="modinfo" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 		UPDATE user
-		SET address = #{address},interestField = #{interestField}
+		SET address = #{address},interestField = #{interestField}, nick = #{nick}, phone = #{phone}
 		WHERE Email = #{Email}
 	</update>
 
