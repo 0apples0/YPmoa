@@ -296,7 +296,7 @@ $(document).ready(function () {
 	newAlarm();
 	loadTableData();
    	$("#customCheck").change(function () {
-	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출3
 	    let selectedFilter = "";
 	    if ($("#customCheck").is(":checked")) {
 	        selectedFilter = "like";
