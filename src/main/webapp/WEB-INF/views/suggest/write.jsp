@@ -123,7 +123,7 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
                 ['picture', ['[picture]']],
-                ['insert', ['link', 'picture']],
+ ﻿               ['insert', ['link', 'picture']],
             ]
 
         });

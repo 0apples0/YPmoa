@@ -227,11 +227,7 @@
 </div>
 
 <script>
-	
-	
-	
 	$(document).ready(function () {
-		
 		loadTableData();
 		
 	   	$("#customCheck").change(function () {
@@ -298,13 +294,13 @@
 			
 		});
 		
-	    function loadTableData(){
+		function loadTableData(){
 			$.ajax({
 				url: "/suggest/getList",// 요청할 서버 uri
 	          	type: "POST", //요청방식 지정
 	          	dataType : "json", // 서버 응답의 데이터 타입(대표적으로 json(name, value 형태), xml(태그 형태)이 있다)
 	          	data:{
-	          		pageNum : $("#actionForm").find("input[name='pageNum']").val(),
+					pageNum : $("#actionForm").find("input[name='pageNum']").val(),
 	              	amount : $("#actionForm").find("input[name='amount']").val(),
 	              	writer: $("#actionForm").find("input[name='writer']").val(),
 		          	type: $("#searchForm select[name='type']").val(),
@@ -313,17 +309,17 @@
 	    		  	policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 	    		  	selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
 	          	},
-	           
-	                success: function(data){
-	                	  
-	                    let boardTbody = $("#suggestBoardTable tbody");
-	                    boardTbody.empty(); // 기존 테이블 행 삭제
-	                       
-	                    //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-	                    //for(let item of items) -> items == data, item ==board 역할
-	                    $.each(data, function(index, board){
-	                        
-	                        let regDate=new Date(board.regDate);
+				success: function(data){
+					let boardTbody = $("#suggestBoardTable tbody");
+					boardTbody.empty(); // 기존 테이블 행 삭제
+					//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+					//for(let item of items) -> items == data, item ==board 역할
+					if (data.length === 0) {
+					// 검색 결과가 없는 경우 메시지 표시
+						boardTbody.append("<tr><td colspan='6' class='text-center'>검색 결과가 없습니다.</td></tr>");
+					} else {
+						$.each(data, function(index, board){
+							let regDate=new Date(board.regDate);
 	                        // numeric: 숫자, 2-digit: 두자리 숫자 형식
 	                        let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" };
 	                        let formateDate = regDate.toLocaleString("ko-KR", options);
@@ -340,36 +336,34 @@
 	                        row.append($("<td>").text(board.writer));
 	                        row.append($("<td>").text(formateDate));
 	                        
-	                         // 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
-	                         let likeTd = $("<td>");
-	                         let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
-	                         let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+							// 새로운 <td> 엘리먼트 생성 (이미지와 span 포함)
+	                        let likeTd = $("<td>");
+	                        let likeImg = $("<img>").addClass("commu_like").attr("src", "${pageContext.request.contextPath}/resources/img/checkLike.png");
+	                        let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
 
-	                         // 이미지와 span을 <td> 엘리먼트에 추가
-	                         likeTd.append(likeImg).append(likeSpan);
+	                        // 이미지와 span을 <td> 엘리먼트에 추가
+	                        likeTd.append(likeImg).append(likeSpan);
 
-	                         // 새로운 <td> 엘리먼트를 행에 추가
-	                         row.append(likeTd);
+	                        // 새로운 <td> 엘리먼트를 행에 추가
+	                        row.append(likeTd);
 
 	                        boardTbody.append(row);
 	                        console.log("pagemaker: "+${pageMaker.realEnd});
-	                     });
-	                  },
-	                 error: function(e){
-	                    console.log(e);
-	                 }
-	              });
+						});
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});
 	       
 	       $(".paginate_button a").on("click", function(e){
-
 	           //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
 	           e.preventDefault(); //이벤트 초기화
 	           //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
 	            let newPageNum = $(this).attr("href");
 	           console.log("newPageNum : " + newPageNum);
 	            // pageNum이 비어있지 않은 경우에만 submit 실행
-	           
-	            
 	           let actionForm = $("#actionForm");
 	            if (newPageNum) {
 	                    actionForm.find("input[name='pageNum']").val(newPageNum);
