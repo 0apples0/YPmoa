@@ -71,7 +71,7 @@
                             <div class="table-responsive-sm">
                                 <table id="admin_commentTable" class="table table-hover admin_boardTable">
                                     <thead>
-                                        <tr> 
+                                        <tr>
                                             <th data-sort="board">게시판</th>
                                             <th data-sort="nickname">닉네임</th>
                                             <th data-sort="title">댓글내용</th>
@@ -270,22 +270,31 @@
 						// numeric: 숫자, 2-digit: 두자리 숫자 형식
 						let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
 						let formateDate = regDate.toLocaleString("ko-KR", options);
-						// tipCount와 policyCount 중에서 어떤 값을 보여줄지 결정
-						let countToShow = comments.tipcno ? comments.tipcno : comments.policycno;
 			            // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
 			            // 동적으로 데이터 처리
+			            console.log("@@@@@@@@@comments : ");
 			            console.log(comments);
 			            let row = $("<tr>");
+			            row.append($("<td>").text(comments.boardType === "P" ? "정책게시판" : "꿀팁게시판"));
 			            row.append($("<td>").text(comments.writer));
 			            row.append($("<td>").text(comments.content));
 			            row.append($("<td>").text(formateDate)); // 작성일
-			            row.append($("<td>").text(countToShow)); // 신고갯수 들어갈 자리
-
-			            let countReportTd = $("<td>").attr("colspan", "2");
+			            //row.append($("<td>").text(countToShow)); // 신고갯수 들어갈 자리
+			            
+						// 댓글 신고 횟수 표시 부분
+						// tipCount와 policyCount 중에서 어떤 값을 보여줄지 결정
+						console.log("comments.tipcno:", comments.tipcno);
+						console.log("comments.policycno:", comments.policycno);
+						let countToShow = comments.tipcno ? comments.tipcno : comments.policycno;
+						   if (countToShow == "" || countToShow == null) {
+							   countToShow = 0;
+						   }
+			            let countReportTd = $("<td>");
 						let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(countToShow);
-			            // let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(comments.countReport);
 			            countReportTd.append(countReportLink);
 			            row.append(countReportTd);
+			            
+			            // 삭제 버튼 표시 부분
 			            let deleteTd = $("<td>");
 			            let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
 			            let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "").text("삭제");                 

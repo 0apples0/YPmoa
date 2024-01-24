@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.moa.youthpolicy.admin.domain.AdminVO;
 import com.moa.youthpolicy.admin.service.AdminService;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
-import com.moa.youthpolicy.community.controller.CommunityController;
-import com.moa.youthpolicy.community.domain.CommunityCommentVO;
-import com.moa.youthpolicy.community.domain.CommunityVO;
-import com.moa.youthpolicy.community.service.CommunityService;
 import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.AllArgsConstructor;
@@ -77,7 +74,7 @@ public class AdminController {
 
 	@ResponseBody
 	@RequestMapping(value="/getCommentList", method={RequestMethod.GET, RequestMethod.POST})
-	public List<CommunityCommentVO> commentGetList(Criteria cri, Model model){
+	public List<AdminVO> commentGetList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());
 		return adminService.getCommentPage(cri);
 	}
