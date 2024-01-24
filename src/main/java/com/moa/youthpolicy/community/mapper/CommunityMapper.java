@@ -44,4 +44,7 @@ public interface CommunityMapper {
 	public BoardReportVO getReportBoard(BoardReportVO vo);
 	public void reportBoard(BoardReportVO vo);
 	
+	// 새글알람
+	public int alarmNew();
+	
 }

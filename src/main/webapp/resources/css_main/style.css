@@ -532,6 +532,20 @@
     text-align: left !important;
 }
 
+.policyGet_comment tbody tr td:nth-child(2){
+    width: 12%;
+}
+.policyGet_comment tbody tr td:nth-child(3){
+    width: 12%;
+}
+.policyGet_comment tbody tr td:nth-child(4){
+    width: 12%;
+}
+.policyGet_comment tbody tr td:last-child{
+    width: 12%;
+}
+
+
 
 .policyGet_title{
     display: flex;
@@ -719,6 +733,10 @@
 	font-family: 'LINESeedKR-Bd_light';
 }
 
+.commu_title:hover{
+	text-decoration: underline;
+}
+
 .commu_like{
 	margin-right:3px;
 }
@@ -758,7 +776,13 @@
 .commu_table_a{
 	text-align: left !important;
 }
+.commu_table{
+	width:1130px !important;
+}
 
+.commu_table tbody tr td:last-child{
+    text-align: left !important;
+}
 
 .commu_table tbody tr td{
     font-family: LINESeedKR-Bd_light;
@@ -788,7 +812,7 @@
 
 
 
-.commu_table tbody tr td:nth-child(3), #commu_likeBtn{
+ #commu_likeBtn{
     cursor: pointer;
 }
 

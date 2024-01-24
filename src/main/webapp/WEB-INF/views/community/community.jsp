@@ -123,7 +123,7 @@
                 <div class="wow fadeIn" data-wow-delay="0.1s">
   <div id="policy_checkbox">
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">좋아요 많은 순</label>
@@ -136,7 +136,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table id="communityBoardTable" class="table table-hover commu_table commu_table_a">
+                                    <table id="communityBoardTable" class="table table-default commu_table commu_table_a">
 
 
                                         <thead>
@@ -144,8 +144,8 @@
                                          <th data-sort="area" style="width:5%;">지역</th>
                                          <th data-sort="category" style="width:8%;">꿀팁분야</th>
                                          <th data-sort="title">제목</th>
-                                         <th data-sort="author" style="width:10%;">작성자</th>
-                                         <th data-sort="date" style="width:15%;">작성일</th>
+                                         <th data-sort="author" style="width:6%;">작성자</th>
+                                         <th data-sort="date" style="width:12%;">작성일</th>
                                          <th data-sort="like" style="width:5%;">좋아요</th>
                                      </tr>
                                         </thead>
@@ -279,6 +279,21 @@
     <script>
 
 $(document).ready(function () {
+	
+	function newAlarm(){
+	  $.ajax({
+          type: "GET",
+          url: "/community/newAlarm",
+          success: function (data) {
+              console.log("ajax newAlarm값: " + data);
+              addedBno = data;
+          },
+          error: function (xhr, status, error) {
+              console.error("new알람 실패:", status, error);
+          }
+      });
+	}
+	newAlarm();
 	loadTableData();
    	$("#customCheck").change(function () {
 	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
@@ -383,7 +398,12 @@ $(document).ready(function () {
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
-                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);
+                let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
+                if (board.bno === addedBno) {
+                    newAlarm.attr("hidden", false);
+                }
+                titleLink.append(newAlarm);
                 let titleTd = $("<td>").append(titleLink);
                 
                 row.append(titleTd);
@@ -408,7 +428,11 @@ $(document).ready(function () {
           error: function(e){
              console.log(e);
           }
+          
+         
        });
+       
+     
        
        $(".paginate_button a").on("click", function(e){
 
@@ -431,7 +455,11 @@ $(document).ready(function () {
       
     }
     
-});
+}); // document.ready끝
+
+
+	
+	
 
     </script>
 

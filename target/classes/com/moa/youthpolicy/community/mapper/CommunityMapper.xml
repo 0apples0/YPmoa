@@ -226,4 +226,13 @@
 		(tipbno, reasonCategory, reporter, reason, boardType)
 		values(#{tipbno},#{reasonCategory},#{reporter},#{reason},#{boardType})
 	</insert>
+	
+	
+	<!-- 새글알람 -->
+	<select id="alarmNew" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+		   SELECT bno
+		    FROM tipboard
+		    WHERE DATE(regDate) = CURDATE()
+	</select>
+	
 </mapper>

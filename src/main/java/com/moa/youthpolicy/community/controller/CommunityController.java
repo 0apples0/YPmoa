@@ -202,4 +202,18 @@ public class CommunityController {
 	public boolean reportBoard(BoardReportVO vo) {
 		return communityService.reportBoard(vo);
 	}
+	
+	
+	// 새글 알람
+	@ResponseBody
+	@GetMapping("/newAlarm")
+	public int endAlarm() {
+		int response = communityService.newBoardAlarm();
+		log.info("받아온 new알람 값: "+response);
+		return response;
+	
+		
+	}
+	
+	
 }

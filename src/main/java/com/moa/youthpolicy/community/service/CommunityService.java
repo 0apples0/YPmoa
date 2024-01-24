@@ -207,6 +207,11 @@ public class CommunityService implements BoardGenericService{
 	    }
 	}
 
+	public int newBoardAlarm() {
+		int result = communityMapper.alarmNew();
+		return result;
+	}
+
 
 	
 

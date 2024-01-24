@@ -1032,15 +1032,7 @@ progress {
     flex: 0 0 auto;
     width: 16.66667%
   }
-  
-    .col-sm-2_a {
-    flex: 0 0 auto;
-    width: 14.66667%
-  }
-    .col-sm-2_b {
-    flex: 0 0 auto;
-    width: 20.66667%
-  }
+
   .col-sm-3 {
     flex: 0 0 auto;
     width: 25%
@@ -1074,11 +1066,7 @@ progress {
   .col-sm-8_a {
     flex: 0 0 auto;
     width: 66.66667%;
-    margin-right: 40px;
-  }
-    .col-sm-8_b {
-    flex: 0 0 auto;
-    width: 70.66667%;
+    margin-right: 55px;
   }
 
   .col-sm-9 {
@@ -2372,8 +2360,8 @@ progress {
 .regi_pwd_form-control {
   font-family: 'LINESeedKR-Bd_light';
   display: block;
-  width: 96.5%;
-  margin-left: 10px;
+  width: 93%;
+  margin-left: 30px;
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -2390,7 +2378,7 @@ progress {
   font-family: 'LINESeedKR-Bd_light';
   display: block;
   width: 74%;
-  margin-left: 10px;
+  margin-left: 30px;
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -3633,7 +3621,7 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary:hover {
-  color: white;
+  color: #ffffff;
   background-color: #16a9fe;
   border-color: #16a9fe
 }
@@ -5434,6 +5422,24 @@ fieldset:disabled .btn {
   line-height: 1;
   color: black;
   background-color: pink;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10px
+}
+.badge_board{
+  position: relative;
+  right: -5px;
+  top: -1px;
+  display: inline-block;
+  padding-left:  .4em;
+  padding-right:  .4em;
+  padding-top: .45em;
+  padding-bottom: .05em;
+  font-size: .65em;
+  line-height: 1;
+  color: white;
+  background-color: hotpink;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
