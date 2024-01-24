@@ -2,6 +2,7 @@ package com.moa.youthpolicy.community.mapper;
 
 import java.util.List;
 
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.common.LikeCommentVO;
@@ -34,5 +35,13 @@ public interface CommunityMapper {
 	public void addCommentLike(LikeCommentVO like);
 	public void modCommentLike(CommunityCommentVO _vo);
 	
-
+	// 글작성/삭제/수정
+	public void write(CommunityVO communityVO);
+	public int deleteBoard(Integer bno);
+	public int modifyBoard(CommunityVO vo);
+	
+	// 게시글 신고
+	public BoardReportVO getReportBoard(BoardReportVO vo);
+	public void reportBoard(BoardReportVO vo);
+	
 }

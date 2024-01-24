@@ -194,12 +194,13 @@ public class UserService implements UserGenericService {
 	public void logOut(HttpSession session) {
 		session.removeAttribute("user");
 	}
-
+/*
 	@Override
 	public boolean logIn(UserVO vo, HttpSession session) {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
 	    if(_vo!=null) { //일단 들어온 값이 있을 때 :구글 네이버 일반 다 포함
 	    	System.out.println("일단 로그인은 시작되었어");
+	    	
 			if (vo.getPW() != null && vo.getPW().equals(_vo.getPW())) { //pw가 있다면 << 일반 로그인 처리 추가해야함
 		        session.setAttribute("user", _vo);
 		        return true;
@@ -215,7 +216,32 @@ public class UserService implements UserGenericService {
 //		return true;
 		
 	}
-
+*/
+	@Override
+	public boolean logIn(UserVO vo, HttpSession session) {
+		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
+	    if(_vo!=null) { //일단 들어온 값이 있을 때 :구글 네이버 일반 다 포함
+	    	System.out.println("일단 로그인은 시작되었어");
+	    	int userT = chkUserType(_vo);
+	    	if(userT==0 || userT==1) {
+				if (vo.getPW() != null && vo.getPW().equals(_vo.getPW())) { //pw가 있다면 << 일반 로그인 처리 추가해야함
+			        session.setAttribute("user", _vo);
+			        return true;
+			    }else if(vo.getPW() ==null && _vo.getPW() == null) {
+			    	session.setAttribute("user", _vo);
+			    	return true;
+			    }	    		
+	    	}else if(userT == 3) {
+	    		session.setAttribute("blockedUser", true);
+	    	}
+	    }
+	    return false;
+	    
+//		session.setAttribute("user", _vo);
+//		return true;
+		
+	}	
+	
 	public String getUri() {
 		HashMap<String, String> map = new HashMap();
 		String uri = NURL;
@@ -303,7 +329,7 @@ public class UserService implements UserGenericService {
 	    uservo.setPhone(phone.replaceAll("-","")); // 전화번호 문자열로 변경
 	    
 	    uservo.setName(name);
-	    uservo.setNick(name);
+	    //uservo.setNick(name);
 
 	    return uservo;
 	}
@@ -372,13 +398,12 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
-    	uservo.setNick(userResponse.getBody().get("name").toString());
+    	//uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	
     	System.out.println("user name: "+uservo.getName());
-    	System.out.println("user nick: "+uservo.getNick());
+    	//System.out.println("user nick: "+uservo.getNick());
     	System.out.println("user email: "+uservo.getEmail());
-    	
     	
 		return uservo;
 	}
@@ -389,6 +414,16 @@ public class UserService implements UserGenericService {
 		return false;
 	}
 
+	public int chkUserType(UserVO vo) {
+		int usertype = mapper.chkUserType(vo);
+		return usertype;
+	}
+/*
+	public void addleaveUser(UserVO vo) {
+		mapper.addleaveUser(vo);
+		
+	}
+*/
 
 
 }

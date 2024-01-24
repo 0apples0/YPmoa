@@ -45,10 +45,13 @@
 
                             <div class="row policy_row g-2" style="justify-content: right;">
                                 <div class="col-md-auto">
-                                    <select class="form-select">
-                                        <option selected>게시판</option>
-                                        <option value="1">건의</option>
-                                        <option value="1">꿀팁</option>
+                                    <select class="form-select" name="boardType">                                        
+                                        <option value=""
+											<c:out value="${pageMaker.cri.boardType == null ?'selected':'' }"/>>게시판</option>
+										<option value="S"
+											<c:out value="${pageMaker.cri.userType == 'S'?'selected':'' }"/>>건의</option>
+										<option value="T"
+											<c:out value="${pageMaker.cri.userType == 'T'?'selected':'' }"/>>꿀팁</option>
                                     </select>
                                 </div>
                                 <div class="col-md-auto">

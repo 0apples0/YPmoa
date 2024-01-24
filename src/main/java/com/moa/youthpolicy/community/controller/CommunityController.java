@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 
@@ -22,12 +23,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityVO;
 import com.moa.youthpolicy.community.service.CommunityService;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.suggest.domain.SuggestVO;
+import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -78,7 +82,56 @@ public class CommunityController {
 	//글 작성 페이지로 이동
 	@GetMapping("/write")
 	public void getWrite() {}
+	//글 작성
+	@PostMapping("/write") 
+	public String write(CommunityVO communityVO, RedirectAttributes rttr, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+	
+		if(user == null) {
+			return "redirect:/user/login";
+		}
+	
+		communityVO.setWriter(user.getNick());
+	
+		communityService.write(communityVO);
+		rttr.addFlashAttribute("result", "success");
+		return "redirect:/community/community";
+	}	
 
+	//글 삭제
+	@PostMapping("/remove")
+	public String removePage(@RequestParam("bno") Integer bno, RedirectAttributes rttr) {
+	    if (communityService.removeBoard(bno)) {
+	        rttr.addFlashAttribute("result", "success");
+	    }
+	    return "redirect:/community/community";
+	}
+	
+	//글 수정
+	@GetMapping("/modify")
+	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
+		model.addAttribute("vo", communityService.getBoard(bno));
+	}
+	
+	@PostMapping("/modify")
+    public String modifyPage(@RequestParam("bno") Integer bno,
+							 @RequestParam("category") String category,
+							 @RequestParam("title") String title,
+							 @RequestParam("content") String content,
+							 @RequestParam("region") String region,
+							 RedirectAttributes rttr) {
+		CommunityVO vo = communityService.getBoard(bno);
+		vo.setCategory(category);
+		vo.setTitle(title);
+		vo.setContent(content);
+		vo.setRegion(region);
+		
+		if (communityService.modifyBoard(vo)) {
+		rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/community/get?bno=" + bno;
+	}
+	
 	//댓글 작성
 	@ResponseBody
 	@RequestMapping(value="/writeComment",method={RequestMethod.GET, RequestMethod.POST})
@@ -143,4 +196,10 @@ public class CommunityController {
 		return communityService.likeCommentToggle(vo).getLike();
 	}
 	
+    // 게시글 신고
+	@ResponseBody
+	@PostMapping("/reportBoard")
+	public boolean reportBoard(BoardReportVO vo) {
+		return communityService.reportBoard(vo);
+	}
 }

@@ -1,6 +1,19 @@
 package com.moa.youthpolicy.admin.domain;
 
-public class AdminVO {
+import java.util.Date;
 
-	//AdminVO test test test
+
+import lombok.Data;
+
+@Data
+public class AdminVO {
+	int bno;
+	int cno;
+	String content;
+	String writer;
+	int like;
+	Date regDate;
+	String boardType;
+	int tipcno;
+	int policycno;
 }

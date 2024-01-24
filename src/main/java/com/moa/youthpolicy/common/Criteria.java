@@ -50,6 +50,9 @@ public class Criteria {
 	
 	// user검색조건
 	private Integer userType;
+
+	// report board 검색 조건
+	private String boardType;
 	
 	public Criteria() {
 		this(1,10);

@@ -35,7 +35,7 @@
                                 
                                 <div class="full graph_head" style="padding-bottom: 7px;">
                                     <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                        <h2 style="font-size: 30px;">[${vo.region}/${vo.category}] ${vo.title}</h2><br>
                                         <div>${vo.writer}</div>
 
                                         <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
@@ -81,13 +81,21 @@
                                             <div class="g-4 policyGet_letter">개</div>
                                         </div>
                                         <div class="commuGet_btn">
-                                            <button class="btn btn-primary commuGet_modifyBtn">목록</button>
-                                            <button class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-                                            <button class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-
-
-
-                                            <button class="btn btn-warning commuGet_postReport">신고하기</button>
+					                         <c:choose>
+							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+												</c:when>
+							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+												</c:when>
+							 					<c:otherwise>
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button id="repot" class="btn btn-warning commuGet_postReport">신고하기</button>
+												</c:otherwise>
+											</c:choose>
                                         </div>
                                     </div>
                                 </div>
@@ -311,6 +319,44 @@
 			<input type="hidden" name="Email" value="${user.email}"> 
 		</form>            
         </div>
+<!-- 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 확인 팝업 모달 끝-->
+
+<!-- 댓글 삭제 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteCommentBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         $(document).ready(function () {
@@ -325,7 +371,108 @@
     			} else {
     				return true;
     			}
-    		}			
+    		}
+    		
+    	    // 게시글 신고 모달창
+    	    $(".commuGet_postReport").click(function (event) {
+    	    	if (chkLogin()) {
+    	        	$("#modalCenter").modal("show");
+    	    	} else {
+    	            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+    	            window.location.href = "/user/login";
+    	        }
+    	    });
+    	    
+    	    //선택한 값을 저장할 변수
+    	    var selectedOption = "";
+    	   //var reporter = $("#usernickForm input[name='writer']").val();
+    	    var reporter = "${user.nick}";
+
+    	    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
+    	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
+    	        if ($("#customCheck1").is(":checked")) {
+    	            selectedOption = "불건전한 내용";
+    	        } else if ($("#customCheck2").is(":checked")) {
+    	            selectedOption = "영리목적/홍보성";
+    	        } else if ($("#customCheck3").is(":checked")) {
+    	            selectedOption = "개인정보노출";
+    	        } else if ($("#customCheck4").is(":checked")) {
+    	            selectedOption = "기타";
+    	        }
+    	    });
+    	    // 신고 모달 데이터 전송
+    		function report() {
+    		    $.ajax({
+    		    
+    				url : "/community/reportBoard", 
+    				type : "POST",
+    				data : {
+    					tipbno : ${vo.bno},
+    					reasonCategory : selectedOption,
+    					reporter : reporter,
+    					reason : $("#textarea1").val(),
+    					boardType : "T"
+    				},
+    				success : function(data){
+    					$("#modalCenter").modal("hide");
+    					if(data){
+    						alert("신고 하였습니다");
+    					}else{
+    						alert("이미 신고했습니다");
+    					}
+    				}
+    			});
+    		}
+    	    // 체크박스 중복 방지
+    	    $('.custom-control-input').on('change', function () {
+    	        if ($(this).prop('checked')) {
+    	            $('.custom-control-input').not(this).prop('disabled', true);
+    	        } else {
+    	            $('.custom-control-input').prop('disabled', false);
+    	        }
+    	    });
+
+    	    // 기타 항목에 체크했을 때만 입력창 활성화
+    	    $(".custom-control-input").change(function () {
+    	        var isChecked = $(this).prop("checked");
+    	        $(".policyGet_reportDetail").prop("disabled", true);
+    	        if (isChecked) {
+    	            var textareaId = $(this).data("textarea-id");
+    	            $("#" + textareaId).prop("disabled", false);
+    	        }
+    	    });
+
+    	 	// 클릭 이벤트 핸들러를 바인딩
+    	    $(document).on("click", ".commu_report", function() {
+    	        report();
+    	    });
+    	    
+    	    // 아무 체크도 안했을 때 선택버튼 비활성화
+    	    $(".custom-control-input").change(updateReportButtonState);
+    	    $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
+
+    	    updateReportButtonState();
+
+    	    function updateReportButtonState() {
+    	        var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
+
+    	        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
+    	            return $(this).val().trim() !== "";
+    	        }).length > 0;
+
+    	        $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+    	    }
+    	    
+    	 	// 모달이 닫힐 때 실행되는 이벤트
+    	    $('#modalCenter').on('hidden.bs.modal', function () {
+    	        // 모달이 닫힐 때마다 입력 값 초기화
+    	        $('.custom-control-input').prop('disabled', false);
+    	        $('.custom-control-input').prop('checked', false);
+    	        $('.policyGet_reportDetail').val('');
+    	        $('.policyGet_reportDetail').prop('disabled', true);
+    	        updateReportButtonState(); // 신고하기 버튼 상태 업데이트
+    	    });   	
+    	 	
         	// 좋아요 버튼 클릭 시 이미지 변경
 			$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
@@ -534,24 +681,32 @@
         	  
         	// 댓글 삭제
         	row.on("click", ".commuComment_deleteBtn", function(){
-        		$.ajax({
-                    url: "/community/deleteComment",
-                    type: "POST",
-                    dataType: "json", 
-                    data: {
-                        cno: cno, // 삭제 대상 댓글 번호
-                        bno: bno
-                    },
-                    success: function (response) {
-                    	alert(bno);
-                        console.log("삭제가 완료되었습니다.");
-                    },
-                    error: function (error) {
-                        console.error("삭제 중 오류가 발생했습니다.", error);
-                    }
-                });  
+        		/*
+        		$("#confirmDeleteModal").modal("show");
+        		$("#confirmDeleteCommentBtn").on("click", function () {
+        			*/
+            		$.ajax({
+                        url: "/community/deleteComment",
+                        type: "POST",
+                        dataType: "json", 
+                        data: {
+                            cno: cno, // 삭제 대상 댓글 번호
+                            bno: bno
+                        },
+                        success: function (response) {
+                        	alert(bno);
+                            console.log("삭제가 완료되었습니다.");
+                        },
+                        error: function (error) {
+                            console.error("삭제 중 오류가 발생했습니다.", error);
+                        }
+                    });  
+        		//});      		
+
+
         	});
-        	
+
+    		
         	// 댓글 좋아요
         	
 			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
@@ -768,7 +923,42 @@
              }
 
         }); // document.ready함수
+        
+        // 목록 버튼
+        $("#return").on("click", function () {
+            self.location = "/community/community";
+        });
 
+        // 수정 버튼
+        $("#modifyBtn").on("click", function () {
+            window.location.href = "/community/modify?bno=" + ${vo.bno};
+        });
+        
+        // 삭제 버튼
+        // 삭제 버튼 클릭 시 확인 팝업 표시
+        $("#deleteBtn").on("click", function () {
+            $("#confirmDeleteModal").modal("show");
+        });
+        
+        // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
+        $("#confirmDeleteBtn").on("click", function () {
+            // 여기에 삭제 요청을 보내는 코드 추가
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/community/remove",
+                data: {
+                    bno: ${vo.bno}
+                },
+                success: function (data) {
+                    // 삭제 성공 시에 처리할 내용 추가
+                    self.location = "/community/community";
+                },
+                error: function (error) {
+                    // 삭제 실패 시에 처리할 내용 추가
+                    console.error("삭제 실패: " + error);
+                }
+            });
+        });        
     
     </script>
 <%@include file="../includes/footer.jsp" %>

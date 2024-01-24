@@ -67,64 +67,163 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirmBlockedUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">운영자에 의해 사용이 정지된 계정입니다.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                계정 정지 관련 문의 사항이 있을 경우<br> 
+                회원가입 시 사용한 이메일 계정을 통해<br>
+                ypmoa@ypmoa.com로 메일을 보내주시길 바랍니다.    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-		 function chk_login() {
-	            var email = $("#Email").val();
-	            if (email.trim() !== "") {
-	            console.log("chk_login - Start");
-	                $.ajax({
-	                    type: "POST",
-	                    url: "/user/chkEmail", 
-	                    data: { Email: email },
-	                    success: function(response) {
-	                    	console.log("chk_login - Email:", email);
-	                    	console.log("chk_login - Response:", response);
-	                        if (!response) {
-	                        	chkPW(email);
-	                        } else {
-	                            alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-	                        }
-	                    },
-	                    error: function() {
-	                        alert("Error checking user in the database.");
-	                    }
-	                });
-	            }
-	        }
-		 function chkPW(email) {
-			    var password = $("#password").val();
 
-			    if (password.trim() !== "") {
-			        console.log("chkPW - Email:", email, "Password:", password);
-			        $.ajax({
-			            type: "POST",
-			            url: "/user/chkPassword",
-			            data: { Email: email, Password: password },
-			            success: function(response) {
-			                if (response) {
-			                    // 서버에서 세션에 사용자 정보를 저장하도록 요청
-			                    $.ajax({
-			                        type: "POST",
-			                        url: "/user/login",
-			                        data: { Email: email },
-			                        success: function() {
-			                            window.location.href = "/";
-			                        },
-			                        error: function() {
-			                            alert("세션에 사용자 정보를 저장하는데 실패했습니다.");
+
+
+				
+				
+				 function chk_login() {
+			            var email = $("#Email").val();
+			            if (email.trim() !== "") {
+			            console.log("chk_login - Start");
+			                $.ajax({
+			                    type: "POST",
+			                    url: "/user/chkEmail", 
+			                    data: { Email: email },
+			                    success: function(response) {
+			                    	console.log("chk_login - Email:", email);
+			                    	console.log("chk_login - Response:", response);
+			                        if (!response) {
+			                        	chkPW(email);
+			                        } else {
+			                            alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
 			                        }
-			                    });
-			                } else {
-	                            alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-			                }
-			            },
-			            error: function() {
-			                alert("Error checking password in the database.");
+			                    },
+			                    error: function() {
+			                        alert("Error checking user in the database.");
+			                    }
+			                });
 			            }
-			        });
-			    }
-			}
+			        }
+				 /*
+				 function chkPW(email) {
+					    var password = $("#password").val();
 
+					    if (password.trim() !== "") {
+					        console.log("chkPW - Email:", email, "Password:", password);
+					        $.ajax({
+					            type: "POST",
+					            url: "/user/chkPassword",
+					            data: { Email: email, Password: password },
+					            success: function(response) {
+					                if (response) {
+					                    // 서버에서 세션에 사용자 정보를 저장하도록 요청
+					                    $.ajax({
+					                        type: "POST",
+					                        url: "/user/login",
+					                        data: { Email: email },
+					                        success: function() {
+					                            window.location.href = "/";
+					                        },
+					                        error: function() {
+					                            alert("세션에 사용자 정보를 저장하는데 실패했습니다.");
+					                        }
+					                    });
+					                } else {
+			                            alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+					                }
+					            },
+					            error: function() {
+					                alert("Error checking password in the database.");
+					            }
+					        });
+					    }
+					}*/
+					 function chkPW(email) {
+					    var password = $("#password").val();
+
+					    if (password.trim() !== "") {
+					        console.log("chkPW - Email:", email, "Password:", password);
+					        $.ajax({
+					            type: "POST",
+					            url: "/user/chkPassword",
+					            data: { Email: email, Password: password },
+					            success: function(response) {
+					                if (response) {
+					                    // 서버에서 세션에 사용자 정보를 저장하도록 요청
+					                    $.ajax({
+					                        type: "POST",
+					                        url: "/user/login",
+					                        data: { Email: email },
+					                        success: function() {
+					                        	// 로그인 성공 시 usertype 체크
+					                            chkUserType(email);
+					                        },
+					                        error: function() {
+					                            alert("세션에 사용자 정보를 저장하는데 실패했습니다.");
+					                        }
+					                    });
+					                } else {
+			                            alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+					                }
+					            },
+					            error: function() {
+					                alert("Error checking password in the database.");
+					            }
+					        });
+					    }
+					}			
+					
+					function chkUserType(email) {
+					    $.ajax({
+					        type: "POST",
+					        url: "/user/chkUserType",
+					        data: { Email: email },
+					        success: function(usertype) {
+					            
+					            if (usertype == 3) {
+					            	$("#confirmBlockedUserModal").modal("show");
+					            } else {
+					                // 세션에 사용자 정보를 저장하도록 요청
+					                $.ajax({
+					                    type: "POST",
+					                    url: "/user/login",
+					                    data: { Email: email },
+					                    success: function() {
+					                        window.location.href = "/";
+					                    },
+					                    error: function() {
+					                        alert("세션에 사용자 정보를 저장하는데 실패했습니다.");
+					                    }
+					                });
+					            }
+					        },
+					        error: function() {
+					            alert("데이터베이스에서 usertype을 확인하는 도중 오류가 발생했습니다.");
+					        }
+					    });
+					}
+	
+</script>
+
+<script>
+$(document).ready(function(){
+    var blockedUser = ${sessionScope.blockedUser};
+    if (blockedUser) {
+        $('#confirmBlockedUserModal').modal('show');
+        ${sessionScope.blockedUser = null};
+    }
+});	
 </script>
 <!-- Booking End -->
 <%@include file="../includes/footer.jsp" %>

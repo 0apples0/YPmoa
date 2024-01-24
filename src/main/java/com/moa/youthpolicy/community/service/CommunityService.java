@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.BoardGenericService;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.common.LikeCommentVO;
@@ -171,6 +172,39 @@ public class CommunityService implements BoardGenericService{
 			return _vo;
 		}
 		return null;
+	}
+
+	public void write(CommunityVO communityVO) {
+		communityMapper.write(communityVO);
+		
+	}
+
+	//글 삭제
+	public boolean removeBoard(Integer bno) {
+		int result = communityMapper.deleteBoard(bno);
+        return result == 1; // 삭제가 성공하면 true, 실패하면 false를 반환
+	}
+
+	public boolean modifyBoard(CommunityVO vo) {
+        // 수정된 내용을 Mapper를 통해 DB에 반영
+        int result = communityMapper.modifyBoard(vo);
+        return result == 1; // 수정된 행이 1개일 경우 true 반환
+	}
+
+	// 게시글 신고
+	public boolean reportBoard(BoardReportVO vo) {
+	    try {
+	        BoardReportVO _vo = communityMapper.getReportBoard(vo);
+	        if (_vo == null) {
+	        	communityMapper.reportBoard(vo);
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } catch (Exception e) {
+	        log.error("게시글 신고 중 오류 발생: " );
+	        return false;
+	    }
 	}
 
 

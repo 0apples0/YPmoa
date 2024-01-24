@@ -296,7 +296,7 @@ $(document).ready(function() {
     
     // 회원탈퇴 버튼 눌렀을 때
     $("#user_delBtn").on("click",function(){
-        var isConfirmed = confirm("정말 탈퇴하시겠습니까?");
+        var isConfirmed = confirm("탈퇴하시면 청년정책모아에서의 모든 활동 및 기록이 삭제됩니다.\n정말 탈퇴하시겠습니까?");
         if (isConfirmed) {
             $.ajax({
                 type: "POST",
