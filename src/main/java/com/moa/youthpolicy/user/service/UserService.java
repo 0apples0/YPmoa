@@ -405,7 +405,6 @@ public class UserService implements UserGenericService {
     	//System.out.println("user nick: "+uservo.getNick());
     	System.out.println("user email: "+uservo.getEmail());
     	
-    	
 		return uservo;
 	}
 
