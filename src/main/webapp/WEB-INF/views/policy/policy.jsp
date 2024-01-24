@@ -267,6 +267,7 @@
 		
 		<form id="usernickForm" action="/community/community" method="get">
            <input type="hidden" name="writer" value="${user.nick}">
+           <input type="hidden" name="userType" value="${user.userType}">
         </form>
     </div>
 
@@ -319,6 +320,7 @@ function formatDate(date) {
 
 
      $(document).ready(function () {
+    	 
     	 
 	   	loadTableData();
 	   	
@@ -485,6 +487,15 @@ function formatDate(date) {
 		     function addPolicyToContainer(policy, index) {
 		    	 	var addWishImagePath = "addWish.png";
 		    	    var checkWishImagePath = "checkWish.png";
+		    	    
+		    	    var buttonHtml = '';
+		    	    console.log($("#usernickForm input[name='userType']").val());
+		    	    console.log($("#usernickForm input[name='writer']").val());
+		    	    // userType이 0일 때만 삭제와 수정 버튼을 추가
+		    	    if ($("#usernickForm input[name='writer']").val() != "" && $("#usernickForm input[name='userType']").val() == 0) {
+		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-primary">수정</button></a>';
+		    	        buttonHtml += '<a href="delPolicy?no=' + policy.no + '"><button class="btn btn-primary" style="margin: 10px;">삭제</button>';
+		    	    }
 
 		    	    // ...
 
@@ -514,8 +525,7 @@ function formatDate(date) {
 		    	        '</div>'+
 		    	        '</div>' +
 		    	        '<div class="commuGet_btn" >' +
-		    	        '<a href="modify?no="'+(policy.no)+'><button class="btn btn-primary">수정</button></a>' +
-		    	        '<a href="delPolicy?no='+(policy.no)+'"><button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
+		    	        buttonHtml + 
 		    	        '</div>' +
 		    	        '</div>';
 	
