@@ -91,7 +91,7 @@
 	<select id="commentListPaging" resultType="AdminVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT
 		    p.*, 'P' AS boardType,
-		    (SELECT COUNT(policycno) FROM commentsreport) AS policycno
+		    (SELECT COUNT(cr.policycno) FROM commentsreport cr WHERE cr.policycno = p.cno) AS policycno
 		FROM
 		    policyboardcomments p
 		WHERE
@@ -101,7 +101,7 @@
 		
 		SELECT
 		    t.*, 'T' AS boardType,
-		    (SELECT COUNT(tipcno) FROM commentsreport) AS tipcno
+		    (SELECT COUNT(cr.tipcno) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS tipcno
 		FROM
 		    tipboardcomments t
 		WHERE
