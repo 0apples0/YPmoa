@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 
-<!-- Carousel Startf -->
+<!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">

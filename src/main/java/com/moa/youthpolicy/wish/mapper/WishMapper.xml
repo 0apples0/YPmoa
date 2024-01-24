@@ -128,11 +128,12 @@
 	</select>
 
 	<select id="getEndAlarm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	  SELECT COUNT(policy.no)
-	  FROM policy
-	  JOIN wish ON policy.no = wish.wishPolicy
-	  WHERE policy.aplyEndDt IS NOT NULL
-	    AND DATEDIFF(CURDATE(), policy.aplyEndDt) &lt;= 7;
+		  SELECT COUNT(policy.no)
+		  FROM policy
+		  JOIN wish ON policy.no = wish.wishPolicy
+		  WHERE policy.aplyEndDt IS NOT NULL
+		    AND ABS(DATEDIFF(CURDATE(), policy.aplyEndDt)) &lt;= 7
+		    AND wish.isAlert LIKE 1;
 	</select>
 
 
