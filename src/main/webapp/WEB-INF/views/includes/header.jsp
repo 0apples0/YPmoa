@@ -99,7 +99,7 @@
                 <c:otherwise>
                 <div id="login_menu_box">
                     <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
-                        <p id="notify_letter">알림 <span class="badge">new</span></p>
+                        <p id="notify_letter">알림 <span class="badge" hidden>new</span></p>
                     </a>
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>
@@ -171,11 +171,11 @@
 	         url: "/wish/endAlarm",
 	         success: function(data) {
 	        	console.log("ajax 알람 값: "+data);
-	           if (data > 0) {
-	             $('.badge').show();
-	           } else {
-	             $('.badge').hide();
-	           }
+	        	if (data > 0) {
+	        	    $('.badge').removeAttr('hidden');
+	        	} else {
+	        	    $('.badge').attr('hidden', 'hidden');
+	        	}
 	         },
 	         error: function(xhr, status, error) {
 	           console.error("알람불러오기 실패:", status, error);
@@ -183,9 +183,9 @@
 	       });
 	 }
 
-	 $(document).ready(function() {
+   window.onload = function() {
 	   endAlarm();
-	 });
+	 };
 
 
 
