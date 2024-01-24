@@ -496,8 +496,10 @@ function formatDate(date) {
 		    	    console.log($("#usernickForm input[name='writer']").val());
 		    	    // userType이 0일 때만 삭제와 수정 버튼을 추가
 		    	    if ($("#usernickForm input[name='writer']").val() != "" && $("#usernickForm input[name='userType']").val() == 0) {
+		    	    	buttonHtml += '<div class="commuGet_btn" >'; 
 		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-primary">수정</button></a>';
 		    	        buttonHtml += '<button class="btn btn-primary" onclick="confirmDelete(' + policy.no + ')">삭제</button>';
+		    	        buttonHtml += '</div>';
 		    	        //buttonHtml += '<a href="delPolicy?no=' + policy.no + '"><button class="btn btn-primary" style="margin: 10px;">삭제</button>';
 		    	    }
 
@@ -528,9 +530,9 @@ function formatDate(date) {
 		    	        '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
 		    	        '</div>'+
 		    	        '</div>' +
-		    	        '<div class="commuGet_btn" >' +
+		    	        
 		    	        buttonHtml + 
-		    	        '</div>' +
+		    	        
 		    	        '</div>';
 	
 	
