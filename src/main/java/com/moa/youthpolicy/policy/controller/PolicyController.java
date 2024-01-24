@@ -36,12 +36,13 @@ public class PolicyController {
 	
 	@GetMapping("/write")
 	public void write() {}
-	
-	@GetMapping("/delPolicy")
+	@ResponseBody
+	@PostMapping("/delPolicy")
 	public String delPolicy(PolicyVO vo) {
 		service.delBoard(vo);
 		return "redirect:/policy/policy";
 	}
+	
 	
 	@PostMapping("/write")
 	public void writePolicy(PolicyVO vo) {
