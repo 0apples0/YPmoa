@@ -338,6 +338,26 @@
     </div>
 </div>
 <!-- 확인 팝업 모달 끝-->
+
+<!-- 댓글 삭제 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteCommentBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script>
         $(document).ready(function () {
         	loadTableData();
@@ -351,7 +371,108 @@
     			} else {
     				return true;
     			}
-    		}			
+    		}
+    		
+    	    // 게시글 신고 모달창
+    	    $(".commuGet_postReport").click(function (event) {
+    	    	if (chkLogin()) {
+    	        	$("#modalCenter").modal("show");
+    	    	} else {
+    	            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+    	            window.location.href = "/user/login";
+    	        }
+    	    });
+    	    
+    	    //선택한 값을 저장할 변수
+    	    var selectedOption = "";
+    	   //var reporter = $("#usernickForm input[name='writer']").val();
+    	    var reporter = "${user.nick}";
+
+    	    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
+    	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
+    	        if ($("#customCheck1").is(":checked")) {
+    	            selectedOption = "불건전한 내용";
+    	        } else if ($("#customCheck2").is(":checked")) {
+    	            selectedOption = "영리목적/홍보성";
+    	        } else if ($("#customCheck3").is(":checked")) {
+    	            selectedOption = "개인정보노출";
+    	        } else if ($("#customCheck4").is(":checked")) {
+    	            selectedOption = "기타";
+    	        }
+    	    });
+    	    // 신고 모달 데이터 전송
+    		function report() {
+    		    $.ajax({
+    		    
+    				url : "/community/reportBoard", 
+    				type : "POST",
+    				data : {
+    					tipbno : ${vo.bno},
+    					reasonCategory : selectedOption,
+    					reporter : reporter,
+    					reason : $("#textarea1").val(),
+    					boardType : "T"
+    				},
+    				success : function(data){
+    					$("#modalCenter").modal("hide");
+    					if(data){
+    						alert("신고 하였습니다");
+    					}else{
+    						alert("이미 신고했습니다");
+    					}
+    				}
+    			});
+    		}
+    	    // 체크박스 중복 방지
+    	    $('.custom-control-input').on('change', function () {
+    	        if ($(this).prop('checked')) {
+    	            $('.custom-control-input').not(this).prop('disabled', true);
+    	        } else {
+    	            $('.custom-control-input').prop('disabled', false);
+    	        }
+    	    });
+
+    	    // 기타 항목에 체크했을 때만 입력창 활성화
+    	    $(".custom-control-input").change(function () {
+    	        var isChecked = $(this).prop("checked");
+    	        $(".policyGet_reportDetail").prop("disabled", true);
+    	        if (isChecked) {
+    	            var textareaId = $(this).data("textarea-id");
+    	            $("#" + textareaId).prop("disabled", false);
+    	        }
+    	    });
+
+    	 	// 클릭 이벤트 핸들러를 바인딩
+    	    $(document).on("click", ".commu_report", function() {
+    	        report();
+    	    });
+    	    
+    	    // 아무 체크도 안했을 때 선택버튼 비활성화
+    	    $(".custom-control-input").change(updateReportButtonState);
+    	    $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
+
+    	    updateReportButtonState();
+
+    	    function updateReportButtonState() {
+    	        var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
+
+    	        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
+    	            return $(this).val().trim() !== "";
+    	        }).length > 0;
+
+    	        $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+    	    }
+    	    
+    	 	// 모달이 닫힐 때 실행되는 이벤트
+    	    $('#modalCenter').on('hidden.bs.modal', function () {
+    	        // 모달이 닫힐 때마다 입력 값 초기화
+    	        $('.custom-control-input').prop('disabled', false);
+    	        $('.custom-control-input').prop('checked', false);
+    	        $('.policyGet_reportDetail').val('');
+    	        $('.policyGet_reportDetail').prop('disabled', true);
+    	        updateReportButtonState(); // 신고하기 버튼 상태 업데이트
+    	    });   	
+    	 	
         	// 좋아요 버튼 클릭 시 이미지 변경
 			$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
@@ -560,24 +681,32 @@
         	  
         	// 댓글 삭제
         	row.on("click", ".commuComment_deleteBtn", function(){
-        		$.ajax({
-                    url: "/community/deleteComment",
-                    type: "POST",
-                    dataType: "json", 
-                    data: {
-                        cno: cno, // 삭제 대상 댓글 번호
-                        bno: bno
-                    },
-                    success: function (response) {
-                    	alert(bno);
-                        console.log("삭제가 완료되었습니다.");
-                    },
-                    error: function (error) {
-                        console.error("삭제 중 오류가 발생했습니다.", error);
-                    }
-                });  
+        		/*
+        		$("#confirmDeleteModal").modal("show");
+        		$("#confirmDeleteCommentBtn").on("click", function () {
+        			*/
+            		$.ajax({
+                        url: "/community/deleteComment",
+                        type: "POST",
+                        dataType: "json", 
+                        data: {
+                            cno: cno, // 삭제 대상 댓글 번호
+                            bno: bno
+                        },
+                        success: function (response) {
+                        	alert(bno);
+                            console.log("삭제가 완료되었습니다.");
+                        },
+                        error: function (error) {
+                            console.error("삭제 중 오류가 발생했습니다.", error);
+                        }
+                    });  
+        		//});      		
+
+
         	});
-        	
+
+    		
         	// 댓글 좋아요
         	
 			// 댓글 좋아요 버튼에 이벤트 핸들러 추가

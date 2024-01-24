@@ -321,7 +321,15 @@ $(document).ready(function () {
 
         $(".suggest_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
     }
-
+ 	// 모달이 닫힐 때 실행되는 이벤트
+    $('#modalCenter').on('hidden.bs.modal', function () {
+        // 모달이 닫힐 때마다 입력 값 초기화
+        $('.custom-control-input').prop('disabled', false);
+        $('.custom-control-input').prop('checked', false);
+        $('.policyGet_reportDetail').val('');
+        $('.policyGet_reportDetail').prop('disabled', true);
+        updateReportButtonState(); // 신고하기 버튼 상태 업데이트
+    });  
     // 목록 버튼
     $("#return").on("click", function () {
         self.location = "/suggest/suggest";

@@ -212,4 +212,18 @@
         SET title = #{title}, content = #{content}, category = #{category}, region = #{region}
         WHERE bno = #{bno}
     </update>
+    
+    <!-- 게시글 신고 -->
+    <!-- 게시글 신고 확인 -->
+    <select id="getReportBoard" resultType="com.moa.youthpolicy.common.BoardReportVO" parameterType="com.moa.youthpolicy.common.BoardReportVO">
+		SELECT * FROM boardreport
+		WHERE reporter = #{reporter} AND boardType = #{boardType} AND tipbno = #{tipbno}	
+	</select>
+	
+	<!-- 게시글 신고 제출 -->
+	<insert id="reportBoard" parameterType="com.moa.youthpolicy.common.BoardReportVO">
+		INSERT INTO boardreport
+		(tipbno, reasonCategory, reporter, reason, boardType)
+		values(#{tipbno},#{reasonCategory},#{reporter},#{reason},#{boardType})
+	</insert>
 </mapper>

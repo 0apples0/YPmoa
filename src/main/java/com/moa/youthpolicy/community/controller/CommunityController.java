@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
@@ -193,5 +194,12 @@ public class CommunityController {
 	public int toggleCommentLike(CommunityCommentVO vo) {
 		log.info(vo.toString());
 		return communityService.likeCommentToggle(vo).getLike();
+	}
+	
+    // 게시글 신고
+	@ResponseBody
+	@PostMapping("/reportBoard")
+	public boolean reportBoard(BoardReportVO vo) {
+		return communityService.reportBoard(vo);
 	}
 }
