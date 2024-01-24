@@ -272,27 +272,26 @@
 						let formateDate = regDate.toLocaleString("ko-KR", options);
 			            // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
 			            // 동적으로 데이터 처리
-			            console.log("@@@@@@@@@comments : ");
+			            console.log("@@@@@@@@@comments : "+comments);
+			            console.log(JSON.stringify(comments, null, 2));
 			            console.log(comments);
 			            let row = $("<tr>");
 			            row.append($("<td>").text(comments.boardType === "P" ? "정책게시판" : "꿀팁게시판"));
 			            row.append($("<td>").text(comments.writer));
 			            row.append($("<td>").text(comments.content));
 			            row.append($("<td>").text(formateDate)); // 작성일
+			            row.append($("<td>").text(comments.policycno === null || comments.policycno === "" || comments.policycno === 0 ? comments.tipcno : comments.policycno));
 			            //row.append($("<td>").text(countToShow)); // 신고갯수 들어갈 자리
 			            
 						// 댓글 신고 횟수 표시 부분
 						// tipCount와 policyCount 중에서 어떤 값을 보여줄지 결정
 						console.log("comments.tipcno:", comments.tipcno);
 						console.log("comments.policycno:", comments.policycno);
-						let countToShow = comments.tipcno ? comments.tipcno : comments.policycno;
-						   if (countToShow == "" || countToShow == null) {
-							   countToShow = 0;
-						   }
-			            let countReportTd = $("<td>");
-						let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(countToShow);
-			            countReportTd.append(countReportLink);
-			            row.append(countReportTd);
+						//let countToShow = comments.tipcno ? comments.tipcno : comments.policycno;
+			            //let countReportTd = $("<td>");
+						//let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(countToShow);
+			            //countReportTd.append(countReportLink);
+			            //row.append(countReportTd);
 			            
 			            // 삭제 버튼 표시 부분
 			            let deleteTd = $("<td>");

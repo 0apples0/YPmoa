@@ -14,4 +14,6 @@ public class AdminVO {
 	int like;
 	Date regDate;
 	String boardType;
+	int tipcno;
+	int policycno;
 }
