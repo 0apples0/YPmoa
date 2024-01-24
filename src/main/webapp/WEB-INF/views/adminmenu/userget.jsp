@@ -124,10 +124,10 @@
                                                 <th data-sort="like"  colspan="2">신고이력</th>
                                                 <c:choose>
 						                            <c:when test="${pageMaker.cri.userType == 2 or pageMaker.cri.userType == 3}">
-						                                <th data-sort="like">탈퇴일자</th>
+						                                <th data-sort="like">정지일자</th>
 						                            </c:when>
 						                            <c:otherwise>
-						                                <th data-sort="like">회원삭제</th>
+						                                <th data-sort="like">회원정지</th>
 						                            </c:otherwise>
 					                            </c:choose>
                                             </tr>
@@ -139,10 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                  
-
-
-
+                 
                     </div>
                 </div>
             </div>
@@ -252,7 +249,7 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	
-	// 회원 강제탈퇴
+	// 회원 정지
 	function bindCommentActionHandlers(row, Email) {
 		row.on("click", ".user_deleteBtn", function(){
     		$.ajax({
@@ -260,13 +257,13 @@ $(document).ready(function () {
                 type: "POST",
                 dataType: "json", 
                 data: {
-                	Email: Email // 삭제 대상 아이디(이메일)
+                	Email: Email // 정지 대상 아이디(이메일)
                 },
                 success: function (response) {
-                    console.log("회원 강제탈퇴가 완료되었습니다.");
+                    console.log("회원 정지가 완료되었습니다.");
                 },
                 error: function (error) {
-                    console.error("강제탈퇴 처리 중 오류가 발생했습니다.", error);
+                    console.error("정지 처리 중 오류가 발생했습니다.", error);
                 }
             });  			
 		});
@@ -316,7 +313,7 @@ $(document).ready(function () {
                  
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
-                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("삭제");                 
+                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("정지");                 
                  
                  let leaveDate = new Date(users.leaveDate);
                  let formateLeaveDate = leaveDate.toLocaleString("ko-KR", options);
