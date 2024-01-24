@@ -327,6 +327,7 @@ public class UserService implements UserGenericService {
 	    UserVO uservo = new UserVO();
 	    uservo.setEmail(email);
 	    uservo.setPhone(phone.replaceAll("-","")); // 전화번호 문자열로 변경
+	    uservo.setUserType(1);
 	    
 	    uservo.setName(name);
 	    //uservo.setNick(name);
@@ -400,6 +401,7 @@ public class UserService implements UserGenericService {
     	uservo.setName(userResponse.getBody().get("name").toString());
     	//uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
+    	uservo.setUserType(1);
     	
     	System.out.println("user name: "+uservo.getName());
     	//System.out.println("user nick: "+uservo.getNick());
