@@ -9,6 +9,7 @@ import lombok.Data;
 public class AdminVO {
 	int bno;
 	int cno;
+	String title;
 	String content;
 	String writer;
 	int like;
@@ -16,4 +17,5 @@ public class AdminVO {
 	String boardType;
 	int tipcno;
 	int policycno;
+	int countReport;
 }

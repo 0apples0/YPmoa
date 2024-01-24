@@ -40,12 +40,35 @@
 
 	</select>
 
-	<select id="getCommentTotalCount" resultType="int">
+	<select id="getCommentTotalCount" resultType="int" >
 	  SELECT
 	    COUNT(DISTINCT CASE WHEN tipcno IS NOT NULL THEN tipcno ELSE NULL END) +
 	    COUNT(DISTINCT CASE WHEN policycno IS NOT NULL THEN policycno ELSE NULL END)
 	  FROM commentsreport
 	  WHERE tipcno IS NOT NULL OR policycno IS NOT NULL;
+	</select>
+	
+	<select id="getBoardTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+	    SELECT
+	        COUNT(DISTINCT CASE
+	                WHEN boardType = 'T' AND EXISTS (SELECT 1 FROM tipboard WHERE tipbno = boardreport.tipbno) THEN boardreport.tipbno
+	                WHEN boardType = 'S' AND EXISTS (SELECT 1 FROM suggestedboard WHERE suggestbno = boardreport.suggestbno) THEN boardreport.suggestbno
+	                ELSE NULL
+	            END
+	        ) AS totalCount
+	    FROM boardreport
+	    WHERE
+	        <choose>
+	            <when test="boardType == null or boardType==''">
+	                1=1
+	            </when>
+	            <when test='boardType == "T"'>
+	                boardType = 'T'
+	            </when>
+	            <when test='boardType == "S"'>
+	                boardType = 'S'
+	            </when>
+	        </choose>
 	</select>
 
 	<select id="getListWithPaging" resultType="UserVO" parameterType="com.moa.youthpolicy.common.Criteria">
@@ -84,7 +107,6 @@
 			</choose>
 		</if>
 		ORDER BY regDate DESC
-
 		LIMIT #{start}, #{amount}
 	</select>
 	
@@ -112,7 +134,53 @@
 		LIMIT #{start}, #{amount};
 	</select>
 	
-	<!-- 회원 강제 탈퇴 시 userType을 3으로 변경 -->
+	<select id="boardListWithPaging" resultType="AdminVO" parameterType="com.moa.youthpolicy.common.Criteria">
+	<choose>
+		<when test='boardType == "T"'>
+			SELECT
+		        t.*, 'T' AS boardType,
+		        (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport
+		    FROM
+		        tipboard t
+		    WHERE
+		        EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+		</when>
+		<when test='boardType == "S"'>
+		    SELECT
+		        s.*, 'S' AS boardType,
+		        (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport
+		    FROM
+		        suggestedboard s
+		    WHERE
+		        EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)				
+		</when>
+		<otherwise>
+		    SELECT
+		        t.*, 'T' AS boardType,
+		        (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport
+		    FROM
+		        tipboard t
+		    WHERE
+		        EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+		    
+		    UNION
+		    
+		    SELECT
+		        s.*, 'S' AS boardType,
+		        (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport
+		    FROM
+		        suggestedboard s
+		    WHERE
+		        EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)	
+		</otherwise>
+	</choose>
+	    
+	    ORDER BY
+	        regDate DESC
+	    LIMIT #{start}, #{amount};
+	</select>
+	
+	<!-- 회원 정지 시 userType을 3으로 변경 -->
 	<update id="delMember" parameterType="UserVO">
 		UPDATE user
 		SET userType = 3,

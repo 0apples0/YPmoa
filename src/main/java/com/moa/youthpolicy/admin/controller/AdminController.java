@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moa.youthpolicy.admin.domain.AdminVO;
 import com.moa.youthpolicy.admin.service.AdminService;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -50,9 +51,6 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageResult);
 	}	
 	
-	@GetMapping("/reportboardget")
-	public void reportboard() {}	
-	
 	@ResponseBody
 	@RequestMapping(value="/getUserList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<UserVO> getList(Criteria cri, Model model){
@@ -78,6 +76,29 @@ public class AdminController {
 		log.info("Ajax 호출"+cri.toString());
 		return adminService.getCommentPage(cri);
 	}
+	
+	// 신고 게시글 리스트 출력
+	@RequestMapping(value="/reportboardget", method= {RequestMethod.GET, RequestMethod.POST})
+	public void reportboardlist(Criteria cri, Model model) {
+		log.info("contorller : ");
+		log.info("type: "+cri.getType());
+		log.info("type: "+cri.getBoardType());
+		
+		int total = adminService.getBoardTotalAmount(cri); //전체 회원 수 출력
+		log.info("totalpage: "+total);		
+		PageDTO pageResult = new PageDTO(cri, total);
+		log.info("리얼엔드:"+pageResult.getRealEnd());
+		log.info("endPage = " + pageResult.getEndPage());
+		model.addAttribute("pageMaker", pageResult);
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value="/getReportboardList", method={RequestMethod.GET, RequestMethod.POST})
+	public List<AdminVO> getreportboardList(Criteria cri, Model model){
+		log.info("Ajax 호출"+cri.toString());
+		return adminService.getBoardPage(cri);
+	}
+	
 	
 	// 회원 강제 탈퇴
 	@ResponseBody

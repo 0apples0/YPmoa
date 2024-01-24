@@ -209,6 +209,7 @@
            <input type="hidden" name="writer" value="${user.nick}">
            <input type="hidden" name="Email" value="${user.email}">
            <input type="hidden" name="phone" value="${user.phone}">
+           <input type="hidden" name="userType" value="${user.userType}">
         </form>
 
 <!-- Modal End! -->
@@ -233,7 +234,7 @@
 		
 		
 		if("${user.email}" != "")
-		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "")
+		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "" && $("#usernickForm input[name='userType']").val() != 0)
 		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
 				$("#modalCenter").modal("show");
 			}
@@ -274,11 +275,6 @@
             $("#checkPhoneNumberBtn").prop("disabled", true);
         }
 		
-		
-		//$("#modalCenter").modal("show");
-		console.log($("#usernickForm input[name='writer']").val());
-		console.log($("#usernickForm input[name='Email']").val());
-		console.log($("#usernickForm input[name='phone']").val());
 		
 		
 		
