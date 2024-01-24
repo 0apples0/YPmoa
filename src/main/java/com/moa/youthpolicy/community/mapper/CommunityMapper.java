@@ -34,5 +34,11 @@ public interface CommunityMapper {
 	public void addCommentLike(LikeCommentVO like);
 	public void modCommentLike(CommunityCommentVO _vo);
 	
-
+	// 글작성
+	public void write(CommunityVO communityVO);
+	// 글삭제
+	public int deleteBoard(Integer bno);
+	// 글수정
+	public int modifyBoard(CommunityVO vo);
+	
 }

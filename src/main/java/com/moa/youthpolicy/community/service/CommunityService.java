@@ -173,6 +173,23 @@ public class CommunityService implements BoardGenericService{
 		return null;
 	}
 
+	public void write(CommunityVO communityVO) {
+		communityMapper.write(communityVO);
+		
+	}
+
+	//글 삭제
+	public boolean removeBoard(Integer bno) {
+		int result = communityMapper.deleteBoard(bno);
+        return result == 1; // 삭제가 성공하면 true, 실패하면 false를 반환
+	}
+
+	public boolean modifyBoard(CommunityVO vo) {
+        // 수정된 내용을 Mapper를 통해 DB에 반영
+        int result = communityMapper.modifyBoard(vo);
+        return result == 1; // 수정된 행이 1개일 경우 true 반환
+	}
+
 
 	
 

@@ -21,4 +21,6 @@ public interface UserMapper {
 	public void removeUser(String email);
 	public UserVO getUserByEmail(String email);
 	public Object chkPW(UserVO vo);
+	public int chkUserType(UserVO vo);
+	//public void addleaveUser(UserVO vo); // 탈퇴회원 테이블에 저장
 }

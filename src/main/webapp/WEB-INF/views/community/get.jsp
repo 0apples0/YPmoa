@@ -35,7 +35,7 @@
                                 
                                 <div class="full graph_head" style="padding-bottom: 7px;">
                                     <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">${vo.title}</h2><br>
+                                        <h2 style="font-size: 30px;">[${vo.region}/${vo.category}] ${vo.title}</h2><br>
                                         <div>${vo.writer}</div>
 
                                         <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
@@ -81,13 +81,21 @@
                                             <div class="g-4 policyGet_letter">개</div>
                                         </div>
                                         <div class="commuGet_btn">
-                                            <button class="btn btn-primary commuGet_modifyBtn">목록</button>
-                                            <button class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-                                            <button class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-
-
-
-                                            <button class="btn btn-warning commuGet_postReport">신고하기</button>
+					                         <c:choose>
+							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+												</c:when>
+							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+												</c:when>
+							 					<c:otherwise>
+													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+													<button id="repot" class="btn btn-warning commuGet_postReport">신고하기</button>
+												</c:otherwise>
+											</c:choose>
                                         </div>
                                     </div>
                                 </div>
@@ -311,7 +319,25 @@
 			<input type="hidden" name="Email" value="${user.email}"> 
 		</form>            
         </div>
-
+<!-- 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 확인 팝업 모달 끝-->
     <script>
         $(document).ready(function () {
         	loadTableData();
@@ -768,7 +794,42 @@
              }
 
         }); // document.ready함수
+        
+        // 목록 버튼
+        $("#return").on("click", function () {
+            self.location = "/community/community";
+        });
 
+        // 수정 버튼
+        $("#modifyBtn").on("click", function () {
+            window.location.href = "/community/modify?bno=" + ${vo.bno};
+        });
+        
+        // 삭제 버튼
+        // 삭제 버튼 클릭 시 확인 팝업 표시
+        $("#deleteBtn").on("click", function () {
+            $("#confirmDeleteModal").modal("show");
+        });
+        
+        // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
+        $("#confirmDeleteBtn").on("click", function () {
+            // 여기에 삭제 요청을 보내는 코드 추가
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/community/remove",
+                data: {
+                    bno: ${vo.bno}
+                },
+                success: function (data) {
+                    // 삭제 성공 시에 처리할 내용 추가
+                    self.location = "/community/community";
+                },
+                error: function (error) {
+                    // 삭제 실패 시에 처리할 내용 추가
+                    console.error("삭제 실패: " + error);
+                }
+            });
+        });        
     
     </script>
 <%@include file="../includes/footer.jsp" %>

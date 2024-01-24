@@ -98,7 +98,7 @@
                 </c:when>
                 <c:otherwise>
                 <div id="login_menu_box">
-                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
+                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
                         <p id="notify_letter">알림 <span class="badge">new</span></p>
                     </a>
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
@@ -164,6 +164,31 @@
     	   document.getElementById("myForm").submit();
        }
    }
+ 
+   function endAlarm() {
+	       $.ajax({
+	         type: "GET",
+	         url: "/wish/endAlarm",
+	         success: function(data) {
+	        	console.log("ajax 알람 값: "+data);
+	           if (data > 0) {
+	             $('.badge').show();
+	           } else {
+	             $('.badge').hide();
+	           }
+	         },
+	         error: function(xhr, status, error) {
+	           console.error("알람불러오기 실패:", status, error);
+	         }
+	       });
+	 }
+
+	 $(document).ready(function() {
+	   endAlarm();
+	 });
+
+
+
 </script>
    
 </body>

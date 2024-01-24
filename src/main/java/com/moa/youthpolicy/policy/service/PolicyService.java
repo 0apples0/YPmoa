@@ -173,7 +173,14 @@ public class PolicyService implements BoardGenericService {
 	}
 	public List<PolicyCommentVO> getBestCommentPage(Criteria cri) {
 		List<PolicyCommentVO> result = mapper.getBestCommentList(cri);
+        if(AuthUtil.isLogin()) {
+            for(PolicyCommentVO rs : result) {
+                LikeCommentVO _vo = new LikeCommentVO(AuthUtil.getCurrentUserAccount(), rs.getCno());
+                rs.setLikevo(mapper.getLikeComment(_vo));
+            }
+        }
 		return result;
+		
 	}
 	
 	public void writeComment(PolicyCommentVO comment) {
@@ -202,9 +209,9 @@ public class PolicyService implements BoardGenericService {
 	public PolicyCommentVO toggleCommentLike(PolicyCommentVO vo) {
 		String email = AuthUtil.getCurrentUserAccount();
 		LikeCommentVO like = new LikeCommentVO(email, vo.getCno());
-		LikeCommentVO _vo = mapper.getLikeComment(like);
-		vo = mapper.getComment(vo);
-		if(_vo != null) {
+		LikeCommentVO _vo = mapper.getLikeComment(like); //likeCommentVO 1개
+		vo = mapper.getComment(vo); // policyCommentVO 1개
+		if(_vo != null) { //likeCommentVo가 null이 아니라면
 			mapper.delLikeComment(like);
 			vo.setLike(vo.getLike() - 1);
 		}else {

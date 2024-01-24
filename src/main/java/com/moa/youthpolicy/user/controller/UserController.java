@@ -38,8 +38,13 @@ public class UserController {
 	public String getMypage(@RequestParam("Email") String Email, HttpSession httpSession, Model model) {
 	    log.info("마이페이지 조회");
 	    UserVO user = userService.get(Email);
-	    httpSession.setAttribute("user", user);
-	    model.addAttribute("user", user);
+	    int userT = userService.chkUserType(user);
+
+	    if(userT==1 || userT==0) { // 탈퇴 회원이 아니라면,
+	    	httpSession.setAttribute("user", user);
+	    	model.addAttribute("user", user);
+	    }
+	    
 	    return "user/mypage";
 	}
 
@@ -102,7 +107,11 @@ public class UserController {
     @ResponseBody
     public void login(@RequestParam String Email, HttpSession session) {
         UserVO user = userService.get(Email);
-        session.setAttribute("user", user);
+        int userT = userService.chkUserType(user);
+
+	    if(userT==1 || userT==0) { // 탈퇴 회원이 아니라면,
+	    	session.setAttribute("user", user);
+	    }
     }    
     @GetMapping("register")
     public void register(){
@@ -131,8 +140,23 @@ public class UserController {
 	        return "redirect:/user/login";
 	    }
 	}
-
-
+/*
+	@PostMapping("/remove")
+	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	    UserVO currentUser = userService.getCurrentUser(request);
+	    if (currentUser != null) {
+	        String email = currentUser.getEmail();
+	        userService.removeUser(email);
+	        userService.addleaveUser(currentUser);
+	        request.getSession().invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/user/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
+	        return "redirect:/user/login";
+	    }
+	}
+	*/
 	@GetMapping("/naver_login")
 	public String naverLogin() {
 	    String uri = userService.getUri();
@@ -171,6 +195,9 @@ public class UserController {
 		UserVO _vo = userService.get(vo.getEmail());
 		if(_vo != null) {
 			userService.logIn(vo, session);
+			if(!userService.logIn(vo, session)) { //false 반환 시에는 로그인 페이지로 이동
+				return "redirect:/user/login";
+			}
 		}else {
 			userService.register(vo, session);
 		}
@@ -183,6 +210,9 @@ public class UserController {
 	    UserVO _vo = userService.get(vo.getEmail());
 	    if(_vo != null) {
 	    	userService.logIn(vo, session);
+			if(!userService.logIn(vo, session)) { //false 반환 시에는 로그인 페이지로 이동
+				return "redirect:/user/login";
+			}
 	    }else {
 	    	userService.register(vo, session);
 	    }
@@ -226,5 +256,15 @@ public class UserController {
 	    vo.setPW(Password);
 	    return userService.chkPW(vo);
 	}
+	
+	@ResponseBody
+	@PostMapping("/chkUserType")
+	public int chkUserType(@RequestParam String Email) {
+	    UserVO vo = new UserVO();
+	    vo.setEmail(Email);
+	    return userService.chkUserType(vo);
+	}
+	
+	
 
 }

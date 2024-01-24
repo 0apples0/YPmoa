@@ -29,7 +29,17 @@
 	<delete id="removeUser" parameterType="string">
 	    DELETE FROM user WHERE Email = #{email}
 	</delete>
-    
+	
+	<!-- 탈퇴 회원 테이블에 별도 저장 --> 
+	<!-- 
+	<insert id="addleaveUser" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+		INSERT INTO leaveuser
+		(Email, name, nick, phone, PW, countReport, address, interestField, userType, regDate, leaveDate)
+		VALUES(#{Email}, #{name}, #{nick}, #{phone}, #{PW}, #{countReport}, #{address}, #{interestField},
+				#{userType}, #{regDate}, CURRENT_TIMESTAMP)
+	</insert>
+     -->
+     
    <!-- 전화번호 문자열로 변경 -->
     <select id="chkPhone" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">
         SELECT * FROM user WHERE phone = #{phone} LIMIT 1
@@ -53,6 +63,9 @@
         SELECT * FROM user WHERE Email = #{Email} AND PW = #{PW}
     </select>
     
-    
+    <select id="chkUserType" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="int">
+        SELECT userType FROM user WHERE Email = #{Email}
+    </select>
+        
     <!-- Additional SQL queries and mapping statements can be added here -->
 </mapper>

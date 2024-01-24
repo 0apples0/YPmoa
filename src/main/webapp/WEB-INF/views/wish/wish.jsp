@@ -304,8 +304,8 @@ function applyUserConditions(e) {
         		  const formattedDate = new Date(date).toLocaleDateString('en-US', options); 
 
         		  // '/'를 '-'로 바꿔서 반환
-        		  return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
-
+        		  const formattedString =  formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
+        		  return formattedString ? formattedString : "";
         		}
    
 			
@@ -421,7 +421,8 @@ function applyUserConditions(e) {
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 	    	    console.log(policy.no);
-
+	    	    
+	    	  
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
 	    	        '<div class="position-relative">' +
@@ -431,8 +432,15 @@ function applyUserConditions(e) {
 	    	        '<h5 class="fw-bold mb-4"><a href="/policy/get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
 	    	        		
 	    	        '<div class="d-flex">'+
-	    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
-	    	        '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + (policy.aplyEndDt) + '</small>' + // 날짜 부분만 표시
+	    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' 
+	    	        
+	    	        if (policy.aplyEndDt !== "상시모집") {
+	    	            policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + (policy.aplyEndDt) + '</small>';
+	    	        }else{
+	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + (policy.aplyEndDt) + '</small>';
+	    	        }
+	    	        
+	    	        policyHtml +=
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
@@ -443,7 +451,6 @@ function applyUserConditions(e) {
 
 
 	    	    $("#wishContainer").append(policyHtml);
-	    	    hideButtonIfDateNull(policy);
 	    	}
      	
          	// 알람 눌렀을 때

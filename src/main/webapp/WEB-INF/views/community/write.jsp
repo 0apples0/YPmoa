@@ -27,7 +27,7 @@
 
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
-						<form> <!-- form태그 여기잇어요 -->
+						<form id="writeForm" method="post" action="/community/write" onsubmit="return validateForm()"> 
 	                        <!-- table section -->
 	                        <div class="col-md-12">
 	                            <div class="white_shd_a full">
@@ -54,6 +54,7 @@
 		                                <input class="form-control" id="titleInput" name="title"
 		                                    style="font-family: 'LINESeedKR-Bd_light'; width: 71%;"
 		                                    placeholder="제목을 입력해주세요">
+		                                <input type="hidden" name="nick" value="${user.nick}">
 		                            </div>
 		                        </div>
 	
@@ -80,10 +81,7 @@
 	
 	                                                <tr>
 	                                                    <td colspan="4">
-	                                                        <form id="writeBoard" method="post">
-	                                                            <textarea id="summernote" name="editordata"
-	                                                                class="form-control"></textarea>
-	                                                        </form>
+	                                                        <textarea id="summernote" name="content" class="form-control"></textarea>
 	                                                    </td>
 	
 	                                                </tr>
@@ -93,8 +91,8 @@
 	                                        <br>
 	
 	                                        <div>
-	                                            <button class="btn btn-primary">등록하기</button>
-	                                            <button class="btn btn-warning">취소</button>
+	                                            <button type="submit" class="btn btn-primary">등록하기</button>
+	                                            <button type="button" class="btn btn-warning" onclick="history.back()">취소</button>
 	                                        </div>
 	
 	                                    </div>
@@ -120,59 +118,35 @@
 
 
 <script>
-/*
-$(document).ready(function() {
+$(document).ready(function ($) {
+	
+	// 모든 내용 선택 및 작성 확인
+    $('#writeForm').submit(function (event) {
+        var region = $('#region').val();
+        var category = $('#category').val();
+        var title = $('#titleInput').val();
+        var content = $('#summernote').summernote('code'); 
 
-	var toolbar = [
-		    // 글꼴 설정
-		    ['fontname', ['fontname']],
-		    // 글자 크기 설정
-		    ['fontsize', ['fontsize']],
-		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		    // 글자색
-		    ['color', ['forecolor','color']],
-		    // 표만들기
-		    ['table', ['table']],
-		    // 글머리 기호, 번호매기기, 문단정렬
-		    ['para', ['ul', 'ol', 'paragraph']],
-		    // 줄간격
-		    ['height', ['height']],
-		    // 그림첨부, 링크만들기, 동영상첨부
-		    ['insert',['picture','link','video']],
-		    // 코드보기, 확대해서보기, 도움말
-		    ['view', ['codeview','fullscreen', 'help']]
-		  ];
-
-	var setting = {
-            height : 300,
-            minHeight : null,
-            maxHeight : null,
-            focus : true,
-            lang : 'ko-KR',
-            toolbar : toolbar,
-            callbacks : { //여기 부분이 이미지를 첨부하는 부분
-            onImageUpload : function(files, editor,
-            welEditable) {
-            for (var i = files.length - 1; i >= 0; i--) {
-            uploadSummernoteImageFile(files[i],
-            this);
-            		}
-            	}
-            }
-         };
-
-        $('#summernote').summernote(setting);
-});        
-*/
-jQuery(document).ready(function ($) {
-
+        if (region === "") {
+            alert("지역을 선택해주세요.");
+            event.preventDefault();
+        }else if(category === ""){
+            alert("관심분야를 선택해주세요.");
+            event.preventDefault();
+        }else if(title === ""){
+            alert("제목을 작성해주세요.");
+            event.preventDefault();
+        }else if(content === "<p><br></p>" || content.trim() === "" || content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span><br></p>'){
+            alert("내용을 작성해주세요.");
+            event.preventDefault();
+        }
+    });
 
     $('#summernote').summernote({
         height: 500,
         minHeight: null,
         maxHeight: null,
-        lang: "ko-KR",					// 한글 설정
+        lang: "ko-KR",	// 한글 설정
         focus: true,
         toolbar: [
             // [groupName, [list of button]]
@@ -184,48 +158,50 @@ jQuery(document).ready(function ($) {
             ['height', ['height']],
             ['picture', ['[picture]']],
             ['insert', ['link', 'picture']],
-        ],
-	    callbacks : { 
-	    	onImageUpload : function(files, editor, welEditable) {
-	    	// 파일 업로드(다중업로드를 위해 반복문 사용)
-	    		for (var i = files.length - 1; i >= 0; i--) {
-	    			uploadSummernoteImageFile(files[i], this);
-	    		}
-	    	}
-	    }
+        ]
 
     });
 
+	$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
+	
+    function sendFile(file, editor, welEdit) {
+    	console.log("file" + file);
+		//파라미터를 전달하기 위해 form객체 만든다.
+		var frm = new FormData();
 
-    $('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
-    
-    function uploadSummernoteImageFile(file, el) {
-		data = new FormData();
-		data.append("file", file);
+		//위의 frm객체에 send_img이라는 파라미터를 지정!
+		frm.append("send_img", file);
+		//		frm.append("type", "saveImg");
+
+		//비동기식 통신
 		$.ajax({
-			data : data,
-			type : "POST",
-			url : "uploadSummernoteImageFile",
+			//			url: "saveImage.jsp",
+			url : "/uploadImge",
+			data : frm,
+			cache : false,
 			contentType : false,
-			enctype : 'multipart/form-data',
 			processData : false,
-			success : function(data) {
-				$(el).summernote('editor.insertImage', data.url);
-			}
+			type : "POST",
+			dataType : "JSON" //나중 받을 데이터의 형식을 지정
+		}).done(function(data) {
+			//도착함수
+			//alert(data.url);
+
+			//에디터에 img태그로 저장하기 위해 
+			//다음과 같이 img태그를 정의한다.
+			//var image = $('<img>').attr('src',data.url);
+
+			//에디터에 정의한 img태그를 보여준다.
+			//$('#content').summernote('insertNode',image[0]);
+
+			$('#summernote').summernote('insertImage', data.url);
+
+		}).fail(function(e) {
+			console.log(e);
 		});
 	}
-    
-    // 말머리 미선택시 알림창
-    $(".btn-primary").click(function () {
-        var selectedCategory = $(".form-select").val();
 
-        if (selectedCategory === "말머리") {
-            alert('말머리를 선택해주세요');
-            return;
-        }
-
-    });
-}); // 글쓰기에디터 ready함수 끝
+}); // document ready End
   
 </script>
 
