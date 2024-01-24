@@ -178,32 +178,39 @@
                             <label class="col-sm-2 col-form-label mypage_label"
                                 for="basic-default-phone">닉네임</label>
                             <div class="col-sm-10" >
-                                <input type="text" id="basic-default-phone" required style="margin-left: 0px;"
+                                <input type="text" id="nickInput" required style="margin-left: 0px;"
                                     class="regi_sub_form-control phone-mask" placeholder="닉네임을 입력해주세요"/>
                                 <button type="button"
-                                    class="btn btn-outline-primary regi_checkBtn">중복확인</button>
+                                    class="btn btn-outline-primary regi_checkBtn" onclick="checkNickname()" id="checkNicknameBtn">중복확인</button>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label mypage_label"
                                 for="basic-default-phone">연락처</label>
                             <div class="col-sm-10" >
-                                <input type="text" id="basic-default-phone" required style="margin-left: 0px;"  
+                                <input type="text" id="phoneInput" required style="margin-left: 0px;"  
                                     class="regi_sub_form-control phone-mask" placeholder="연락처를 입력해주세요" />
                                 <button type="button"
-                                    class="btn btn-outline-primary  regi_checkBtn">중복확인</button>
+                                    class="btn btn-outline-primary  regi_checkBtn" onclick="checkPhoneNumber()" onclick="checkPhoneNumber()" id="checkPhoneNumberBtn" disabled>중복확인</button>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">확인</button>
-                        <button type="submit" class="btn btn-warning">로그아웃</button>
+                        <button type="submit" class="btn btn-primary" onclick="confirmChanges()" id="confirmBtn">확인</button>
+                        <button type="submit" class="btn btn-warning" onclick="logout()">로그아웃</button>
 
                     </div>
                 </div>
             </div>
         </div>
+        
+        <form id="usernickForm" action="/community/community" method="get">
+           <input type="hidden" name="writer" value="${user.nick}">
+           <input type="hidden" name="Email" value="${user.email}">
+           <input type="hidden" name="phone" value="${user.phone}">
+           <input type="hidden" name="userType" value="${user.userType}">
+        </form>
 
 <!-- Modal End! -->
 
@@ -214,8 +221,63 @@
 	 	// '/'를 '-'로 바꿔서 반환
 		return formattedDate.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, '$3-$1-$2');
 	}
+	// 중복 확인 상태 변수 초기화
+    var nicknameCheckDone = false;
+    var phoneNumberCheckDone = false;
+
+    // 이전 값 저장 변수 초기화
+    var prevNicknameValue = "";
+    var prevPhoneNumberValue = "";
+    
 	
 	$(document).ready(function() {
+		
+		
+		if("${user.email}" != "")
+		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "" && $("#usernickForm input[name='userType']").val() != 0)
+		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
+				$("#modalCenter").modal("show");
+			}
+		
+		
+		// 초기화 시 확인 버튼 상태 업데이트
+		enableOrDisableConfirmButton();
+		
+		// 닉네임 입력값 변경 감지
+        $("#nickInput").on("input", function () {
+            var currentNicknameValue = $(this).val();
+            if (currentNicknameValue !== prevNicknameValue) {
+                // 값이 변경되면 이전 값 갱신 및 중복 확인 상태 초기화
+                prevNicknameValue = currentNicknameValue;
+                nicknameCheckDone = false;
+                enableOrDisableConfirmButton();
+            	 // 중복 확인 버튼 다시 활성화
+                $("#checkNicknameBtn").prop("disabled", false);
+            }
+        });
+        // 연락처 입력값 변경 감지
+        $("#phoneInput").on("input", function () {
+            var currentPhoneNumberValue = $(this).val();
+            if (currentPhoneNumberValue !== prevPhoneNumberValue) {
+                // 값이 변경되면 이전 값 갱신 및 중복 확인 상태 초기화
+                prevPhoneNumberValue = currentPhoneNumberValue;
+                phoneNumberCheckDone = false;
+                enableOrDisableConfirmButton();
+                // 중복 확인 버튼 다시 활성화
+                $("#checkPhoneNumberBtn").prop("disabled", false);
+            }
+        });
+        var userPhone = "${user.phone}";
+        if (userPhone) {
+        	phoneNumberCheckDone = true;
+            $("#phoneInput").val(userPhone);
+            $("#phoneInput").prop("disabled", true);
+            $("#checkPhoneNumberBtn").prop("disabled", true);
+        }
+		
+		
+		
+		
 	     // 정책모음 게시판 가져오기
 	     $.ajax({
 	         type: "POST",
@@ -361,6 +423,107 @@
 			$("#suggestList").append(row);
 		});
 	}
+	
+		function checkNickname() {
+	        var nickname = $("#nickInput").val();
+	        if (!nickname) {
+	            alert("닉네임을 입력하세요.");
+	            return;
+	        }
+
+	        // 중복 확인 상태 초기화
+	        nicknameCheckDone = false;
+
+	        // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
+	        $.ajax({
+	            type: "POST",
+	            url: "/user/chkNickname",
+	            data: { nick: nickname },
+	            success: function (response) {
+	                if (response) {
+	                    alert("사용 가능한 닉네임입니다.");
+	                    nicknameCheckDone = true;
+	                    enableOrDisableConfirmButton();
+	                    // 중복 확인 버튼 다시 비활성화
+	                    $("#checkNicknameBtn").prop("disabled", true);
+	                } else {
+	                    alert("이미 사용 중인 닉네임입니다.");
+	                    disableConfirmButton();
+	                }
+	            },
+	            error: function () {
+	                alert("닉네임 중복 체크 중 오류가 발생했습니다.");
+	            }
+	        });
+	    }
+		
+		function checkPhoneNumber() {
+	        var phoneNumber = $("#phoneInput").val();
+	        if (!phoneNumber) {
+	            alert("연락처를 입력하세요.");
+	            return;
+	        }
+
+	        // 중복 확인 상태 초기화
+	        phoneNumberCheckDone = false;
+
+	        // Ajax를 이용하여 서버에 연락처 중복 체크 요청
+	        $.ajax({
+	            type: "POST",
+	            url: "/user/chkPhone",
+	            data: { phone: phoneNumber },
+	            success: function (response) {
+	                if (response) {
+	                    alert("사용 가능한 연락처입니다.");
+	                    phoneNumberCheckDone = true;
+	                    enableOrDisableConfirmButton();
+	                    $("#checkPhoneNumberBtn").prop("disabled", true);
+	                } else {
+	                    alert("이미 사용 중인 연락처입니다.");
+	                    disableConfirmButton();
+	                }
+	            },
+	            error: function () {
+	                alert("연락처 중복 체크 중 오류가 발생했습니다.");
+	            }
+	        });
+	    }
+		
+		function enableOrDisableConfirmButton() {
+	        // 중복 확인이 모두 완료되고 값이 변경되지 않았다면 확인 버튼 활성화
+	        if (nicknameCheckDone && phoneNumberCheckDone) {
+	            $("#confirmBtn").prop("disabled", false);
+	        } else {
+	            $("#confirmBtn").prop("disabled", true);
+	        }
+	    }
+		
+		function disableConfirmButton() {
+	        // 중복 확인이 실패하면 확인 버튼 비활성화
+	        $("#confirmBtn").prop("disabled", true);
+	    }
+		
+		function confirmChanges() {
+			$.ajax({
+				type: "POST",
+				url: "/user/modinfo",
+				data: {
+					Email: $("#usernickForm input[name=Email]").val(),
+		            phone: $("#phoneInput").val(),
+		            nick: $("#nickInput").val()
+				},
+				success: function (){
+					window.location.href = "/";
+				}
+			});
+						
+	    }
+
+	    function logout() {
+	        // 로그아웃 버튼 클릭 시 로그아웃 처리 구현
+	        alert("로그아웃되었습니다.");
+	    }
+	
 </script>
 
 <%@include file="includes/footer.jsp" %>

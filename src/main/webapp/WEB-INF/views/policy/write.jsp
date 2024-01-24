@@ -28,7 +28,7 @@
 
                 <div class="row g-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
-					<form method="POST" action="/policy/write">
+					<form method="POST" action="/policy/write" id="writeForm">
                         <!-- table section -->
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
@@ -265,8 +265,7 @@ function validate() {
         alert("날짜를 채워주세요.");
         return; // 폼 제출을 막음
     }
-	
-    var form = document.querySelector('form');
+    var form = document.querySelector("#writeForm");
     form.submit();
 }
 

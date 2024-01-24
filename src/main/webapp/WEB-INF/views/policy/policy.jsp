@@ -140,7 +140,10 @@
 <div class="container-xxl py-5">
 	<div class="container">
  <div class="commuGet_btn">
-                <a href="/policy/write"><button class="btn btn-primary">글쓰기</button></a>
+ 				<c:if test="${user.userType eq 0}">
+	                <a href="/policy/write"><button class="btn btn-primary">글쓰기</button></a>
+	            </c:if>
+ 	
             </div>
 
 		<!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
@@ -267,6 +270,7 @@
 		
 		<form id="usernickForm" action="/community/community" method="get">
            <input type="hidden" name="writer" value="${user.nick}">
+           <input type="hidden" name="userType" value="${user.userType}">
         </form>
     </div>
 
@@ -319,6 +323,7 @@ function formatDate(date) {
 
 
      $(document).ready(function () {
+    	 
     	 
 	   	loadTableData();
 	   	
@@ -485,6 +490,18 @@ function formatDate(date) {
 		     function addPolicyToContainer(policy, index) {
 		    	 	var addWishImagePath = "addWish.png";
 		    	    var checkWishImagePath = "checkWish.png";
+		    	    
+		    	    var buttonHtml = '';
+		    	    console.log($("#usernickForm input[name='userType']").val());
+		    	    console.log($("#usernickForm input[name='writer']").val());
+		    	    // userType이 0일 때만 삭제와 수정 버튼을 추가
+		    	    if ($("#usernickForm input[name='writer']").val() != "" && $("#usernickForm input[name='userType']").val() == 0) {
+		    	    	buttonHtml += '<div class="commuGet_btn" >'; 
+		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-primary">수정</button></a>';
+		    	        buttonHtml += '<button class="btn btn-primary" onclick="confirmDelete(' + policy.no + ')">삭제</button>';
+		    	        buttonHtml += '</div>';
+		    	        //buttonHtml += '<a href="delPolicy?no=' + policy.no + '"><button class="btn btn-primary" style="margin: 10px;">삭제</button>';
+		    	    }
 
 		    	    // ...
 
@@ -513,10 +530,9 @@ function formatDate(date) {
 		    	        '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
 		    	        '</div>'+
 		    	        '</div>' +
-		    	        '<div class="commuGet_btn" >' +
-		    	        '<a href="modify?no="'+(policy.no)+'><button class="btn btn-primary">수정</button></a>' +
-		    	        '<a href="delPolicy?no='+(policy.no)+'"><button class="btn btn-primary" style="margin: 10px;">삭제</button>' +
-		    	        '</div>' +
+		    	        
+		    	        buttonHtml + 
+		    	        
 		    	        '</div>';
 	
 	
@@ -530,6 +546,29 @@ function formatDate(date) {
 	
 	     
 }); // document.ready함수 끝
+function confirmDelete(policyNo) {
+    // 사용자에게 정말로 삭제할 것인지 확인하는 알림창 표시
+    var confirmResult = confirm("정말로 삭제하시겠습니까?");
+
+    // 확인을 누르면 삭제 실행
+    if (confirmResult) {
+        // 여기에서 삭제를 수행하는 코드를 추가
+        // 예를 들어, Ajax를 사용하여 서버에 삭제 요청을 보낼 수 있습니다.
+        $.ajax({
+            type: "POST",
+            url: "/policy/delPolicy",
+            data: { no: policyNo },
+            success: function () {
+                // 삭제 성공 시, 여러 가지 작업 수행
+                alert("삭제되었습니다.");
+                window.location.href = '/policy/policy';
+            },
+            error: function () {
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    }
+}
 
     </script>
 <%@include file="../includes/footer.jsp"%>

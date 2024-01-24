@@ -57,9 +57,16 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/modinfo")
-	public boolean modinfo (UserVO vo) {
+	public boolean modinfo (UserVO vo, HttpSession session) {
 		log.info("controller : "+ vo.toString());
-		return userService.modinfo(vo);
+		
+		if(userService.modinfo(vo)) {
+			UserVO _vo = userService.get(vo.getEmail());
+			session.setAttribute("user", _vo);
+			return true;
+		}
+		return false;
+		
 	}
 	
 	@GetMapping("/modify")
