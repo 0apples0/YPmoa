@@ -89,16 +89,26 @@
 	</select>
 	
 	<select id="commentListPaging" resultType="AdminVO" parameterType="com.moa.youthpolicy.common.Criteria">
-		(SELECT p.*, 'P' AS boardType
-		 FROM policyboardcomments p
-		 WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.policycno = p.cno)
-		)
+		SELECT
+		    p.*, 'P' AS boardType,
+		    (SELECT COUNT(policycno) FROM commentsreport) AS policycno
+		FROM
+		    policyboardcomments p
+		WHERE
+		    EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.policycno = p.cno)
+		
 		UNION
-		(SELECT t.*, 'T' AS boardType
-		 FROM tipboardcomments t
-		 WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.tipcno = t.cno)
-		)
-		ORDER BY regDate
+		
+		SELECT
+		    t.*, 'T' AS boardType,
+		    (SELECT COUNT(tipcno) FROM commentsreport) AS tipcno
+		FROM
+		    tipboardcomments t
+		WHERE
+		    EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.tipcno = t.cno)
+		
+		ORDER BY
+		    regDate DESC
 		LIMIT #{start}, #{amount};
 	</select>
 	
