@@ -329,7 +329,7 @@ public class UserService implements UserGenericService {
 	    uservo.setPhone(phone.replaceAll("-","")); // 전화번호 문자열로 변경
 	    
 	    uservo.setName(name);
-	    uservo.setNick(name);
+	    //uservo.setNick(name);
 
 	    return uservo;
 	}
@@ -398,13 +398,12 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
-    	uservo.setNick(userResponse.getBody().get("name").toString());
+    	//uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	
     	System.out.println("user name: "+uservo.getName());
-    	System.out.println("user nick: "+uservo.getNick());
+    	//System.out.println("user nick: "+uservo.getNick());
     	System.out.println("user email: "+uservo.getEmail());
-    	
     	
 		return uservo;
 	}
