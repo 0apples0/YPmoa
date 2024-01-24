@@ -107,7 +107,6 @@
 			</choose>
 		</if>
 		ORDER BY regDate DESC
-
 		LIMIT #{start}, #{amount}
 	</select>
 	
