@@ -13,5 +13,7 @@ public interface AdminMapper {
 	public int getCommentTotalCount(Criteria cri);
 	public List<AdminVO> commentListPaging(Criteria cri);
 	public void delMember(UserVO vo);
+	public int getBoardTotalCount(Criteria cri);
+	public List<AdminVO> boardListWithPaging(Criteria cri);
 
 }
