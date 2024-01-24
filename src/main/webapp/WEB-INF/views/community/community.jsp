@@ -279,13 +279,15 @@
     <script>
 
 $(document).ready(function () {
+
+	
 	
 	function newAlarm(){
 	  $.ajax({
           type: "GET",
           url: "/community/newAlarm",
           success: function (data) {
-              console.log("ajax newAlarm값: " + data);
+           
               addedBno = data;
           },
           error: function (xhr, status, error) {
@@ -305,19 +307,13 @@ $(document).ready(function () {
 	    // 선택한 필터 값을 hidden input에 설정
 	    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
 	    $("#actionForm input[name='pageNum']").val(1);
-
+	    newAlarm();
 	    // actionForm submit 호출
 	    actionForm.submit();
+	    
 	});
    
-    // 체크박스 중복 방지
-    $('.custom-control-input').on('change', function () {
-        if ($(this).prop('checked')) {
-            $('.custom-control-input').not(this).prop('disabled', true);
-        } else {
-            $('.custom-control-input').prop('disabled', false);
-        }
-    });
+   
     
     
     // 내글 보기

@@ -360,8 +360,13 @@
 
     <script>
         $(document).ready(function () {
+        	
+        	 
+        	
         	loadTableData();
         	loadBestCommentTableData();
+        	
+
     		function chkLogin() {
     			userNick = $("#usernickForm input[name='nick']")
     					.val();
@@ -633,18 +638,21 @@
         	     		totalWidth += $(this).width();
         	     	});
         	        // content, writer, regDate 부분 input 태그로 교체(input 태그 기본값은 기존에 작성된 댓글 내용으로 지정)
-        	        let inputElement = $("<input>").addClass("commuComment_modInput").attr("type", "text").css("width", totalWidth+"px").val(content);
+        	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
+        	        
         	        row.find("td").remove();
-        	        row.append($("<td>").append(inputElement));
+        	        row.append($("<td>").attr("colspan", 3).append(inputElement));
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
                     
-                    let editCancelImg = $("<i>").addClass("fa fa-pen text-primary");
+                    let editCancelImg = $("<i>").addClass("fa fa-times text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                     
-                    row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink));
+                    row.append($("<td>").attr("colspan", 2).css("width","120px").append(editImg, editLink,editCancelImg, editCancelLink));
                     
+                  
+                	                    
                     // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                     $(".commuComment_modDoneBtn").on("click", function(){
                     	let modifiedContent = row.find(".commuComment_modInput").val();
@@ -783,20 +791,21 @@
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
-                       
            
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                          let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
                           // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
                         	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                        	  reportTd.css("width", "130px");
                           }else{
                         	  reportTd.append(reportImg, reportLink);
+                        	  reportTd.css("width", "70px");
                           }
 
                           // 새로운 <td> 엘리먼트를 행에 추가
@@ -814,6 +823,9 @@
                       console.log(e);
                    }
                 });
+               
+        	
+
                 
                 $(".paginate_button a").on("click", function(e){
 
@@ -879,7 +891,8 @@
                               
                            	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                               let reportTd = $("<td>");
-                           	  
+                              reportTd.css("width", "100px");
+                              console.log("Report TD created");
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
                               let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                               
@@ -894,14 +907,16 @@
                               // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                               if("${user.nick}"!=null && board.writer === "${user.nick}"){
                             	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                            	 
                               }else{
                             	  reportTd.append(reportImg, reportLink);
+                            	  	
                               }
                               
-
                               // 새로운 <td> 엘리먼트를 행에 추가
                               row.append(likeTd);
                               row.append(reportTd);
+                              
                               
                              boardTbody.append(row);
                              console.log("pagemaker: "+${pageMaker.realEnd});

@@ -532,20 +532,24 @@
     text-align: left !important;
 }
 
+
 .policyGet_comment tbody tr td:nth-child(2){
-    width: 12%;
+    width: 10%;
 }
 .policyGet_comment tbody tr td:nth-child(3){
-    width: 12%;
+    width: 17%;
 }
 .policyGet_comment tbody tr td:nth-child(4){
-    width: 12%;
+    width: 7%;
 }
-.policyGet_comment tbody tr td:last-child{
+
+.edit-delete-cell {
     width: 12%;
 }
 
-
+.report-cell {
+    width: 10%;
+}
 
 .policyGet_title{
     display: flex;
@@ -723,6 +727,19 @@
 
 
 /*** community ***/
+
+
+.commuComment_cancelmodBtn, .commuComment_deleteBtn, .commuComment_reportBtn{
+	margin-left:3px;
+}
+.commuComment_modBtn{
+	margin-right:10px;
+	margin-left:3px;
+}
+
+.commuComment_modDoneBtn{
+	margin-right:10px;
+}
 
 .commu_pic{
     margin-right: 5px;

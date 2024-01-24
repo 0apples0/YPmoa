@@ -230,9 +230,10 @@
 	
 	<!-- 새글알람 -->
 	<select id="alarmNew" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-		   SELECT bno
-		    FROM tipboard
-		    WHERE DATE(regDate) = CURDATE()
-	</select>
+    SELECT COALESCE(MAX(bno), 0) AS result
+    FROM tipboard
+    WHERE DATE(regDate) = CURDATE()
+</select>
+
 	
 </mapper>
