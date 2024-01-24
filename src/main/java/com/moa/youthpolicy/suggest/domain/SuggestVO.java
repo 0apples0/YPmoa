@@ -17,5 +17,5 @@ public class SuggestVO {
 	String imageName;
 	Date regDate;
 	Character boardType;
-	
+	int isdeleted;	//삭제여부
 }

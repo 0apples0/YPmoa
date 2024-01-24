@@ -20,4 +20,5 @@ public class CommunityVO {
 	Character boardType;
 	
 	LikeBoardVO likeVO;
+	int isdeleted; //삭제 여부
 }

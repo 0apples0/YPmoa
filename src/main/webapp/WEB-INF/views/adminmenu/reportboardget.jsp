@@ -106,9 +106,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <%-- 페이징 적용 --%>
+            
+                    <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
 
@@ -191,10 +190,13 @@
 			<input type="hidden" name="boardType" value="${pageMaker.cri.boardType }">
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
+        </div>
+
+
 
   
         <!-- Modal -->
-        <div class="modal fade admin_modalInfo" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade admin_modalInfo" id="modalCenterReportDetail" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -269,7 +271,7 @@
         
         
         <!-- 신고 버튼 Modal -->
-        <div class="modal fade admin_Modal" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -281,8 +283,8 @@
                                 
                     </div>
                     <div class="modal-footer" style="justify-content:center">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
+                        <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
+                        <button type="button" id="passCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
                       
 
                     </div>
@@ -302,29 +304,52 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	
-	function bindCommentActionHandlers(row, bno, boardType) {
+	function bindCommentActionHandlers(row, bno, boardType, isdeleted) {
 		
-		row.on("click", ".titleLink", function(){
+		row.on("click", ".titleLink", function(e){
+			e.preventDefault();
+			if(isdeleted == 0){
+				if(boardType === "T"){
+					window.location.href = "/community/get?bno="+bno;
+				}else if(boardType === "S"){
+					window.location.href = "/suggest/get?bno="+bno;
+				}				
+			}else{
+				alert("이미 삭제된 게시글입니다.");
+			}
+
     		
 		});
-		row.on("click", ".board_deleteBtn", function(){
-    		$.ajax({
-                url: "/adminmenu/deleteUser",
-                type: "POST",
-                dataType: "json", 
-                data: {
-                	bno: bno // 정지 대상 아이디(이메일)
-                },
-                success: function (response) {
-                    console.log("회원 정지가 완료되었습니다.");
-                },
-                error: function (error) {
-                    console.error("정지 처리 중 오류가 발생했습니다.", error);
-                }
-            });  			
+		row.on("click", ".board_deleteBtn", function(e){
+			e.preventDefault();
+			$('#modalCenterSelect').modal('show');
+			$('#deleteCheckBtn').on("click", function(e){
+				e.preventDefault();
+				$.ajax({
+			        url: "/adminmenu/deleteBoard",
+			        type: "POST",
+			        dataType: "text", 
+			        data: {
+			        	bno: bno, // 삭제 대상 게시글 번호
+			        	boardType: boardType // 삭제 대상 게시판 타입
+			        },
+			        success: function (response) {
+			            console.log("게시글 삭제가 완료되었습니다.");
+			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
+			            row.find('.board_deleteBtn').parent('td').empty().text('삭제완료');
+			        },
+			        error: function (error) {
+			            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
+			        }
+			    });				
+			});
+			$('#passCheckBtn').on("click", function(e){
+				alert("삭제 안할거야");
+			});
+			
 		});
 	}
-	
+  	
     function loadTableData(){
         
         $.ajax({
@@ -352,7 +377,7 @@ $(document).ready(function () {
 
                  // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
                  let row = $("<tr>");
-                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁게시판" : "건의게시판"));
+                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁" : "건의"));
                  row.append($("<td>").text(board.writer));
                  
                  let titleTd = $("<td>");
@@ -373,7 +398,7 @@ $(document).ready(function () {
                  console.log("pagemaker: "+${pageMaker.realEnd});
                  
                  // row, board.bno, board.boardType 전달하여 활용하는 함수
-                 bindCommentActionHandlers(row, board.bno, board.boardType);
+                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted);
               });
            },
            error: function(e){

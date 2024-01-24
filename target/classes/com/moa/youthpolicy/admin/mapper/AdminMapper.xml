@@ -245,4 +245,18 @@
 			leaveDate = CURRENT_TIMESTAMP
 		WHERE Email = #{Email}
 	</update>
+	
+	<!-- 게시글 삭제 시 isdeleted을 1로 변경 -->
+	<update id="delBoard" parameterType="com.moa.youthpolicy.common.Criteria">
+		<choose>
+		<when test='boardType = "T"'>
+			UPDATE tipboard
+		</when>
+		<when test='boardType = "S"'>
+			UPDATE suggestedboard
+		</when>			
+		</choose>
+			SET isdeleted = 1
+			WHERE bno = #{bno}		
+	</update>
 </mapper>
