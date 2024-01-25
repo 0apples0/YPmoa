@@ -97,6 +97,11 @@ public class AdminService implements UserGenericService{
 		return false;
 	}
 
+	// 게시글 삭제
+	public void delBoard(Criteria cri) {
+		adminMapper.delBoard(cri);	
+	}
+
 
 
 

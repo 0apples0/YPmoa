@@ -15,5 +15,7 @@ public interface AdminMapper {
 	public void delMember(UserVO vo);
 	public int getBoardTotalCount(Criteria cri);
 	public List<AdminVO> boardListWithPaging(Criteria cri);
+	//게시글 삭제(isdeleted 컬럼 업데이트)
+	public void delBoard(Criteria cri);
 
 }
