@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.common.CommentsReportVO;
@@ -43,6 +44,14 @@ public class PolicyController {
 		return "redirect:/policy/policy";
 	}
 	
+	@PostMapping("/indexsearch")
+	public String indexsearch(Criteria cri, RedirectAttributes re) {	
+		cri.setAmount(8);
+		re.addFlashAttribute("criteria", cri);
+		log.info(cri);
+		return "redirect:/policy/policy";
+	}
+	
 	
 	@PostMapping("/write")
 	public void writePolicy(PolicyVO vo) {
@@ -69,6 +78,7 @@ public class PolicyController {
 		cri.setAmount(8);
 		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
 		PageDTO pageResult = new PageDTO(cri, total);
+		log.info(pageResult);
 		model.addAttribute("pageMaker", pageResult);
 	}
 	
