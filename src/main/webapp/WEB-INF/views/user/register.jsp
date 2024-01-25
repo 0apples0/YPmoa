@@ -286,13 +286,13 @@
 		});
 
         // 닉네임 중복 체크 버튼 클릭 시
-        $("#nickchk").on("click", function () {
+        $("#nickchk").off("click").on("click", function () {
         	var nicknameField = $(".regi_sub_form-control[name='nick']");
             var nicknameValidation = $("#nickValidation");
             var nickname = nicknameField.val();
 
             // 유효성 검사
-            var nickRegex = /^[a-zA-Z0-9\uac00-\ud7a3]{1,20}$/;
+            var nickRegex = /^(?:[가-힣]{1,10}|[a-zA-Z]{1,20}|[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{2,20})$/;
             if (!nickRegex.test(nickname)) {
                 nicknameValidation.text("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
                 return;  // 유효성 검사를 통과하지 못하면 여기서 함수 종료
@@ -384,7 +384,7 @@
 		    // 닉네임 유효성 검사
 		    var nickField = $(".regi_sub_form-control[name='nick']");
 		    var nickValidation = $("#nickValidation"); 
-		    var nickRegex = /^[a-zA-Z0-9\uac00-\ud7a3]{1,20}$/;
+		    var nickRegex = /^(?:[가-힣]{1,10}|[a-zA-Z]{1,20}|[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{2,20})$/;
 		    if (!nickRegex.test(nickField.val())) {
 		        nickValidation.text("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
 		        return false;
