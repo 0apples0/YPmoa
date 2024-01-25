@@ -187,7 +187,7 @@
                                 <button type="button"
                                     class="btn btn-outline-primary regi_checkBtn" onclick="checkNickname()" id="checkNicknameBtn">중복확인</button>
                             </div>
-                            <div class="col-sm-11" ><span class="validation">유효성검사</span></div>
+                            <div class="col-sm-11" ><span class="nicknameValidation" id="nickValidation">유효성검사</span></div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label mypage_label"
@@ -198,7 +198,7 @@
                                 <button type="button"
                                     class="btn btn-outline-primary  regi_checkBtn" onclick="checkPhoneNumber()" onclick="checkPhoneNumber()" id="checkPhoneNumberBtn" disabled>중복확인</button>
                             </div>
-                            <div class="col-sm-11" ><span class="validation">유효성검사</span></div>
+                            <div class="col-sm-11" ><span class="phoneValidation" id="phoneValidation">유효성검사</span></div>
                         </div>
 
                     </div>
@@ -237,6 +237,8 @@
     
 	
 	$(document).ready(function() {
+		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
+		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
 		
 		
 		if("${user.email}" != "")
@@ -429,12 +431,23 @@
 		});
 	}
 	
+	
+		function hideValidationMessage(validationSpan) {
+		    validationSpan.hide();
+		}
+
+		function showValidationMessage(validationSpan, message) {
+		    validationSpan.text(message).show();
+		}
+	
 		function checkNickname() {
-	        var nickname = $("#nickInput").val();
-	        if (!nickname) {
-	            alert("닉네임을 입력하세요.");
-	            return;
-	        }
+			var nickname = $("#nickInput").val();
+		    var nicknameValidation = $("#nickValidation"); 
+
+		    if (!isValidNickname(nickname)) {
+		        showValidationMessage(nicknameValidation, "유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.");
+		        return;
+		    }
 
 	        // 중복 확인 상태 초기화
 	        nicknameCheckDone = false;
@@ -451,8 +464,9 @@
 	                    enableOrDisableConfirmButton();
 	                    // 중복 확인 버튼 다시 비활성화
 	                    $("#checkNicknameBtn").prop("disabled", true);
+	                    hideValidationMessage(nicknameValidation);
 	                } else {
-	                    alert("이미 사용 중인 닉네임입니다.");
+	                	showValidationMessage(nicknameValidation, "이미 사용 중인 닉네임입니다.");
 	                    disableConfirmButton();
 	                }
 	            },
@@ -463,11 +477,13 @@
 	    }
 		
 		function checkPhoneNumber() {
-	        var phoneNumber = $("#phoneInput").val();
-	        if (!phoneNumber) {
-	            alert("연락처를 입력하세요.");
-	            return;
-	        }
+			var phoneNumber = $("#phoneInput").val();
+		    var phoneValidation = $("#phoneValidation"); 
+
+		    if (!isValidPhoneNumber(phoneNumber)) {
+		        showValidationMessage(phoneValidation, "유효하지 않은 핸드폰 번호입니다.");
+		        return;
+		    }
 
 	        // 중복 확인 상태 초기화
 	        phoneNumberCheckDone = false;
@@ -483,8 +499,9 @@
 	                    phoneNumberCheckDone = true;
 	                    enableOrDisableConfirmButton();
 	                    $("#checkPhoneNumberBtn").prop("disabled", true);
+	                    hideValidationMessage(phoneValidation);
 	                } else {
-	                    alert("이미 사용 중인 연락처입니다.");
+	                	showValidationMessage(phoneValidation, "이미 사용 중인 연락처입니다.");
 	                    disableConfirmButton();
 	                }
 	            },
@@ -517,27 +534,14 @@
 		function isValidNickname(nickname) {
 		    // 닉네임 유효성 검사를 수행하는 로직을 구현
 		    // 여기서는 한글 10글자 이내 또는 영어 20글자 이내로 제한
-		    var koreanRegex = /^[가-힣]{1,10}$/;
-		    var englishRegex = /^[a-zA-Z]{1,20}$/;
+			var koreanRegex = /^[가-힣0-9]{1,10}$/;
+			var englishRegex = /^[a-zA-Z0-9]{1,20}$/;
 
-		    return koreanRegex.test(nickname) || englishRegex.test(nickname);
+			return koreanRegex.test(nickname) || englishRegex.test(nickname);
 		}
 		
 		function confirmChanges() {
-			var nickname = $("#nickInput").val();
-			var phoneNumber = $("#phoneInput").val();
 			
-
-		    if (!isValidNickname(nickname)) {
-		        // 유효하지 않은 닉네임일 경우 사용자에게 알림
-		        alert("유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.");
-		        return;
-		    }
-		    if (!isValidPhoneNumber(phoneNumber)) {
-		        // 유효하지 않은 핸드폰 번호일 경우 사용자에게 알림
-		        alert("유효하지 않은 핸드폰 번호입니다.");
-		        return;
-		    }
 			$.ajax({
 				type: "POST",
 				url: "/user/modinfo",
