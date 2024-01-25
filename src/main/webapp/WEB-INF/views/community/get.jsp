@@ -601,7 +601,7 @@
         	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
         	        
         	        row.find("td").remove();
-        	        row.append($("<td>").attr("colspan", 3).append(inputElement));
+        	        row.append($("<td>").attr("colspan", 4).append(inputElement));
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
@@ -609,7 +609,7 @@
                     let editCancelImg = $("<i>").addClass("fa fa-times text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                     
-                    row.append($("<td>").attr("colspan", 2).css("width","120px").append(editImg, editLink,editCancelImg, editCancelLink));
+                    row.append($("<td>").css("width","160px").append(editImg, editLink,editCancelImg, editCancelLink));
                     
                   
                 	                    

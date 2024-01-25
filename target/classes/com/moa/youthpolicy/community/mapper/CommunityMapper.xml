@@ -238,10 +238,18 @@
 	
 	<!-- 새글알람 -->
 	<select id="alarmNew" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-    SELECT COALESCE(MAX(bno), 0) AS result
-    FROM tipboard
-    WHERE DATE(regDate) = CURDATE()
-</select>
+	    SELECT COALESCE(MAX(bno), 0) AS result
+	    FROM tipboard
+	    WHERE DATE(regDate) = CURDATE()
+	</select>
+
+	<!-- 댓글 수 가져오기 -->
+	<select id="getCommentNm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+	    SELECT COUNT(tipboardcomments.cno)
+	    FROM tipboard
+	    LEFT JOIN tipboardcomments ON tipboard.bno = tipboardcomments.bno
+	    WHERE tipboard.bno = #{bno}
+	</select>
 
 	
 </mapper>

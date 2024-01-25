@@ -100,7 +100,7 @@
 	                <div class="white_shd_a full">
 	                    <div class="table_section padding_infor_info_a">
 	                        <div class="table-responsive-sm">
-	                            <table id="suggestBoardTable" class="table table-hover commu_table commu_table_a">
+	                            <table id="suggestBoardTable" class="table table-default commu_table commu_table_a">
 	                                <thead>
 	                                	<tr>
 	                                        <th data-sort="area" style="width:5%;">지역</th>
