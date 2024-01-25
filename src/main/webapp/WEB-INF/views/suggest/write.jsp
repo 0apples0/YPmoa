@@ -134,8 +134,10 @@
         // userType이 0이면 공지 옵션만 보임
         var userType = "${user.userType}";
         if (userType === "0") {
-            $("#category").empty(); // 기존 옵션 제거
-            $("#region").empty();   // 기존 옵션 제거
+            // 기존 옵션 제거
+            $("#category").empty(); 
+            $("#region").empty(); 
+            // 공지 옵션 추가
             $("#category").append('<option value="공지">공지</option>');
             $("#region").append('<option value="공지">공지</option>');
         }
