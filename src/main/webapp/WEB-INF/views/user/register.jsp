@@ -235,6 +235,7 @@
 		                enableOrDisableRegisterButton();
 		                alert("사용 가능한 아이디 입니다")
 		                //emailValidation.text("사용 가능한 아이디입니다.").show();
+		                emailValidation.hide();
 		            } else {
 		                idCheckDone = false;
 		                enableOrDisableRegisterButton();
@@ -271,6 +272,7 @@
 		                enableOrDisableRegisterButton();
 		                alert("사용 가능한 연락처입니다.");
 		                //phoneValidation.text("사용 가능한 연락처입니다.").show();
+		                phoneValidation.hide();
 		            } else {
 		                phoneCheckDone = false;
 		                enableOrDisableRegisterButton();
@@ -285,9 +287,16 @@
 
         // 닉네임 중복 체크 버튼 클릭 시
         $("#nickchk").on("click", function () {
-		    var nicknameField = $(".regi_sub_form-control[name='nick']");
-		    var nicknameValidation = $("#nickValidation");
-		    var nickname = nicknameField.val();		
+        	var nicknameField = $(".regi_sub_form-control[name='nick']");
+            var nicknameValidation = $("#nickValidation");
+            var nickname = nicknameField.val();
+
+            // 유효성 검사
+            var isValidNickname = validateNickname(nickname);
+            if (!isValidNickname) {
+                nicknameValidation.text("유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.").show();
+                return;
+            }
 		    // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
 		    $.ajax({
 		        type: "POST", 
@@ -300,6 +309,7 @@
 		                alert("사용 가능한 닉네임입니다.");
 		                // 성공 시 메시지를 변경하고 일정 시간 후에 숨김
 		                //nicknameValidation.text("사용 가능한 닉네임입니다.").delay(3000).fadeOut();
+		                nicknameValidation.hide();
 		            } else {
 		                nickCheckDone = false;
 		                enableOrDisableRegisterButton();
