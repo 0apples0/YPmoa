@@ -530,6 +530,14 @@
 
 .policyGet_comment tbody tr td:first-child{
     text-align: left !important;
+    
+}
+
+#communityBestCommentTable tbody tr td:first-child{
+	width: 55% !important;
+}
+#communityBestCommentTable tbody tr td:last-child{
+	width: 7% !important;
 }
 
 
@@ -540,7 +548,7 @@
     width: 17%;
 }
 .policyGet_comment tbody tr td:nth-child(4){
-    width: 7%;
+    width: 8%;
 }
 
 .edit-delete-cell {
@@ -727,6 +735,7 @@
 
 
 /*** community ***/
+
 
 .board_commentCnt{
     margin-left: 7px;
