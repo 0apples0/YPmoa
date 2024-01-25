@@ -250,7 +250,7 @@
 
         // 연락처 중복 체크 버튼 클릭 시
         $("#phoneck").on("click", function () {
-		    var phoneRegex = /^[0-9]{10,11}$/;
+        	var phoneRegex = /^([0-9]{11})$/;
 		    var phoneField = $(".regi_sub_form-control[name='phone']");
 		    var phoneValidation = $("#phoneValidation");
 		
@@ -287,9 +287,16 @@
 
         // 닉네임 중복 체크 버튼 클릭 시
         $("#nickchk").on("click", function () {
-		    var nicknameField = $(".regi_sub_form-control[name='nick']");
-		    var nicknameValidation = $("#nickValidation");
-		    var nickname = nicknameField.val();
+        	var nicknameField = $(".regi_sub_form-control[name='nick']");
+            var nicknameValidation = $("#nickValidation");
+            var nickname = nicknameField.val();
+
+            // 유효성 검사
+            var nickRegex = /^[a-zA-Z0-9\uac00-\ud7a3]{1,20}$/;
+            if (!nickRegex.test(nickname)) {
+                nicknameValidation.text("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
+                return;  // 유효성 검사를 통과하지 못하면 여기서 함수 종료
+            }
 		
 		    // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
 		    $.ajax({
