@@ -100,7 +100,7 @@
                     <div class="full graph_head mini_board_more" >
                             <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                             <span class="mini_board_title">나의 위시 정책</span>
-                            <span class="mini_board_span"><a href="">더보기</a></span>
+                            <span class="mini_board_span"><a href="/wish/wish">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info" >
                         <div class="table-responsive-sm">
@@ -117,7 +117,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책정보</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/policy/policy">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
@@ -134,7 +134,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">꿀팁모음</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/community/community">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
@@ -151,7 +151,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책건의</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/suggest/suggest">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
