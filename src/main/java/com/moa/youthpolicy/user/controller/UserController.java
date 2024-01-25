@@ -246,6 +246,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/chkNickname")
 	public boolean chkID(@RequestParam String nick) {
+		log.info(nick);
 		return userService.chkNick(nick);
 	}
 	
