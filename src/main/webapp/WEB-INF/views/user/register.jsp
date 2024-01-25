@@ -376,7 +376,7 @@
 		    var phoneField = $(".regi_sub_form-control[name='phone']");
 		    var phoneValidation = $("#phoneValidation");
 		    var phoneRegex = /^[0-9]{10,11}$/;
-		    if (!phoneRegex.test(phoneField.val())) {
+		    if (!phoneRegex.test(phoneField.val())) { 
 		        phoneValidation.text("올바른 연락처를 입력해주세요.").show();
 		        return false;
 		    }
