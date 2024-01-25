@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
 
-
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -83,7 +82,6 @@
 </div>
 
 <script>
-
 	
     $(document).ready(function ($) {
     	
@@ -126,7 +124,6 @@
                 ['picture', ['[picture]']],
  ﻿               ['insert', ['link', 'picture']],
             ]
-
         });
 
 		$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');

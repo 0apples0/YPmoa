@@ -3,8 +3,6 @@
 
 <%@include file="../includes/header.jsp"%>
 
-
-
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -58,6 +56,7 @@
 	                                <input class="form-control" id="titleInput" name="title"
 	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 71%;"
 	                                    placeholder="제목을 입력해주세요"  value="${vo.title}">
+	                                <input type="hidden" name="nick" value="${user.nick}">
 	                            </div>
 	                        </div>
 	                    </div>
@@ -66,27 +65,27 @@
 	                    <div class="white_shd_a full margin_bottom_auto">
 	                        <div class="table_section padding_infor_info">
 	                            <div class="table-responsive-sm">
-		                                <table class="table commu_table policy_dt_table policyWrite_table">
-		                                    <colgroup>
-		                                        <col style="width: 14%">
-		                                        <col style="width: 36%">
-		                                        <col style="width: 14%">
-		                                        <col style="width: 36%">
-		                                    </colgroup>
-		                                    <tbody>
-		                                        <tr>
-		                                            <td colspan="4">
-	                                                    <textarea id="summernote" name="content" class="form-control"  style="font-family: 'LINESeedKR-Bd_light';">${vo.content}</textarea>
-		                                            </td>
-		                                        </tr>
-		                                    </tbody>
-		                                </table>
-		                                <br>
-		                                <div>
-	                                        <button type="submit" class="btn btn-primary">수정하기</button>
-	                                        <button type="button" class="btn btn-warning" onclick="history.back()">취소</button>
-		                                </div>
-		                                <input type="hidden" id="bno" name="bno" value="${vo.bno}" />
+	                                <table class="table commu_table policy_dt_table policyWrite_table">
+	                                    <colgroup>
+	                                        <col style="width: 14%">
+	                                        <col style="width: 36%">
+	                                        <col style="width: 14%">
+	                                        <col style="width: 36%">
+	                                    </colgroup>
+	                                    <tbody>
+	                                        <tr>
+	                                            <td colspan="4">
+                                                    <textarea id="summernote" name="content" class="form-control"  style="font-family: 'LINESeedKR-Bd_light';">${vo.content}</textarea>
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                                <br>
+	                                <div>
+                                        <button type="submit" class="btn btn-primary">수정하기</button>
+                                        <button type="button" class="btn btn-warning" onclick="history.back()">취소</button>
+	                                </div>
+	                            	<input type="hidden" id="bno" name="bno" value="${vo.bno}" />
 	                            </div>
 	                        </div>
 	                    </div>
