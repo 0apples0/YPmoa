@@ -99,7 +99,6 @@ public class AdminController {
 		return adminService.getBoardPage(cri);
 	}
 	
-	
 	// 회원 정지
 	@ResponseBody
 	@RequestMapping(value="/deleteUser", method={RequestMethod.GET, RequestMethod.POST})
