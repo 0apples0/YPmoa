@@ -197,6 +197,8 @@ public class PolicyService implements BoardGenericService {
 
 	public boolean reportcomment(CommentsReportVO vo) {
 		CommentsReportVO _vo = mapper.getReportComment(vo);
+		log.info("vo"+vo);
+		log.info("_vo" + _vo);
 		if(_vo == null) {
 			mapper.reportcomment(vo);
 			return true;

@@ -137,7 +137,9 @@
 	
 	<select id="getReportComment" resultType="com.moa.youthpolicy.common.CommentsReportVO" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
 		SELECT * FROM commentsreport
-		WHERE reporter = #{reporter} AND boardType = #{boardType} AND policycno = #{policycno}	
+		WHERE reporter = #{reporter} AND boardType = #{boardType}
+		    AND (boardType = "P" AND policycno = #{policycno})
+		    OR (boardType = "T" AND tipcno = #{tipcno});		    
 	</select>
 	
 	<select id="getLikeComment" resultType="com.moa.youthpolicy.common.LikeCommentVO" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
@@ -211,11 +213,30 @@
 	</insert>	
 	
 	<insert id="reportcomment" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
-		INSERT INTO commentsreport
-		(policycno, reasonCategory, reporter, reason, boardType)
-		values(#{policycno},#{reasonCategory},#{reporter},#{reason},#{boardType})
+	    INSERT INTO commentsreport
+	    (
+	        <choose>
+	            <when test='boardType == "P"'>
+	                policycno,
+	            </when>
+	            <when test='boardType == "T"'>
+	                tipcno,
+	            </when>
+	        </choose>
+	        reasonCategory, reporter, reason, boardType)
+	    VALUES
+	    (
+	        <choose>
+	            <when test='boardType == "P"'>
+	                #{policycno},
+	            </when>
+	            <when test='boardType == "T"'>
+	                #{tipcno},
+	            </when>
+	        </choose>
+	        #{reasonCategory}, #{reporter}, #{reason}, #{boardType})
 	</insert>
-	
+		
 	<insert id="addLikeComment" parameterType="com.moa.youthpolicy.common.LikeCommentVO">
 		INSERT INTO like_policyboardcomments
 		(cno, Email)

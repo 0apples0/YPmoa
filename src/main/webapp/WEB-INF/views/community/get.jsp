@@ -263,6 +263,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
+                        <input type="hidden" id="cno">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -300,7 +301,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary commu_report">신고하기</button>
+                        <button type="button" class="btn btn-primary commu_report" onclick="report()">신고하기</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             취소
                         </button>
@@ -359,6 +360,52 @@
 </div>
 
     <script>
+    
+  //선택한 값을 저장할 변수
+    var selectedOption = "";
+    var reporter = $("#usernickForm input[name='nick']").val();
+
+    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
+    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
+        if ($("#customCheck1").is(":checked")) {
+            selectedOption = "불건전한 내용";
+        } else if ($("#customCheck2").is(":checked")) {
+            selectedOption = "영리목적/홍보성";
+        } else if ($("#customCheck3").is(":checked")) {
+            selectedOption = "개인정보노출";
+        } else if ($("#customCheck4").is(":checked")) {
+            selectedOption = "기타";
+        }
+    });
+    
+    function report() {
+		if("${user.nick}"==null || "${user.nick}"==""){
+			alert("로그인 후 이용 가능한 서비스 입니다.");
+			//window.location.href = "/user/login";
+			return;
+		}
+	    $.ajax({
+			url : "/policy/reportcomment", 
+			type : "POST",
+			data : {
+				tipcno : $("#cno").val(),
+				reasonCategory : selectedOption,
+				reporter : reporter,
+				reason : $("#textarea1").val(),
+				boardType : "T",
+			},
+			success : function(data){
+				$("#modalCenter").modal("hide");
+				if(data){
+					alert("신고 하였습니다");
+				}else{
+					alert("이미 신고했습니다");
+				}
+				
+			}
+		});
+	    
+	}
         $(document).ready(function () {
         	loadTableData();
         	loadBestCommentTableData();
@@ -383,46 +430,7 @@
     	        }
     	    });
     	    
-    	    //선택한 값을 저장할 변수
-    	    var selectedOption = "";
-    	   //var reporter = $("#usernickForm input[name='writer']").val();
-    	    var reporter = "${user.nick}";
 
-    	    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
-    	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
-    	        if ($("#customCheck1").is(":checked")) {
-    	            selectedOption = "불건전한 내용";
-    	        } else if ($("#customCheck2").is(":checked")) {
-    	            selectedOption = "영리목적/홍보성";
-    	        } else if ($("#customCheck3").is(":checked")) {
-    	            selectedOption = "개인정보노출";
-    	        } else if ($("#customCheck4").is(":checked")) {
-    	            selectedOption = "기타";
-    	        }
-    	    });
-    	    // 신고 모달 데이터 전송
-    		function report() {
-    		    $.ajax({
-    		    
-    				url : "/community/reportBoard", 
-    				type : "POST",
-    				data : {
-    					tipbno : ${vo.bno},
-    					reasonCategory : selectedOption,
-    					reporter : reporter,
-    					reason : $("#textarea1").val(),
-    					boardType : "T"
-    				},
-    				success : function(data){
-    					$("#modalCenter").modal("hide");
-    					if(data){
-    						alert("신고 하였습니다");
-    					}else{
-    						alert("이미 신고했습니다");
-    					}
-    				}
-    			});
-    		}
     	    // 체크박스 중복 방지
     	    $('.custom-control-input').on('change', function () {
     	        if ($(this).prop('checked')) {
@@ -440,11 +448,6 @@
     	            var textareaId = $(this).data("textarea-id");
     	            $("#" + textareaId).prop("disabled", false);
     	        }
-    	    });
-
-    	 	// 클릭 이벤트 핸들러를 바인딩
-    	    $(document).on("click", ".commu_report", function() {
-    	        report();
     	    });
     	    
     	    // 아무 체크도 안했을 때 선택버튼 비활성화
@@ -510,12 +513,12 @@
 
 
 			// 댓글 신고 모달창
-			$(".commu_table").on("click", ".policyGet_report", function (event) {
-				event.preventDefault();
-                if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-                    $("#modalCenter").modal("show");
-                }
-			});
+			//$(".commu_table").on("click", ".policyGet_report", function (event) {
+				//event.preventDefault();
+                //if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+                  //  $("#modalCenter").modal("show");
+               // }
+			//});
             // 게시글 신고 모달창
             $(".commuGet_postReport").click(function(event){
                 $("#modalCenter").modal("show");
@@ -620,6 +623,18 @@
             
          
          function bindCommentActionHandlers(row, cno, bno) {
+        	 
+	        	// 댓글 신고 모달창
+	       	  row.on("click", ".policyGet_report", function (event) {
+	       		  
+	       	  	  event.preventDefault();
+	                   if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+	                     $("#cno").val(cno);
+	                     $("#modalCenter").modal("show");
+	                 }
+	       	  });
+        	 
+        	 
         	  // 댓글 수정
         	  row.on("click", ".commuComment_modBtn", function(){
         		  event.preventDefault();
