@@ -389,6 +389,14 @@
 			                row.append(likeTd);
 	
 	                        boardTbody.append(row);
+	                        
+	                        if (board.userType === 0) {
+	                            row.css({
+	                            	"background-color": "rgb(240, 246, 255)", // 배경 색상
+	                                "font-weight": "600" // 폰트 굵기
+	                            });
+	                        }
+	                        
 	                        console.log("pagemaker: "+${pageMaker.realEnd});
 						});
 					}
