@@ -278,12 +278,9 @@
 
     <script>
     
-    window.onload = function () {
-        newAlarm();
-    };
-
+ 
 $(document).ready(function () {
-
+	
 	let addedBno;
 	// 새글알림
 	function newAlarm(){
@@ -293,13 +290,17 @@ $(document).ready(function () {
           success: function (data) {
            
               addedBno = data;
+              loadTableData();
           },
           error: function (xhr, status, error) {
               console.error("new알람 실패:", status, error);
           }
       });
 	}
-	loadTableData();
+	newAlarm();
+	
+	
+	
    	$("#customCheck").change(function () {
 	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출3
 	    let selectedFilter = "";
