@@ -534,10 +534,9 @@
 		function isValidNickname(nickname) {
 		    // 닉네임 유효성 검사를 수행하는 로직을 구현
 		    // 여기서는 한글 10글자 이내 또는 영어 20글자 이내로 제한
-			var koreanRegex = /^[가-힣0-9]{1,10}$/;
-			var englishRegex = /^[a-zA-Z0-9]{1,20}$/;
+			var nickRegex = /^(?:[가-힣]{1,10}|[a-zA-Z]{1,20}|[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{2,14})$/;
 
-			return koreanRegex.test(nickname) || englishRegex.test(nickname);
+			return nickRegex.test(nickname);
 		}
 		
 		function confirmChanges() {
