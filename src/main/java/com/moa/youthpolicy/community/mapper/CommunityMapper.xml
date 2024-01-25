@@ -30,6 +30,10 @@
 	    <if test="type != null and keyword != null and keyword != ''">
 		    
 	        <choose>
+	        	<when test="type == null or type=''">
+	        		AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
+	        			OR writer LIKE CONCAT('%', #{keyword}, '%'))
+	        	</when>
 	            <when test='type == "TC"'>
 	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
@@ -64,8 +68,12 @@
 			And writer = #{writer}
 
 		</if>
-	    <if test="type != null and keyword != null and keyword != ''">
+	    <if test="keyword != null and keyword != ''">
 	        <choose>
+	        	<when test="type == null or type=''">
+	        		AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
+	        			OR writer LIKE CONCAT('%', #{keyword}, '%'))
+	        	</when>
 	            <when test='type == "TC"'>
 	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
