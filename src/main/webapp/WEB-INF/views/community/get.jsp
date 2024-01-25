@@ -202,7 +202,17 @@
 		</ul>
 	</nav>
 </div>
-<!-- Modal -->
+	<form id="actionForm" action="/community/get" method="post">
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		<input type="hidden" name="bno" value="${vo.bno}">
+	</form>
+	<form id="usernickForm" action="/community/community" method="get">
+		<input type="hidden" name="nick" value="${user.nick}"> <input
+			type="hidden" name="Email" value="${user.email}">
+	</form>
+	
+
 <div class="modal fade" id="modalCenter" tabindex="-1"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -247,22 +257,12 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary commu_report"
-					onclick="report()">신고하기</button>
+				<button type="button" class="btn btn-primary commu_report">신고하기</button>
 				<button type="button" class="btn btn-outline-secondary"
 					data-bs-dismiss="modal">취소</button>
 			</div>
 		</div>
 	</div>
-	<form id="actionForm" action="/community/get" method="post">
-		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-		<input type="hidden" name="bno" value="${vo.bno}">
-	</form>
-	<form id="usernickForm" action="/community/community" method="get">
-		<input type="hidden" name="nick" value="${user.nick}"> <input
-			type="hidden" name="Email" value="${user.email}">
-	</form>
 </div>
 <!-- 확인 팝업 모달 -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1"
@@ -351,6 +351,33 @@
 			}
 		});
 	}
+    
+    function reportBoard() {
+		if("${user.nick}"==null || "${user.nick}"==""){
+			alert("로그인 후 이용 가능한 서비스 입니다.");
+			//window.location.href = "/user/login";
+			return;
+		}
+	    $.ajax({
+			url : "/community/reportBoard", 
+			type : "POST",
+			data : {
+				tipbno: ${vo.bno},
+				reasonCategory : selectedOption,
+				reporter : reporter,
+				reason : $("#textarea1").val(),
+				boardType : "T"
+			},
+			success : function(data){
+				$("#modalCenterBoard").modal("hide");
+				if(data){
+					alert("신고 하였습니다");
+				}else{
+					alert("이미 신고했습니다");
+				}
+			}
+		});
+	}    
         $(document).ready(function () {
         	loadTableData();
         	loadBestCommentTableData();
@@ -369,11 +396,14 @@
     	    // 게시글 신고 모달창
     	    $(".commuGet_postReport").click(function (event) {
     	    	if (chkLogin()) {
-    	        	$("#modalCenter").modal("show");
+    	    		$('#modalCenterTitle').text('게시글 신고');
+    	    		$("#modalCenter").modal("show");
+    	    		$('.commu_report').attr('onclick', 'reportBoard()');
     	    	} else {
     	            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
     	            window.location.href = "/user/login";
     	        }
+    	    	
     	    });
     	    
     	    // 체크박스 중복 방지
@@ -410,7 +440,7 @@
     	    }
     	    
     	 	// 모달이 닫힐 때 실행되는 이벤트
-    	    $('#modalCenter').on('hidden.bs.modal', function () {
+    	    $('#modalCenter, #modalCenterBoard').on('hidden.bs.modal', function () {
     	        // 모달이 닫힐 때마다 입력 값 초기화
     	        $('.form-check-input').prop('disabled', false);
     	        $('.form-check-input').prop('checked', false);
@@ -459,10 +489,7 @@
                   //  $("#modalCenter").modal("show");
                // }
 			//});
-            // 게시글 신고 모달창
-            $(".commuGet_postReport").click(function(event){
-                $("#modalCenter").modal("show");
-            });
+			
 
             // 댓글창 내용 있어야 버튼 활성화
             var commentInput = $(".commu_cmtInput");
@@ -525,7 +552,10 @@
 	       	  	  event.preventDefault();
 	                   if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
 	                     $("#cno").val(cno);
+	                     $('#modalCenterTitle').text('댓글 신고');
+	                     
 	                     $("#modalCenter").modal("show");
+	                     $('.commu_report').attr('onclick', 'report()');
 	                 }
 	       	  });
         	 

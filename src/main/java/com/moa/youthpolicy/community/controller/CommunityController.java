@@ -203,6 +203,7 @@ public class CommunityController {
 	@ResponseBody
 	@PostMapping("/reportBoard")
 	public boolean reportBoard(BoardReportVO vo) {
+		log.info(vo.toString());
 		return communityService.reportBoard(vo);
 	}
 	

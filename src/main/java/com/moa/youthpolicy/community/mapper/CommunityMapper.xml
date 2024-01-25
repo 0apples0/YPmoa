@@ -23,6 +23,7 @@
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(bno) FROM tipboard
 		WHERE bno>0
+		AND isdeleted = 0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
 
@@ -64,6 +65,7 @@
 	<select id="getListWithPaging" resultType="CommunityVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM tipboard
 		WHERE bno>0
+		AND isdeleted = 0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
 
