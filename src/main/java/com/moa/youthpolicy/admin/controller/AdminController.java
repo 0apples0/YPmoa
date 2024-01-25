@@ -99,7 +99,6 @@ public class AdminController {
 		return adminService.getBoardPage(cri);
 	}
 	
-	
 	// 회원 정지
 	@ResponseBody
 	@RequestMapping(value="/deleteUser", method={RequestMethod.GET, RequestMethod.POST})
@@ -107,12 +106,24 @@ public class AdminController {
 		adminService.delMember(userVO);
 	}
 	
-	// 신고 게시글 삭제 처리(isdeleted 값 업데이트)
+	// 신고 게시글 삭제 처리(isdeleted 값 업데이트, user table의 countReport 값 1증가)
 	@ResponseBody
 	@RequestMapping(value="/deleteBoard", method={RequestMethod.GET, RequestMethod.POST})
 	public void deleteBoard(Criteria cri){
 		adminService.delBoard(cri);
 	}
 	
-
+	// 신고 게시글 처리(ischecked 값 업데이트)
+	@ResponseBody
+	@RequestMapping(value="/updateBoardReport", method={RequestMethod.GET, RequestMethod.POST})
+	public void updateBoardReport(Criteria cri){
+		adminService.updateBoardReport(cri);
+	}
+	
+	// 신고 상세 사유 모달에 담을 데이터 추출
+	@ResponseBody
+	@RequestMapping(value="/getBoardReportDetail", method={RequestMethod.GET, RequestMethod.POST})
+	public List<BoardReportVO> getBoardReportDetail(Criteria cri){
+		return adminService.getBoardReportDetail(cri);
+	}
 }

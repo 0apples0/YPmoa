@@ -94,6 +94,7 @@ public class CommunityController {
 		}
 	
 		communityVO.setWriter(user.getNick());
+		communityVO.setUserType(user.getUserType());
 	
 		communityService.write(communityVO);
 		rttr.addFlashAttribute("result", "success");

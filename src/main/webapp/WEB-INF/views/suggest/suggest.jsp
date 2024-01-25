@@ -39,7 +39,6 @@
 									<c:out value="${pageMaker.cri.rgnSeNm == '수원시'?'selected':'' }"/>>수원시</option>
 								<option value="광명시"
 									<c:out value="${pageMaker.cri.rgnSeNm == '광명시'?'selected':'' }"/>>광명시</option>
-									
 							</select>
                         </div>
                         <div class="col-md-auto">
@@ -314,8 +313,8 @@
 					//Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
 					//for(let item of items) -> items == data, item ==board 역할
 					if (data.length === 0) {
-					// 검색 결과가 없는 경우 메시지 표시
-						boardTbody.append("<tr><td colspan='6' class='text-center'>검색 결과가 없습니다.</td></tr>");
+						// 검색 결과가 없는 경우 메시지 표시
+						boardTbody.append("<tr><td colspan='6' class='text-center' style='text-align:center !important'>검색 결과가 없습니다.</td></tr>");
 					} else {
 						$.each(data, function(index, board){
 							let regDate=new Date(board.regDate);

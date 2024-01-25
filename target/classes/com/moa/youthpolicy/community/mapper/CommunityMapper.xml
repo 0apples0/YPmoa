@@ -93,6 +93,7 @@
 	    </if>
 		
 		ORDER BY
+				CASE WHEN userType = '0' THEN 0 ELSE 1 END, regDate DESC,
 	    <choose>
 	        <when test="selectedFilter == 'like'">
 	            `like` DESC, bno DESC
@@ -206,8 +207,8 @@
 	<!-- 글 작성, 삭제, 수정 -->
 	<insert id="write" parameterType="com.moa.youthpolicy.community.domain.CommunityVO">
 		INSERT INTO tipboard
-		(title,content,writer,category,region)
-		VALUES (#{title}, #{content}, #{writer}, #{category}, #{region})
+		(title,content,writer,category,region,userType)
+		VALUES (#{title}, #{content}, #{writer}, #{category}, #{region},#{userType})
 	</insert>	
 	
 	<delete id="deleteBoard" parameterType="Integer">

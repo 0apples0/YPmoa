@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class CommunityVO {
 	int bno;
+	int userType;
 	String title;
 	String content;
 	String writer;
@@ -18,7 +19,6 @@ public class CommunityVO {
 	String imageName;
 	Date regDate;
 	Character boardType;
-	
 	LikeBoardVO likeVO;
 	int isdeleted; //삭제 여부
 }
