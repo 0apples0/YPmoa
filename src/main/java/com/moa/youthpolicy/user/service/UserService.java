@@ -130,7 +130,7 @@ public class UserService implements UserGenericService {
 	}
 	
 	public boolean modinfo(UserVO vo) {
-		log.info("service : "+ vo.toString());
+		log.info("service modinfo : "+ vo.toString());
 		int rowsUpdated = mapper.modinfo(vo);
 		if(rowsUpdated > 0) {
 			return true;

@@ -111,11 +111,11 @@
         </div>
         <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <a href="/" class="navbar-brand d-block d-lg-none">
                     <h1 class="m-0 text-primary text-uppercase">청년정책모아</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span> 
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">

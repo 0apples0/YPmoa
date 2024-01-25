@@ -530,6 +530,14 @@
 
 .policyGet_comment tbody tr td:first-child{
     text-align: left !important;
+    
+}
+
+#communityBestCommentTable tbody tr td:first-child{
+	width: 55% !important;
+}
+#communityBestCommentTable tbody tr td:last-child{
+	width: 7% !important;
 }
 
 
@@ -540,7 +548,7 @@
     width: 17%;
 }
 .policyGet_comment tbody tr td:nth-child(4){
-    width: 7%;
+    width: 8%;
 }
 
 .edit-delete-cell {
@@ -729,6 +737,13 @@
 /*** community ***/
 
 
+.board_commentCnt{
+    margin-left: 7px;
+    color: #16a9fe;
+    font-weight: 700;
+}
+
+
 .commuComment_cancelmodBtn, .commuComment_deleteBtn, .commuComment_reportBtn{
 	margin-left:3px;
 }
@@ -748,6 +763,7 @@
 .commu_title{
 	color:#666565;
 	font-family: 'LINESeedKR-Bd_light';
+	
 }
 
 .commu_title:hover{
@@ -797,8 +813,10 @@
 	width:1130px !important;
 }
 
+
+
 .commu_table tbody tr td:last-child{
-    text-align: center ;
+    text-align: right !important;
 }
 
 .commu_table tbody tr td{
@@ -866,6 +884,13 @@
 
 
 /*** register ***/
+
+.validation{
+	color: red;
+	font-size:small;
+	 font-family: 'LINESeedKR-Bd_light' !important;
+}
+
 #card-body{
  padding-right: 70px;
     padding-left: 70px;

@@ -280,12 +280,28 @@
     
  
 $(document).ready(function () {
-	
-	
+	// 댓글 갯수
+	let getCommentNm = function(bno) {
+        $.ajax({
+            type: "GET",
+            url: "/community/commentNm",
+            data: { bno: bno },
+            success: function(data) {
+            	   if (data > 0) {
+                       $(".board_commentNm[data-bno='" + bno + "']").text("["+data+"]");
+                   } else {
+                       return;
+                   }
+            },
+            error: function(error) {
+                console.error("댓글개수 불러오기 실패");
+            }
+        });
+    }
 
-	  
-	
 	let addedBno;
+	
+	
 	// 새글알림
 	function newAlarm(){
 	  $.ajax({
@@ -294,7 +310,6 @@ $(document).ready(function () {
           success: function (data) {
            
               addedBno = data;
-              
               loadTableData();
           },
           error: function (xhr, status, error) {
@@ -368,7 +383,12 @@ $(document).ready(function () {
 		}
 		
 	});
+	
+	
+	
+	
     function loadTableData(){
+    	
         
        $.ajax({
           url: "/community/getList",// 요청할 서버 uri
@@ -385,14 +405,15 @@ $(document).ready(function () {
     		  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
           },
           success: function(data){
-        	  
+        
              let boardTbody = $("#communityBoardTable tbody");
              boardTbody.empty(); // 기존 테이블 행 삭제
                 
              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
              //for(let item of items) -> items == data, item ==board 역할
              $.each(data, function(index, board){
-            	commentNm(board.bno);	
+            	 getCommentNm(board.bno);
+            	console.log(board.bno);
                 let regDate=new Date(board.regDate);
                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
@@ -404,15 +425,20 @@ $(document).ready(function () {
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
                 let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);
+                
+                let commentbox = $("<span>").addClass("board_commentCnt");
+                let commentNm = $("<span>").addClass("board_commentNm").attr("data-bno", board.bno).text("");
+
+                commentbox.append(commentNm);
+                titleLink.append(commentbox);
+                
                 let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
                 if (board.bno === addedBno) {
                     newAlarm.attr("hidden", false);
                 }
-                let commentbox = $("<span>").addClass("board_commentCnt");
-                let commentNm = $("<span>").addClass("board_commentNm").text(commentNm());
-                commentbox.append(commentNm);
+              
                 titleLink.append(newAlarm);
-                titleLink.append(commentbox);
+               
                 
                 let titleTd = $("<td>").append(titleLink);
                 
@@ -433,6 +459,7 @@ $(document).ready(function () {
 
                 boardTbody.append(row);
                 console.log("pagemaker: "+${pageMaker.realEnd});
+               
              });
           },
           error: function(e){
@@ -442,32 +469,7 @@ $(document).ready(function () {
          
        });
       
-       function commentNm(bno) {
-    	    $.ajax({
-    	        type: "GET",
-    	        url: "/community/commentNm",
-    	        data: { bno: bno },
-    	        success: function(data) {
-    	            console.log("게시물 " + bno + "의 댓글수: " + data);
-
-    	            // 동적으로 불러온 board.bno와 현재 bno가 같다면
-    	            if (board.bno === bno) {
-    	                // 해당 댓글 수를 표시하는 span 태그를 찾기
-    	                let commentSpan = $(".board_commentNm_" + bno);
-
-    	                if (commentSpan.length > 0) {
-    	                    // span 태그가 존재하면 텍스트 설정
-    	                    commentSpan.text(data);
-    	                } else {
-    	                    console.warn("댓글 수를 표시하는 span 태그를 찾을 수 없습니다. (bno: " + bno + ")");
-    	                }
-    	            }
-    	        },
-    	        error: function(error) {
-    	            console.error("댓글개수 불러오기 실패");
-    	        }
-    	    });
-    	}
+       
 
      
        
@@ -490,7 +492,7 @@ $(document).ready(function () {
             }
         });      
       
-    }
+    } // loadTable 끝
     
 }); // document.ready끝
 

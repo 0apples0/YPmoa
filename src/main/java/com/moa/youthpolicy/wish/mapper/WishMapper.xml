@@ -33,6 +33,7 @@
 		SELECT policy.*
 		FROM policy
 		JOIN wish ON policy.no = wish.wishPolicy
+		WHERE wish.wishUser LIKE #{wishUser}
 		<if test="type != null and keyword != null and keyword != ''">
 			<choose>
 				<when test='type == ""'>

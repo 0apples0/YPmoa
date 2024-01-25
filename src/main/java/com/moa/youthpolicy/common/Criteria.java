@@ -45,6 +45,7 @@ public class Criteria {
 	
 	// wish 검색조건
 	private String isAlert;
+	private String wishUser;
 	
 	// policy검색조건
 	private String rgnSeNm; 
