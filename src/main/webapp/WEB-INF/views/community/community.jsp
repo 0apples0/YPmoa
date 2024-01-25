@@ -398,7 +398,7 @@ $(document).ready(function () {
                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
                 let formateDate = regDate.toLocaleString("ko-KR", options);
 
-                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가ㄹ
                 // 동적으로 데이터 처리
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
