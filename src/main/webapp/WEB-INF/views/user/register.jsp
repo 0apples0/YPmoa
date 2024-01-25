@@ -240,7 +240,7 @@
 		
 		    // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
 		    $.ajax({
-		        type: "POST",
+		        type: "POST", 
 		        url: "/user/chkNickname",
 		        data: { nick: nickname },
 		        success: function (response) {
