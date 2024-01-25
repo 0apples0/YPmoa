@@ -875,6 +875,13 @@
 
 
 /*** register ***/
+
+.validation{
+	color: red;
+	font-size:small;
+	 font-family: 'LINESeedKR-Bd_light' !important;
+}
+
 #card-body{
  padding-right: 70px;
     padding-left: 70px;

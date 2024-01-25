@@ -51,12 +51,15 @@
 												for="basic-default-email">아이디</label>
 											<div class="col-sm-10">
 												<input type="email" class="regi_sub_form-control" placeholder="이메일 형식으로 입력하세요" required name="Email"/>
+												
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="idchk">중복확인</button>
 											</div>
-
+											
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
+											
 										</div>
 
-
+										
 										<div class="row mb-3 ">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호</label>
 											<div class="col-sm-10">
@@ -68,6 +71,7 @@
 
 												</div>
 											</div>
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3" style="align-items: center">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호<br>
@@ -81,6 +85,7 @@
 
 												</div>
 											</div>
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
@@ -90,6 +95,7 @@
 													placeholder="" />
 
 											</div>
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
 										</div>
 
 										<div class="row mb-3">
@@ -101,6 +107,7 @@
 													aria-describedby="basic-default-phone" name="phone"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
 										</div> 
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
@@ -110,6 +117,7 @@
 													placeholder="한글 10글자, 영어 20자 이내" name="nick" />
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 											</div>
+											<div class="col-sm-11" ><span class="validation">유효성검사</span></div>
 										</div>
 
 										<div class="col-sm-12" id="regi_btn">
