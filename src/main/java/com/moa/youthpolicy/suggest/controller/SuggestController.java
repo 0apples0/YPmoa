@@ -85,6 +85,7 @@ public class SuggestController {
 		}
 		
 	    suggestVO.setWriter(user.getNick());
+	    suggestVO.setUserType(user.getUserType());
 		
 		suggestService.write(suggestVO);
 		rttr.addFlashAttribute("result", "success");

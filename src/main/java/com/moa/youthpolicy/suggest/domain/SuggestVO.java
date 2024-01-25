@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class SuggestVO {
 	int bno;
+	int userType;
 	String title;
 	String content;
 	String writer;
