@@ -187,6 +187,7 @@
                                 <button type="button"
                                     class="btn btn-outline-primary regi_checkBtn" onclick="checkNickname()" id="checkNicknameBtn">중복확인</button>
                             </div>
+                            <div class="col-sm-11" ><span class="validation">유효성검사</span></div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label mypage_label"
@@ -197,6 +198,7 @@
                                 <button type="button"
                                     class="btn btn-outline-primary  regi_checkBtn" onclick="checkPhoneNumber()" onclick="checkPhoneNumber()" id="checkPhoneNumberBtn" disabled>중복확인</button>
                             </div>
+                            <div class="col-sm-11" ><span class="validation">유효성검사</span></div>
                         </div>
 
                     </div>
