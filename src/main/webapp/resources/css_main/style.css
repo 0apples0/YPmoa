@@ -798,7 +798,7 @@
 }
 
 .commu_table tbody tr td:last-child{
-    text-align: left !important;
+    text-align: center !important;
 }
 
 .commu_table tbody tr td{
