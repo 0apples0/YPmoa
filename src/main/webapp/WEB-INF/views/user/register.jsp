@@ -101,7 +101,7 @@
 													aria-describedby="basic-default-phone" name="phone"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
-										</div>
+										</div> 
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
 												for="basic-default-company">닉네임</label>
