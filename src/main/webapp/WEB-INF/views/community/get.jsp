@@ -128,11 +128,13 @@
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full"
-						style="padding: 30px; padding-bottom: 0px;">
+						style= "padding-bottom: 0px;">
+						<div class="table_section padding_infor_info">
 						<h4 style="padding-left: 10px;">
 							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
 								class="fa fa-fire text-primary commu_pic"></i>
 						</h4>
+						
 						<div class="table-responsive-sm">
 							<table id="communityBestCommentTable"
 								class="table table-basic commu_table policyGet_comment">
@@ -142,6 +144,7 @@
 								</tbody>
 								
 							</table>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -332,7 +335,7 @@
                 정말로 삭제하시겠습니까?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
+                <button type="button" class="btn btn-warning" id="confirmDeleteBtn">삭제</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
             </div>
         </div>
@@ -352,7 +355,7 @@
                 정말로 삭제하시겠습니까?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteCommentBtn">삭제</button>
+                <button type="button" class="btn btn-warning" id="confirmDeleteCommentBtn">삭제</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
             </div>
         </div>
@@ -875,7 +878,7 @@
                               let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                              let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                             
                               // 이미지와 link를 <td> 엘리먼트에 추가
                               // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
