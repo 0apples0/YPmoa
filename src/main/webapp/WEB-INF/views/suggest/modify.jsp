@@ -20,7 +20,7 @@
         <div class="row g-4">
             <div class="wow fadeIn" data-wow-delay="0.1s">
                 <!-- table section -->
-                <form method="post" action="/suggest/modify">
+                <form id="writeForm" method="post" action="/suggest/modify">
 	                <div class="col-md-12">
 	                    <div class="white_shd_a full">
 	                        <div class="padding_infor_info">
@@ -121,13 +121,21 @@
 
         $('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
 
-        // 말머리 미선택시 알림창
-        $(".btn-primary").click(function () {
-            var selectedCategory = $(".form-select").val();
+    	// 모든 내용 선택 및 작성 확인
+        $('#writeForm').submit(function (event) {
+            var region = $('#region').val();
+            var category = $('#category').val();
+            var title = $('#titleInput').val();
+            var content = $('#summernote').summernote('code'); 
 
-            if (selectedCategory === "말머리") {
-                alert('말머리를 선택해주세요');
-                return;
+            if (title === ""){
+                alert("제목을 작성해주세요.");
+                event.preventDefault();
+            }else if(content === "<p><br></p>" || content.trim() === "" || content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span><br></p>'
+            	|| content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span></p>'){
+            	
+                alert("내용을 작성해주세요.");
+                event.preventDefault();
             }
         });
     }); // 글쓰기에디터 ready함수 끝

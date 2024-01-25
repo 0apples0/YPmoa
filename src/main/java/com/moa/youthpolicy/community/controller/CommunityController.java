@@ -3,7 +3,9 @@ package com.moa.youthpolicy.community.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -202,4 +204,26 @@ public class CommunityController {
 	public boolean reportBoard(BoardReportVO vo) {
 		return communityService.reportBoard(vo);
 	}
+	
+	
+	// 새글 알람
+	@ResponseBody
+	@GetMapping("/newAlarm")
+	public int endAlarm() {
+		int response = communityService.newBoardAlarm();
+		return response;
+	
+		
+	}
+	
+	// 댓글 갯수 가져오기
+	@ResponseBody
+	@GetMapping("/commentNm")
+	public int commentNm(Criteria cri) {
+		int commentNm = communityService.getcommentNm(cri);
+		log.info("댓글개수"+commentNm);
+		return commentNm;
+	}
+	
+	
 }

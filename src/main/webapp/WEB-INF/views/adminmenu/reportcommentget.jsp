@@ -176,38 +176,20 @@
                         <div>- 개인정보노출 <span>2</span>회</div>
                         <div>- 기타 <span>2</span>회</div>
                 </div>
-                <div class="row">
-                    <div class="col mb-3 admin_modalBox">
-                       <table class="table table-bordered admin_boardModal">
+				<div class="row">
+					<div class="col mb-3 admin_modalBox">
+						<table id="admin_reportCount" class="table table-bordered admin_boardModal">
                         <thead>
-                            <th>신고자<br>닉네임</th>
-                            <th>기타 신고 사유</th>
-                            <th>신고날짜</th>
+                        	<tr>
+	                            <th data-sort="reporter">신고자<br>닉네임</th>
+	                            <th data-sort="reason">기타 신고 사유</th>
+	                            <th data-sort="reportDate">신고날짜</th>
+							</tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>최바나나</td>
-                                <td>
-                                    바나나를 싫어한다고 해서 기분나빠요
-                                </td>
-                                <td>24-02-16</td>
-                            </tr>
-                            <tr>
-                                <td>박감귤</td>
-                                <td>
-                                    감귤이 최고다
-                                </td>
-                                <td>24-02-16</td>
-                            </tr>
-                            <tr>
-                                <td>김원숭이</td>
-                                <td>
-                                    우끼끼 우끼끼 우끼끼 우끼끼
-                                </td>
-                                <td>24-02-16</td>
-                            </tr>
+							<!-- 동적으로 생성되는 내용이 들어갈 자리 -->
                         </tbody>
-                       </table>
+						</table>
                     </div>
                 </div>
             </div>
@@ -246,7 +228,7 @@
 	
 	$(document).ready(function () {
 		loadTableData();
-		
+		// 신고 받은 댓글 로드
 	    function loadTableData(){
 	    	$.ajax({
 	    		url: "/adminmenu/getCommentList",// 요청할 서버 uri
@@ -296,7 +278,7 @@
 			error: function(e){
 	              console.log(e);
 			}
-        });
+        }); // ajax End
 	    	
 			$(".paginate_button a").on("click", function(e){
 				//기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
@@ -310,8 +292,38 @@
 	            	actionForm.find("input[name='pageNum']").val(newPageNum);
 	                actionForm.submit();       		  
 				}
-			});      
-		}
+			}); //.paginate_button a End     
+		} // loadTableData End
+		
+        // 모달에 데이터를 동적으로 로드하는 함수
+        function loadModalData(policycno, tipcno) {
+            $.ajax({
+                url: "/adminmenu/getReportDetails",  // 모달에 표시할 데이터를 가져오는 서버 경로
+                type: "POST",
+                dataType: "json",
+                data: {
+                    policycno: policycno,
+                    tipcno: tipcno
+                },
+                success: function (reportData) {
+                    // 가져온 데이터를 사용하여 tbody에 동적으로 행을 생성하고 추가
+                    let modalTbody = $(".admin_modalInfo tbody");
+                    modalTbody.empty(); // 기존 행 삭제
+
+                    $.each(reportData, function (index, report) {
+                        let row = $("<tr>");
+                        row.append($("<td>").text(report.reporter));
+                        row.append($("<td>").text(report.reason));
+                        row.append($("<td>").text(report.reportDate));
+
+                        modalTbody.append(row);
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        } // loadModalData End
 	}); //document ready End
 	
 </script>

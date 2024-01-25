@@ -533,6 +533,24 @@
 }
 
 
+.policyGet_comment tbody tr td:nth-child(2){
+    width: 10%;
+}
+.policyGet_comment tbody tr td:nth-child(3){
+    width: 17%;
+}
+.policyGet_comment tbody tr td:nth-child(4){
+    width: 7%;
+}
+
+.edit-delete-cell {
+    width: 12%;
+}
+
+.report-cell {
+    width: 10%;
+}
+
 .policyGet_title{
     display: flex;
     align-items: center;
@@ -710,6 +728,19 @@
 
 /*** community ***/
 
+
+.commuComment_cancelmodBtn, .commuComment_deleteBtn, .commuComment_reportBtn{
+	margin-left:3px;
+}
+.commuComment_modBtn{
+	margin-right:10px;
+	margin-left:3px;
+}
+
+.commuComment_modDoneBtn{
+	margin-right:10px;
+}
+
 .commu_pic{
     margin-right: 5px;
 }
@@ -717,6 +748,10 @@
 .commu_title{
 	color:#666565;
 	font-family: 'LINESeedKR-Bd_light';
+}
+
+.commu_title:hover{
+	text-decoration: underline;
 }
 
 .commu_like{
@@ -758,7 +793,13 @@
 .commu_table_a{
 	text-align: left !important;
 }
+.commu_table{
+	width:1130px !important;
+}
 
+.commu_table tbody tr td:last-child{
+    text-align: center ;
+}
 
 .commu_table tbody tr td{
     font-family: LINESeedKR-Bd_light;
@@ -788,7 +829,7 @@
 
 
 
-.commu_table tbody tr td:nth-child(3), #commu_likeBtn{
+ #commu_likeBtn{
     cursor: pointer;
 }
 

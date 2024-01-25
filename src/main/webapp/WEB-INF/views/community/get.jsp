@@ -269,22 +269,22 @@
                     <div class="modal-body">
                         <div id="policyGet_checkbox">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                <input type="checkbox" class="form-check-input" id="customCheck1"
                                     data-textarea-id="textarea2">
                                 <label class="custom-control-label" for="customCheck1">불건전한 내용</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2"
+                                <input type="checkbox" class="form-check-input" id="customCheck2"
                                     data-textarea-id="textarea3">
                                 <label class="custom-control-label" for="customCheck2">영리목적/홍보성</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3"
+                                <input type="checkbox" class="form-check-input" id="customCheck3"
                                     data-textarea-id="textarea4">
                                 <label class="custom-control-label" for="customCheck3">개인정보노출</label>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck4"
+                                <input type="checkbox" class="form-check-input" id="customCheck4"
                                     data-textarea-id="textarea1">
                                 <label class="custom-control-label" for="customCheck4">기타(아래에 작성해주세요)</label>
                             </div>
@@ -295,7 +295,7 @@
                                 <label class="form-label">신고내용</label>
 
                                 <textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-                                    style="resize: none;" class="policyGet_reportDetail font_light"></textarea>
+                                    style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
                             </div>
                         </div>
 
@@ -320,7 +320,7 @@
 			<input type="hidden" name="Email" value="${user.email}"> 
 		</form>            
         </div>
-<!-- 확인 팝업 모달 -->
+<!-- 확인 팝업 모ㅋ달 -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -407,8 +407,13 @@
 	    
 	}
         $(document).ready(function () {
+        	
+        	 
+        	
         	loadTableData();
         	loadBestCommentTableData();
+        	
+
     		function chkLogin() {
     			userNick = $("#usernickForm input[name='nick']")
     					.val();
@@ -432,16 +437,16 @@
     	    
 
     	    // 체크박스 중복 방지
-    	    $('.custom-control-input').on('change', function () {
+    	    $('.form-check-input').on('change', function () {
     	        if ($(this).prop('checked')) {
-    	            $('.custom-control-input').not(this).prop('disabled', true);
+    	            $('.form-check-input').not(this).prop('disabled', true);
     	        } else {
-    	            $('.custom-control-input').prop('disabled', false);
+    	            $('.form-check-input').prop('disabled', false);
     	        }
     	    });
 
     	    // 기타 항목에 체크했을 때만 입력창 활성화
-    	    $(".custom-control-input").change(function () {
+    	    $(".form-check-input").change(function () {
     	        var isChecked = $(this).prop("checked");
     	        $(".policyGet_reportDetail").prop("disabled", true);
     	        if (isChecked) {
@@ -451,13 +456,13 @@
     	    });
     	    
     	    // 아무 체크도 안했을 때 선택버튼 비활성화
-    	    $(".custom-control-input").change(updateReportButtonState);
+    	    $(".form-check-input").change(updateReportButtonState);
     	    $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
 
     	    updateReportButtonState();
 
     	    function updateReportButtonState() {
-    	        var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
+    	        var anyCheckboxChecked = $(".form-check-input:checked").length > 0;
 
     	        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
     	            return $(this).val().trim() !== "";
@@ -469,8 +474,8 @@
     	 	// 모달이 닫힐 때 실행되는 이벤트
     	    $('#modalCenter').on('hidden.bs.modal', function () {
     	        // 모달이 닫힐 때마다 입력 값 초기화
-    	        $('.custom-control-input').prop('disabled', false);
-    	        $('.custom-control-input').prop('checked', false);
+    	        $('.form-check-input').prop('disabled', false);
+    	        $('.form-check-input').prop('checked', false);
     	        $('.policyGet_reportDetail').val('');
     	        $('.policyGet_reportDetail').prop('disabled', true);
     	        updateReportButtonState(); // 신고하기 버튼 상태 업데이트
@@ -525,46 +530,6 @@
             });
 
 
-            // 체크박스 중복 방지
-            $('.custom-control-input').on('change', function () {
-                if ($(this).prop('checked')) {
-                    $('.custom-control-input').not(this).prop('disabled', true);
-                } else {
-                    $('.custom-control-input').prop('disabled', false);
-                }
-            });
-
-
-            // 기타 항목에 체크했을 때만 입력창 활성화
-            $(".custom-control-input").change(function () {
-                var isChecked = $(this).prop("checked");
-
-                $(".policyGet_reportDetail").prop("disabled", true);
-
-                if (isChecked) {
-                    var textareaId = $(this).data("textarea-id");
-                    $("#" + textareaId).prop("disabled", false);
-                }
-            });
-
-
-            // 아무 체크도 안했을 때 선택버튼 비활성화
-            $(".custom-control-input").change(updateReportButtonState);
-
-            $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
-
-         
-            updateReportButtonState();
-
-            function updateReportButtonState() {
-                var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
-
-                var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
-                    return $(this).val().trim() !== "";
-                }).length > 0;
-
-                $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
-            }
 
 
             // 댓글창 내용 있어야 버튼 활성화
@@ -648,18 +613,21 @@
         	     		totalWidth += $(this).width();
         	     	});
         	        // content, writer, regDate 부분 input 태그로 교체(input 태그 기본값은 기존에 작성된 댓글 내용으로 지정)
-        	        let inputElement = $("<input>").addClass("commuComment_modInput").attr("type", "text").css("width", totalWidth+"px").val(content);
+        	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
+        	        
         	        row.find("td").remove();
-        	        row.append($("<td>").append(inputElement));
+        	        row.append($("<td>").attr("colspan", 4).append(inputElement));
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
                     
-                    let editCancelImg = $("<i>").addClass("fa fa-pen text-primary");
+                    let editCancelImg = $("<i>").addClass("fa fa-times text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                     
-                    row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink));
+                    row.append($("<td>").css("width","160px").append(editImg, editLink,editCancelImg, editCancelLink));
                     
+                  
+                	                    
                     // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                     $(".commuComment_modDoneBtn").on("click", function(){
                     	let modifiedContent = row.find(".commuComment_modInput").val();
@@ -798,20 +766,21 @@
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
-                       
            
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                          let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
                           // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
                         	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                        	  reportTd.css("width", "130px");
                           }else{
                         	  reportTd.append(reportImg, reportLink);
+                        	  reportTd.css("width", "70px");
                           }
 
                           // 새로운 <td> 엘리먼트를 행에 추가
@@ -829,6 +798,9 @@
                       console.log(e);
                    }
                 });
+               
+        	
+
                 
                 $(".paginate_button a").on("click", function(e){
 
@@ -894,7 +866,8 @@
                               
                            	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                               let reportTd = $("<td>");
-                           	  
+                              reportTd.css("width", "100px");
+                              console.log("Report TD created");
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
                               let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                               
@@ -909,14 +882,16 @@
                               // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                               if("${user.nick}"!=null && board.writer === "${user.nick}"){
                             	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                            	 
                               }else{
                             	  reportTd.append(reportImg, reportLink);
+                            	  	
                               }
                               
-
                               // 새로운 <td> 엘리먼트를 행에 추가
                               row.append(likeTd);
                               row.append(reportTd);
+                              
                               
                              boardTbody.append(row);
                              console.log("pagemaker: "+${pageMaker.realEnd});

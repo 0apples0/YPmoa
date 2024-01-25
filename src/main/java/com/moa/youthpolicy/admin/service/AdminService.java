@@ -49,8 +49,17 @@ public class AdminService implements UserGenericService{
 		return result;
 	}
 
-
-
+	public int getBoardTotalAmount(Criteria cri) {
+		int cnt = adminMapper.getBoardTotalCount(cri);
+		log.info("여까지 왔수다1");
+		return cnt;
+	}
+	public List<AdminVO> getBoardPage(Criteria cri) {
+		log.info("여까지 왔수다");
+		List<AdminVO> result = adminMapper.boardListWithPaging(cri);
+		log.info(result.toString());
+		return result;
+	}
 	@Override
 	public void delMember(UserVO vo) {
 		log.info("회원 탈퇴까지 왔어요");
@@ -87,4 +96,13 @@ public class AdminService implements UserGenericService{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	// 게시글 삭제
+	public void delBoard(Criteria cri) {
+		adminMapper.delBoard(cri);	
+	}
+
+
+
+
 }

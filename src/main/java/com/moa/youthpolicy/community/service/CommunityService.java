@@ -1,7 +1,9 @@
 package com.moa.youthpolicy.community.service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -205,6 +207,16 @@ public class CommunityService implements BoardGenericService{
 	        log.error("게시글 신고 중 오류 발생: " );
 	        return false;
 	    }
+	}
+
+	public int newBoardAlarm() {
+		int result = communityMapper.alarmNew();
+		return result;
+	}
+
+	public int getcommentNm(Criteria cri) {
+		int commentNm = communityMapper.getCommentNm(cri);
+		return commentNm;
 	}
 
 

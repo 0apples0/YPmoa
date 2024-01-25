@@ -108,11 +108,7 @@ public class WishController {
 		
 	}
 	
-    @GetMapping("/getCurrentTime")
-    public ResponseEntity<Long> getCurrentTime() {
-        // 현재 시간을 밀리초 단위로 전송
-        return ResponseEntity.ok(System.currentTimeMillis());
-    }
+   
 	
 	
 	

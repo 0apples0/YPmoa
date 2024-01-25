@@ -1,6 +1,8 @@
 package com.moa.youthpolicy.community.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
@@ -43,5 +45,11 @@ public interface CommunityMapper {
 	// 게시글 신고
 	public BoardReportVO getReportBoard(BoardReportVO vo);
 	public void reportBoard(BoardReportVO vo);
+	
+	// 새글알람
+	public int alarmNew();
+	
+	// 댓글수 
+	public int getCommentNm(Criteria cri);
 	
 }
