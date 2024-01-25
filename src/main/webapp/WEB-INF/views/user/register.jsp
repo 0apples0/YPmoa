@@ -62,7 +62,7 @@
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" name = "PW"
-														required
+														required placeholder="비밀번호 (8자 이상, 영문, 숫자, 특수문자)"
 														placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 														aria-describedby="basic-default-password" />
 
@@ -75,9 +75,9 @@
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" 
-														required
+														required placeholder="비밀번호 확인"
 														placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-														aria-describedby="basic-default-password" />
+														aria-describedby="basic-default-password" name="confirmPassword"/>
 
 												</div>
 											</div>
@@ -97,7 +97,7 @@
 												for="basic-default-phone">연락처</label>
 											<div class="col-sm-10">
 												<input type="text" id="basic-default-phone" required
-													class="regi_sub_form-control phone-mask"
+													class="regi_sub_form-control phone-mask" placeholder="연락처 (숫자만 입력)"
 													aria-describedby="basic-default-phone" name="phone"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
@@ -151,92 +151,156 @@
         var nickCheckDone = false;
 
         // 아이디 중복 체크 버튼 클릭 시
-		$("#idchk").on("click", function () {
-		    // 여기에 아이디 중복 체크 로직을 추가
-		    var userId = $(".regi_sub_form-control[name='Email']").val();
+        $("#idchk").on("click", function () {
+        	 // 이메일 주소 유효성 검사
+		    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+		    if (!emailRegex.test($(".regi_sub_form-control[name='Email']").val())) {
+		        alert("올바른 이메일 주소를 입력해주세요.");
+		        return;
+		    }
+            var userId = $(".regi_sub_form-control[name='Email']").val();
+
+            // Ajax를 이용하여 서버에 아이디 중복 체크 요청
+            $.ajax({
+                type: "POST",
+                url: "/user/chkEmail",
+                data: { Email: userId },
+                success: function (response) {
+                    if (response) {
+                        idCheckDone = true;
+                        enableOrDisableRegisterButton();
+                        alert("사용 가능한 아이디입니다.");
+                    } else {
+                        idCheckDone = false;
+                        enableOrDisableRegisterButton();
+                        alert("이미 사용 중인 아이디입니다.");
+                    }
+                },
+                error: function () {
+                    alert("아이디 중복 체크 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        // 연락처 중복 체크 버튼 클릭 시
+        $("#phoneck").on("click", function () {
+        	var phoneRegex = /^[0-9]{10,11}$/;
+		    if (!phoneRegex.test($(".regi_sub_form-control[name='phone']").val())) {
+		        alert("올바른 연락처를 입력해주세요.");
+		        return;
+		    }
+            var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
+
+            // Ajax를 이용하여 서버에 연락처 중복 체크 요청
+            $.ajax({
+                type: "POST",
+                url: "/user/chkPhone",
+                data: { phone: phoneNumber },
+                success: function (response) {
+                    if (response) {
+                        phoneCheckDone = true;
+                        enableOrDisableRegisterButton();
+                        alert("사용 가능한 연락처입니다.");
+                    } else {
+                        phoneCheckDone = false;
+                        enableOrDisableRegisterButton();
+                        alert("이미 사용 중인 연락처입니다.");
+                    }
+                },
+                error: function () {
+                    alert("연락처 중복 체크 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        // 닉네임 중복 체크 버튼 클릭 시
+        $("#nickchk").on("click", function () {
+            // 여기에 닉네임 중복 체크 로직을 추가
+            var nickname = $(".regi_sub_form-control[name='nick']").val();
+
+            // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
+            $.ajax({
+                type: "POST",
+                url: "/user/chkNickname",
+                data: { nick: nickname },
+                success: function (response) {
+                    if (response) {
+                        nickCheckDone = true;
+                        enableOrDisableRegisterButton();
+                        alert("사용 가능한 닉네임입니다.");
+                    } else {
+                        nickCheckDone = false;
+                        enableOrDisableRegisterButton();
+                        alert("이미 사용 중인 닉네임입니다.");
+                    }
+                },
+                error: function () {
+                    console.error("닉네임 중복 체크 중 오류가 발생했습니다.", error);
+                    alert("닉네임 중복 체크 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        // 회원가입 양식의 유효성 검사 함수
+        function validateRegistrationForm() {
+		    // 각 필드에 대한 유효성 검사 로직을 추가
+		    if ($(".regi_sub_form-control[name='Email']").val() === "") {
+		        alert("이메일을 입력해주세요.");
+		        return false;
+		    }
 		
-		    // Ajax를 이용하여 서버에 아이디 중복 체크 요청
-		    $.ajax({
-		        type: "POST",
-		        url: "/user/chkEmail",
-		        data: { Email: userId },
-		        success: function (response) {
-		            if (response) {
-		                idCheckDone = true;
-		                enableOrDisableRegisterButton();
-		                alert("사용 가능한 아이디입니다.");
-		            } else {
-		                idCheckDone = false;
-		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 아이디입니다.");
-		            }
-		        },
-		        error: function () {
-		            alert("아이디 중복 체크 중 오류가 발생했습니다.");
-		        }
-		    });
-		});
-        
-		// 연락처 중복 체크 버튼 클릭 시
-		$("#phoneck").on("click", function () {
-		    // 여기에 연락처 중복 체크 로직을 추가
-		    var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
-
-		    // Ajax를 이용하여 서버에 연락처 중복 체크 요청
-		    $.ajax({
-		        type: "POST",
-		        url: "/user/chkPhone",
-		        data: { phone: phoneNumber },
-		        success: function (response) {
-		            if (response) {
-		                phoneCheckDone = true;
-		                enableOrDisableRegisterButton();
-		                alert("사용 가능한 연락처입니다.");
-		            } else {
-		                phoneCheckDone = false;
-		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 연락처입니다.");
-		            }
-		        },
-		        error: function () {
-		            alert("연락처 중복 체크 중 오류가 발생했습니다.");
-		        }
-		    });
-		});
-
-		// 닉네임 중복 체크 버튼 클릭 시
-		$("#nickchk").on("click", function () {
-		    // 여기에 닉네임 중복 체크 로직을 추가
-		    var nickname = $(".regi_sub_form-control[name='nick']").val();
-
-		    // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
-		    $.ajax({
-		        type: "POST",
-		        url: "/user/chkNickname",
-		        data: { nick: nickname },
-		        success: function (response) {
-		            if (response) {
-		                nickCheckDone = true;
-		                enableOrDisableRegisterButton();
-		                alert("사용 가능한 닉네임입니다.");
-		            } else {
-		                nickCheckDone = false;
-		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 닉네임입니다.");
-		            }
-		        },
-		        error: function () {
-		        	console.error("연락처 중복 체크 중 오류가 발생했습니다.", error);
-		            alert("닉네임 중복 체크 중 오류가 발생했습니다.");
-		        }
-		    });
-		});
+		    if (!idCheckDone) {
+		        alert("아이디 중복을 확인해주세요.");
+		        return false;
+		    }
+		
+		    if ($(".regi_pwd_form-control[type='password']").val() === "") {
+		        alert("비밀번호를 입력해주세요.");
+		        return false;
+		    }
+		
+		    // 이메일 주소 유효성 검사
+		    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+		    if (!emailRegex.test($(".regi_sub_form-control[name='Email']").val())) {
+		        alert("올바른 이메일 주소를 입력해주세요.");
+		        return false;
+		    }
+		
+		    // 비밀번호 유효성 검사
+		    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+		    if (!passwordRegex.test($(".regi_pwd_form-control[type='password']").val())) {
+		        alert("올바른 비밀번호를 입력해주세요.");
+		        return false;
+		    }
+		
+		    // 비밀번호 확인 일치 여부 확인
+		    var password = $(".regi_pwd_form-control[type='password']").val();
+		    var confirmPassword = $(".regi_pwd_form-control[name='confirmPassword']").val();
+		    if (password !== confirmPassword) {
+		    	console.log(password);
+		    	console.log(confirmPassword);
+		        alert("비밀번호가 일치하지 않습니다.");
+		        return false;
+		    }
+		
+		    // 연락처 유효성 검사
+		    var phoneRegex = /^[0-9]{10,11}$/;
+		    if (!phoneRegex.test($(".regi_sub_form-control[name='phone']").val())) {
+		        alert("올바른 연락처를 입력해주세요.");
+		        return false;
+		    }
+		
+		    return true;
+		}
 
         // 회원가입 버튼 클릭 시
         $("#regi_regiBtn").on("click", function (e) {
             e.preventDefault();
 
-            // 여기에서 필요한 회원가입 유효성 검사 로직을 추가
+            // 유효성 검사 수행
+            if (!validateRegistrationForm()) {
+                return;
+            }
 
             // Ajax를 이용하여 서버에 회원가입 요청
             $.ajax({
