@@ -89,7 +89,7 @@
                                                 <th data-sort="title">글 제목</th>
                                                 <th data-sort="date">작성일</th>
                                                 <th data-sort="reportNum">신고횟수</th>
-                                                <th data-sort="delete">글삭제</th>
+                                                <th data-sort="delete">처리여부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -205,60 +205,26 @@
                     </div>
                     <div class="modal-body">
                         <div style="margin: 5px; margin-bottom: 20px;">
-                                <div>- 불건전한 내용 <span>2</span>회</div>
-                                <div>- 영리목적/홍보성 <span>2</span>회</div>
-                                <div>- 개인정보노출 <span>2</span>회</div>
-                                <div>- 기타 <span>2</span>회</div>
+                                <div class="modalDetailcount" id="modalDetailcount1">- 불건전한 내용 <span></span>회</div>
+                                <div class="modalDetailcount" id="modalDetailcount2">- 영리목적/홍보성 <span></span>회</div>
+                                <div class="modalDetailcount" id="modalDetailcount3">- 개인정보노출 <span></span>회</div>
+                                <div class="modalDetailcount" id="modalDetailcount4">- 기타 <span></span>회</div>
 
                         </div>
                         <div class="row">
                             <div class="col mb-3 admin_modalBox">
-                               <table class="table table-bordered admin_boardModal">
+                               <table id="reportReasonTable" class="table table-bordered admin_boardModal">
                                 <thead>
                                     <th>신고자<br>닉네임</th>
                                     <th>기타 신고 사유</th>
                                     <th>신고날짜</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>최바나나</td>
-                                        <td>
-                                            바나나를 싫어한다고 해서 기분나빠요
-                                            바나나를 싫어한다고 해서 기분나빠요
-                                            바나나를 싫어한다고 해서 기분나빠요
-                                            바나나를 싫어한다고 해서 기분나빠요
-                                            바나나를 싫어한다고 해서 기분나빠요
-                                            바나나를 싫어한다고 해서 기분나빠요
 
-                                        </td>
-                                        <td>24-02-16</td>
-                                    </tr>
-                                    <tr>
-                                        <td>박감귤</td>
-                                        <td>
-                                            감귤이 최고다
-
-                                        </td>
-                                        <td>24-02-16</td>
-                                    </tr>
-                                    <tr>
-                                        <td>김원숭이</td>
-                                        <td>
-                                            우끼끼 우끼끼 우끼끼 우끼끼
-                                             우끼끼 우끼끼 우끼끼 우끼끼
-                                              우끼끼 우끼끼 우끼끼 우끼끼
-
-                                        </td>
-                                        <td>24-02-16</td>
-                                    </tr>
                                 </tbody>
                                </table>
-                               
-       
                             </div>
-                            
                         </div>
-                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
@@ -305,26 +271,36 @@ $(document).ready(function () {
 	});
 	
 	function bindCommentActionHandlers(row, bno, boardType, isdeleted) {
-		
-		row.on("click", ".titleLink", function(e){
+		// 신고 횟수 버튼 클릭 시 모달 표시
+		row.on("click", ".board_countReportBtn", function(e){
 			e.preventDefault();
-			if(isdeleted == 0){
+			loadModalData(bno, boardType);
+			$('#modalCenterReportDetail').modal('show');
+		});
+		
+		// 제목 클릭 시 링크
+		row.off("click", ".titleLink").on("click", ".titleLink", function(e){
+			e.preventDefault();
+			if(isdeleted == 0){ 
 				if(boardType === "T"){
 					window.location.href = "/community/get?bno="+bno;
 				}else if(boardType === "S"){
 					window.location.href = "/suggest/get?bno="+bno;
 				}				
-			}else{
-				alert("이미 삭제된 게시글입니다.");
+			}else{ // 확인용 alert! 관리자(userType: 0)는 볼 수 있도록 변경 필요
+				alert("삭제된 게시글입니다.");
 			}
 
     		
 		});
-		row.on("click", ".board_deleteBtn", function(e){
+		// 처리 버튼 클릭 시 삭제 완료 or 처리 완료 진행
+		row.off("click", ".board_deleteBtn").on("click", ".board_deleteBtn", function(e){
 			e.preventDefault();
 			$('#modalCenterSelect').modal('show');
-			$('#deleteCheckBtn').on("click", function(e){
+			//삭제 버튼 체크 시
+			$('#deleteCheckBtn').off("click").on("click", function(e){
 				e.preventDefault();
+
 				$.ajax({
 			        url: "/adminmenu/deleteBoard",
 			        type: "POST",
@@ -336,15 +312,50 @@ $(document).ready(function () {
 			        success: function (response) {
 			            console.log("게시글 삭제가 완료되었습니다.");
 			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
-			            row.find('.board_deleteBtn').parent('td').empty().text('삭제완료');
+			            row.find('.board_deleteBtn').parent('td').empty().text('삭제 완료');
+
+			            $.ajax({
+			                url: "/adminmenu/updateBoardReport",
+			                type: "POST",
+			                dataType: "text", 
+			                data: {
+			                    bno: bno, // 처리 대상 게시글 번호
+			                    boardType: boardType // 처리 대상 게시판 타입
+			                },
+			                success: function (updateResponse) {
+			                    console.log("boardReport 테이블의 ischecked 값을 업데이트 했습니다.");
+			                },
+			                error: function (updateError) {
+			                    console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
+			                }
+			            });
+			            
+
 			        },
 			        error: function (error) {
 			            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
 			        }
 			    });				
 			});
-			$('#passCheckBtn').on("click", function(e){
-				alert("삭제 안할거야");
+			// 처리 버튼 클릭 시
+			$('#passCheckBtn').off("click").on("click", function(e){
+				e.preventDefault();
+				row.find('.board_deleteBtn').parent('td').empty().text('처리 완료');
+	            $.ajax({
+	                url: "/adminmenu/updateBoardReport",
+	                type: "POST",
+	                dataType: "text", 
+	                data: {
+	                    bno: bno, // 처리 대상 게시글 번호
+	                    boardType: boardType // 처리 대상 게시판 타입
+	                },
+	                success: function (updateResponse) {
+	                    console.log("boardReport 테이블의 ischecked 값을 업데이트했습니다.");
+	                },
+	                error: function (updateError) {
+	                    console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
+	                }
+	            });				
 			});
 			
 		});
@@ -386,14 +397,25 @@ $(document).ready(function () {
                  row.append(titleTd);
                  
                  row.append($("<td>").text(formateDate));
-                 row.append($("<td>").text(board.countReport));
+                 row.append($("<td>").addClass("board_countReportBtn").text(board.countReport));
                  
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-trash fa-2x text-primary admin_reportModal");
                  let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "").text("삭제");
                  deleteTd.append(deleteImg, deleteLink);
-                
-                 row.append(deleteTd);  
+                 
+                 // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
+                 // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
+                 if(board.isChecked == 1){
+                	 if(board.isdeleted == 1){
+                    	 row.append($("<td>").text("삭제 완료"));               		 
+                	 }else{
+                		 row.append($("<td>").text("처리 완료"));
+                	 }
+                 }else{
+                	 row.append(deleteTd);  
+                 }
+                 
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
                  
@@ -426,6 +448,68 @@ $(document).ready(function () {
          });      
        
      }
+    
+    function loadModalData(bno, boardType) {
+        $.ajax({
+            url: "/adminmenu/getBoardReportDetail",
+            type: "POST",
+            dataType: "json",
+            data: {
+                bno: bno,
+                boardType: boardType
+            },
+            success: function (modalData) {
+            	let reasonTbody = $("#reportReasonTable tbody");
+            	reasonTbody.empty();
+            	let reportCount = new Array(4).fill(0); // 항목별 건수 카운트할 배열 선언 
+            	
+            	$.each(modalData, function(index, report){
+            		
+                    let reportDate = new Date(report.reportDate);
+                    // numeric: 숫자, 2-digit: 두자리 숫자 형식
+                    let options = {year:"numeric", month:"2-digit", day:"2-digit"};
+                    let formateDate = reportDate.toLocaleString("ko-KR", options);
+                    console.log(report.reasonCategory);
+                    switch (report.reasonCategory) {
+                    case "불건전한 내용":
+                    	reportCount[0] += 1;
+                    	break;
+                    case "영리목적/홍보성":
+                    	reportCount[1] += 1;
+                    	break;
+                    case "개인정보노출":
+                    	reportCount[2] += 1;
+                    	break;
+                    case "기타":
+                    	reportCount[3] += 1;
+            			let row = $("<tr>");
+            			row.append($("<td>").text(report.reporter));
+                        row.append($("<td>").text(report.reason));
+                        row.append($("<td>").text(formateDate)); 
+                        reasonTbody.append(row);
+                        break;
+                    default:
+                        console.error("Unexpected reasonCategory:", report.reasonCategory);
+                    }
+           		 	
+            	});
+            	
+            	let noReasontr = $("<tr>").append($("<td>").attr("colspan", 3).text("-"));
+            	if(reportCount[3]==0){ //기타 사유 없을 시 표에 - 표시
+            		reasonTbody.append(noReasontr);
+            	}
+            	
+            	$("#modalDetailcount1 span").text(reportCount[0]);
+            	$("#modalDetailcount2 span").text(reportCount[1]);
+            	$("#modalDetailcount3 span").text(reportCount[2]);
+            	$("#modalDetailcount4 span").text(reportCount[3]);
+
+            },
+            error: function (error) {
+                console.error("모달 데이터를 가져오는 중 오류가 발생했습니다.", error);
+            }
+        });
+    }
 });
 </script>
 

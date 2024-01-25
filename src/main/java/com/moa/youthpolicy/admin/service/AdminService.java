@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moa.youthpolicy.admin.domain.AdminVO;
 import com.moa.youthpolicy.admin.mapper.AdminMapper;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.UserGenericService;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -97,9 +98,24 @@ public class AdminService implements UserGenericService{
 		return false;
 	}
 
-	// 게시글 삭제
+	// 게시글 삭제, user 테이블 내 countReport 값 1 증가
 	public void delBoard(Criteria cri) {
-		adminMapper.delBoard(cri);	
+		adminMapper.delBoard(cri);
+		adminMapper.updateUserCountReport(cri);
+		log.info("크리"+cri.toString());
+	}
+
+	// boardreport 테이블 내 ischecked 상태 업데이트 
+	public void updateBoardReport(Criteria cri) {
+		adminMapper.updateBoardReport(cri);
+		log.info("크리크리"+cri.toString());
+	}
+
+	// 신고사유 모달에 담을 데이터 추출
+	public List<BoardReportVO> getBoardReportDetail(Criteria cri) {
+		List<BoardReportVO> reportvo = adminMapper.getBoardReportDetail(cri);
+		log.info("가지고 온 값!!"+reportvo.toString());
+		return reportvo;
 	}
 
 

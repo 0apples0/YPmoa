@@ -306,9 +306,7 @@ $(document).ready(function () {
                  row.append($("<td>").text(users.phone));
                  row.append($("<td>").text(formateDate));
                  
-                 let countReportTd = $("<td>").attr("colspan", "2");
-                 let countReportLink = $("<a>").addClass("gotoReportPage").attr("href", "").text(users.countReport);
-                 countReportTd.append(countReportLink);
+                 let countReportTd = $("<td>").attr("colspan", "2").text(users.countReport);
                  row.append(countReportTd);
                  
                  let deleteTd = $("<td>");

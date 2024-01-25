@@ -3,6 +3,7 @@ package com.moa.youthpolicy.admin.mapper;
 import java.util.List;
 
 import com.moa.youthpolicy.admin.domain.AdminVO;
+import com.moa.youthpolicy.common.BoardReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.user.domain.UserVO;
 
@@ -17,5 +18,8 @@ public interface AdminMapper {
 	public List<AdminVO> boardListWithPaging(Criteria cri);
 	//게시글 삭제(isdeleted 컬럼 업데이트)
 	public void delBoard(Criteria cri);
+	public void updateBoardReport(Criteria cri);
+	public List<BoardReportVO> getBoardReportDetail(Criteria cri);
+	public void updateUserCountReport(Criteria cri);
 
 }

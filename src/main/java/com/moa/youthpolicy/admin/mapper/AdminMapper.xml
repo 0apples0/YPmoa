@@ -151,90 +151,95 @@
 	</select>
 	
 
-<select id="boardListWithPaging" resultType="AdminVO" parameterType="com.moa.youthpolicy.common.Criteria">
-    <choose>
-        <when test='boardType == "T"'>
-            <!-- boardType이 T인 경우 -->
-                SELECT
-                    t.*, 'T' AS boardType,
-                    (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport
-                FROM
-                    tipboard t
-                WHERE
-                    EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
-                
-                <!-- 추가된 검색 조건 -->
-                <if test="keyword != null and keyword != ''">
-                    AND t.writer IN (
-                        SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
-                    )
-                </if>
-                
-                ORDER BY
-                    regDate DESC
-                LIMIT #{start}, #{amount};
-        </when>
-        <when test='boardType == "S"'>
-            <!-- boardType이 S인 경우 -->
-                SELECT
-                    s.*, 'S' AS boardType,
-                    (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport
-                FROM
-                    suggestedboard s
-                WHERE
-                    EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
-                
-                <!-- 추가된 검색 조건 -->
-                <if test="keyword != null and keyword != ''">
-                    AND s.writer IN (
-                        SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
-                    )
-                </if>
-                
-                ORDER BY
-                    regDate DESC
-                LIMIT #{start}, #{amount};
-        </when>
-        <otherwise>
-            <!-- boardType이 없거나 다른 경우 -->
-                SELECT
-                    t.*, 'T' AS boardType,
-                    (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport
-                FROM
-                    tipboard t
-                WHERE
-                    EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
-                
-                <!-- 추가된 검색 조건 -->
-                <if test="keyword != null and keyword != ''">
-                    AND t.writer IN (
-                        SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
-                    )
-                </if>
-                
-                UNION
-                
-                SELECT
-                    s.*, 'S' AS boardType,
-                    (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport
-                FROM
-                    suggestedboard s
-                WHERE
-                    EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
-                
-                <!-- 추가된 검색 조건 -->
-                <if test="keyword != null and keyword != ''">
-                    AND s.writer IN (
-                        SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
-                    )
-                </if>
-                
-                ORDER BY
-                    regDate DESC
-                LIMIT #{start}, #{amount};
-        </otherwise>
-    </choose>
-</select>
+	<select id="boardListWithPaging" resultType="AdminVO" parameterType="com.moa.youthpolicy.common.Criteria">
+	    <choose>
+	        <when test='boardType == "T"'>
+	            <!-- boardType이 T인 경우 -->
+	            SELECT
+	                t.*, 'T' AS boardType,
+	                (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport,
+	                (SELECT MAX(br.isChecked) FROM boardreport br WHERE br.tipbno = t.bno) AS isChecked
+	            FROM
+	                tipboard t
+	            WHERE
+	                EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+	                
+	            <!-- 추가된 검색 조건 -->
+	            <if test="keyword != null and keyword != ''">
+	                AND t.writer IN (
+	                    SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+	                )
+	            </if>
+	                
+	            ORDER BY
+	                isChecked ASC, regDate DESC
+	            LIMIT #{start}, #{amount};
+	        </when>
+	        <when test='boardType == "S"'>
+	            <!-- boardType이 S인 경우 -->
+	            SELECT
+	                s.*, 'S' AS boardType,
+	                (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport,
+	                (SELECT MAX(br.isChecked) FROM boardreport br WHERE br.suggestbno = s.bno) AS isChecked
+	            FROM
+	                suggestedboard s
+	            WHERE
+	                EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
+	                
+	            <!-- 추가된 검색 조건 -->
+	            <if test="keyword != null and keyword != ''">
+	                AND s.writer IN (
+	                    SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
+	                )
+	            </if>
+	                
+	            ORDER BY
+	                isChecked ASC, regDate DESC
+	            LIMIT #{start}, #{amount};
+	        </when>
+	        <otherwise>
+	            <!-- boardType이 없는 경우 -->
+	            SELECT
+	                t.*, 'T' AS boardType,
+	                (SELECT COUNT(br.tipbno) FROM boardreport br WHERE br.tipbno = t.bno) AS countReport,
+	                (SELECT MAX(br.isChecked) FROM boardreport br WHERE br.tipbno = t.bno) AS isChecked
+	            FROM
+	                tipboard t
+	            WHERE
+	                EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+	                
+	            <!-- 추가된 검색 조건 -->
+	            <if test="keyword != null and keyword != ''">
+	                AND t.writer IN (
+	                    SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+	                )
+	            </if>
+             
+	            UNION
+	                
+	            SELECT
+	                s.*, 'S' AS boardType,
+	                (SELECT COUNT(br.suggestbno) FROM boardreport br WHERE br.suggestbno = s.bno) AS countReport,
+	                (SELECT MAX(br.isChecked) FROM boardreport br WHERE br.suggestbno = s.bno) AS isChecked
+	            FROM
+	                suggestedboard s
+	            WHERE
+	                EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
+	                
+	            <!-- 추가된 검색 조건 -->
+	            <if test="keyword != null and keyword != ''">
+	                AND s.writer IN (
+	                    SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
+	                )
+	            </if>
+	                
+	            ORDER BY
+	                isChecked ASC, regDate DESC
+	            LIMIT #{start}, #{amount};
+	        </otherwise>
+
+	    </choose>
+	</select>
 
 
 	
@@ -249,14 +254,65 @@
 	<!-- 게시글 삭제 시 isdeleted을 1로 변경 -->
 	<update id="delBoard" parameterType="com.moa.youthpolicy.common.Criteria">
 		<choose>
-		<when test='boardType = "T"'>
+		<when test='boardType == "T"'>
 			UPDATE tipboard
 		</when>
-		<when test='boardType = "S"'>
+		<when test='boardType == "S"'>
 			UPDATE suggestedboard
 		</when>			
 		</choose>
 			SET isdeleted = 1
 			WHERE bno = #{bno}		
 	</update>
+	<!-- 게시글 삭제 시 user table의 countReport값을 1 증가 -->
+	<update id="updateUserCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
+	    UPDATE user
+	    SET countReport = countReport + 1
+	    WHERE nick IN (
+	        SELECT DISTINCT writer
+	        FROM 
+	        <choose>
+	            <when test='boardType == "T"'>
+	                tipboard
+	            </when>
+	            <when test='boardType == "S"'>
+	                suggestedboard
+	            </when>
+	        </choose>
+	        WHERE boardType = #{boardType} AND bno = #{bno}
+	    );
+	</update>
+		
+	<!-- 게시글 삭제 or 처리 시 isChecked를 1로 변경 -->
+	<update id="updateBoardReport" parameterType="com.moa.youthpolicy.common.Criteria">
+		UPDATE boardreport
+		SET isChecked = 1
+		<choose>
+		<when test='boardType == "T"'>
+			WHERE tipbno = #{bno} 
+		</when>
+		<when test='boardType == "S"'>
+			WHERE suggestbno = #{bno}
+		</when>
+		</choose>
+		AND boardType=#{boardType}	
+	</update>
+
+		
+	<!-- 신고 상세 사유 모달에 담을 데이터 추출-->
+	<select id="getBoardReportDetail" resultType="com.moa.youthpolicy.common.BoardReportVO" parameterType="com.moa.youthpolicy.common.Criteria">
+		SELECT * FROM boardreport
+		WHERE boardType=#{boardType} 
+		AND
+		<choose>
+		<when test='boardType == "T"'>
+		tipbno = #{bno}
+		</when>
+		<when test='boardType == "S"'>
+		suggestbno = #{bno}
+		</when>
+		</choose> 
+		ORDER BY reportDate DESC
+	</select>
+	
 </mapper>
