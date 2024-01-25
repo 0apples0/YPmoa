@@ -123,7 +123,7 @@
                 <div class="wow fadeIn" data-wow-delay="0.1s">
   <div id="policy_checkbox">
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">좋아요 많은 순</label>
@@ -136,7 +136,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table id="communityBoardTable" class="table table-hover commu_table commu_table_a">
+                                    <table id="communityBoardTable" class="table table-default commu_table commu_table_a">
 
 
                                         <thead>
@@ -144,8 +144,8 @@
                                          <th data-sort="area" style="width:5%;">지역</th>
                                          <th data-sort="category" style="width:8%;">꿀팁분야</th>
                                          <th data-sort="title">제목</th>
-                                         <th data-sort="author" style="width:10%;">작성자</th>
-                                         <th data-sort="date" style="width:15%;">작성일</th>
+                                         <th data-sort="author" style="width:6%;">작성자</th>
+                                         <th data-sort="date" style="width:12%;">작성일</th>
                                          <th data-sort="like" style="width:5%;">좋아요</th>
                                      </tr>
                                         </thead>
@@ -277,11 +277,37 @@
 
 
     <script>
-
+    
+ 
 $(document).ready(function () {
-	loadTableData();
+	
+	
+
+	  
+	
+	let addedBno;
+	// 새글알림
+	function newAlarm(){
+	  $.ajax({
+          type: "GET",
+          url: "/community/newAlarm",
+          success: function (data) {
+           
+              addedBno = data;
+              
+              loadTableData();
+          },
+          error: function (xhr, status, error) {
+              console.error("new알람 실패:", status, error);
+          }
+      });
+	}
+	newAlarm();
+	
+	
+	
    	$("#customCheck").change(function () {
-	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출3
 	    let selectedFilter = "";
 	    if ($("#customCheck").is(":checked")) {
 	        selectedFilter = "like";
@@ -290,19 +316,13 @@ $(document).ready(function () {
 	    // 선택한 필터 값을 hidden input에 설정
 	    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
 	    $("#actionForm input[name='pageNum']").val(1);
-
+	    newAlarm();
 	    // actionForm submit 호출
 	    actionForm.submit();
+	    
 	});
    
-    // 체크박스 중복 방지
-    $('.custom-control-input').on('change', function () {
-        if ($(this).prop('checked')) {
-            $('.custom-control-input').not(this).prop('disabled', true);
-        } else {
-            $('.custom-control-input').prop('disabled', false);
-        }
-    });
+   
     
     
     // 내글 보기
@@ -365,25 +385,35 @@ $(document).ready(function () {
     		  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()              
           },
           success: function(data){
-      	  
+        	  
              let boardTbody = $("#communityBoardTable tbody");
              boardTbody.empty(); // 기존 테이블 행 삭제
                 
              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
              //for(let item of items) -> items == data, item ==board 역할
              $.each(data, function(index, board){
-               
+            	commentNm(board.bno);	
                 let regDate=new Date(board.regDate);
                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
                 let formateDate = regDate.toLocaleString("ko-KR", options);
 
-                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+                // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가ㄹ
                 // 동적으로 데이터 처리
                 let row = $("<tr>");
                 row.append($("<td>").text(board.region));
                 row.append($("<td>").text(board.category));
-                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);         
+                let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);
+                let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
+                if (board.bno === addedBno) {
+                    newAlarm.attr("hidden", false);
+                }
+                let commentbox = $("<span>").addClass("board_commentCnt");
+                let commentNm = $("<span>").addClass("board_commentNm").text(commentNm());
+                commentbox.append(commentNm);
+                titleLink.append(newAlarm);
+                titleLink.append(commentbox);
+                
                 let titleTd = $("<td>").append(titleLink);
                 
                 row.append(titleTd);
@@ -408,7 +438,38 @@ $(document).ready(function () {
           error: function(e){
              console.log(e);
           }
+          
+         
        });
+      
+       function commentNm(bno) {
+    	    $.ajax({
+    	        type: "GET",
+    	        url: "/community/commentNm",
+    	        data: { bno: bno },
+    	        success: function(data) {
+    	            console.log("게시물 " + bno + "의 댓글수: " + data);
+
+    	            // 동적으로 불러온 board.bno와 현재 bno가 같다면
+    	            if (board.bno === bno) {
+    	                // 해당 댓글 수를 표시하는 span 태그를 찾기
+    	                let commentSpan = $(".board_commentNm_" + bno);
+
+    	                if (commentSpan.length > 0) {
+    	                    // span 태그가 존재하면 텍스트 설정
+    	                    commentSpan.text(data);
+    	                } else {
+    	                    console.warn("댓글 수를 표시하는 span 태그를 찾을 수 없습니다. (bno: " + bno + ")");
+    	                }
+    	            }
+    	        },
+    	        error: function(error) {
+    	            console.error("댓글개수 불러오기 실패");
+    	        }
+    	    });
+    	}
+
+     
        
        $(".paginate_button a").on("click", function(e){
 
@@ -431,7 +492,11 @@ $(document).ready(function () {
       
     }
     
-});
+}); // document.ready끝
+
+
+	
+	
 
     </script>
 

@@ -52,32 +52,36 @@
         <div class="bg-white shadow" style="padding: 35px;">
             <div class="row g-2 justify-content-center">
                 <div class="col-md-10">
-                    <div class="row g-2 justify-content-center">
-                        <div class="col-md-3_a">
-                            <select class="form-select">
-                                <option selected>지역선택</option>
-                                <option value="1">부천시</option>
-                                <option value="2">수원시</option> 
-                                <option value="3">광명시</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3_a">
-                            <select class="form-select">
-                                <option selected>정책분야</option>
-                                <option value="1">주거</option>
-                                <option value="2">일자리</option>
-                            </select>
-                        </div>
-                        <div class="col-md-5">
-                            <div>
-                                <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
-                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                    		<button class="btn btn-primary w-100">정책검색</button>
-                		</div>
-                    </div>
+                <form action="/policy/indexsearch" method="post">
+                
+                    <div class="row g-2 justify-content-center">                    
+	                        <div class="col-md-3_a">
+	                            <select class="form-select" name="rgnSeNm">
+	                                <option selected>지역선택</option>
+	                                <option value="구미시">구미시</option>
+	                                <option value="안동시">안동시</option> 
+	                                <option value="울진군">울진군</option>
+	                            </select>
+	                        </div>
+	                        <div class="col-md-3_a" >
+	                            <select class="form-select" name="policyTypeNm">
+	                                <option selected value="">정책분야</option>
+	                                <option value="주거">주거</option>
+	                                <option value="교육">교육</option>
+	                            </select>
+	                        </div>
+	                        <div class="col-md-5">
+	                            <div>
+	                                <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
+	                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" name="keyword"/>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-2">
+	                    		<button type="submit" class="btn btn-primary w-100">정책검색</button>
+	                		</div>	                	
+                    	</div>
+                    	
+                    </form>
                 </div>
             </div>
         </div>

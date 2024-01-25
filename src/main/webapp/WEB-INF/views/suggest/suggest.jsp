@@ -89,7 +89,7 @@
 			<div class="wow fadeIn" data-wow-delay="0.1s">
 				<div id="policy_checkbox">
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
+						<input type="checkbox" class="form-check-input"
 							<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
 							id="customCheck"> 
 						<label class="custom-control-label" for="customCheck">좋아요 많은 순</label>
@@ -100,7 +100,7 @@
 	                <div class="white_shd_a full">
 	                    <div class="table_section padding_infor_info_a">
 	                        <div class="table-responsive-sm">
-	                            <table id="suggestBoardTable" class="table table-hover commu_table commu_table_a">
+	                            <table id="suggestBoardTable" class="table table-default commu_table commu_table_a">
 	                                <thead>
 	                                	<tr>
 	                                        <th data-sort="area" style="width:5%;">지역</th>

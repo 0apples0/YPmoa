@@ -47,17 +47,9 @@
 											<c:out value="${pageMaker.cri.boardType == 'T'?'selected':'' }"/>>꿀팁</option>
                                     </select>
                                 </div>
-                                <div class="col-md-auto">
-                                    <select class="form-select" name="type">
-										<option value=""
-											<c:out value="${pageMaker.cri.type == 'null'?'selected':'' }"/>>전체</option>
-										<option value="nick"
-											<c:out value="${pageMaker.cri.type == 'nick'?'selected':'' }"/>>닉네임</option>										
-                                    </select>
-                                </div>
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="검색어를 입력하세요" name="keyword"/>
+                                        placeholder="닉네임을 입력하세요" name="keyword"/>
                                 </div>
                                 <div class="col-md-auto">
                                     <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>
@@ -114,9 +106,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <%-- 페이징 적용 --%>
+            
+                    <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
 
@@ -196,14 +187,16 @@
 			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 			<input type="hidden" name="userType" value="${pageMaker.cri.userType }">
-			<input type="hidden" name="type" value="${pageMaker.cri.type }">
 			<input type="hidden" name="boardType" value="${pageMaker.cri.boardType }">
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
+        </div>
+
+
 
   
         <!-- Modal -->
-        <div class="modal fade admin_modalInfo" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade admin_modalInfo" id="modalCenterReportDetail" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -278,7 +271,7 @@
         
         
         <!-- 신고 버튼 Modal -->
-        <div class="modal fade admin_Modal" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -290,8 +283,8 @@
                                 
                     </div>
                     <div class="modal-footer" style="justify-content:center">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
+                        <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
+                        <button type="button" id="passCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
                       
 
                     </div>
@@ -304,26 +297,59 @@
 <script>
 $(document).ready(function () {
     loadTableData();
+	$("#searchForm button[type='reset']").on("click", function (e) {
+	    // 검색어 입력 필드 초기화
+	    $("#searchForm input[name='keyword']").val('');
+	    $("#searchForm select").val('');
+		e.preventDefault();
+	});
+	
+	function bindCommentActionHandlers(row, bno, boardType, isdeleted) {
+		
+		row.on("click", ".titleLink", function(e){
+			e.preventDefault();
+			if(isdeleted == 0){
+				if(boardType === "T"){
+					window.location.href = "/community/get?bno="+bno;
+				}else if(boardType === "S"){
+					window.location.href = "/suggest/get?bno="+bno;
+				}				
+			}else{
+				alert("이미 삭제된 게시글입니다.");
+			}
 
-	function bindCommentActionHandlers(row, bno, boardType) {
-		row.on("click", ".board_deleteBtn", function(){
-    		$.ajax({
-                url: "/adminmenu/deleteUser",
-                type: "POST",
-                dataType: "json", 
-                data: {
-                	bno: bno // 정지 대상 아이디(이메일)
-                },
-                success: function (response) {
-                    console.log("회원 정지가 완료되었습니다.");
-                },
-                error: function (error) {
-                    console.error("정지 처리 중 오류가 발생했습니다.", error);
-                }
-            });  			
+    		
+		});
+		row.on("click", ".board_deleteBtn", function(e){
+			e.preventDefault();
+			$('#modalCenterSelect').modal('show');
+			$('#deleteCheckBtn').on("click", function(e){
+				e.preventDefault();
+				$.ajax({
+			        url: "/adminmenu/deleteBoard",
+			        type: "POST",
+			        dataType: "text", 
+			        data: {
+			        	bno: bno, // 삭제 대상 게시글 번호
+			        	boardType: boardType // 삭제 대상 게시판 타입
+			        },
+			        success: function (response) {
+			            console.log("게시글 삭제가 완료되었습니다.");
+			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
+			            row.find('.board_deleteBtn').parent('td').empty().text('삭제완료');
+			        },
+			        error: function (error) {
+			            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
+			        }
+			    });				
+			});
+			$('#passCheckBtn').on("click", function(e){
+				alert("삭제 안할거야");
+			});
+			
 		});
 	}
-	
+  	
     function loadTableData(){
         
         $.ajax({
@@ -334,11 +360,9 @@ $(document).ready(function () {
          	  pageNum : $("#actionForm").find("input[name='pageNum']").val(),
               amount : $("#actionForm").find("input[name='amount']").val(),
               boardType: $("#searchForm select[name='boardType']").val(),
-	          type: $("#searchForm select[name='type']").val(),
   	          keyword: $("#actionForm").find("input[name='keyword']").val()
            },
            success: function(data){
-       	  	  alert("왔어!");
               let userTbody = $("#admin_boardTable tbody");
               userTbody.empty(); // 기존 테이블 행 삭제
                  
@@ -353,10 +377,14 @@ $(document).ready(function () {
 
                  // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
                  let row = $("<tr>");
-                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁게시판" : "건의게시판"));
-                 
+                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁" : "건의"));
                  row.append($("<td>").text(board.writer));
-                 row.append($("<td>").text(board.title));
+                 
+                 let titleTd = $("<td>");
+               	 let titleLink = $("<a>").addClass("titleLink").attr("href", "").text(board.title);
+               	 titleTd.append(titleLink);
+                 row.append(titleTd);
+                 
                  row.append($("<td>").text(formateDate));
                  row.append($("<td>").text(board.countReport));
                  
@@ -364,12 +392,13 @@ $(document).ready(function () {
                  let deleteImg = $("<i>").addClass("fa fa-trash fa-2x text-primary admin_reportModal");
                  let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "").text("삭제");
                  deleteTd.append(deleteImg, deleteLink);
+                
                  row.append(deleteTd);  
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
                  
-                 // 회원 아이디(Email)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
-                 bindCommentActionHandlers(row, board.bno, board.boardType);
+                 // row, board.bno, board.boardType 전달하여 활용하는 함수
+                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted);
               });
            },
            error: function(e){

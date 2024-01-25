@@ -150,25 +150,25 @@
 
 		<div id="policy_checkbox">
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == null?'checked':'' }"/>
 					id="customCheck1"> <label class="custom-control-label"
 					for="customCheck1">전체</label>
 			</div>
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'applyDate'?'checked':'' }"/>
 					id="customCheck2"> <label class="custom-control-label"
 					for="customCheck2">모집중</label>
 			</div>
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'overDate'?'checked':'' }"/>
 					id="customCheck3"> <label class="custom-control-label"
 					for="customCheck3">신청마감</label>
 			</div>
 			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
+				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
 					id="customCheck4"> <label class="custom-control-label"
 					for="customCheck4">좋아요 많은 순</label>
@@ -335,13 +335,13 @@ function formatDate(date) {
 	    });
 	   	
 	   	//체크박스
-	   	$('.custom-control-input').on('change', function () {
+	   	$('.form-check-input').on('change', function () {
 	   	    if ($(this).prop('checked')) {
 	   	        // 현재 선택된 체크박스의 ID
 	   	        var selectedId = $(this).attr('id');
 
 	   	        // 모든 체크박스 반복
-	   	        $('.custom-control-input').each(function () {
+	   	        $('.form-check-input').each(function () {
 	   	            // 현재 체크박스의 ID
 	   	            var currentId = $(this).attr('id');
 
@@ -496,10 +496,10 @@ function formatDate(date) {
 		    	    console.log($("#usernickForm input[name='writer']").val());
 		    	    // userType이 0일 때만 삭제와 수정 버튼을 추가
 		    	    if ($("#usernickForm input[name='writer']").val() != "" && $("#usernickForm input[name='userType']").val() == 0) {
-		    	    	buttonHtml += '<div class="commuGet_btn" >'; 
+		    	    	buttonHtml += '<div class="commuGet_btn" >' 
 		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-primary">수정</button></a>';
 		    	        buttonHtml += '<button class="btn btn-primary" onclick="confirmDelete(' + policy.no + ')">삭제</button>';
-		    	        buttonHtml += '</div>';
+		    	        buttonHtml += '</div>'
 		    	        //buttonHtml += '<a href="delPolicy?no=' + policy.no + '"><button class="btn btn-primary" style="margin: 10px;">삭제</button>';
 		    	    }
 

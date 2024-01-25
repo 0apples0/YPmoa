@@ -100,10 +100,19 @@ public class AdminController {
 	}
 	
 	
-	// 회원 강제 탈퇴
+	// 회원 정지
 	@ResponseBody
 	@RequestMapping(value="/deleteUser", method={RequestMethod.GET, RequestMethod.POST})
 	public void deleteMember(UserVO userVO){
 		adminService.delMember(userVO);
 	}
+	
+	// 신고 게시글 삭제 처리(isdeleted 값 업데이트)
+	@ResponseBody
+	@RequestMapping(value="/deleteBoard", method={RequestMethod.GET, RequestMethod.POST})
+	public void deleteBoard(Criteria cri){
+		adminService.delBoard(cri);
+	}
+	
+
 }
