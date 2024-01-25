@@ -183,7 +183,7 @@
                                 for="basic-default-phone">닉네임</label>
                             <div class="col-sm-10" >
                                 <input type="text" id="nickInput" required style="margin-left: 0px;"
-                                    class="regi_sub_form-control phone-mask" placeholder="닉네임을 입력해주세요"/>
+                                    class="regi_sub_form-control phone-mask" placeholder="한글 10글자 이내 또는 영어 20글자 이내"/>
                                 <button type="button"
                                     class="btn btn-outline-primary regi_checkBtn" onclick="checkNickname()" id="checkNicknameBtn">중복확인</button>
                             </div>
@@ -275,7 +275,7 @@
         if (userPhone) {
         	phoneNumberCheckDone = true;
             $("#phoneInput").val(userPhone);
-            $("#phoneInput").prop("disabled", true);
+            //$("#phoneInput").prop("disabled", true);
             $("#checkPhoneNumberBtn").prop("disabled", true);
         }
 		
@@ -373,7 +373,6 @@
 	        // 각 데이터에 대한 텍스트 길이 제한 
 	        var maxTextLength = 20; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
-			console.log("흑흑");
 	        var communityTitleText = (community.title.length > maxTextLength) ? community.title.substring(0, maxTextLength) + '...' : community.title;
 	        var row = "<tr>" +
 						"<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='community/get?bno="+ community.bno +"' id='index_wish'>" + communityTitleText + "</a></td>" +
@@ -507,7 +506,36 @@
 	        $("#confirmBtn").prop("disabled", true);
 	    }
 		
+		function isValidPhoneNumber(phoneNumber) {
+		    // 핸드폰 번호 유효성 검사를 수행하는 로직을 구현
+		    // 여기서는 간단한 예시로 010으로 시작하는 11자리 숫자만 유효하다고 가정
+		    var phoneNumberRegex = /^010[0-9]{8}$/;
+		    return phoneNumberRegex.test(phoneNumber);
+		}
+		function isValidNickname(nickname) {
+		    // 닉네임 유효성 검사를 수행하는 로직을 구현
+		    // 여기서는 한글 10글자 이내 또는 영어 20글자 이내로 제한
+		    var koreanRegex = /^[가-힣]{1,10}$/;
+		    var englishRegex = /^[a-zA-Z]{1,20}$/;
+
+		    return koreanRegex.test(nickname) || englishRegex.test(nickname);
+		}
+		
 		function confirmChanges() {
+			var nickname = $("#nickInput").val();
+			var phoneNumber = $("#phoneInput").val();
+			
+
+		    if (!isValidNickname(nickname)) {
+		        // 유효하지 않은 닉네임일 경우 사용자에게 알림
+		        alert("유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.");
+		        return;
+		    }
+		    if (!isValidPhoneNumber(phoneNumber)) {
+		        // 유효하지 않은 핸드폰 번호일 경우 사용자에게 알림
+		        alert("유효하지 않은 핸드폰 번호입니다.");
+		        return;
+		    }
 			$.ajax({
 				type: "POST",
 				url: "/user/modinfo",
@@ -524,8 +552,7 @@
 	    }
 
 	    function logout() {
-	        // 로그아웃 버튼 클릭 시 로그아웃 처리 구현
-	        alert("로그아웃되었습니다.");
+	    	window.location.href = "/user/logout";
 	    }
 	
 </script>
