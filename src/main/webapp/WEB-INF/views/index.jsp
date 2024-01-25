@@ -52,32 +52,36 @@
         <div class="bg-white shadow" style="padding: 35px;">
             <div class="row g-2 justify-content-center">
                 <div class="col-md-10">
-                    <div class="row g-2 justify-content-center">
-                        <div class="col-md-3_a">
-                            <select class="form-select">
-                                <option selected>지역선택</option>
-                                <option value="1">부천시</option>
-                                <option value="2">수원시</option> 
-                                <option value="3">광명시</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3_a">
-                            <select class="form-select">
-                                <option selected>정책분야</option>
-                                <option value="1">주거</option>
-                                <option value="2">일자리</option>
-                            </select>
-                        </div>
-                        <div class="col-md-5">
-                            <div>
-                                <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
-                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                    		<button class="btn btn-primary w-100">정책검색</button>
-                		</div>
-                    </div>
+                <form action="/policy/indexsearch" method="post">
+                
+                    <div class="row g-2 justify-content-center">                    
+	                        <div class="col-md-3_a">
+	                            <select class="form-select" name="rgnSeNm">
+	                                <option selected>지역선택</option>
+	                                <option value="구미시">구미시</option>
+	                                <option value="안동시">안동시</option> 
+	                                <option value="울진군">울진군</option>
+	                            </select>
+	                        </div>
+	                        <div class="col-md-3_a" >
+	                            <select class="form-select" name="policyTypeNm">
+	                                <option selected value="">정책분야</option>
+	                                <option value="주거">주거</option>
+	                                <option value="교육">교육</option>
+	                            </select>
+	                        </div>
+	                        <div class="col-md-5">
+	                            <div>
+	                                <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
+	                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" name="keyword"/>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-2">
+	                    		<button type="submit" class="btn btn-primary w-100">정책검색</button>
+	                		</div>	                	
+                    	</div>
+                    	
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,7 +100,7 @@
                     <div class="full graph_head mini_board_more" >
                             <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                             <span class="mini_board_title">나의 위시 정책</span>
-                            <span class="mini_board_span"><a href="">더보기</a></span>
+                            <span class="mini_board_span"><a href="/wish/wish">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info" >
                         <div class="table-responsive-sm">
@@ -113,7 +117,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책정보</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/policy/policy">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
@@ -130,7 +134,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">꿀팁모음</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/community/community">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
@@ -147,7 +151,7 @@
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책건의</span>
-                        <span class="mini_board_span"><a href="">더보기</a></span>
+                        <span class="mini_board_span"><a href="/suggest/suggest">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
@@ -179,10 +183,11 @@
                                 for="basic-default-phone">닉네임</label>
                             <div class="col-sm-10" >
                                 <input type="text" id="nickInput" required style="margin-left: 0px;"
-                                    class="regi_sub_form-control phone-mask" placeholder="닉네임을 입력해주세요"/>
+                                    class="regi_sub_form-control phone-mask" placeholder="한글 10글자 이내 또는 영어 20글자 이내"/>
                                 <button type="button"
                                     class="btn btn-outline-primary regi_checkBtn" onclick="checkNickname()" id="checkNicknameBtn">중복확인</button>
                             </div>
+                            <div class="col-sm-11" ><span class="nicknameValidation" id="nickValidation">유효성검사</span></div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label mypage_label"
@@ -193,6 +198,7 @@
                                 <button type="button"
                                     class="btn btn-outline-primary  regi_checkBtn" onclick="checkPhoneNumber()" onclick="checkPhoneNumber()" id="checkPhoneNumberBtn" disabled>중복확인</button>
                             </div>
+                            <div class="col-sm-11" ><span class="phoneValidation" id="phoneValidation">유효성검사</span></div>
                         </div>
 
                     </div>
@@ -231,6 +237,8 @@
     
 	
 	$(document).ready(function() {
+		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
+		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
 		
 		
 		if("${user.email}" != "")
@@ -271,7 +279,7 @@
         if (userPhone) {
         	phoneNumberCheckDone = true;
             $("#phoneInput").val(userPhone);
-            $("#phoneInput").prop("disabled", true);
+            //$("#phoneInput").prop("disabled", true);
             $("#checkPhoneNumberBtn").prop("disabled", true);
         }
 		
@@ -369,7 +377,6 @@
 	        // 각 데이터에 대한 텍스트 길이 제한 
 	        var maxTextLength = 20; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
-			console.log("흑흑");
 	        var communityTitleText = (community.title.length > maxTextLength) ? community.title.substring(0, maxTextLength) + '...' : community.title;
 	        var row = "<tr>" +
 						"<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='community/get?bno="+ community.bno +"' id='index_wish'>" + communityTitleText + "</a></td>" +
@@ -424,12 +431,23 @@
 		});
 	}
 	
+	
+		function hideValidationMessage(validationSpan) {
+		    validationSpan.hide();
+		}
+
+		function showValidationMessage(validationSpan, message) {
+		    validationSpan.text(message).show();
+		}
+	
 		function checkNickname() {
-	        var nickname = $("#nickInput").val();
-	        if (!nickname) {
-	            alert("닉네임을 입력하세요.");
-	            return;
-	        }
+			var nickname = $("#nickInput").val();
+		    var nicknameValidation = $("#nickValidation"); 
+
+		    if (!isValidNickname(nickname)) {
+		        showValidationMessage(nicknameValidation, "유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.");
+		        return;
+		    }
 
 	        // 중복 확인 상태 초기화
 	        nicknameCheckDone = false;
@@ -446,8 +464,9 @@
 	                    enableOrDisableConfirmButton();
 	                    // 중복 확인 버튼 다시 비활성화
 	                    $("#checkNicknameBtn").prop("disabled", true);
+	                    hideValidationMessage(nicknameValidation);
 	                } else {
-	                    alert("이미 사용 중인 닉네임입니다.");
+	                	showValidationMessage(nicknameValidation, "이미 사용 중인 닉네임입니다.");
 	                    disableConfirmButton();
 	                }
 	            },
@@ -458,11 +477,13 @@
 	    }
 		
 		function checkPhoneNumber() {
-	        var phoneNumber = $("#phoneInput").val();
-	        if (!phoneNumber) {
-	            alert("연락처를 입력하세요.");
-	            return;
-	        }
+			var phoneNumber = $("#phoneInput").val();
+		    var phoneValidation = $("#phoneValidation"); 
+
+		    if (!isValidPhoneNumber(phoneNumber)) {
+		        showValidationMessage(phoneValidation, "유효하지 않은 핸드폰 번호입니다.");
+		        return;
+		    }
 
 	        // 중복 확인 상태 초기화
 	        phoneNumberCheckDone = false;
@@ -478,8 +499,9 @@
 	                    phoneNumberCheckDone = true;
 	                    enableOrDisableConfirmButton();
 	                    $("#checkPhoneNumberBtn").prop("disabled", true);
+	                    hideValidationMessage(phoneValidation);
 	                } else {
-	                    alert("이미 사용 중인 연락처입니다.");
+	                	showValidationMessage(phoneValidation, "이미 사용 중인 연락처입니다.");
 	                    disableConfirmButton();
 	                }
 	            },
@@ -503,7 +525,23 @@
 	        $("#confirmBtn").prop("disabled", true);
 	    }
 		
+		function isValidPhoneNumber(phoneNumber) {
+		    // 핸드폰 번호 유효성 검사를 수행하는 로직을 구현
+		    // 여기서는 간단한 예시로 010으로 시작하는 11자리 숫자만 유효하다고 가정
+		    var phoneNumberRegex = /^010[0-9]{8}$/;
+		    return phoneNumberRegex.test(phoneNumber);
+		}
+		function isValidNickname(nickname) {
+		    // 닉네임 유효성 검사를 수행하는 로직을 구현
+		    // 여기서는 한글 10글자 이내 또는 영어 20글자 이내로 제한
+			var koreanRegex = /^[가-힣0-9]{1,10}$/;
+			var englishRegex = /^[a-zA-Z0-9]{1,20}$/;
+
+			return koreanRegex.test(nickname) || englishRegex.test(nickname);
+		}
+		
 		function confirmChanges() {
+			
 			$.ajax({
 				type: "POST",
 				url: "/user/modinfo",
@@ -520,8 +558,7 @@
 	    }
 
 	    function logout() {
-	        // 로그아웃 버튼 클릭 시 로그아웃 처리 구현
-	        alert("로그아웃되었습니다.");
+	    	window.location.href = "/user/logout";
 	    }
 	
 </script>

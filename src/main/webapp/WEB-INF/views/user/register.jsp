@@ -51,23 +51,27 @@
 												for="basic-default-email">아이디</label>
 											<div class="col-sm-10">
 												<input type="email" class="regi_sub_form-control" placeholder="이메일 형식으로 입력하세요" required name="Email"/>
+												
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="idchk">중복확인</button>
 											</div>
-
+											
+											<div class="col-sm-11" ><span class="validation" id="emailValidation">올바른 이메일 주소를 입력해주세요.</span></div>
+											
 										</div>
 
-
+										
 										<div class="row mb-3 ">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호</label>
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" name = "PW"
-														required
+														required placeholder="비밀번호 (8자 이상, 영문, 숫자, 특수문자)"
 														placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 														aria-describedby="basic-default-password" />
 
 												</div>
 											</div>
+											<div class="col-sm-11" ><span class="validation" id="passwordValidation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3" style="align-items: center">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호<br>
@@ -75,12 +79,13 @@
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" 
-														required
+														required placeholder="비밀번호 확인"
 														placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-														aria-describedby="basic-default-password" />
+														aria-describedby="basic-default-password" name="confirmPassword"/>
 
 												</div>
 											</div>
+											<div class="col-sm-11" ><span class="validation" id="confirmPasswordValidation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
@@ -90,6 +95,7 @@
 													placeholder="" />
 
 											</div>
+											<div class="col-sm-11" ><span class="validation" id="nameValidation">유효성검사</span></div>
 										</div>
 
 										<div class="row mb-3">
@@ -97,11 +103,12 @@
 												for="basic-default-phone">연락처</label>
 											<div class="col-sm-10">
 												<input type="text" id="basic-default-phone" required
-													class="regi_sub_form-control phone-mask"
+													class="regi_sub_form-control phone-mask" placeholder="연락처 (숫자만 입력)"
 													aria-describedby="basic-default-phone" name="phone"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
-										</div>
+											<div class="col-sm-11" ><span class="validation" id="phoneValidation">유효성검사</span></div>
+										</div> 
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
 												for="basic-default-company">닉네임</label>
@@ -110,6 +117,7 @@
 													placeholder="한글 10글자, 영어 20자 이내" name="nick" />
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 											</div>
+											<div class="col-sm-11" ><span class="validation" id="nickValidation">유효성검사</span></div>
 										</div>
 
 										<div class="col-sm-12" id="regi_btn">
@@ -144,16 +152,77 @@
     $(document).ready(function () {
         // 초기에 회원가입 버튼 비활성화
         $("#regi_regiBtn").prop("disabled", true);
+    	 // 초기에 각 validation span을 숨김
+        $(".validation").hide();
 
         // 각 중복 체크 상태를 저장하는 변수들
         var idCheckDone = false;
         var phoneCheckDone = false;
         var nickCheckDone = false;
+        
+   	    // 각 입력 필드의 이벤트 리스너 등록
+        $(".regi_sub_form-control[name='Email']").on("input", function () {
+            idCheckDone = false; // 이메일 값이 변경되면 다시 중복 확인이 필요하므로 상태 초기화
+            enableOrDisableRegisterButton();
+        });
+
+        $(".regi_sub_form-control[name='phone']").on("input", function () {
+            phoneCheckDone = false; // 연락처 값이 변경되면 다시 중복 확인이 필요하므로 상태 초기화
+            enableOrDisableRegisterButton();
+        });
+
+        $(".regi_sub_form-control[name='nick']").on("input", function () {
+            nickCheckDone = false; // 닉네임 값이 변경되면 다시 중복 확인이 필요하므로 상태 초기화
+            enableOrDisableRegisterButton();
+        });
+        
+        
+        $(".regi_pwd_form-control[type='password']").on("input", function () {
+            // 비밀번호 유효성 검사 메시지 업데이트
+            updatePasswordValidationMessage();
+        });
+
+        $(".regi_pwd_form-control[name='confirmPassword']").on("input", function () {
+            // 비밀번호 확인 일치 여부 메시지 업데이트
+            updateConfirmPasswordValidationMessage();
+        });
+        
+        function updatePasswordValidationMessage() {
+            var passwordField = $(".regi_pwd_form-control[type='password']");
+            var passwordValidation = $("#passwordValidation");
+            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+            if (!passwordRegex.test(passwordField.val())) {
+                passwordValidation.text("올바른 비밀번호를 입력해주세요.").show();
+            } else {
+                passwordValidation.hide();
+            }
+        }
+
+        // 비밀번호 확인 일치 여부 메시지를 업데이트하는 함수
+        function updateConfirmPasswordValidationMessage() {
+            var passwordField = $(".regi_pwd_form-control[type='password']");
+            var confirmPasswordField = $(".regi_pwd_form-control[name='confirmPassword']");
+            var confirmPasswordValidation = $("#confirmPasswordValidation");
+
+            if (passwordField.val() !== confirmPasswordField.val()) {
+                confirmPasswordValidation.text("비밀번호가 일치하지 않습니다.").show();
+            } else {
+                confirmPasswordValidation.hide();
+            }
+        }
 
         // 아이디 중복 체크 버튼 클릭 시
-		$("#idchk").on("click", function () {
-		    // 여기에 아이디 중복 체크 로직을 추가
-		    var userId = $(".regi_sub_form-control[name='Email']").val();
+        $("#idchk").on("click", function () {
+		    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+		    var emailField = $(".regi_sub_form-control[name='Email']");
+		    var emailValidation = $("#emailValidation");
+		    var userId = emailField.val();
+		
+		    if (!emailRegex.test(userId)) {
+		        emailValidation.text("올바른 이메일 주소를 입력해주세요.").show();
+		        return;
+		    }
 		
 		    // Ajax를 이용하여 서버에 아이디 중복 체크 요청
 		    $.ajax({
@@ -164,24 +233,34 @@
 		            if (response) {
 		                idCheckDone = true;
 		                enableOrDisableRegisterButton();
-		                alert("사용 가능한 아이디입니다.");
+		                alert("사용 가능한 아이디 입니다")
+		                //emailValidation.text("사용 가능한 아이디입니다.").show();
+		                emailValidation.hide();
 		            } else {
 		                idCheckDone = false;
 		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 아이디입니다.");
+		                emailValidation.text("이미 사용 중인 아이디입니다.").show();
 		            }
 		        },
 		        error: function () {
-		            alert("아이디 중복 체크 중 오류가 발생했습니다.");
+		            emailValidation.text("아이디 중복 체크 중 오류가 발생했습니다.").show();
 		        }
 		    });
 		});
-        
-		// 연락처 중복 체크 버튼 클릭 시
-		$("#phoneck").on("click", function () {
-		    // 여기에 연락처 중복 체크 로직을 추가
-		    var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
 
+        // 연락처 중복 체크 버튼 클릭 시
+        $("#phoneck").on("click", function () {
+		    var phoneRegex = /^[0-9]{10,11}$/;
+		    var phoneField = $(".regi_sub_form-control[name='phone']");
+		    var phoneValidation = $("#phoneValidation");
+		
+		    if (!phoneRegex.test(phoneField.val())) {
+		        phoneValidation.text("올바른 연락처를 입력해주세요.").show();
+		        return;
+		    }
+		
+		    var phoneNumber = phoneField.val();
+		
 		    // Ajax를 이용하여 서버에 연락처 중복 체크 요청
 		    $.ajax({
 		        type: "POST",
@@ -192,26 +271,35 @@
 		                phoneCheckDone = true;
 		                enableOrDisableRegisterButton();
 		                alert("사용 가능한 연락처입니다.");
+		                //phoneValidation.text("사용 가능한 연락처입니다.").show();
+		                phoneValidation.hide();
 		            } else {
 		                phoneCheckDone = false;
 		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 연락처입니다.");
+		                phoneValidation.text("이미 사용 중인 연락처입니다.").show();
 		            }
 		        },
 		        error: function () {
-		            alert("연락처 중복 체크 중 오류가 발생했습니다.");
+		            phoneValidation.text("연락처 중복 체크 중 오류가 발생했습니다.").show();
 		        }
 		    });
 		});
 
-		// 닉네임 중복 체크 버튼 클릭 시
-		$("#nickchk").on("click", function () {
-		    // 여기에 닉네임 중복 체크 로직을 추가
-		    var nickname = $(".regi_sub_form-control[name='nick']").val();
+        // 닉네임 중복 체크 버튼 클릭 시
+        $("#nickchk").on("click", function () {
+        	var nicknameField = $(".regi_sub_form-control[name='nick']");
+            var nicknameValidation = $("#nickValidation");
+            var nickname = nicknameField.val();
 
+            // 유효성 검사
+            var isValidNickname = validateNickname(nickname);
+            if (!isValidNickname) {
+                nicknameValidation.text("유효하지 않은 닉네임입니다. 한글 10글자 이내 또는 영어 20글자 이내로 입력하세요.").show();
+                return;
+            }
 		    // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
 		    $.ajax({
-		        type: "POST",
+		        type: "POST", 
 		        url: "/user/chkNickname",
 		        data: { nick: nickname },
 		        success: function (response) {
@@ -219,24 +307,106 @@
 		                nickCheckDone = true;
 		                enableOrDisableRegisterButton();
 		                alert("사용 가능한 닉네임입니다.");
+		                // 성공 시 메시지를 변경하고 일정 시간 후에 숨김
+		                //nicknameValidation.text("사용 가능한 닉네임입니다.").delay(3000).fadeOut();
+		                nicknameValidation.hide();
 		            } else {
 		                nickCheckDone = false;
 		                enableOrDisableRegisterButton();
-		                alert("이미 사용 중인 닉네임입니다.");
+		                // 실패 시 메시지를 변경하고 일정 시간 후에 숨김
+		                nicknameValidation.text("이미 사용 중인 닉네임입니다.").delay(3000).fadeOut(); 
 		            }
 		        },
 		        error: function () {
-		        	console.error("연락처 중복 체크 중 오류가 발생했습니다.", error);
-		            alert("닉네임 중복 체크 중 오류가 발생했습니다.");
+		            console.error("닉네임 중복 체크 중 오류가 발생했습니다.", error);
+		            nicknameValidation.text("닉네임 중복 체크 중 오류가 발생했습니다.").delay(3000).fadeOut();
 		        }
 		    });
 		});
+
+        // 회원가입 양식의 유효성 검사 함수
+       function validateRegistrationForm() {
+		    // 각 필드에 대한 유효성 검사 로직을 추가
+		    var emailField = $(".regi_sub_form-control[name='Email']");
+		    var emailValidation = $("#emailValidation");
+		    if (emailField.val() === "") {
+		        emailValidation.text("이메일을 입력해주세요.").show();
+		        return false;
+		    }
+		
+		    if (!idCheckDone) {
+		        emailValidation.text("아이디 중복을 확인해주세요.").show();
+		        return false;
+		    }
+		
+		    var passwordField = $(".regi_pwd_form-control[type='password']");
+		    var passwordValidation = $("#passwordValidation");
+		    if (passwordField.val() === "") {
+		        passwordValidation.text("비밀번호를 입력해주세요.").show();
+		        return false;
+		    }
+				
+		    // 비밀번호 유효성 검사
+		    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+		    if (!passwordRegex.test(passwordField.val())) {
+		        passwordValidation.text("올바른 비밀번호를 입력해주세요.").show();
+		        return false;
+		    }
+		
+		    // 비밀번호 확인 일치 여부 확인
+		    var confirmPasswordField = $(".regi_pwd_form-control[name='confirmPassword']");
+		    var confirmPasswordValidation = $("#confirmPasswordValidation");
+		    var password = passwordField.val();
+		    var confirmPassword = confirmPasswordField.val();
+		    if (password !== confirmPassword) {
+		        confirmPasswordValidation.text("비밀번호가 일치하지 않습니다.").show();
+		        return false;
+		    }
+		
+		    // 이름 유효성 검사 (필요에 따라 추가)
+		    var nameField = $(".regi_pwd_form-control[name='name']");
+		    var nameValidation = $("#nameValidation");
+		    if (nameField.val() === "") {
+		        nameValidation.text("이름을 입력해주세요.").show();
+		        return false;
+		    }
+		
+		    // 연락처 유효성 검사
+		    var phoneField = $(".regi_sub_form-control[name='phone']");
+		    var phoneValidation = $("#phoneValidation");
+		    var phoneRegex = /^[0-9]{10,11}$/;
+		    if (!phoneRegex.test(phoneField.val())) {
+		        phoneValidation.text("올바른 연락처를 입력해주세요.").show();
+		        return false;
+		    }
+		
+		    // 닉네임 유효성 검사
+		    var nickField = $(".regi_sub_form-control[name='nick']");
+		    var nickValidation = $("#nickValidation"); 
+		    var nickRegex = /^[a-zA-Z0-9\uac00-\ud7a3]{1,20}$/;
+		    if (!nickRegex.test(nickField.val())) {
+		        nickValidation.text("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
+		        return false;
+		    }
+		
+		    // 통과하면 에러 메시지 숨기고 true 반환
+		    emailValidation.hide();
+		    passwordValidation.hide();
+		    confirmPasswordValidation.hide();
+		    nameValidation.hide();
+		    phoneValidation.hide();
+		    nickValidation.hide();
+		    return true;
+		}
 
         // 회원가입 버튼 클릭 시
         $("#regi_regiBtn").on("click", function (e) {
             e.preventDefault();
 
-            // 여기에서 필요한 회원가입 유효성 검사 로직을 추가
+            // 유효성 검사 수행
+            if (!validateRegistrationForm()) {
+                return;
+            }
 
             // Ajax를 이용하여 서버에 회원가입 요청
             $.ajax({
@@ -250,7 +420,7 @@
                     nick: $(".regi_sub_form-control[name='nick']").val()
                 },
                 success: function (response) {
-                    alert("회원가입이 완료되었습니다.");
+                    //alert("회원가입이 완료되었습니다.");
                     window.location.href = "/";
                 },
                 error: function () {

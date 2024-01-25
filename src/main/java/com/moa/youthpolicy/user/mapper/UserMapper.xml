@@ -11,9 +11,14 @@
 	</update>
 
 	<update id="modinfo" parameterType="com.moa.youthpolicy.user.domain.UserVO">
-		UPDATE user
-		SET address = #{address},interestField = #{interestField}, nick = #{nick}, phone = #{phone}
-		WHERE Email = #{Email}
+	    UPDATE user
+	    <set>
+	        <if test="address != null">address = #{address},</if>
+	        <if test="interestField != null">interestField = #{interestField},</if>
+	        <if test="nick != null">nick = #{nick},</if>
+	        <if test="phone != null">phone = #{phone},</if>
+	    </set>
+	    WHERE Email = #{Email}
 	</update>
 
     <select id="selectUserByEmail" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">

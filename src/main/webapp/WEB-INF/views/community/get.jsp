@@ -1,118 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
-
-
-
-        <!-- Page Header Start -->
-        <div class="container-fluid page-header mb-5 p-0">
-            <div class="page-header-inner" id="login_banner">
-                <div class="container text-center ">
-                    <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Community</h1>
-
-                    <p id="login_p">꿀팁 상세정보</p>
-
-
-
-                </div>
-            </div>
-        </div>
-        <!-- Page Header End -->
-        <div class="container-xxl ">
-            <div class="container">
-
-
-
-
-                <div class="row g-4">
-                    <div class="wow fadeIn" data-wow-delay="0.1s">
-
-                        <!-- table section -->
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_30">
-                                
-                                <div class="full graph_head" style="padding-bottom: 7px;">
-                                    <div class="heading1 ">
-                                        <h2 style="font-size: 30px;">[${vo.region}/${vo.category}] ${vo.title}</h2><br>
-                                        <div>${vo.writer}</div>
-
-                                        <div class="font_light"><fmt:formatDate value="${vo.regDate}" pattern="yyyy. MM. dd. a hh:mm" /></div>
-                                    </div>
-                                </div>
-                                
-
-
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="col-md-12">
-                            <div class="white_shd_a full margin_bottom_30">
-                               
-                                <div class="table_section padding_infor_info">
-
-                                    <div class="table-responsive-sm">
-                                        <table class=" commu_table policy_dt_table commuGet_table">
-                                            
-                                            <tbody>
-                                                <tr >
-                                                    <td>
-														${vo.content }
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <br>
-                                        <div style="display: flex;" class="commuGet_likeBox">
-                                            <div class="g-4 policyGet_letter">
-                                                좋아요</div>
-										<a> <img
-											src="${pageContext.request.contextPath}/resources/img/${vo.likeVO == null ? 'addLike' : 'checkLike'}.png"
-											class="policyGet_likeBtn"
-											style="width: 38px; cursor: pointer;" /></a>
-                                            <div class="g-4">
-                                                <span class="policyGet_likeCount">${vo.like}</span>
-                                            </div>
-                                            <div class="g-4 policyGet_letter">개</div>
-                                        </div>
-                                        <div class="commuGet_btn">
-					                         <c:choose>
-							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
-													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-													<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-												</c:when>
-							  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
-													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-													<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
-												</c:when>
-							 					<c:otherwise>
-													<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-													<button id="repot" class="btn btn-warning commuGet_postReport">신고하기</button>
-												</c:otherwise>
-											</c:choose>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="container-xxl py-5_a">
-            <div class="container">
-
-
-
-
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 p-0">
+	<div class="page-header-inner" id="login_banner">
+		<div class="container text-center ">
+			<h1 class=" display-3 text-white mb-3 animated slideInDown"
+				id="login_h1">Community</h1>
+			<p id="login_p">꿀팁 상세정보</p>
+		</div>
+	</div>
+</div>
+<!-- Page Header End -->
+<div class="container-xxl ">
+	<div class="container">
+		<div class="row g-4">
+			<div class="wow fadeIn" data-wow-delay="0.1s">
+				<!-- table section -->
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
+						<div class="full graph_head" style="padding-bottom: 7px;">
+							<div class="heading1 ">
+								<h2 style="font-size: 30px;">[${vo.region}/${vo.category}]
+									${vo.title}</h2>
+								<br>
+								<div>${vo.writer}</div>
+								<div class="font_light">
+									<fmt:formatDate value="${vo.regDate}"
+										pattern="yyyy. MM. dd. a hh:mm" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
+						<div class="table_section padding_infor_info">
+							<div class="table-responsive-sm">
+								<table class=" commu_table policy_dt_table commuGet_table">
+									<tbody>
+										<tr>
+											<td>${vo.content }</td>
+										</tr>
+									</tbody>
+								</table>
+								<br>
+								<div style="display: flex;" class="commuGet_likeBox">
+									<div class="g-4 policyGet_letter">좋아요</div>
+									<a> <img
+										src="${pageContext.request.contextPath}/resources/img/${vo.likeVO == null ? 'addLike' : 'checkLike'}.png"
+										class="policyGet_likeBtn"
+										style="width: 38px; cursor: pointer;" /></a>
+									<div class="g-4">
+										<span class="policyGet_likeCount">${vo.like}</span>
+									</div>
+									<div class="g-4 policyGet_letter">개</div>
+								</div>
+								<div class="commuGet_btn">
+									<c:choose>
+										<c:when
+											test="${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
+											<button id="return"
+												class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button id="modifyBtn"
+												class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+											<button type="button" id="deleteBtn"
+												class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+										</c:when>
+										<c:when
+											test="${user ne null && user.nick ne null && user.userType == 0}">
+											<button id="return"
+												class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button type="button" id="deleteBtn"
+												class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+										</c:when>
+										<c:otherwise>
+											<button id="return"
+												class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button id="repot"
+												class="btn btn-warning commuGet_postReport">신고하기</button>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-xxl py-5_a">
+	<div class="container">
 		<div class="row g-4">
 			<div class="wow fadeIn" data-wow-delay="0.01s">
 				<h3 style="margin-left: 30px;">댓글</h3>
@@ -120,252 +101,259 @@
 					<input type="text" name="AddcommentInput" id="AddcommentInput"
 						class="form-control datetimepicker-input font_light commu_cmtInput"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
-					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn" disabled
-						style="margin-left: 10px;">댓글 작성</button>
+					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn"
+						disabled style="margin-left: 10px;">댓글 작성</button>
 				</div>
-				
-				
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
 				<div id="communityBestCommentDiv" class="col-md-12">
-					<div class="white_shd_a full"
-						style="padding: 30px; padding-bottom: 0px;">
-						<h4 style="padding-left: 10px;">
-							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
-								class="fa fa-fire text-primary commu_pic"></i>
-						</h4>
-						<div class="table-responsive-sm">
-							<table id="communityBestCommentTable"
-								class="table table-basic commu_table policyGet_comment">
- 
-								<tbody style="background-color: rgb(255, 239, 203);">
-								
-								</tbody>
-								
-							</table>
-						</div>
-					</div>
-				</div>
-				
-				
-				<!-- table section -->
-				<div class="col-md-12">
-					<div class="white_shd_a full margin_bottom_30">
-
+					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info">
+							<h4 style="padding-left: 10px;">
+								<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
+									class="fa fa-fire text-primary commu_pic"></i>
+							</h4>
 							<div class="table-responsive-sm">
-								<table id="communityCommentTable"
+								<table id="communityBestCommentTable"
 									class="table table-basic commu_table policyGet_comment">
-
-									<tbody>
-
-
-
+									<tbody style="background-color: rgb(255, 239, 203);">
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
-
-
-
-
+				</div>
+				<!-- table section -->
+				<div class="col-md-12">
+					<div class="white_shd_a full margin_bottom_30">
+						<div class="table_section padding_infor_info">
+							<div class="table-responsive-sm">
+								<table id="communityCommentTable"
+									class="table table-basic commu_table policyGet_comment">
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-
-
-
 		</div>
-		            
 	</div>
-        <%-- 페이징 적용 --%>
-        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
-            <ul class="pagination justify-content-center policy_page_navbox">
-
+	<%-- 페이징 적용 --%>
+	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+		<ul class="pagination justify-content-center policy_page_navbox">
 			<%-- <<버튼: 10페이지 이전 --%>
-            <li class="paginate_button policy_page-item_prev prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>  
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            <%-- <버튼: 1페이지 이전 --%>
-            <li class="paginate_button policy_page-item prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum) >1}">
-               	
-                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>
-                    </c:when>
-                    <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>  
-                    </c:otherwise>     
-               </c:choose>            
-            </li>            
-
+			<li class="paginate_button policy_page-item_prev prev"><c:choose>
+					<c:when
+						test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+						<a class="page-link" href="${pageMaker.cri.prevprevPage}"><i
+							class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link"><i class="fa fa-angle-double-left"
+							aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+			<%-- <버튼: 1페이지 이전 --%>
+			<li class="paginate_button policy_page-item prev"><c:choose>
+					<c:when test="${(pageMaker.cri.pageNum) >1}">
+						<a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i
+							class="fa fa-angle-left" aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link"><i class="fa fa-angle-left"
+							aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
 			<%-- 페이지 넘버 --%>
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-                    <a class="page-link" href="${num}">${num}</a>
-                </li>
-            </c:forEach>
-
+			<c:forEach var="num" begin="${pageMaker.startPage}"
+				end="${pageMaker.endPage}">
+				<li
+					class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+					<a class="page-link" href="${num}">${num}</a>
+				</li>
+			</c:forEach>
 			<%-- >버튼: 1페이지 이동 --%>
-            <li class="paginate_button policy_page-item next">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
-                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when> 
-               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-                  <a class="page-link"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when>               
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>   
-               </c:otherwise>     
-              </c:choose>            
-            </li>              
-            
-            <%-- >>버튼: 10페이지 이동 --%>  
-            <li class="paginate_button page-item next">
-               <c:choose>
-               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-                  <a class="page-link"><i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>  
-
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
-                           <i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            
-
-            </ul>
-
-        </nav>
-        </div>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="policyGet_checkbox">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheck1"
-                                    data-textarea-id="textarea2">
-                                <label class="custom-control-label" for="customCheck1">불건전한 내용</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheck2"
-                                    data-textarea-id="textarea3">
-                                <label class="custom-control-label" for="customCheck2">영리목적/홍보성</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheck3"
-                                    data-textarea-id="textarea4">
-                                <label class="custom-control-label" for="customCheck3">개인정보노출</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheck4"
-                                    data-textarea-id="textarea1">
-                                <label class="custom-control-label" for="customCheck4">기타(아래에 작성해주세요)</label>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="form-label">신고내용</label>
-
-                                <textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-                                    style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary commu_report">신고하기</button>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            취소
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-            
-        <form id="actionForm" action="/community/get" method="post">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-			<input type="hidden" name="bno" value="${vo.bno}">
-		</form>	            
-		<form id="usernickForm" action="/community/community" method="get">
-			<input type="hidden" name="nick" value="${user.nick}"> 
-			<input type="hidden" name="Email" value="${user.email}"> 
-		</form>            
-        </div>
-<!-- 확인 팝업 모ㅋ달 -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">삭제 확인</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                정말로 삭제하시겠습니까?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
+			<li class="paginate_button policy_page-item next"><c:choose>
+					<c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+						<a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i
+							class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</c:when>
+					<c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+						<a class="page-link"><i class="fa fa-angle-right"
+							aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.endPage+1}"><i
+							class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+			<%-- >>버튼: 10페이지 이동 --%>
+			<li class="paginate_button page-item next"><c:choose>
+					<c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+						<a class="page-link"><i class="fa fa-angle-double-right"
+							aria-hidden="true"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.cri.nextnextPage}"> <i
+							class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+					</c:otherwise>
+				</c:choose></li>
+		</ul>
+	</nav>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
+				<input type="hidden" id="cno">
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="policyGet_checkbox">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="form-check-input" id="customCheck1"
+							data-textarea-id="textarea2"> <label
+							class="custom-control-label" for="customCheck1">불건전한 내용</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="form-check-input" id="customCheck2"
+							data-textarea-id="textarea3"> <label
+							class="custom-control-label" for="customCheck2">영리목적/홍보성</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="form-check-input" id="customCheck3"
+							data-textarea-id="textarea4"> <label
+							class="custom-control-label" for="customCheck3">개인정보노출</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="form-check-input" id="customCheck4"
+							data-textarea-id="textarea1"> <label
+							class="custom-control-label" for="customCheck4">기타(아래에
+							작성해주세요)</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col mb-3">
+						<label class="form-label">신고내용</label>
+						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
+							style="resize: none;"
+							class="policyGet_reportDetail font_light form-control"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary commu_report"
+					onclick="report()">신고하기</button>
+				<button type="button" class="btn btn-outline-secondary"
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+	<form id="actionForm" action="/community/get" method="post">
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		<input type="hidden" name="bno" value="${vo.bno}">
+	</form>
+	<form id="usernickForm" action="/community/community" method="get">
+		<input type="hidden" name="nick" value="${user.nick}"> <input
+			type="hidden" name="Email" value="${user.email}">
+	</form>
+</div>
+<!-- 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">삭제 확인</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" id="confirmDeleteBtn">삭제</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- 확인 팝업 모달 끝-->
 
 <!-- 댓글 삭제 확인 팝업 모달 -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">삭제 확인</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                정말로 삭제하시겠습니까?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteCommentBtn">삭제</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">삭제 확인</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning"
+					id="confirmDeleteCommentBtn">삭제</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
 </div>
 
-    <script>
+<script>
+    
+  //선택한 값을 저장할 변수
+    var selectedOption = "";
+    var reporter = $("#usernickForm input[name='nick']").val();
+
+    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
+    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
+        if ($("#customCheck1").is(":checked")) {
+            selectedOption = "불건전한 내용";
+        } else if ($("#customCheck2").is(":checked")) {
+            selectedOption = "영리목적/홍보성";
+        } else if ($("#customCheck3").is(":checked")) {
+            selectedOption = "개인정보노출";
+        } else if ($("#customCheck4").is(":checked")) {
+            selectedOption = "기타";
+        }
+    });
+    
+    function report() {
+		if("${user.nick}"==null || "${user.nick}"==""){
+			alert("로그인 후 이용 가능한 서비스 입니다.");
+			//window.location.href = "/user/login";
+			return;
+		}
+	    $.ajax({
+			url : "/policy/reportcomment", 
+			type : "POST",
+			data : {
+				tipcno : $("#cno").val(),
+				reasonCategory : selectedOption,
+				reporter : reporter,
+				reason : $("#textarea1").val(),
+				boardType : "T",
+			},
+			success : function(data){
+				$("#modalCenter").modal("hide");
+				if(data){
+					alert("신고 하였습니다");
+				}else{
+					alert("이미 신고했습니다");
+				}
+			}
+		});
+	}
         $(document).ready(function () {
-        	
-        	 
-        	
         	loadTableData();
         	loadBestCommentTableData();
-        	
 
     		function chkLogin() {
     			userNick = $("#usernickForm input[name='nick']")
@@ -388,46 +376,6 @@
     	        }
     	    });
     	    
-    	    //선택한 값을 저장할 변수
-    	    var selectedOption = "";
-    	   //var reporter = $("#usernickForm input[name='writer']").val();
-    	    var reporter = "${user.nick}";
-
-    	    // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
-    	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
-    	        if ($("#customCheck1").is(":checked")) {
-    	            selectedOption = "불건전한 내용";
-    	        } else if ($("#customCheck2").is(":checked")) {
-    	            selectedOption = "영리목적/홍보성";
-    	        } else if ($("#customCheck3").is(":checked")) {
-    	            selectedOption = "개인정보노출";
-    	        } else if ($("#customCheck4").is(":checked")) {
-    	            selectedOption = "기타";
-    	        }
-    	    });
-    	    // 신고 모달 데이터 전송
-    		function report() {
-    		    $.ajax({
-    		    
-    				url : "/community/reportBoard", 
-    				type : "POST",
-    				data : {
-    					tipbno : ${vo.bno},
-    					reasonCategory : selectedOption,
-    					reporter : reporter,
-    					reason : $("#textarea1").val(),
-    					boardType : "T"
-    				},
-    				success : function(data){
-    					$("#modalCenter").modal("hide");
-    					if(data){
-    						alert("신고 하였습니다");
-    					}else{
-    						alert("이미 신고했습니다");
-    					}
-    				}
-    			});
-    		}
     	    // 체크박스 중복 방지
     	    $('.form-check-input').on('change', function () {
     	        if ($(this).prop('checked')) {
@@ -446,11 +394,6 @@
     	            $("#" + textareaId).prop("disabled", false);
     	        }
     	    });
-
-    	 	// 클릭 이벤트 핸들러를 바인딩
-    	    $(document).on("click", ".commu_report", function() {
-    	        report();
-    	    });
     	    
     	    // 아무 체크도 안했을 때 선택버튼 비활성화
     	    $(".form-check-input").change(updateReportButtonState);
@@ -460,11 +403,9 @@
 
     	    function updateReportButtonState() {
     	        var anyCheckboxChecked = $(".form-check-input:checked").length > 0;
-
     	        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
     	            return $(this).val().trim() !== "";
     	        }).length > 0;
-
     	        $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
     	    }
     	    
@@ -508,26 +449,20 @@
 								console.log(e);
 							}
 						});
-
 				});
 			
 
-
-
 			// 댓글 신고 모달창
-			$(".commu_table").on("click", ".policyGet_report", function (event) {
-				event.preventDefault();
-                if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-                    $("#modalCenter").modal("show");
-                }
-			});
+			//$(".commu_table").on("click", ".policyGet_report", function (event) {
+				//event.preventDefault();
+                //if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+                  //  $("#modalCenter").modal("show");
+               // }
+			//});
             // 게시글 신고 모달창
             $(".commuGet_postReport").click(function(event){
                 $("#modalCenter").modal("show");
             });
-
-
-
 
             // 댓글창 내용 있어야 버튼 활성화
             var commentInput = $(".commu_cmtInput");
@@ -583,8 +518,17 @@
                 }
             });
             
-         
          function bindCommentActionHandlers(row, cno, bno) {
+	        	// 댓글 신고 모달창
+	       	  row.on("click", ".policyGet_report", function (event) {
+	       		  
+	       	  	  event.preventDefault();
+	                   if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+	                     $("#cno").val(cno);
+	                     $("#modalCenter").modal("show");
+	                 }
+	       	  });
+        	 
         	  // 댓글 수정
         	  row.on("click", ".commuComment_modBtn", function(){
         		  event.preventDefault();
@@ -601,7 +545,7 @@
         	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
         	        
         	        row.find("td").remove();
-        	        row.append($("<td>").attr("colspan", 3).append(inputElement));
+        	        row.append($("<td>").attr("colspan", 4).append(inputElement));
         	        
                     let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
@@ -609,10 +553,8 @@
                     let editCancelImg = $("<i>").addClass("fa fa-times text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                     
-                    row.append($("<td>").attr("colspan", 2).css("width","120px").append(editImg, editLink,editCancelImg, editCancelLink));
-                    
+                    row.append($("<td>").css("width","160px").append(editImg, editLink,editCancelImg, editCancelLink));
                   
-                	                    
                     // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                     $(".commuComment_modDoneBtn").on("click", function(){
                     	let modifiedContent = row.find(".commuComment_modInput").val();
@@ -640,11 +582,7 @@
                     	}else{ // 수정할 내용이 없거나, 공백일 경우 수정완료 버튼이 눌리지 않도록 설정
                     		event.preventDefault();
                     	}
-                    	
-
-                    	
                     });
-                    
         	  });
         	  
         	// 댓글 삭제
@@ -670,10 +608,7 @@
                         }
                     });  
         		//});      		
-
-
         	});
-
     		
         	// 댓글 좋아요
         	
@@ -705,7 +640,6 @@
 					});
 			});
          }
-           
             
             function loadTableData(){
                 $.ajax({
@@ -724,6 +658,10 @@
                          
                       //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
                       //for(let item of items) -> items == data, item ==board 역할
+                    // 댓글이 없는 경우 메시지를 표시
+		            if (data.length === 0) {
+		                boardTbody.append("<tr><td colspan='4' class='text-center' style='text-align:center !important'>등록 된 댓글이 없습니다. </td></tr>");
+		            } else {
                       $.each(data, function(index, board){
                         
                          let regDate=new Date(board.regDate);
@@ -778,15 +716,13 @@
                          // 댓글 번호(cno)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
                          bindCommentActionHandlers(row, board.cno, board.bno);
                       });
-                   },
+		            }
+		        },
                    error: function(e){
                       console.log(e);
                    }
                 });
                
-        	
-
-                
                 $(".paginate_button a").on("click", function(e){
 
                     //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
@@ -795,17 +731,12 @@
                      let newPageNum = $(this).attr("href");
                     console.log("newPageNum : " + newPageNum);
                      // pageNum이 비어있지 않은 경우에만 submit 실행
-                    
-                     
                     let actionForm = $("#actionForm");
                      if (newPageNum) {
                              actionForm.find("input[name='pageNum']").val(newPageNum);
                              actionForm.submit();       		  
-                   	  
-
                      }
                  });      
-               
              }
 
             function loadBestCommentTableData(){
@@ -860,7 +791,7 @@
                               let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                              let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                              let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                             
                               // 이미지와 link를 <td> 엘리먼트에 추가
                               // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
@@ -870,13 +801,11 @@
                             	 
                               }else{
                             	  reportTd.append(reportImg, reportLink);
-                            	  	
                               }
                               
                               // 새로운 <td> 엘리먼트를 행에 추가
                               row.append(likeTd);
                               row.append(reportTd);
-                              
                               
                              boardTbody.append(row);
                              console.log("pagemaker: "+${pageMaker.realEnd});
@@ -887,16 +816,12 @@
                       }else{
                     	  $("#communityBestCommentDiv").hide();
                       }
-
                    },
                    error: function(e){
                       console.log(e);
                    }
                 });
-                
-               
              }
-
         }); // document.ready함수
         
         // 목록 버튼
@@ -936,4 +861,4 @@
         });        
     
     </script>
-<%@include file="../includes/footer.jsp" %>
+<%@include file="../includes/footer.jsp"%>

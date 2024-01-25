@@ -159,7 +159,7 @@
 
 
 	<%-- 페이징 적용 --%>
-	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp" id="paging">
 		<ul class="pagination justify-content-center policy_page_navbox">
 
 			<%-- <<버튼: 10페이지 이전 --%>
@@ -251,6 +251,20 @@
 
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (isListEmpty()) {
+        document.getElementById("policy_checkbox").style.display = "none";
+        document.getElementById("paging").style.display = "none";
+        	
+    }
+});
+
+function isListEmpty() {
+    console.log("위시가 비어있어");
+}
+
+
 
 document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
 function applyUserConditions(e) {

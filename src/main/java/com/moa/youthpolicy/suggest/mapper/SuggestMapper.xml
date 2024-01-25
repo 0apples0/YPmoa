@@ -17,8 +17,8 @@
 	
 	<insert id="write" parameterType="SuggestVO">
 		INSERT INTO  suggestedboard
-		(title,content,writer,category,region)
-		VALUES (#{title}, #{content}, #{writer}, #{category}, #{region})
+		(title,content,writer,category,region,userType)
+		VALUES (#{title}, #{content}, #{writer}, #{category}, #{region},#{userType})
 	</insert>
 	
     <update id="modifyBoard" parameterType="com.moa.youthpolicy.suggest.domain.SuggestVO">
@@ -87,6 +87,7 @@
 	    </if>
 	    
 		ORDER BY
+		CASE WHEN userType = '0' THEN 0 ELSE 1 END, regDate DESC,
 	    <choose>
 	        <when test="selectedFilter == 'like'">
 	            `like` DESC, bno DESC

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
 
-
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
@@ -43,6 +42,7 @@
 	                                    style="font-family: 'LINESeedKR-Bd_light'; width: 70%;"
 	                                    placeholder="제목을 입력해주세요">
 	                                <input type="hidden" name="nick" value="${user.nick}">
+	                                <input type="hidden" name="userType" value="${user.userType}">
 	                            </div>
 	                        </div>
 	                    </div>
@@ -82,7 +82,6 @@
 </div>
 
 <script>
-
 	
     $(document).ready(function ($) {
     	
@@ -125,10 +124,20 @@
                 ['picture', ['[picture]']],
  ﻿               ['insert', ['link', 'picture']],
             ]
-
         });
 
 		$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
+		
+        // userType이 0이면 공지 옵션만 보임
+        var userType = "${user.userType}";
+        if (userType === "0") {
+            // 기존 옵션 제거
+            $("#category").empty(); 
+            $("#region").empty(); 
+            // 공지 옵션 추가
+            $("#category").append('<option value="공지">공지</option>');
+            $("#region").append('<option value="공지">공지</option>');
+        }
 		
 	    function sendFile(file, editor, welEdit) {
 	    	console.log("file" + file);
@@ -141,7 +150,6 @@
 
 			//비동기식 통신
 			$.ajax({
-				//			url: "saveImage.jsp",
 				url : "/uploadImge",
 				data : frm,
 				cache : false,

@@ -1,6 +1,5 @@
 package com.moa.youthpolicy.suggest.domain;
 
-
 import java.util.Date;
 
 import lombok.Data;
@@ -8,6 +7,7 @@ import lombok.Data;
 @Data
 public class SuggestVO {
 	int bno;
+	int userType;
 	String title;
 	String content;
 	String writer;

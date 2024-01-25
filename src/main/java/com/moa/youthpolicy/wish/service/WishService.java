@@ -1,6 +1,7 @@
 package com.moa.youthpolicy.wish.service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,13 +45,18 @@ public class WishService implements BoardInterface {
 		List<PolicyVO> list = mapper.getWishList(cri);
 		log.info(cri);
 		if (AuthUtil.isLogin()) {
+			
 			for (PolicyVO vo : list) {
 
 				WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
 				vo.setWishVO(mapper.getWish(wish));
 			}
+			return list;
+		}else {
+			log.info("로그인 안되서 안가져옴");
+			 return Collections.emptyList();
 		}
-		return list;
+		
 	}
 
 

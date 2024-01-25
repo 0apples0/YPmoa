@@ -58,7 +58,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/modinfo")
 	public boolean modinfo (UserVO vo, HttpSession session) {
-		log.info("controller : "+ vo.toString());
+		log.info("controller modinfo : "+ vo.toString());
 		
 		if(userService.modinfo(vo)) {
 			UserVO _vo = userService.get(vo.getEmail());
@@ -246,6 +246,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/chkNickname")
 	public boolean chkID(@RequestParam String nick) {
+		log.info(nick);
 		return userService.chkNick(nick);
 	}
 	
