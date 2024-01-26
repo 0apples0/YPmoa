@@ -678,6 +678,24 @@
 
 /*** admin ***/
 
+.board_countReportBtn:hover{
+	cursor: pointer;
+	color: orange;
+	font-weight: 700;
+}
+
+.adminBoard_titleTd{
+	text-align: left;
+}
+
+.titleLink{
+	font-family: 'LINESeedKR-Bd_light';
+	color: #666565; 
+}
+.titleLink:hover{
+	text-decoration: underline;
+}
+
 .admin_modalBox{
 	   height: 300px;
      overflow-y: auto;
@@ -708,10 +726,6 @@
 }
 
 
-.admin_boardTable tbody tr td:nth-child(3), .admin_boardTable tbody tr td:nth-child(5){
-    cursor: pointer;
-}
-
 .admin_page_nav{
     padding-top: 30px;
 }
@@ -719,6 +733,8 @@
 .admin_boardTable thead tr th:nth-child(1){
 	width: 7%;
 }
+
+
 .admin_boardTable thead tr th:nth-child(2){
 	width: 15%;
 }
@@ -726,7 +742,7 @@
 	width: 5%;
 }
 .admin_boardTable thead tr th:nth-child(4){
-	width: 12%;
+	width: 11%;
 }
 .admin_boardTable thead tr th:nth-child(5){
 	width: 7%;

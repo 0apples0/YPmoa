@@ -154,6 +154,12 @@ public class SuggestService implements BoardGenericService{
 	        return false;
 	    }
 	}
+	
+	// 새글 알람
+	public List<Integer> newBoardAlarm() {
+		 List<Integer> result = suggestMapper.alarmNew();
+		return result;
+	}
 
 
 

@@ -29,5 +29,6 @@ public interface SuggestMapper {
     // 게시글 신고
 	public BoardReportVO getReportBoard(BoardReportVO vo);
 	public void reportBoard(BoardReportVO vo);
+	public List<Integer> alarmNew();
     
 }

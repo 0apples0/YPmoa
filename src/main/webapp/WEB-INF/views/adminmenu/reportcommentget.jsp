@@ -31,7 +31,7 @@
                         	<select class="form-select" name="boardType">                                        
                             	<option value=""
 									<c:out value="${pageMaker.cri.boardType == null ?'selected':'' }"/>>게시판</option>
-								<option value="S"
+								<option value="P"
 									<c:out value="${pageMaker.cri.boardType == 'P'?'selected':'' }"/>>정책</option>
 								<option value="T"
 									<c:out value="${pageMaker.cri.boardType == 'T'?'selected':'' }"/>>꿀팁</option>
@@ -53,6 +53,7 @@
         </div>
     </div>
 </div>
+
 <!-- Booking End -->
 <div class="container-xxl py-5_a">
     <div class="container">
@@ -63,7 +64,7 @@
                     <div class="white_shd_a full">
                         <div class="table_section padding_infor_info_a">
                             <div class="table-responsive-sm">
-                                <table id="admin_commentTable" class="table table-hover admin_commentTable">
+                                <table id="admin_boardTable" class="table table-default admin_boardTable">
                                     <thead>
                                         <tr>
                                             <th data-sort="board">게시판</th>
@@ -71,7 +72,8 @@
                                             <th data-sort="content">댓글내용</th>
                                             <th data-sort="date">작성일</th>
                                             <th data-sort="reportNum">신고횟수</th>
-                                            <th data-sort="delete">댓글삭제</th>
+                                            <th data-sort="delete">관리</th>
+                                            <th data-sort="rollback">복구</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,6 +87,7 @@
             </div>
         </div>
     </div>
+    
 	<%-- 페이징 적용 --%>
 	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
 		<ul class="pagination justify-content-center policy_page_navbox">
@@ -210,7 +213,25 @@
         </div>
     </div>
 </div>
-        
+<!-- 복구 버튼 Modal -->
+<div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">게시글 관리</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                        <div style="text-align:center">해당 신고의 처리를 복구할까요?</div>
+            </div>
+            <div class="modal-footer" style="justify-content:center">
+                <button type="button" id="deleteCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function () {
     
@@ -328,7 +349,7 @@ $(document).ready(function () {
   	          keyword: $("#actionForm").find("input[name='keyword']").val()
            },
            success: function(data){
-              let userTbody = $("#admin_commentTable tbody");
+              let userTbody = $("#admin_boardTable tbody");
               userTbody.empty(); // 기존 테이블 행 삭제
                  
               //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
@@ -345,8 +366,8 @@ $(document).ready(function () {
                  row.append($("<td>").text(comment.boardType === "T" ? "꿀팁" : "정책"));
                  row.append($("<td>").text(comment.writer));
                  
-                 let contentTd = $("<td>");
-               	 let contentLink = $("<a>").addClass("contentLink").attr("href", "").text(comment.content);
+                 let contentTd = $("<td>").addClass("adminBoard_titleTd");
+               	 let contentLink = $("<a>").addClass("titleLink").attr("href", "").text(comment.content);
                	 
               	 // 댓글이 속한 게시글의 bno 값을 댓글 요소에 추가
                	 contentLink.data("bno", comment.bno);
@@ -357,13 +378,16 @@ $(document).ready(function () {
                  row.append(contentTd);
                  
                  row.append($("<td>").text(formateDate));
-                 row.append($("<td>").addClass("comment_countReportBtn").text(comment.countReport));
+                 row.append($("<td>").addClass("board_countReportBtn").text(comment.countReport));
                  
                  let deleteTd = $("<td>");
-                 let deleteImg = $("<i>").addClass("fa fa-trash fa-2x text-primary admin_reportModal");
-                 let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "").text("삭제");
-                 deleteTd.append(deleteImg, deleteLink);
+                 let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "");
+                 let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
+                 deleteLink.append(deleteImg);
+                 deleteTd.append(deleteLink);
                  
+                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
+                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
                  if(comment.isChecked == 1){
@@ -375,6 +399,14 @@ $(document).ready(function () {
                  }else{
                 	 row.append(deleteTd);  
                  }
+                 
+                 let rollbackTd = $("<td>");
+                 let rollbackLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+                 let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                 
+                 rollbackLink.append(rollbackBtn);
+                 rollbackTd.append(rollbackLink);
+				 row.append(rollbackTd);
                  
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});

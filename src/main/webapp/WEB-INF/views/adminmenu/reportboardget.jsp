@@ -78,7 +78,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table id="admin_boardTable" class="table table-hover admin_boardTable">
+                                    <table id="admin_boardTable" class="table table-default admin_boardTable">
 
 
                                         <thead>
@@ -268,12 +268,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" >
-                                <div style="text-align:center">해당 신고를 처리할 방법을 선택하세요</div>
+                                <div style="text-align:center">해당 신고의 처리를 복구할까요?</div>
                                 
                     </div>
                     <div class="modal-footer" style="justify-content:center">
-                        <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
-                        <button type="button" id="passCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
+                        <button type="button" id="deleteCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                        <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                       
 
                     </div>
@@ -414,7 +414,7 @@ $(document).ready(function () {
                  row.append($("<td>").text(board.boardType === "T" ? "꿀팁" : "건의"));
                  row.append($("<td>").text(board.writer));
                  
-                 let titleTd = $("<td>");
+                 let titleTd = $("<td>").addClass("adminBoard_titleTd");
                	 let titleLink = $("<a>").addClass("titleLink").attr("href", "").text(board.title);
                	 titleTd.append(titleLink);
                  row.append(titleTd);

@@ -54,7 +54,7 @@
                 <div class="col-md-10">
                 <form action="/policy/indexsearch" method="post">
                 
-                    <div class="row g-2 justify-content-center">                    
+                   	 <div class="row g-2 justify-content-center">                    
 	                        <div class="col-md-3_a">
 	                            <select class="form-select" name="rgnSeNm">
 	                                <option selected>지역선택</option>
@@ -80,6 +80,21 @@
 	                    		<button type="submit" class="btn btn-primary w-100">정책검색</button>
 	                		</div>	                	
                     	</div>
+                    	
+                    	<div class="row g-2">
+                    		<div class="col-md-7">
+                    			<span>인기 검색어</span>
+                    			<a href="">#<span>중소기업</span></a>
+                    			<a href="">#<span>19세</span></a>
+                    			<a href="">#<span>대학생</span></a>
+                    			<a href="">#<span>창업</span></a>
+                    			<a href="">#<span>전세</span></a>
+                    			
+                    		</div>
+                    	
+                    	</div>
+                    	
+                    
                     	
                     </form>
                 </div>
