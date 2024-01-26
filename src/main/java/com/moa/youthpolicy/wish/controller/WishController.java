@@ -58,7 +58,7 @@ public class WishController {
 		
 	}
 	
-	// 위시한 policy 리스트 가져오기 
+	// 위시한 policy 리스트 가져f오기 
 	@ResponseBody
 	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){

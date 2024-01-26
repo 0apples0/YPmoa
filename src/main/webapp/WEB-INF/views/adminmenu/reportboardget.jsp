@@ -429,7 +429,7 @@ $(document).ready(function () {
                  deleteTd.append(deleteLink);
                  
                  let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
-                 let delCompleteBtn = $("<i>").addClass("fa fa-times-circle	text-danger fa-2x admin_reportModal");
+                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
                  if(board.isChecked == 1){

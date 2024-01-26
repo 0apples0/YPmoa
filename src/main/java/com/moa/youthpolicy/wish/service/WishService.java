@@ -32,7 +32,7 @@ public class WishService implements BoardInterface {
 	PolicyMapper policyMapper;
 	@Override
 	public <T> void delBoard(Class<T> board) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated methodf stub
 		
 	}
 
@@ -48,7 +48,6 @@ public class WishService implements BoardInterface {
 	@Override
 	public List<PolicyVO> getPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
-		log.info("서비스의: "+list);
 		if (AuthUtil.isLogin()) {
 			for (PolicyVO vo : list) {
 				WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
