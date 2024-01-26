@@ -411,7 +411,6 @@
 	                                "font-weight": "600" // 폰트 굵기
 	                            });
 	                        }
-	                        
 	                        console.log("pagemaker: "+${pageMaker.realEnd});
 						});
 					}
