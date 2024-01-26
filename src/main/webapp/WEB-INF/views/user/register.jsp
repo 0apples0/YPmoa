@@ -315,7 +315,7 @@
 		                nickCheckDone = false;
 		                enableOrDisableRegisterButton();
 		                // 실패 시 메시지를 변경하고 일정 시간 후에 숨김
-		                nicknameValidation.text("이미 사용 중인 닉네임입니다.").delay(3000).fadeOut();
+		                nicknameValidation.text("이미 사용 중인 닉네임입니다.").show();
 		            }
 		        },
 		        error: function () {

@@ -54,8 +54,9 @@ public class PolicyController {
 	
 	
 	@PostMapping("/write")
-	public void writePolicy(PolicyVO vo) {
+	public String writePolicy(PolicyVO vo) {
 		service.wirteBoard(vo);
+		return "redirect:/policy/policy";			
 	}
 	
 	@ResponseBody
@@ -75,10 +76,10 @@ public class PolicyController {
 	
 	@RequestMapping(value = { "/policy", "/policyPost" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public void policy(Criteria cri, Model model) {
+		log.info(cri);
 		cri.setAmount(8);
 		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
 		PageDTO pageResult = new PageDTO(cri, total);
-		log.info(pageResult);
 		model.addAttribute("pageMaker", pageResult);
 	}
 	

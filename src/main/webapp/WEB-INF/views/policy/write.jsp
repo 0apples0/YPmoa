@@ -157,7 +157,7 @@
                                        
                                         <div>
                                             <button type="button" onclick="validate()" class="btn btn-primary">등록하기</button>
-                                            <button class="btn btn-warning">취소</button>
+                                            <button class="btn btn-warning" onclick="getBack(event)">취소</button>
                                         </div>
                                      
                                     </div>
@@ -180,7 +180,10 @@
 
 
 <script>
-
+function getBack(e){
+	e.preventDefault();
+	 window.location.href = "/policy/policy";
+}
 
 
 jQuery(document).ready(function ($) {
