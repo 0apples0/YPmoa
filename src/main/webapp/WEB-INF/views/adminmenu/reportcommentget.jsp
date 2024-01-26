@@ -87,6 +87,7 @@
             </div>
         </div>
     </div>
+    
 	<%-- 페이징 적용 --%>
 	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
 		<ul class="pagination justify-content-center policy_page_navbox">
