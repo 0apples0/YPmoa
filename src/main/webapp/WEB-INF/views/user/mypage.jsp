@@ -24,7 +24,7 @@
 <form method="post" action="/user/mypage" id="modifyForm">
     <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="text-center wow fadeIn" data-wow-delay="0.1s">
                 <div class="g-2 justify-content-center">
                     <h3 class="text-center text-primary "> <i class="fa fa-user-edit text-primary"></i> 맞춤 조건 설정</h3>
                     <div class="col-md-12">
