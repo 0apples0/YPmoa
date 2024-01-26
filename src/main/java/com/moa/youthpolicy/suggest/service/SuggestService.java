@@ -50,6 +50,7 @@ public class SuggestService implements BoardGenericService{
 		return suggestMapper.getBoard(key);
 	}
 
+	// 게시글 검색
 	@Override
 	public List<SuggestVO> getPage(Criteria cri) {
 		log.info("------service in getList------");

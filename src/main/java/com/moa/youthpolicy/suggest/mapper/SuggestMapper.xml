@@ -70,8 +70,14 @@
 		</if>
 	    <if test="type != null and keyword != null and keyword != ''">
 	        <choose>
+	            <when test='type == ""'>
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%') OR 
+	                writer LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
 	            <when test='type == "TC"'>
-	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR 
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%'))
 	            </when>
 	            <when test='type == "T"'>
 	                AND title LIKE CONCAT('%', #{keyword}, '%')
