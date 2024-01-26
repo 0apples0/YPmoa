@@ -170,4 +170,17 @@ public class SuggestController {
 	public boolean reportBoard(BoardReportVO vo) {
 		return suggestService.reportBoard(vo);
 	}
+	
+	
+
+	// 새글 알람
+	@ResponseBody
+	@GetMapping("/newAlarm")
+	public  List<Integer> endAlarm() {
+		 List<Integer> response = suggestService.newBoardAlarm();
+		 log.info("새글 번호: "+response);
+		return response;
+	
+		
+	}
 }

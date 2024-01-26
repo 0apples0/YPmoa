@@ -154,4 +154,11 @@
 		(suggestbno, reasonCategory, reporter, reason, boardType)
 		values(#{suggestbno},#{reasonCategory},#{reporter},#{reason},#{boardType})
 	</insert>
+	
+	<!-- 새글알람 -->
+	<select id="alarmNew" resultType="int" parameterType="com.moa.youthpolicy.suggest.domain.SuggestVO">
+	    SELECT bno
+	    FROM suggestedboard
+	    WHERE DATE(regDate) = CURDATE()
+	</select>
 </mapper>
