@@ -68,7 +68,7 @@
 
 	</select>
 
-	<select id="getfiveboard"
+	<select id="getfiveboard" 
 		resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
 		SELECT policy.* FROM policy
 		JOIN wish ON policy.no =
