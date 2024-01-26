@@ -216,6 +216,7 @@
                                <table id="reportReasonTable" class="table table-bordered admin_boardModal">
                                 <thead>
                                     <th>신고자<br>닉네임</th>
+                                    <th>신고 사유</th>
                                     <th>기타 신고 사유</th>
                                     <th>신고날짜</th>
                                 </thead>
@@ -319,6 +320,13 @@ $(document).ready(function () {
 		// 처리 버튼 클릭 시 삭제 완료 or 처리 완료 진행
 		row.off("click", ".board_deleteBtn").on("click", ".board_deleteBtn", function(e){
 			e.preventDefault();
+			
+            let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
+            let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
+            let rollbackLink = $("<a>").addClass("board_rollbackBtn").attr("href", "");
+            let rollbackBtn = $("<i>").addClass("fa fa-reply text-success fa-2x admin_reportModal");
+            rollbackLink.append(rollbackBtn);
+            
 			$('#modalCenterSelect').modal('show');
 			//삭제 버튼 체크 시
 			$('#deleteCheckBtn').off("click").on("click", function(e){
@@ -335,7 +343,9 @@ $(document).ready(function () {
 			        success: function (response) {
 			            console.log("게시글 삭제가 완료되었습니다.");
 			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
-			            row.find('.board_deleteBtn').parent('td').empty().text('삭제 완료');
+			            row.find('.board_deleteBtn').parent('td').empty().append(delCompleteBtn);
+			            row.find('.rollbackTd').empty().append(rollbackLink);
+			            
 
 			            $.ajax({
 			                url: "/adminmenu/updateBoardReport",
@@ -363,7 +373,7 @@ $(document).ready(function () {
 			// 처리 버튼 클릭 시
 			$('#passCheckBtn').off("click").on("click", function(e){
 				e.preventDefault();
-				row.find('.board_deleteBtn').parent('td').empty().text('처리 완료');
+				row.find('.board_deleteBtn').parent('td').empty().append(chkCompleteBtn);
 	            $.ajax({
 	                url: "/adminmenu/updateBoardReport",
 	                type: "POST",
@@ -380,7 +390,49 @@ $(document).ready(function () {
 	                }
 	            });				
 			});
-			
+			/*
+			// 복구 버튼 체크 시
+			$('.board_rollbackBtn').off("click").on("click", function(e){
+				e.preventDefault();
+
+				$.ajax({
+			        url: "/adminmenu/rollbackBoard",
+			        type: "POST",
+			        dataType: "text", 
+			        data: {
+			        	bno: bno, // 삭제 대상 게시글 번호
+			        	boardType: boardType // 삭제 대상 게시판 타입
+			        },
+			        success: function (response) {
+			            console.log("게시글 삭제가 완료되었습니다.");
+			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
+			            row.find('.board_deleteBtn').parent('td').empty().append(delCompleteBtn);
+			            row.find('.rollbackTd').empty().append(rollbackLink);
+			            
+
+			            $.ajax({ //함수로 묶어야함
+			                url: "/adminmenu/updateBoardReport",
+			                type: "POST",
+			                dataType: "text", 
+			                data: {
+			                    bno: bno, // 처리 대상 게시글 번호
+			                    boardType: boardType // 처리 대상 게시판 타입
+			                },
+			                success: function (updateResponse) {
+			                    console.log("boardReport 테이블의 ischecked 값을 업데이트 했습니다."); //ischecked값 1이면 0, 0이면 1로 설정하는 코드 추가해야함
+			                },
+			                error: function (updateError) {
+			                    console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
+			                }
+			            });
+			            
+
+			        },
+			        error: function (error) {
+			            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
+			        }
+			    });				
+			});*/			
 		});
 	}
   	
@@ -432,9 +484,15 @@ $(document).ready(function () {
                  let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
+                 let rollbackTd = $("<td>").addClass("rollbackTd");
                  if(board.isChecked == 1){
                 	 if(board.isdeleted == 1){
-                    	 row.append($("<td>").append(delCompleteBtn));               		 
+                    	 row.append($("<td>").append(delCompleteBtn));  
+                         let rollbackLink = $("<a>").addClass("board_rollbackBtn").attr("href", "");
+                         let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                         
+                         rollbackLink.append(rollbackBtn);
+                         rollbackTd.append(rollbackLink);
                 	 }else{
                 		 row.append($("<td>").append(chkCompleteBtn)); 
                 	 }
@@ -442,12 +500,6 @@ $(document).ready(function () {
                 	 row.append(deleteTd);  
                  }
                  
-                 let rollbackTd = $("<td>");
-                 let rollbackLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
-                 let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
-                 
-                 rollbackLink.append(rollbackBtn);
-                 rollbackTd.append(rollbackLink);
 				row.append(rollbackTd);
                  
                  userTbody.append(row);
@@ -503,7 +555,18 @@ $(document).ready(function () {
                     // numeric: 숫자, 2-digit: 두자리 숫자 형식
                     let options = {year:"numeric", month:"2-digit", day:"2-digit"};
                     let formateDate = reportDate.toLocaleString("ko-KR", options);
-                    console.log(report.reasonCategory);
+        			let row = $("<tr>");
+        			row.append($("<td>").text(report.reporter));
+        			row.append($("<td>").text(report.reasonCategory));
+        			if(report.reason==null || report.reason==''){
+        				row.append($("<td>").text("-"));
+        			}else{
+        				row.append($("<td>").text(report.reason));        				
+        			}
+                    
+                    row.append($("<td>").text(formateDate)); 
+                    reasonTbody.append(row);
+                    
                     switch (report.reasonCategory) {
                     case "불건전한 내용":
                     	reportCount[0] += 1;
@@ -516,11 +579,6 @@ $(document).ready(function () {
                     	break;
                     case "기타":
                     	reportCount[3] += 1;
-            			let row = $("<tr>");
-            			row.append($("<td>").text(report.reporter));
-                        row.append($("<td>").text(report.reason));
-                        row.append($("<td>").text(formateDate)); 
-                        reasonTbody.append(row);
                         break;
                     default:
                         console.error("Unexpected reasonCategory:", report.reasonCategory);
@@ -528,10 +586,6 @@ $(document).ready(function () {
            		 	
             	});
             	
-            	let noReasontr = $("<tr>").append($("<td>").attr("colspan", 3).text("-"));
-            	if(reportCount[3]==0){ //기타 사유 없을 시 표에 - 표시
-            		reasonTbody.append(noReasontr);
-            	}
             	
             	$("#modalDetailcount1 span").text(reportCount[0]);
             	$("#modalDetailcount2 span").text(reportCount[1]);
