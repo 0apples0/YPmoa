@@ -57,6 +57,7 @@ public class CommunityController {
 	public void list(Criteria cri, Model model) {
 		log.info("contorller : "+ cri.getWriter());
 		log.info("키워드 로그: "+cri.getKeyword());
+		log.info("좋아요순 로그: "+cri.getSelectedFilter());
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
 		log.info("totalpage: "+total);		
