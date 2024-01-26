@@ -185,43 +185,31 @@ function getBack(e){
 	 window.location.href = "/policy/policy";
 }
 
-
-jQuery(document).ready(function ($) {
-    $('#summernote').summernote({
-        height: 500,                
-        minHeight: null,             
-        maxHeight: null,                  
-        lang: "ko-KR",					// 한글 설정
+$(document).ready(function ($) {
+	
+	$('#summernote').summernote({
+        height: 500,
+        minHeight: null,
+        maxHeight: null,
+        lang: "ko-KR",	// 한글 설정
         focus: true,
         toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['picture', ['[picture]']],
-        ['insert', ['link', 'picture']],
-    	],
-    	callbacks : {
-			onImageUpload : function(files, editor, welEdit) {
-				//alert("^^");
-				//console.log('img upload: ', files);
-				//이미지를 첨부하면 배열로 인식된다.
-				//이것을 서버로 비동기식 통신을 하는 
-				//함수를 호출하면서 보낸다.
-				sendFile(files[0], editor, welEdit);
-			}
-		}
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['picture', ['[picture]']],
+            ['insert', ['link', 'picture']],
+        ]
 
     });
-
-
-    $('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
-
-
-    function sendFile(file, editor, welEdit) {
+	
+	$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
+	
+	function sendFile(file, editor, welEdit) {
     	console.log("file" + file);
 		//파라미터를 전달하기 위해 form객체 만든다.
 		var frm = new FormData();
@@ -257,8 +245,7 @@ jQuery(document).ready(function ($) {
 			console.log(e);
 		});
 	}
-
-}); // 글쓰기에디터 ready함수 끝
+}
 
 function validate() {
     var startDate = document.getElementById("dateInputStart").value;
