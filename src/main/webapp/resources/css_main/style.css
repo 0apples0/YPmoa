@@ -385,7 +385,7 @@
 /*** myPage ***/
 
 .mypage_label{
-    text-align: right;
+    text-align: left;
 }
 
 /*** Section Title ***/
@@ -894,8 +894,8 @@
 #card-body{
  padding-right: 70px;
     padding-left: 70px;
-    padding-top: 55px;
-    padding-bottom: 55px;
+    padding-top: 80px;
+    padding-bottom: 70px;
     width: 100%;
 }
 

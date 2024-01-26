@@ -36,6 +36,7 @@
 	<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(bno) FROM suggestedboard
 		WHERE bno>0
+		AND isdeleted=0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
 		</if>
@@ -63,6 +64,7 @@
 	<select id="getListWithPaging" resultType="SuggestVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM suggestedboard
 		WHERE bno>0
+		AND isdeleted=0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
 		</if>
