@@ -53,7 +53,7 @@
 	    WHERE no > 0
 	    <if test="type != null and keyword != null and keyword != ''">
 		    <choose>
-	            <when test='type == "TC"'>
+	            <when test='type == ""'>
 	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
 	            <when test='type == "T"'>
