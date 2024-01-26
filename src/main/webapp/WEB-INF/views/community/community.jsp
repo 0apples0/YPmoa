@@ -388,7 +388,6 @@
 	                		titleLink.append(newAlarm);
 	                
 			                let titleTd = $("<td>").append(titleLink);
-			                
 			                row.append(titleTd);
 			                row.append($("<td>").text(board.writer));
 			                row.append($("<td>").text(formateDate));
