@@ -171,8 +171,6 @@ public class SuggestController {
 		return suggestService.reportBoard(vo);
 	}
 	
-	
-
 	// 새글 알람
 	@ResponseBody
 	@GetMapping("/newAlarm")
