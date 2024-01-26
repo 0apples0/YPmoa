@@ -44,7 +44,7 @@
 	    SELECT
 	        COUNT(DISTINCT CASE
 	                WHEN boardType = 'T' AND EXISTS (SELECT 1 FROM tipboardcomments WHERE tipcno = commentsreport.tipcno) THEN commentsreport.tipcno
-	                WHEN boardType = 'S' AND EXISTS (SELECT 1 FROM policyboardcomments WHERE policycno = commentsreport.policycno) THEN commentsreport.policycno
+	                WHEN boardType = 'P' AND EXISTS (SELECT 1 FROM policyboardcomments WHERE policycno = commentsreport.policycno) THEN commentsreport.policycno
 	                ELSE NULL
 	            END
 	        ) AS totalCount
@@ -57,8 +57,8 @@
 	            <when test='boardType == "T"'>
 	                boardType = 'T'
 	            </when>
-	            <when test='boardType == "S"'>
-	                boardType = 'S'
+	            <when test='boardType == "P"'>
+	                boardType = 'P'
 	            </when>
 	        </choose>
 	        <if test="keyword != null and keyword != ''">
@@ -66,11 +66,11 @@
 	                SELECT 1 FROM (
 	                    SELECT tipcno AS cno, writer FROM tipboardcomments WHERE boardType = 'T'
 	                    UNION ALL
-	                    SELECT policycno AS cno, writer FROM policyboardcomments WHERE boardType = 'S'
-	                ) board
+	                    SELECT policycno AS cno, writer FROM policyboardcomments WHERE boardType = 'P'
+	                ) comment
 	                WHERE comment.cno = CASE
 	                    WHEN boardType = 'T' AND commentsreport.tipcno IS NOT NULL THEN commentsreport.tipcno
-	                    WHEN boardType = 'S' AND commentsreport.policycno IS NOT NULL THEN commentsreport.policycno
+	                    WHEN boardType = 'P' AND commentsreport.policycno IS NOT NULL THEN commentsreport.policycno
 	                    ELSE NULL
 	                END
 	                AND comment.writer LIKE CONCAT('%', #{keyword}, '%')
@@ -408,7 +408,7 @@
 		<when test='boardType == "T"'>
 			UPDATE tipboardcomments
 		</when>
-		<when test='boardType == "S"'>
+		<when test='boardType == "P"'>
 			UPDATE policyboardcomments
 		</when>			
 		</choose>

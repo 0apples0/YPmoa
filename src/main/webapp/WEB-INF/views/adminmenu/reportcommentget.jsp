@@ -31,7 +31,7 @@
                         	<select class="form-select" name="boardType">                                        
                             	<option value=""
 									<c:out value="${pageMaker.cri.boardType == null ?'selected':'' }"/>>게시판</option>
-								<option value="S"
+								<option value="P"
 									<c:out value="${pageMaker.cri.boardType == 'P'?'selected':'' }"/>>정책</option>
 								<option value="T"
 									<c:out value="${pageMaker.cri.boardType == 'T'?'selected':'' }"/>>꿀팁</option>
