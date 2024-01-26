@@ -5428,7 +5428,7 @@ fieldset:disabled .btn {
 }
 .badge_board{
   position: relative;
-  right: -5px;
+  
   top: -1px;
   display: inline-block;
   padding-left:  .4em;

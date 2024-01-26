@@ -125,7 +125,7 @@
 									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
 								</div>
 								<div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
-									<button id="gotoMineBtn" class="btn btn-warning w-100">내글보기</button>
+									<button id="gotoMineBtn" class="btn btn-warning ">내글보기</button>
 								</div>	                       	  
 							</c:when>
 		 					<c:otherwise>
@@ -228,6 +228,9 @@
 
 <script>
 	$(document).ready(function () {
+		
+		setButtonText();
+		
 		// 댓글 갯수
 		let getCommentNm = function(bno) {
 			$.ajax({
@@ -256,7 +259,7 @@
 	          	url: "/community/newAlarm",
 	          	success: function (data) {
 	          		addedBno = data;
-	              	loadTableData();
+	                loadTableData(addedBno);
 	          	},
 	          	error: function (xhr, status, error) {
 	          		console.error("new알람 실패:", status, error);
@@ -286,14 +289,25 @@
 	       	if(checkwriterValue){
 	       		$("#actionForm").find("input[name='writer']").val('');
 	    	   	$("#actionForm").find("input[name='pageNum']").val(1);
+	    		$(this).text("목록"); 
 	       	}else{
 	    	   	$("#actionForm").find("input[name='writer']").val('${user.nick}');
 	    	   	$("#actionForm").find("input[name='pageNum']").val(1);
+	    	   
 	       	}
 	       	let gotoMineForm = $("#actionForm");
 	   	   	e.preventDefault();
 	   	   	gotoMineForm.submit();
 	    });   
+	    
+	    function setButtonText() {
+	        let checkwriterValue = $("#actionForm").find("input[name='writer']").val();
+	        if (checkwriterValue) {
+	            $("#gotoMineBtn").text("목록");
+	        } else {
+	            $("#gotoMineBtn").text("내글보기");
+	        }
+	    }
 		
 		let searchForm = $("#searchForm");
 			
@@ -358,16 +372,17 @@
 							row.append($("<td>").text(board.category));
 							let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/community/get?bno="+board.bno).text(board.title);
 							
-							let commentbox = $("<span>").addClass("board_commentCnt");
 							let commentNm = $("<span>").addClass("board_commentNm").attr("data-bno", board.bno).text("");
 							
-							commentbox.append(commentNm);
-							titleLink.append(commentbox);
+						
+							titleLink.append(commentNm);
 							
 							let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
-							if (board.bno === addedBno) {
-							    newAlarm.attr("hidden", false);
-							}
+							addedBno.forEach(function(bno) {
+							    if (board.bno == bno) {
+							        newAlarm.attr("hidden", false);
+							    }
+							});
 	              
 	                		titleLink.append(newAlarm);
 	                
