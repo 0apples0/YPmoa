@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.moa.youthpolicy.admin.domain.AdminVO;
 import com.moa.youthpolicy.admin.mapper.AdminMapper;
 import com.moa.youthpolicy.common.BoardReportVO;
+import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.UserGenericService;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -104,21 +105,38 @@ public class AdminService implements UserGenericService{
 		adminMapper.updateUserCountReport(cri);
 		log.info("크리"+cri.toString());
 	}
-
+	
 	// boardreport 테이블 내 ischecked 상태 업데이트 
 	public void updateBoardReport(Criteria cri) {
 		adminMapper.updateBoardReport(cri);
 		log.info("크리크리"+cri.toString());
 	}
 
-	// 신고사유 모달에 담을 데이터 추출
+	// 게시글 신고사유 모달에 담을 데이터 추출
 	public List<BoardReportVO> getBoardReportDetail(Criteria cri) {
 		List<BoardReportVO> reportvo = adminMapper.getBoardReportDetail(cri);
 		log.info("가지고 온 값!!"+reportvo.toString());
 		return reportvo;
 	}
 
+	// 댓글 삭제, user 테이블 내 countReport 값 1 증가
+	public void deleteComment(Criteria cri) {
+		adminMapper.deleteComment(cri);
+		adminMapper.updateUserCountReport(cri);
+		log.info("크리"+cri.toString());
+	}
 
+	// commentreport 테이블 내 ischecked 상태 업데이트 
+	public void updateCommentReport(Criteria cri) {
+		adminMapper.updateCommentReport(cri);
+		log.info("크리크리"+cri.toString());
+	}
 
+	// 댓글 신고사유 모달에 담을 데이터 추출
+	public List<CommentsReportVO> getCommentReportDetail(Criteria cri) {
+		List<CommentsReportVO> reportvo = adminMapper.getCommentReportDetail(cri);
+		log.info("가지고 온 값!!"+reportvo.toString());
+		return reportvo;
+	}
 
 }

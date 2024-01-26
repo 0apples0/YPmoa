@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.moa.youthpolicy.admin.domain.AdminVO;
 import com.moa.youthpolicy.admin.service.AdminService;
 import com.moa.youthpolicy.common.BoardReportVO;
+import com.moa.youthpolicy.common.CommentsReportVO;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.user.domain.UserVO;
@@ -61,8 +62,6 @@ public class AdminController {
 	// 신고 댓글 전체 리스트 출력
 	@RequestMapping(value="/reportcommentget", method= {RequestMethod.GET, RequestMethod.POST})
 	public void commentList(Criteria cri, Model model) {
-		log.info("contorller : ");
-		
 		int total = adminService.getTotalCommentAmount(cri); //전체 신고 댓글 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
@@ -71,7 +70,7 @@ public class AdminController {
 	}	
 
 	@ResponseBody
-	@RequestMapping(value="/getCommentList", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/getReportCommentList", method={RequestMethod.GET, RequestMethod.POST})
 	public List<AdminVO> commentGetList(Criteria cri, Model model){
 		log.info("Ajax 호출"+cri.toString());
 		return adminService.getCommentPage(cri);
@@ -84,7 +83,7 @@ public class AdminController {
 		log.info("type: "+cri.getType());
 		log.info("type: "+cri.getBoardType());
 		
-		int total = adminService.getBoardTotalAmount(cri); //전체 회원 수 출력
+		int total = adminService.getBoardTotalAmount(cri); //전체 게시글 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info("리얼엔드:"+pageResult.getRealEnd());
@@ -120,10 +119,31 @@ public class AdminController {
 		adminService.updateBoardReport(cri);
 	}
 	
-	// 신고 상세 사유 모달에 담을 데이터 추출
+	// 게시글 신고 상세 사유 모달에 담을 데이터 추출
 	@ResponseBody
 	@RequestMapping(value="/getBoardReportDetail", method={RequestMethod.GET, RequestMethod.POST})
 	public List<BoardReportVO> getBoardReportDetail(Criteria cri){
 		return adminService.getBoardReportDetail(cri);
+	}
+	
+	// 신고 댓글 삭제 처리(isdeleted 값 업데이트, user table의 countReport 값 1증가)
+	@ResponseBody
+	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
+	public void deleteComment(Criteria cri){
+		adminService.deleteComment(cri);
+	}
+	
+	// 신고 댓글 처리(ischecked 값 업데이트)
+	@ResponseBody
+	@RequestMapping(value="/updateCommentReport", method={RequestMethod.GET, RequestMethod.POST})
+	public void updateCommentReport(Criteria cri){
+		adminService.updateCommentReport(cri);
+	}
+	
+	// 댓글 신고 상세 사유 모달에 담을 데이터 추출
+	@ResponseBody
+	@RequestMapping(value="/getCommentReportDetail", method={RequestMethod.GET, RequestMethod.POST})
+	public List<CommentsReportVO> getCommentReportDetail(Criteria cri){
+		return adminService.getCommentReportDetail(cri);
 	}
 }
