@@ -363,11 +363,16 @@
 		        return false;
 		    }
 		
-		    // 이름 유효성 검사 (필요에 따라 추가)
+		 	// 이름 유효성 검사 (필요에 따라 추가)
 		    var nameField = $(".regi_pwd_form-control[name='name']");
 		    var nameValidation = $("#nameValidation");
+		    var nameRegex = /^[a-zA-Z가-힣]+$/; // 영어 또는 한글만 허용
+
 		    if (nameField.val() === "") {
 		        nameValidation.text("이름을 입력해주세요.").show();
+		        return false;
+		    } else if (!nameRegex.test(nameField.val())) {
+		        nameValidation.text("이름은 한글 또는 영어로만 입력해주세요.").show();
 		        return false;
 		    }
 		

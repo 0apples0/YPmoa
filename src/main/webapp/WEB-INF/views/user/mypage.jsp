@@ -95,7 +95,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label mypage_label" for="basic-default-company">이름</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="Email" name="Email" value="<%=user.getName()%>" />
+                                        <input type="text" class="regi_pwd_form-control" required readonly="readonly" aria-describedby="basic-default-password" id="name" name="name" value="<%=user.getName()%>" />
                                     </div>
                                 </div>
                                 <!-- 연락처 입력, 중복확인 버튼 -->
