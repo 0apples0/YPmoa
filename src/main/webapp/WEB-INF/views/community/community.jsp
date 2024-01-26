@@ -280,7 +280,8 @@
 		    $("#actionForm input[name='pageNum']").val(1);
 		    newAlarm();
 		    // actionForm submit 호출
-		    actionForm.submit();
+		    //actionForm.submit();
+		    loadTableData();
 		});
 	    
 	    // 내글 보기
