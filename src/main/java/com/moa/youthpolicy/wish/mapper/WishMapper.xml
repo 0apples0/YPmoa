@@ -12,7 +12,7 @@
 		WHERE wishUser LIKE #{wishUser} AND wishPolicy LIKE #{wishPolicy}
 	</select>
 
-	<!-- delWish -->
+	<!-- delWisfh -->
 	<delete id="delWish"
 		parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 		DELETE FROM wish
@@ -33,7 +33,7 @@
 		SELECT policy.*
 		FROM policy
 		JOIN wish ON policy.no = wish.wishPolicy
-		WHERE wish.wishUser LIKE #{wishUser}
+	
 		<if test="type != null and keyword != null and keyword != ''">
 			<choose>
 				<when test='type == ""'>
@@ -75,35 +75,36 @@
 		ORDER BY no DESC LIMIT 5
 	</select>
 
-	<select id="getTotalCount" resultType="int"
-		parameterType="com.moa.youthpolicy.common.Criteria">
-		SELECT COUNT(policy.no)
-		FROM policy
-		JOIN wish ON policy.no = wish.wishPolicy
-		<if test="type != null and keyword != null and keyword != ''">
-			<choose>
-				<when test='type == ""'>
-					AND (policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR
-					policy.policyCn LIKE CONCAT('%', #{keyword}, '%'))
-				</when>
-				<when test='type == "T"'>
-					AND policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
-				</when>
-				<when test='type == "C"'>
-					AND policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
-				</when>
-			</choose>
-		</if>
-		<if test="rgnSeNm != null and rgnSeNm != ''">
-			AND policy.rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
-		</if>
-		<if test="policyTypeNm != null and policyTypeNm != ''">
-			AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
-		</if>
-		<if test="selectedFilter == 1">
-			AND wish.isAlert = 1
-		</if>
+		<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+	    SELECT COUNT(wish.wishPolicy)
+	    FROM policy
+	    JOIN wish ON policy.no = wish.wishPolicy
+	    <if test="type != null and keyword != null and keyword != ''">
+	        AND (
+	            <choose>
+	                <when test='type == ""'>
+	                    policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                </when>
+	                <when test='type == "T"'>
+	                    policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
+	                </when>
+	                <when test='type == "C"'>
+	                    policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                </when>
+	            </choose>
+	        )
+	    </if>
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND policy.rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+	    <if test="selectedFilter == 1">
+	        AND wish.isAlert = 1
+	    </if>
 	</select>
+
 
 
 
@@ -136,7 +137,6 @@
 		    AND ABS(DATEDIFF(CURDATE(), policy.aplyEndDt)) &lt;= 7
 		    AND wish.isAlert LIKE 1;
 	</select>
-
 
 
 
