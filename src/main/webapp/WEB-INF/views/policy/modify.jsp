@@ -218,7 +218,7 @@
             	console.log("file" + file);
         		//파라미터를 전달하기 위해 form객체 만든다.
         		var frm = new FormData();
-
+ 
         		//위의 frm객체에 send_img이라는 파라미터를 지정!
         		frm.append("send_img", file);
         		//		frm.append("type", "saveImg");
