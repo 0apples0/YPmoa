@@ -63,7 +63,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
     <!-- Booking End -->
@@ -89,7 +88,8 @@
                                                 <th data-sort="title">글 제목</th>
                                                 <th data-sort="date">작성일</th>
                                                 <th data-sort="reportNum">신고횟수</th>
-                                                <th data-sort="delete">처리여부</th>
+                                                <th data-sort="delete">관리</th>
+                                                <th data-sort="rollback">복구</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
             </div>
-            
+           </div> 
                     <%-- 페이징 적용 --%>
         <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
             <ul class="pagination justify-content-center policy_page_navbox">
@@ -237,6 +237,29 @@
         
         
         <!-- 신고 버튼 Modal -->
+        <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">게시글 관리</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" >
+                                <div style="text-align:center">해당 신고를 처리할 방법을 선택하세요</div>
+                                
+                    </div>
+                    <div class="modal-footer" style="justify-content:center">
+                        <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
+                        <button type="button" id="passCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">처리완료</button>
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 복구 버튼 Modal -->
         <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -400,21 +423,32 @@ $(document).ready(function () {
                  row.append($("<td>").addClass("board_countReportBtn").text(board.countReport));
                  
                  let deleteTd = $("<td>");
-                 let deleteImg = $("<i>").addClass("fa fa-trash fa-2x text-primary admin_reportModal");
-                 let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "").text("삭제");
-                 deleteTd.append(deleteImg, deleteLink);
+                 let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+                 let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
+                 deleteLink.append(deleteImg);
+                 deleteTd.append(deleteLink);
                  
+                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
+                 let delCompleteBtn = $("<i>").addClass("fa fa-times-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
                  if(board.isChecked == 1){
                 	 if(board.isdeleted == 1){
-                    	 row.append($("<td>").text("삭제 완료"));               		 
+                    	 row.append($("<td>").append(delCompleteBtn));               		 
                 	 }else{
-                		 row.append($("<td>").text("처리 완료"));
+                		 row.append($("<td>").append(chkCompleteBtn)); 
                 	 }
                  }else{
                 	 row.append(deleteTd);  
                  }
+                 
+                 let rollbackTd = $("<td>");
+                 let rollbackLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+                 let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                 
+                 rollbackLink.append(rollbackBtn);
+                 rollbackTd.append(rollbackLink);
+				row.append(rollbackTd);
                  
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});

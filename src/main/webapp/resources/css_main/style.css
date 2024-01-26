@@ -722,8 +722,8 @@
 .admin_boardTable thead tr th:nth-child(2){
 	width: 15%;
 }
-.admin_boardTable thead tr th:nth-child(6){
-	width: 7%;
+.admin_boardTable thead tr th:nth-child(6), .admin_boardTable thead tr th:nth-child(7){
+	width: 5%;
 }
 .admin_boardTable thead tr th:nth-child(4){
 	width: 12%;
