@@ -33,7 +33,7 @@
 		SELECT policy.*
 		FROM policy
 		JOIN wish ON policy.no = wish.wishPolicy
-	
+		WHERE wish.wishUser = #{wishUser}
 		<if test="type != null and keyword != null and keyword != ''">
 			<choose>
 				<when test='type == ""'>
@@ -57,6 +57,7 @@
 		<if test="selectedFilter == 1">
 			AND wish.isAlert = 1
 		</if>
+		
 		ORDER BY
 		CASE
 		WHEN policy.aplyEndDt IS NOT NULL THEN policy.aplyEndDt
@@ -79,6 +80,7 @@
 	    SELECT COUNT(wish.wishPolicy)
 	    FROM policy
 	    JOIN wish ON policy.no = wish.wishPolicy
+	    WHERE wish.wishUser = #{wishUser}
 	    <if test="type != null and keyword != null and keyword != ''">
 	        AND (
 	            <choose>

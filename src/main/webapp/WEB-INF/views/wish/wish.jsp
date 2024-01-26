@@ -243,6 +243,7 @@
 
 	<form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
+		<input type="hidden" name="wishUser" value="${user.email}">
 	</form>
 
 
@@ -351,6 +352,7 @@ function applyUserConditions(e) {
 			  	        rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
 			  	        policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 			  	        selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val(),
+			  	        wishUser: $("#usernickForm").find("input[name='wishUser']").val(),
 			  	        isAlert: $("#checkForm input[name='isAlert']").is(":checked") ? "isAlert" : ""
 			  	    },
 
