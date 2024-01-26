@@ -233,14 +233,11 @@ $(document).ready(function () {
 		
 		// 댓글 내용 클릭 시 링크
 		row.off("click", ".contentLink").on("click", ".contentLink", function(e){
-			console.log("댓글 내용 눌려?");
 			e.preventDefault();
 		    // 댓글이 속한 게시글의 bno 값을 가져옴
 		    let bno = $(this).data("bno");
 		    // boardType 값을 가져오기
 		    let boardType = $(this).data("boardType"); 
-		    console.log(bno);
-		    console.log(boardType);
 			if(isdeleted == 0){ 	
 				if(boardType === "T"){
 					window.location.href = "/community/get?bno="+bno;
