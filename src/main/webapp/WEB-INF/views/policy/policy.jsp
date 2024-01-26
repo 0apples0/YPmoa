@@ -182,85 +182,81 @@
 	</div>
 
 
- <%-- 페이징 적용 --%>
-        <nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
-            <ul class="pagination justify-content-center policy_page_navbox">
-
+<%-- 페이징 적용 --%>
+	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+	    <ul class="pagination justify-content-center policy_page_navbox">
 			<%-- <<버튼: 10페이지 이전 --%>
-            <li class="paginate_button policy_page-item_prev prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-                  <a class="page-link" href="${pageMaker.cri.prevprevPage}"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-double-left"
-                           aria-hidden="true"></i></a>  
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            <%-- <버튼: 1페이지 이전 --%>
-            <li class="paginate_button policy_page-item prev">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum) >1}">
-               	
-                  <a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>
-                    </c:when>
-                    <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-left"
-                           aria-hidden="true"></i></a>  
-                    </c:otherwise>     
-               </c:choose>            
-            </li>            
-
+			<li class="paginate_button policy_page-item_prev prev">
+				<c:choose>
+					<c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+					<a class="page-link" href="${pageMaker.cri.prevprevPage}">
+						<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+					</a>
+				    </c:when>
+					<c:otherwise>
+						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>  
+					</c:otherwise>     
+				</c:choose>            
+			</li> 
+			<%-- <버튼: 1페이지 이전 --%>
+			<li class="paginate_button policy_page-item prev">
+				<c:choose>
+					<c:when test="${(pageMaker.cri.pageNum) >1}">
+						<a class="page-link" href="${pageMaker.cri.pageNum -1 }">
+							<i class="fa fa-angle-left" aria-hidden="true"></i>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left" aria-hidden="true"></i></a>  
+					</c:otherwise>     
+				</c:choose>            
+			</li>            
 			<%-- 페이지 넘버 --%>
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-                    <a class="page-link" href="${num}">${num}</a>
-                </li>
-            </c:forEach>
-
+		    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+		        <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+		            <a class="page-link" href="${num}">${num}</a>
+		        </li>
+			</c:forEach>
 			<%-- >버튼: 1페이지 이동 --%>
-            <li class="paginate_button policy_page-item next">
-               <c:choose>
-               <c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
-                  <a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when> 
-               <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-                  <a class="page-link"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>
-               </c:when>               
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.endPage+1}"><i class="fa fa-angle-right"
-                           aria-hidden="true"></i></a>   
-               </c:otherwise>      
-              </c:choose>            
-            </li>
-            
-            <%-- >>버튼: 10페이지 이동 --%>  
-            <li class="paginate_button page-item next">
-               <c:choose>
-               <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-                  <a class="page-link"><i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>  
-
-               </c:when>
-               <c:otherwise>
-                  <a class="page-link" href="${pageMaker.cri.nextnextPage}">
-                           <i class="fa fa-angle-double-right"
-                           aria-hidden="true"></i></a>
-               </c:otherwise>     
-               </c:choose>            
-            </li> 
-            
-
-            </ul>
-        </nav>
-        <form id="actionFrom" action="/policy/policy" method="post">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<li class="paginate_button policy_page-item next">
+				<c:choose>
+					<c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
+						<a class="page-link" href="${pageMaker.cri.pageNum +1 }">
+		            		<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</c:when> 
+					<c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
+						<a class="page-link" style="pointer-events: none; cursor: default;">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</c:when>               
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.endPage+1}">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>   
+					</c:otherwise>     
+				</c:choose>            
+			</li>              
+			<%-- >>버튼: 10페이지 이동 --%>  
+	 		<li class="paginate_button page-item next">
+				<c:choose>
+					<c:when test="${pageMaker.realEnd == pageMaker.endPage}">
+						<a class="page-link" style="pointer-events: none; cursor: default;"> 
+						<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a>  
+					</c:when>
+					<c:otherwise>
+						<a class="page-link" href="${pageMaker.cri.nextnextPage}">
+							<i class="fa fa-angle-double-right"  aria-hidden="true"></i>
+						</a>
+					</c:otherwise>     
+				</c:choose>            
+			</li>
+		</ul>
+	</nav>
+        <form id="actionFrom" action="/policy/policy" method="post">			
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
 			<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }">
 			<input type="hidden" name="type" value="${pageMaker.cri.type }">
