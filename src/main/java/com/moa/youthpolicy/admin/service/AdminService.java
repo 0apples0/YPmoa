@@ -122,7 +122,7 @@ public class AdminService implements UserGenericService{
 	// 댓글 삭제, user 테이블 내 countReport 값 1 증가
 	public void deleteComment(Criteria cri) {
 		adminMapper.deleteComment(cri);
-		adminMapper.updateUserCountReport(cri);
+		adminMapper.updateCommentCountReport(cri);
 		log.info("크리"+cri.toString());
 	}
 

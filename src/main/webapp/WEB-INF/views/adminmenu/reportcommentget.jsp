@@ -246,7 +246,7 @@ $(document).ready(function () {
 	
 	function bindCommentActionHandlers(row, bno, cno, boardType, isdeleted) {
 		// 신고 횟수 버튼 클릭 시 모달 표시
-		row.on("click", ".comment_countReportBtn", function(e){
+		row.on("click", ".board_countReportBtn", function(e){
 			e.preventDefault();
 			loadModalData(cno, boardType);
 			$('#modalCenterReportDetail').modal('show');
@@ -392,9 +392,9 @@ $(document).ready(function () {
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
                  if(comment.isChecked == 1){
                 	 if(comment.isdeleted == 1){
-                    	 row.append($("<td>").text("삭제 완료"));               		 
+                		 row.append($("<td>").append(delCompleteBtn));               		 
                 	 }else{
-                		 row.append($("<td>").text("처리 완료"));
+                		 row.append($("<td>").append(chkCompleteBtn)); 
                 	 }
                  }else{
                 	 row.append(deleteTd);  

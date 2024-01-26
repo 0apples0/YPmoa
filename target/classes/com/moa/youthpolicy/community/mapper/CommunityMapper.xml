@@ -113,7 +113,7 @@
 	
 	<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT COUNT(cno) FROM tipboardcomments
-		WHERE bno=#{bno}
+		WHERE bno=#{bno} AND isdeleted = 0
 		AND cno NOT IN(
 			SELECT * FROM(
 				SELECT cno from tipboardcomments WHERE cno> 0 AND bno = #{bno} AND `like`>=10 ORDER BY `like` DESC LIMIT #{amountBestComment})
@@ -123,7 +123,7 @@
 
   	<select id="getCommentListWithPaging" resultType="CommunityCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM tipboardcomments
-		WHERE cno > 0  
+		WHERE cno > 0  AND isdeleted = 0
 		AND bno = #{bno}
 		AND cno NOT IN(
 			SELECT * FROM(
@@ -251,7 +251,7 @@
 	    SELECT COUNT(tipboardcomments.cno)
 	    FROM tipboard
 	    LEFT JOIN tipboardcomments ON tipboard.bno = tipboardcomments.bno
-	    WHERE tipboard.bno = #{bno}
+	    WHERE tipboard.bno = #{bno} 
 	</select>
 
 	

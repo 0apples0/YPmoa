@@ -368,7 +368,7 @@
 	            </when>
 	        </choose>
 	        WHERE boardType = #{boardType} AND bno = #{bno}
-	    );
+	    )
 	</update>
 		
 	<!-- 게시글 삭제 or 처리 시 isChecked를 1로 변경 -->
@@ -403,7 +403,7 @@
 	</select>
 	
 	<!-- 댓글 삭제 시 isdeleted을 1로 변경 -->
-	<update id="delComment" parameterType="com.moa.youthpolicy.common.Criteria">
+	<update id="deleteComment" parameterType="com.moa.youthpolicy.common.Criteria">
 		<choose>
 		<when test='boardType == "T"'>
 			UPDATE tipboardcomments
@@ -413,11 +413,11 @@
 		</when>			
 		</choose>
 			SET isdeleted = 1
-			WHERE bno = #{bno}		
+			WHERE cno = #{cno}		
 	</update>
 	
 	<!-- 댓글 삭제 시 user table의 countReport값을 1 증가 -->
-	<update id="updateCommentReport" parameterType="com.moa.youthpolicy.common.Criteria">
+	<update id="updateCommentCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
 	    SET countReport = countReport + 1
 	    WHERE nick IN (
@@ -432,11 +432,11 @@
 	            </when>
 	        </choose>
 	        WHERE boardType = #{boardType} AND cno = #{cno}
-	    );
+	    )
 	</update>
 	
 	<!-- 댓글 삭제 or 처리 시 isChecked를 1로 변경 -->
-	<update id="updateCommentCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
+	<update id="updateCommentReport" parameterType="com.moa.youthpolicy.common.Criteria">
 		UPDATE commentsreport
 		SET isChecked = 1
 		<choose>

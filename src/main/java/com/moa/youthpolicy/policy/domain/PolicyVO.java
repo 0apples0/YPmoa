@@ -26,7 +26,7 @@ public class PolicyVO {
 	Date aplyEndDt; //신청마감날짜
 	Date updtDt;   // 업데이트시간
 	
-	
+	int isdeleted; //삭제 여부
 	PolicyBoardVO board;
 	WishVO wishVO;
 	LikeBoardVO likeVO;
