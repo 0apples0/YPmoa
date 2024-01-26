@@ -37,6 +37,11 @@ public class Criteria {
 	private String writer; //내글보기 시 작성자
 	private int bno; //댓글 처리 시 글번호
 	
+    private int cno; // 신고 댓글 처리시 댓글 번호
+    public int getCno() {
+        return cno;
+    }
+	
 	// 표시할 베스트 댓글 갯수
 	private static final int amountBestComment = 3;
 	
