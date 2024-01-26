@@ -286,7 +286,7 @@
 <!-- 확인 팝업 모달 끝-->
 
 <!-- 댓글 삭제 확인 팝업 모달 -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1"
+<div class="modal fade" id="confirmDeleteCommentModal" tabindex="-1"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -299,7 +299,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning"
 					id="confirmDeleteCommentBtn">삭제</button>
-				<button type="button" class="btn btn-secondary"
+				<button type="button" class="btn btn-secondary" 
 					data-bs-dismiss="modal">취소</button>
 			</div>
 		</div>
@@ -549,7 +549,6 @@
 	        	// 댓글 신고 모달창
 	       	  row.on("click", ".policyGet_report", function (event) {
 	       		  
-	       	  	  event.preventDefault();
 	                   if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
 	                     $("#cno").val(cno);
 	                     $('#modalCenterTitle').text('댓글 신고');
@@ -560,8 +559,8 @@
 	       	  });
         	 
         	  // 댓글 수정
-        	  row.on("click", ".commuComment_modBtn", function(){
-        		  event.preventDefault();
+        	  row.on("click", ".commuComment_modBtn", function(event){
+
         	     	// 기존 내용 가져오기
         	        let content = row.find("td:eq(0)").text();
         	        let writer = row.find("td:eq(1)").text();
@@ -616,29 +615,34 @@
         	  });
         	  
         	// 댓글 삭제
-        	row.on("click", ".commuComment_deleteBtn", function(){
-        		/*
-        		$("#confirmDeleteModal").modal("show");
-        		$("#confirmDeleteCommentBtn").on("click", function () {
-        			*/
-            		$.ajax({
-                        url: "/community/deleteComment",
-                        type: "POST",
-                        dataType: "json", 
-                        data: {
-                            cno: cno, // 삭제 대상 댓글 번호
-                            bno: bno
-                        },
-                        success: function (response) {
-                        	alert(bno);
-                            console.log("삭제가 완료되었습니다.");
-                        },
-                        error: function (error) {
-                            console.error("삭제 중 오류가 발생했습니다.", error);
-                        }
-                    });  
-        		//});      		
-        	});
+        	  row.on("click", ".commuComment_deleteBtn", function (e) {
+
+        	      $("#confirmDeleteCommentModal").modal("show");
+        	      // 기존 click 이벤트 제거
+        	      $("#confirmDeleteCommentBtn").off("click");
+        	      // 새로운 click 이벤트 등록
+        	      $("#confirmDeleteCommentBtn").on("click", function (e) {
+
+        	          //e.preventDefault();
+        	          $.ajax({
+        	              url: "/community/deleteComment",
+        	              type: "POST",
+        	              dataType: "text",
+        	              data: {
+        	                  cno: cno, // 삭제 대상 댓글 번호
+        	                  bno: bno
+        	              },
+        	              success: function (response) {
+                	    	  $("#confirmDeleteCommentModal").modal("hide");        	
+                	    	  window.location.href = "/community/get?bno=" + bno;
+        	                  console.log("삭제가 완료되었습니다.");        	            	  
+        	              },
+        	              error: function (error) {
+        	                  console.error("삭제 중 오류가 발생했습니다.", error);
+        	              }
+        	          });
+        	      });
+        	  });
     		
         	// 댓글 좋아요
         	
@@ -717,11 +721,11 @@
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
+                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                           
            
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                         
@@ -815,10 +819,10 @@
                               reportTd.css("width", "100px");
                               console.log("Report TD created");
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
-                              let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
+                              let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                               
                               let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/community/get?bno="+board.bno).text("삭제");
+                              let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
                               
                               let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                               let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");

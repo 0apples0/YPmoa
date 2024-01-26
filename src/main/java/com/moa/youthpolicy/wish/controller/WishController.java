@@ -63,8 +63,11 @@ public class WishController {
 	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){
 		List<PolicyVO> result =  wishService.getPage(cri);
+	
 		return result;
 	}
+
+
 
 	
 	// 위시 삭제

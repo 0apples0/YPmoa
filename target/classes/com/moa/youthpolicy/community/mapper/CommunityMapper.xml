@@ -95,7 +95,7 @@
 	    </if>
 		
 		ORDER BY
-				CASE WHEN userType = '0' THEN 0 ELSE 1 END, regDate DESC,
+				CASE WHEN userType = '0' THEN 0 ELSE 1 END,
 	    <choose>
 	        <when test="selectedFilter == 'like'">
 	            `like` DESC, bno DESC
@@ -241,7 +241,7 @@
 	
 	<!-- 새글알람 -->
 	<select id="alarmNew" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	    SELECT COALESCE(MAX(bno), 0) AS result
+	    SELECT bno
 	    FROM tipboard
 	    WHERE DATE(regDate) = CURDATE()
 	</select>

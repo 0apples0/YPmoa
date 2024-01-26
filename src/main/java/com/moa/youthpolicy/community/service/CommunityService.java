@@ -209,8 +209,8 @@ public class CommunityService implements BoardGenericService{
 	    }
 	}
 
-	public int newBoardAlarm() {
-		int result = communityMapper.alarmNew();
+	public List<Integer> newBoardAlarm() {
+		 List<Integer> result = communityMapper.alarmNew();
 		return result;
 	}
 

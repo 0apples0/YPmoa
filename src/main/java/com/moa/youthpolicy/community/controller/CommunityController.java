@@ -57,6 +57,7 @@ public class CommunityController {
 	public void list(Criteria cri, Model model) {
 		log.info("contorller : "+ cri.getWriter());
 		log.info("키워드 로그: "+cri.getKeyword());
+		log.info("좋아요순 로그: "+cri.getSelectedFilter());
 		
 		int total = communityService.getTotalAmount(cri); //전체 게시물 갯수
 		log.info("totalpage: "+total);		
@@ -144,8 +145,9 @@ public class CommunityController {
 	
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
-	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		communityService.delCommunityComment(cno);
+		return "redirect:/community/get?bno=" + bno;
 	}
 	
 	// 댓글 수정
@@ -211,8 +213,9 @@ public class CommunityController {
 	// 새글 알람
 	@ResponseBody
 	@GetMapping("/newAlarm")
-	public int endAlarm() {
-		int response = communityService.newBoardAlarm();
+	public  List<Integer> endAlarm() {
+		 List<Integer> response = communityService.newBoardAlarm();
+		 log.info("새글 번호: "+response);
 		return response;
 	
 		

@@ -47,7 +47,7 @@ public interface CommunityMapper {
 	public void reportBoard(BoardReportVO vo);
 	
 	// 새글알람
-	public int alarmNew();
+	public List<Integer> alarmNew();
 	
 	// 댓글수 
 	public int getCommentNm(Criteria cri);

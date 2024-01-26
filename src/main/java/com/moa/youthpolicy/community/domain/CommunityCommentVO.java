@@ -16,7 +16,6 @@ public class CommunityCommentVO {
 	String writer;
 	int like;
 	Date regDate;
-	
 	LikeCommentVO likeVO;
 
 }
