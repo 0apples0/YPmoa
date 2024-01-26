@@ -78,11 +78,11 @@
 						<div class="col-md-auto">
                             <select class="form-select" name="type">
                                 <option value="" 
-                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>selected>전체</option>
+                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
                                 <option value="T" 
-                                 	<c:out value="${pageMaker.cri.type == 'T'}"/>>제목</option>
+                                 	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
                                 <option value="C"
-                                 	<c:out value="${pageMaker.cri.type == 'C'}"/>>내용</option>  
+                                 	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -417,15 +417,19 @@ function applyUserConditions(e) {
 	            
 	          
 	            function hideButtonIfDateNull(policy) {
-	    	        // 날짜가 null이면 알림받기 버튼을 숨깁니다.
-	    	        if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "상시모집") {
-	    	            $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
-	    	        }
-	    	    }
+	                // 현재 날짜를 가져옵니다.
+	                var currentDate = new Date();
+	                
+	                // 날짜가 null이면서 현재 날짜보다 작거나 같으면 또는 상시모집인 경우 알림받기 버튼을 숨깁니다.
+	                if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "상시모집" || new Date(policy.aplyEndDt) < currentDate) {
+	                    $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
+	                }
+	            }
+
 		  	
             
             function addPolicyToContainer(policy, index) {
-	    	
+            	
 	    	    
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
@@ -457,9 +461,10 @@ function applyUserConditions(e) {
 	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
-	    	      
+	    	       
 
 	    	    $("#wishContainer").append(policyHtml);
+	    	    hideButtonIfDateNull(policy);
 	    	   
 	    	}
      	
@@ -467,7 +472,7 @@ function applyUserConditions(e) {
 			$("body").on("click", ".wish_alarm", function() {
 			    var wishPolicy = $(this).data("wish-policy");
 			    var $button = $(this); // 버튼 jQuery 객체 저장
-			
+				console.log("알람시작");
 			    // Ajax 요청
 			    $.ajax({
 			        type: "POST",

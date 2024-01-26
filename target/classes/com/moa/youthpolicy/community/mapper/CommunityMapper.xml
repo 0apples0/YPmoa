@@ -26,17 +26,17 @@
 		AND isdeleted = 0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
-
 		</if>
 	    <if test="type != null and keyword != null and keyword != ''">
-		    
 	        <choose>
-	        	<when test="type == null or type=''">
-	        		AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
-	        			OR writer LIKE CONCAT('%', #{keyword}, '%'))
-	        	</when>
+	            <when test='type == ""'>
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%') OR 
+	                writer LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
 	            <when test='type == "TC"'>
-	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR 
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%'))
 	            </when>
 	            <when test='type == "T"'>
 	                AND title LIKE CONCAT('%', #{keyword}, '%')
@@ -45,7 +45,7 @@
 	                AND writer LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	        </choose>
-		</if>
+	    </if>
 	    <if test="rgnSeNm != null and rgnSeNm != ''">
 	        AND region LIKE CONCAT('%', #{rgnSeNm}, '%')
 	    </if>
@@ -68,16 +68,17 @@
 		AND isdeleted = 0
 		<if test="writer != null and writer != ''">
 			And writer = #{writer}
-
 		</if>
-	    <if test="keyword != null and keyword != ''">
+	    <if test="type != null and keyword != null and keyword != ''">
 	        <choose>
-	        	<when test="type == null or type=''">
-	        		AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
-	        			OR writer LIKE CONCAT('%', #{keyword}, '%'))
-	        	</when>
+	            <when test='type == ""'>
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%') OR 
+	                writer LIKE CONCAT('%', #{keyword}, '%'))
+	            </when>
 	            <when test='type == "TC"'>
-	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+	                AND (title LIKE CONCAT('%', #{keyword}, '%') OR 
+	                REGEXP_REPLACE(content,'&lt;[^&gt;]*&gt;', '') LIKE CONCAT('%', REGEXP_REPLACE(#{keyword}, '&lt;[^&gt;]*&gt;', ''), '%'))
 	            </when>
 	            <when test='type == "T"'>
 	                AND title LIKE CONCAT('%', #{keyword}, '%')
@@ -93,9 +94,9 @@
 	    <if test="policyTypeNm != null and policyTypeNm != ''">
 	        AND category LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
-		
+	    
 		ORDER BY
-				CASE WHEN userType = '0' THEN 0 ELSE 1 END,
+		CASE WHEN userType = '0' THEN 0 ELSE 1 END,
 	    <choose>
 	        <when test="selectedFilter == 'like'">
 	            `like` DESC, bno DESC

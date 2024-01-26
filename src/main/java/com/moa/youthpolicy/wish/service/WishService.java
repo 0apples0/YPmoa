@@ -64,6 +64,10 @@ public class WishService implements BoardInterface {
 
 	@Override
 	public int getTotalAmount(Criteria cri) {
+		if(AuthUtil.isLogin()) {
+			String email = AuthUtil.getCurrentUserAccount();
+			cri.setWishUser(email);
+		}
 		return mapper.getTotalCount(cri);
 
 	}
@@ -105,13 +109,19 @@ public class WishService implements BoardInterface {
 	}
 
 		public int wishAlarm(WishVO vo) {
-			 int currentIsAlert = mapper.alarmWish(vo);
-			    // 새로운 isAlert 값을 계산 (0과 1을 반전)
-			    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
-			    // 새로운 isAlert 값을 업데이트
-			    vo.setIsAlert(newIsAlert);
-			    int result = mapper.updateIsAlert(vo);
-			    return newIsAlert;
+			if(AuthUtil.isLogin()) {
+				String email = AuthUtil.getCurrentUserAccount();
+				vo.setWishUser(email);
+			}
+		 	int currentIsAlert = mapper.alarmWish(vo);
+		 	log.info(" 여기까지 : "+ currentIsAlert);
+		    // 새로운 isAlert 값을 계산 (0과 1을 반전)
+		    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
+		    // 새로운 isAlert 값을 업데이트
+		    log.info("업데이트된 알람: "+newIsAlert);
+		    vo.setIsAlert(newIsAlert);
+		    mapper.updateIsAlert(vo);
+		    return newIsAlert;
 	    
 		  
 		}
