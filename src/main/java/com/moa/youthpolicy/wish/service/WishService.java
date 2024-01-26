@@ -38,7 +38,7 @@ public class WishService implements BoardInterface {
 
 	@Override
 	public <T> void modBoard(Class<T> board) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated ffmethod stub
 		
 	}	
 
