@@ -55,7 +55,7 @@
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="idchk">중복확인</button>
 											</div>
 											
-											<div class="col-sm-11" ><span class="validation" id="emailValidation">올바른 이메일 주소를 입력해주세요.</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="emailValidation">올바른 이메일 주소를 입력해주세요.</span></div>
 											
 										</div>
 
@@ -71,11 +71,10 @@
 
 												</div>
 											</div>
-											<div class="col-sm-11" ><span class="validation" id="passwordValidation">유효성검사</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="passwordValidation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3" style="align-items: center">
-											<label class="col-sm-2 col-form-label" id="regi_pwd_letter">비밀번호<br>
-												확인</label>
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter" style="font-size:small;">비밀번호 확인</label>
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" 
@@ -85,7 +84,7 @@
 
 												</div>
 											</div>
-											<div class="col-sm-11" ><span class="validation" id="confirmPasswordValidation">유효성검사</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="confirmPasswordValidation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
@@ -95,7 +94,7 @@
 													placeholder="" />
 
 											</div>
-											<div class="col-sm-11" ><span class="validation" id="nameValidation">유효성검사</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="nameValidation">유효성검사</span></div>
 										</div>
 
 										<div class="row mb-3">
@@ -107,7 +106,7 @@
 													aria-describedby="basic-default-phone" name="phone"/>
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="phoneck">중복확인</button>
 											</div>
-											<div class="col-sm-11" ><span class="validation" id="phoneValidation">유효성검사</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="phoneValidation">유효성검사</span></div>
 										</div> 
 										<div class="row mb-3">
 											<label class="col-sm-2 col-form-label" id="regi_pwd_letter"
@@ -117,10 +116,10 @@
 													placeholder="한글 10글자, 영어 20자 이내" name="nick" />
 												<button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
 											</div>
-											<div class="col-sm-11" ><span class="validation" id="nickValidation">유효성검사</span></div>
+											<div class="col-sm-9_b" ><span class="validation" id="nickValidation">유효성검사</span></div>
 										</div>
 
-										<div class="col-sm-12" id="regi_btn">
+										<div class="col-sm-9" id="regi_btn">
 											<button type="submit" class="btn btn-primary"
 												id="regi_regiBtn">회원가입</button>
 											<button type="reset" class="btn btn-secondary">초기화</button>

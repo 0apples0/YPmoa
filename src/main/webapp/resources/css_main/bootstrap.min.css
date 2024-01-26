@@ -1074,6 +1074,12 @@ progress {
     width: 75%
   }
   
+  .col-sm-9_b {
+    flex: 0 0 auto;
+    width: 75%;
+    margin-left: 100px;
+  }
+  
   .col-sm-9_a{
       flex: 0 0 auto;
     width: 80%
