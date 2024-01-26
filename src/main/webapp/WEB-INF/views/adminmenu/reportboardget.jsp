@@ -78,7 +78,7 @@
 
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
-                                    <table id="admin_boardTable" class="table table-hover admin_boardTable">
+                                    <table id="admin_boardTable" class="table table-default admin_boardTable">
 
 
                                         <thead>
