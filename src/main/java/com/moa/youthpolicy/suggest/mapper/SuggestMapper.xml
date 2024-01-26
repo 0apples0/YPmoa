@@ -89,7 +89,7 @@
 	    </if>
 	    
 		ORDER BY
-		CASE WHEN userType = '0' THEN 0 ELSE 1 END, regDate DESC,
+		CASE WHEN userType = '0' THEN 0 ELSE 1 END,
 	    <choose>
 	        <when test="selectedFilter == 'like'">
 	            `like` DESC, bno DESC
