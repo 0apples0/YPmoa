@@ -115,27 +115,28 @@
 		resultType="java.lang.Integer">
 		SELECT isAlert
 		FROM wish
-		WHERE wishPolicy = #{wishPolicy}
+		WHERE wishPolicy = #{wishPolicy} AND wishUser = #{wishUser}
 	</select>
 
 	<update id="updateIsAlert"
 		parameterType="com.moa.youthpolicy.wish.domain.WishVO">
 		UPDATE wish
 		SET isAlert = #{isAlert}
-		WHERE wishPolicy = #{wishPolicy}
+		WHERE wishPolicy = #{wishPolicy} AND wishUser = #{wishUser}
 	</update>
 
 	<select id="getAlarm"
 		resultType="com.moa.youthpolicy.wish.domain.WishVO">
 		SELECT wishPolicy, isAlert
-		FROM wish;
+		FROM wish
+		WHERE wishUser = #{wishUser};
 	</select>
 
 	<select id="getEndAlarm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 		  SELECT COUNT(policy.no)
 		  FROM policy
 		  JOIN wish ON policy.no = wish.wishPolicy
-		  WHERE policy.aplyEndDt IS NOT NULL
+		  WHERE policy.aplyEndDt IS NOT NULL AND wishUser = #{wishUser}
 		    AND ABS(DATEDIFF(CURDATE(), policy.aplyEndDt)) &lt;= 7
 		    AND wish.isAlert LIKE 1;
 	</select>

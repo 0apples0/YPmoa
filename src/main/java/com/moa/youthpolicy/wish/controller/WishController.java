@@ -50,6 +50,7 @@ public class WishController {
 	
 	@RequestMapping(value = {"/wish", "/wishPaging"}, method = {RequestMethod.GET,  RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
+		log.info(cri);
 		cri.setAmount(8);
 		int total = wishService.getTotalAmount(cri); 
 		log.info("전체글"+ total);
@@ -84,6 +85,7 @@ public class WishController {
 	@ResponseBody
 	@PostMapping("/alarm")
 	public int alarm(@RequestBody WishVO vo) {
+		log.info("controller.alarm : "+ vo);
 	    int result = wishService.wishAlarm(vo);
 	    log.info("알람 설정 완료 "+result);
 	    return result;

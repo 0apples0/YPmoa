@@ -131,6 +131,11 @@
             </nav>
         </div>
    </div>
+   <form id="usernickForm" action="community/community" method="post">
+		<input type="hidden" name="writer" value="${user.nick}">
+		<input type="hidden" name="wishUser" value="${user.email}">
+	</form>
+	
    <script>
    function checkAndNavigateToMypage(Email) {
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
