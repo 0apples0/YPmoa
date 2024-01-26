@@ -211,8 +211,9 @@ public class CommunityController {
 	// 새글 알람
 	@ResponseBody
 	@GetMapping("/newAlarm")
-	public int endAlarm() {
-		int response = communityService.newBoardAlarm();
+	public  List<Integer> endAlarm() {
+		 List<Integer> response = communityService.newBoardAlarm();
+		 log.info("새글 번호: "+response);
 		return response;
 	
 		
