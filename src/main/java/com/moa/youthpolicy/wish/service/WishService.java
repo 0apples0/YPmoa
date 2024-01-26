@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.moa.youthpolicy.common.BoardInterface;
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
+import com.moa.youthpolicy.user.domain.UserVO;
 import com.moa.youthpolicy.wish.domain.WishVO;
 import com.moa.youthpolicy.wish.mapper.WishMapper;
 
@@ -38,23 +40,24 @@ public class WishService implements BoardInterface {
 	public <T> void modBoard(Class<T> board) {
 		// TODO Auto-generated method stub
 		
-	}
+	}	
+
+
+	
 
 	@Override
 	public List<PolicyVO> getPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
-		log.info(cri);
+		log.info("서비스의: "+list);
 		if (AuthUtil.isLogin()) {
-			
 			for (PolicyVO vo : list) {
-
 				WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
 				vo.setWishVO(mapper.getWish(wish));
 			}
 			return list;
 		}else {
 			log.info("로그인 안되서 안가져옴");
-			 return Collections.emptyList();
+			return Collections.emptyList();
 		}
 		
 	}
@@ -136,6 +139,8 @@ public class WishService implements BoardInterface {
 			log.info("마감알람 개수: "+result);
 			return result;
 		}
+
+	
 
 
 

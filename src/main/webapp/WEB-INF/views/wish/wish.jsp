@@ -2,14 +2,13 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="../includes/header.jsp"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 
 
-        <!-- Page Header Start -->
+        <!-- Page fsdf ㄹㄹ  -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -132,6 +131,8 @@
 
 <div class="container-xxl py-5">
 	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
+	<!-- <div class="wish_noWIsh">위시리스트가 비어있습니다. 마음에 드는 정책을 위시리스트에 등록해보세요!
+			</div> -->	
 		<div id="policy_checkbox" style="float: left;">
 		<form id="checkForm">
 			<div class="custom-control custom-checkbox">
@@ -140,6 +141,7 @@
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
 			</div>
+			
 		</form>
 		</div>
 
@@ -242,6 +244,8 @@
 	<form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 	</form>
+
+
 </div>
 
 
@@ -251,18 +255,6 @@
 
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (isListEmpty()) {
-        document.getElementById("policy_checkbox").style.display = "none";
-        document.getElementById("paging").style.display = "none";
-        	
-    }
-});
-
-function isListEmpty() {
-    console.log("위시가 비어있어");
-}
 
 
 
@@ -363,13 +355,14 @@ function applyUserConditions(e) {
 			  	    },
 
 		  	        success: function (data) {
-		  	        	
 		 				 $("#wishContainer").empty();
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
 		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
 		  	               addPolicyToContainer(policy, index + 1	);
 		  	            });
+		  	         
+		  	    
 		  	            
 		  	          buttonClear();
 		  	        },
@@ -462,9 +455,10 @@ function applyUserConditions(e) {
 	    	        '<button class="btn btn-outline-danger" id="delBtn" style="margin: 10px;">삭제</button>' +
 	    	        '</div>' +
 	    	        '</div>';
-
+	    	      
 
 	    	    $("#wishContainer").append(policyHtml);
+	    	   
 	    	}
      	
          	// 알람 눌렀을 때
