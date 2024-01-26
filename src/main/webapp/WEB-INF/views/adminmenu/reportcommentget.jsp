@@ -64,7 +64,7 @@
                     <div class="white_shd_a full">
                         <div class="table_section padding_infor_info_a">
                             <div class="table-responsive-sm">
-                                <table id="admin_commentTable" class="table table-hover admin_commentTable">
+                                <table id="admin_boardTable" class="table table-default admin_boardTable">
                                     <thead>
                                         <tr>
                                             <th data-sort="board">게시판</th>
@@ -72,7 +72,8 @@
                                             <th data-sort="content">댓글내용</th>
                                             <th data-sort="date">작성일</th>
                                             <th data-sort="reportNum">신고횟수</th>
-                                            <th data-sort="delete">댓글삭제</th>
+                                            <th data-sort="delete">관리</th>
+                                            <th data-sort="rollback">복구</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -329,7 +330,7 @@ $(document).ready(function () {
   	          keyword: $("#actionForm").find("input[name='keyword']").val()
            },
            success: function(data){
-              let userTbody = $("#admin_commentTable tbody");
+              let userTbody = $("#admin_boardTable tbody");
               userTbody.empty(); // 기존 테이블 행 삭제
                  
               //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
@@ -361,10 +362,13 @@ $(document).ready(function () {
                  row.append($("<td>").addClass("comment_countReportBtn").text(comment.countReport));
                  
                  let deleteTd = $("<td>");
-                 let deleteImg = $("<i>").addClass("fa fa-trash fa-2x text-primary admin_reportModal");
-                 let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "").text("삭제");
-                 deleteTd.append(deleteImg, deleteLink);
+                 let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "");
+                 let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
+                 deleteLink.append(deleteImg);
+                 deleteTd.append(deleteLink);
                  
+                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
+                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
                  if(comment.isChecked == 1){
