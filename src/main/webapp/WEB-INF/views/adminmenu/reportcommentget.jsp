@@ -213,7 +213,25 @@
         </div>
     </div>
 </div>
-        
+<!-- 복구 버튼 Modal -->
+<div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">게시글 관리</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                        <div style="text-align:center">해당 신고의 처리를 복구할까요?</div>
+            </div>
+            <div class="modal-footer" style="justify-content:center">
+                <button type="button" id="deleteCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function () {
     
@@ -348,8 +366,8 @@ $(document).ready(function () {
                  row.append($("<td>").text(comment.boardType === "T" ? "꿀팁" : "정책"));
                  row.append($("<td>").text(comment.writer));
                  
-                 let contentTd = $("<td>");
-               	 let contentLink = $("<a>").addClass("contentLink").attr("href", "").text(comment.content);
+                 let contentTd = $("<td>").addClass("adminBoard_titleTd");
+               	 let contentLink = $("<a>").addClass("titleLink").attr("href", "").text(comment.content);
                	 
               	 // 댓글이 속한 게시글의 bno 값을 댓글 요소에 추가
                	 contentLink.data("bno", comment.bno);
@@ -360,7 +378,7 @@ $(document).ready(function () {
                  row.append(contentTd);
                  
                  row.append($("<td>").text(formateDate));
-                 row.append($("<td>").addClass("comment_countReportBtn").text(comment.countReport));
+                 row.append($("<td>").addClass("board_countReportBtn").text(comment.countReport));
                  
                  let deleteTd = $("<td>");
                  let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "");
@@ -381,6 +399,14 @@ $(document).ready(function () {
                  }else{
                 	 row.append(deleteTd);  
                  }
+                 
+                 let rollbackTd = $("<td>");
+                 let rollbackLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+                 let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                 
+                 rollbackLink.append(rollbackBtn);
+                 rollbackTd.append(rollbackLink);
+				 row.append(rollbackTd);
                  
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
