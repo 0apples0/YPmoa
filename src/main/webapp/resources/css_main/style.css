@@ -678,6 +678,14 @@
 
 /*** admin ***/
 
+.titleLink{
+	font-family: 'LINESeedKR-Bd_light';
+	color: black !important;
+}
+.titleLink:hover{
+	text-decoration: underline;
+}
+
 .admin_modalBox{
 	   height: 300px;
      overflow-y: auto;
@@ -708,10 +716,6 @@
 }
 
 
-.admin_boardTable tbody tr td:nth-child(3), .admin_boardTable tbody tr td:nth-child(5){
-    cursor: pointer;
-}
-
 .admin_page_nav{
     padding-top: 30px;
 }
@@ -719,6 +723,8 @@
 .admin_boardTable thead tr th:nth-child(1){
 	width: 7%;
 }
+
+
 .admin_boardTable thead tr th:nth-child(2){
 	width: 15%;
 }
