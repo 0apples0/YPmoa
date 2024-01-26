@@ -2361,8 +2361,7 @@ progress {
 .regi_pwd_form-control {
   font-family: 'LINESeedKR-Bd_light';
   display: block;
-  width: 93%;
-  margin-left: 30px;
+  width: 96.5%;
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -2379,7 +2378,6 @@ progress {
   font-family: 'LINESeedKR-Bd_light';
   display: block;
   width: 74%;
-  margin-left: 30px;
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
