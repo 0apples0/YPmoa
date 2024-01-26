@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-lg-12" id="login_inner_box">
              
-                    <div class="col-lg-12  wow zoomIn justify-content-center d-flex" id="login_small_box" data-wow-delay="0.1s"
+                    <div class="col-lg-12  wow fadeIn justify-content-center d-flex" id="login_small_box" data-wow-delay="0.1s"
                     				style="align-items: center;">
                         <div class="login_section">
                             <div class="login_form">

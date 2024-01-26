@@ -678,9 +678,19 @@
 
 /*** admin ***/
 
+.board_countReportBtn:hover{
+	cursor: pointer;
+	color: orange;
+	font-weight: 700;
+}
+
+.adminBoard_titleTd{
+	text-align: left;
+}
+
 .titleLink{
 	font-family: 'LINESeedKR-Bd_light';
-	color: black !important;
+	color: #666565; 
 }
 .titleLink:hover{
 	text-decoration: underline;
@@ -732,7 +742,7 @@
 	width: 5%;
 }
 .admin_boardTable thead tr th:nth-child(4){
-	width: 12%;
+	width: 11%;
 }
 .admin_boardTable thead tr th:nth-child(5){
 	width: 7%;
