@@ -239,7 +239,8 @@
 		    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
 		    $("#actionForm input[name='pageNum']").val(1);
 		    // actionForm submit 호출
-		    actionForm.submit();
+		    //actionForm.submit();
+		    loadTableData();
 		});
 	   	
 	    // 체크박스 중복 방지
