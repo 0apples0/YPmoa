@@ -144,8 +144,9 @@ public class CommunityController {
 	
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
-	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		communityService.delCommunityComment(cno);
+		return "redirect:/community/get?bno=" + bno;
 	}
 	
 	// 댓글 수정
