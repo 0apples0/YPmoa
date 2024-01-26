@@ -350,7 +350,7 @@
 		    // 비밀번호 유효성 검사
 		    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 		    if (!passwordRegex.test(passwordField.val())) {
-		        passwordValidation.text("올바른 비밀번호를 입력해주세요.").show();
+		        passwordValidation.text("올바른 비밀번호를 입력해주세요.").show(); 
 		        return false;
 		    }
 		
