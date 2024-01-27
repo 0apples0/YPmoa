@@ -413,7 +413,6 @@ $(document).ready(function () {
 	}
 	
     function loadTableData(){
-        
         $.ajax({
            url: "/adminmenu/getReportboardList",// 요청할 서버 uri
            type: "POST", //요청방식 지정
