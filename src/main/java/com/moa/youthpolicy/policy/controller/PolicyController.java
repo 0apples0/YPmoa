@@ -134,8 +134,9 @@ public class PolicyController {
 	}
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
-	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		service.delCommunityComment(cno);
+		return "redirect:/policy/get?no=" + bno;
 	}
 	
 	// 댓글 수정
