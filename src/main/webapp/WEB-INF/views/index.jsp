@@ -84,11 +84,11 @@
                     	<div class="row g-2">
                     		<div class="col-md-7">
                     			<span>인기 검색어</span>
-                    			<a href="">#<span>중소기업</span></a>
-                    			<a href="">#<span>19세</span></a>
-                    			<a href="">#<span>대학생</span></a>
-                    			<a href="">#<span>창업</span></a>
-                    			<a href="">#<span>전세</span></a>
+                    			<a href="/policy/policy?type=C&keyword=중소기업">#<span>중소기업</span></a>
+                    			<a href="/policy/policy?type=C&keyword=19세">#<span>19세</span></a>
+                    			<a href="/policy/policy?type=C&keyword=대학생">#<span>대학생</span></a>
+                    			<a href="/policy/policy?type=C&keyword=창업">#<span>창업</span></a>
+                    			<a href="/policy/policy?type=C&keyword=전세">#<span>전세</span></a>
                     			
                     		</div>
                     	
