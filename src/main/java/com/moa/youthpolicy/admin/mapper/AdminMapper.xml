@@ -10,9 +10,6 @@
 			<when test='userType == "1" or userType == null'>
 				WHERE userType = 1
 			</when>
-			<when test='userType == "2"'>
-				WHERE userType = 2
-			</when>
 			<when test='userType == "3"'>
 				WHERE userType = 3
 			</when>		
@@ -123,9 +120,6 @@
 			<when test='userType == "1" or userType == null'>
 				WHERE userType = 1
 			</when>
-			<when test='userType == "2"'>
-				WHERE userType = 2
-			</when>
 			<when test='userType == "3"'>
 				WHERE userType = 3
 			</when>		
@@ -162,7 +156,7 @@
 	            <!-- boardType이 T인 경우 -->
 	            SELECT
 	                t.*, 'T' AS boardType,
-	                (SELECT COUNT(cr.tipcno) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS countReport,
+	                (SELECT COUNT(cr.tipcno) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS countCommentReport,
 	                (SELECT MAX(cr.isChecked) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS isChecked
 	            FROM
 	                tipboardcomments t
@@ -182,7 +176,7 @@
 	            <!-- boardType이 P인 경우 -->
 	            SELECT
 	                p.*, 'P' AS boardType,
-	                (SELECT COUNT(cr.policycno) FROM commentsreport cr WHERE cr.policycno = p.cno) AS countReport,
+	                (SELECT COUNT(cr.policycno) FROM commentsreport cr WHERE cr.policycno = p.cno) AS countCommentReport,
 	                (SELECT MAX(cr.isChecked) FROM commentsreport cr WHERE cr.policycno = p.cno) AS isChecked
 	            FROM
 	                policyboardcomments p
@@ -202,7 +196,7 @@
 	            <!-- boardType이 없는 경우 -->
 	            SELECT
 	                t.*, 'T' AS boardType,
-	                (SELECT COUNT(cr.tipcno) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS countReport,
+	                (SELECT COUNT(cr.tipcno) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS countCommentReport,
 	                (SELECT MAX(cr.isChecked) FROM commentsreport cr WHERE cr.tipcno = t.cno) AS isChecked
 	            FROM
 	                tipboardcomments t
@@ -218,7 +212,7 @@
 	                
 	            SELECT
 	                p.*, 'P' AS boardType,
-	                (SELECT COUNT(cr.policycno) FROM commentsreport cr WHERE cr.policycno = p.cno) AS countReport,
+	                (SELECT COUNT(cr.policycno) FROM commentsreport cr WHERE cr.policycno = p.cno) AS countCommentReport,
 	                (SELECT MAX(cr.isChecked) FROM commentsreport cr WHERE cr.policycno = p.cno) AS isChecked
 	            FROM
 	                policyboardcomments p
@@ -330,11 +324,21 @@
 
 
 	
-	<!-- 회원 정지 시 userType을 3으로 변경 -->
+	<!-- 회원 정지 시 userType을 3으로 변경, 회원 해제 시 userType을 1로 변경 -->
 	<update id="delMember" parameterType="UserVO">
 		UPDATE user
-		SET userType = 3,
+		SET 
+		<choose>
+		<when test="userType==1">
+			userType = 3,
 			leaveDate = CURRENT_TIMESTAMP
+		</when>
+		<when test="userType==3">
+			userType = 1,
+			leaveDate = null
+		</when>
+		</choose>
+
 		WHERE Email = #{Email}
 	</update>
 	
@@ -448,7 +452,7 @@
 	<update id="updateCommentCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
 	    
-	    SET countReport = countReport + 1
+	    SET countCommentReport = countCommentReport + 1
 	    WHERE nick IN (
 	        SELECT DISTINCT writer
 	        FROM 
