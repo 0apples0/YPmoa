@@ -348,14 +348,34 @@
 			UPDATE suggestedboard
 		</when>			
 		</choose>
+		<choose>
+		<when test="isdeleted == 1">
+			SET isdeleted = 0
+		</when>
+		<when test="isdeleted == 0">
 			SET isdeleted = 1
-			WHERE bno = #{bno}		
+		</when>
+		</choose>
+
+		WHERE bno = #{bno}		
 	</update>
+
 	
 	<!-- 게시글 삭제 시 user table의 countReport값을 1 증가 -->
 	<update id="updateUserCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
-	    SET countReport = countReport + 1
+	    <choose>
+	    <when test="isdeleted == 1 and isChecked == 1">
+	    	SET countReport = countReport - 1
+	    </when>
+	    <when test="isdeleted == 0 and isChecked == 0">
+	    	SET countReport = countReport + 1
+	    </when>
+	    <otherwise>
+	    	SET countReport = countReport
+	    </otherwise>
+	    </choose>
+
 	    WHERE nick IN (
 	        SELECT DISTINCT writer
 	        FROM 
@@ -374,7 +394,15 @@
 	<!-- 게시글 삭제 or 처리 시 isChecked를 1로 변경 -->
 	<update id="updateBoardReport" parameterType="com.moa.youthpolicy.common.Criteria">
 		UPDATE boardreport
-		SET isChecked = 1
+	    <choose>
+	    <when test="isChecked == 1">
+	    	SET isChecked = 0
+	    </when>
+	    <when test="isChecked == 0">
+	    	SET isChecked = 1
+	    </when>
+	    </choose>
+		
 		<choose>
 		<when test='boardType == "T"'>
 			WHERE tipbno = #{bno} 
@@ -419,6 +447,7 @@
 	<!-- 댓글 삭제 시 user table의 countReport값을 1 증가 -->
 	<update id="updateCommentCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
+	    
 	    SET countReport = countReport + 1
 	    WHERE nick IN (
 	        SELECT DISTINCT writer

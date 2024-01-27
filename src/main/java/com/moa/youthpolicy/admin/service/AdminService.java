@@ -102,8 +102,11 @@ public class AdminService implements UserGenericService{
 	// 게시글 삭제, user 테이블 내 countReport 값 1 증가
 	public void delBoard(Criteria cri) {
 		adminMapper.delBoard(cri);
+
 		adminMapper.updateUserCountReport(cri);
+
 		log.info("크리"+cri.toString());
+
 	}
 	
 	// boardreport 테이블 내 ischecked 상태 업데이트 

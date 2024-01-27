@@ -62,6 +62,9 @@ public class Criteria {
 
 	// report board 검색 조건
 	private String boardType;
+	// report board 처리, 삭제 여부 판단
+	private int isdeleted;
+	private int isChecked;
 	
 	public Criteria() {
 		this(1,10);
