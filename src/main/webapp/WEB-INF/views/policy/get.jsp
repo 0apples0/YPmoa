@@ -170,8 +170,10 @@
 								</div>
 								<div class="commuGet_btn">
 									<a href="/policy/policy"><button class="btn btn-primary">목록</button></a>
-									<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
-									<button class="btn btn-warning" id="deleteBtn">삭제</button>
+									<c:if test="${user.userType == 0 }">
+										<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
+										<button class="btn btn-warning" id="deleteBtn">삭제</button>
+									</c:if>
 								</div>
 							</div>
 						</div>
