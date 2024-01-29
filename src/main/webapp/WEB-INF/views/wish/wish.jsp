@@ -136,7 +136,7 @@
 		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input wish_check" name="isAlert"
-					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
+					<c:out value="${pageMaker.cri.selectedFilter == '1'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
 			</div>
@@ -377,9 +377,6 @@ function applyUserConditions(e) {
 		  	               addPolicyToContainer(policy, index + 1	);
 		  	            });
 		  	         
-		  	    
-		  	            
-		  	          buttonClear();
 		  	        },
 		  	        error: function (e) {
 		  	            console.log(e);
@@ -451,7 +448,7 @@ function applyUserConditions(e) {
 	    	        }else{
 	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + (policy.aplyEndDt) + '</small>';
 	    	        }
-	    	        
+	    	       
 	    	        policyHtml +=
 	    	        '</div>'+
 	    	        '</div>' +
@@ -464,7 +461,7 @@ function applyUserConditions(e) {
 
 	    	    $("#wishContainer").append(policyHtml);
 	    	    hideButtonIfDateNull(policy);
-	    	   
+	    	    buttonClear(policy.no);
 	    	}
      	
          	// 알람 눌렀을 때
@@ -507,23 +504,31 @@ function applyUserConditions(e) {
 			});
          	
          	// 버튼 상태 DB저장
-			function buttonClear() {
+			function buttonClear(no) {
 			    $.ajax({
 			        type: "GET",
 			        url: "/wish/alarmClear", // 해당 URL을 서버에 맞게 수정
-			        success: function(buttonStates) {
-			            // 서버에서 받아온 상태를 기반으로 각 버튼을 초기화
-			            $(".wish_alarm").each(function(index, element) {
-			                var wishPolicy = $(element).data("wish-policy");
-
-			                // 해당 정책에 대한 상태를 서버에서 받아온 값으로 설정
-			                if (buttonStates[wishPolicy] === 1) {
-			                    $(element).removeClass("btn-outline-primary").addClass("btn-primary").text("알림해제");
-			                } else {
-			                    $(element).removeClass("btn-primary").addClass("btn-outline-primary").text("알림받기");
-			                }
-			            });
-			        },
+			        data: {wishUser: $("#usernickForm").find("input[name='wishUser']").val(),
+			        	wishPolicy : no},
+			        	
+			        	 success: function(data) {
+			                 var wishPolicy;
+			                 var isAlert;
+			                 for (var key in data) {
+			                     wishPolicy = parseInt(key);
+			                     isAlert = parseInt(data[key]);
+			                 }
+			                 // 버튼의 data-wish-policy와 wishPolicy 값을 비교하여 동일한 경우 버튼 상태 변경
+			                 $(".wish_alarm[data-wish-policy='" + wishPolicy + "']").each(function() {
+			                     if ($(this).data('wish-policy') === wishPolicy) {
+			                         if (isAlert == 1) {
+			                             $(this).removeClass("btn-outline-primary").addClass("btn-primary").text("알림해제");
+			                         } else {
+			                             $(this).removeClass("btn-primary").addClass("btn-outline-primary").text("알림받기");
+			                         }
+			                     }
+			                 });
+			             },
 			        error: function(xhr, status, error) {
 			            // 초기화 실패에 대한 처리
 			            console.error("초기화 실패:", status, error);

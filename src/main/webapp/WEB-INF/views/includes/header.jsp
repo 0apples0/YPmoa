@@ -131,6 +131,9 @@
             </nav>
         </div>
    </div>
+   <form id="actionForm" action="/wish/wish" method="post">
+		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
+	</form>
    <form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 		<input type="hidden" name="wishUser" value="${user.email}">
@@ -174,6 +177,7 @@
 	       $.ajax({
 	         type: "GET",
 	         url: "/wish/endAlarm",
+	         data: {wishUser: $("#usernickForm").find("input[name='wishUser']").val()},
 	         success: function(data) {
 	        	console.log("ajax 알람 값: "+data);
 	        	if (data > 0) {

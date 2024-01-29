@@ -91,18 +91,20 @@ public class WishController {
 	    return result;
 	}
 	
+	// 알림 상태 가져오기
 	@ResponseBody
 	@GetMapping("/alarmClear")
-	  public Map<Integer, Integer> alarmClear() {
+	  public Map<Integer, Integer> alarmClear(WishVO vo) {
         // 서비스에서 현재 버튼 상태를 가져오는 메서드 호출
-        Map<Integer, Integer> buttonStates = wishService.clearAlarm();
+        Map<Integer, Integer> buttonStates = wishService.clearAlarm(vo);
         return buttonStates;
     }
-
+	
+	// 알람 띄우기
 	@ResponseBody
 	@GetMapping("/endAlarm")
-	public int endAlarm() {
-		int response = wishService.endDateAlarm();
+	public int endAlarm(Criteria cri) {
+		int response = wishService.endDateAlarm(cri);
 	
 		if(response > 0) {
 			return response;
