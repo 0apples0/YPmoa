@@ -50,8 +50,9 @@ public class WishController {
 	
 	@RequestMapping(value = {"/wish", "/wishPaging"}, method = {RequestMethod.GET,  RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
-		log.info(cri);
+		
 		cri.setAmount(8);
+		log.info(cri);
 		int total = wishService.getTotalAmount(cri); 
 		log.info("전체글"+ total);
 		PageDTO pageResult = new PageDTO(cri, total);
@@ -59,7 +60,7 @@ public class WishController {
 		
 	}
 	
-	// 위시한 policy 리스트 가져f오기 
+	// 위시한 policy 리스트 가져오기 
 	@ResponseBody
 	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){

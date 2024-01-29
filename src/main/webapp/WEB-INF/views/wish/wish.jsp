@@ -136,7 +136,7 @@
 		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input wish_check" name="isAlert"
-					<c:out value="${pageMaker.cri.selectedFilter == '1'?'checked':'' }"/>
+					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
 					id="customCheck"> <label class="custom-control-label"
 					for="customCheck">알림받은 정책보기</label>
 			</div>
@@ -315,18 +315,16 @@ function applyUserConditions(e) {
         		}
    
         	
-           	$("#customCheck").change(function () {
-    		    let selectedFilter = "";
-    		    if ($("#customCheck").is(":checked")) {
-    		        selectedFilter = 1;
-    		    }
-    		    // 선택한 필터 값을 hidden input에 설정
-    		    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
-    		    $("#actionForm input[name='pageNum']").val(1);
-    		    // actionForm submit 호출
-    		    actionForm.submit();
-    		    buttonClear();
-    		});
+        	$("#customCheck").change(function () {
+        	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
+        	    let selectedFilter = ($("#customCheck").is(":checked")) ? "isAlert" : "";
+        	    // 선택한 필터 값을 hidden input에 설정
+        	    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
+        	    $("#actionForm input[name='pageNum']").val(1);
+        	    // actionForm submit 호출
+        	    actionForm.submit();
+        	});
+
 
 
 
@@ -365,8 +363,8 @@ function applyUserConditions(e) {
 			  	        rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
 			  	        policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
 			  	        selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val(),
+			  	        isAlert: $("#actionForm").find("input[name='selectedFilter']").val(),
 			  	        wishUser: $("#usernickForm").find("input[name='wishUser']").val(),
-			  	        isAlert: $("#checkForm input[name='isAlert']").is(":checked") ? "isAlert" : ""
 			  	    },
 
 		  	        success: function (data) {
@@ -512,6 +510,7 @@ function applyUserConditions(e) {
 			        	wishPolicy : no},
 			        	
 			        	 success: function(data) {
+			                 console.log(data);
 			                 var wishPolicy;
 			                 var isAlert;
 			                 for (var key in data) {
