@@ -51,6 +51,12 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
+                                                    <th scope="row">정책 이름</th>
+                                                    <td colspan="3">
+                                                       <input class="form-control" name="policyNm"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
@@ -108,11 +114,7 @@
                                               
                                             </tbody>
                                         </table>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label"></label>
-                                            <input class="form-control" type="file" id="formFile" />
-                                           
-                                          </div>
+                                    
 
                                     </div>
                                 </div>

@@ -506,8 +506,9 @@ function formatDate(date) {
 		    	    
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
-		    	
-	
+		    	    var currentDate = new Date();
+		    	    console.log(currentDate);
+		    	    
 		    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 		    	        '<div class="rounded shadow overflow-hidden">' +
 		    	        '<div class="position-relative">' +
@@ -516,6 +517,10 @@ function formatDate(date) {
 		    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
 		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
 		    	        '</a>' +
+		    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:-90px; left: 20px">' +
+		    	        '<span class="policy_badge">모집중</span>' +
+		    	    
+		    	        '</div>' +
 		    	        '</div>' +
 		    	        '</div>' +
 		    	        '<div class="p-4 mt-2 policy_detail">' +
@@ -531,7 +536,13 @@ function formatDate(date) {
 		    	        
 		    	        '</div>';
 	
-	
+		    	        if (new Date(policy.aplyEndDt) <= currentDate) {
+		    	            $('.policy_badge').css('background-color', 'green').text('모집마감');
+		    	        } else if (new Date(policy.aplyEndDt) > currentDate){
+		    	            $('.policy_badge').css('background-color', 'pink').text('모집중');
+		    	        } else if(policy.aplyEndDt == null){
+		    	        	  $('.policy_badge').css('background-color', 'red').text('상시모집');
+		    	        }
 		    	
 	
 		    	    // 정책 컨테이너에 추가
