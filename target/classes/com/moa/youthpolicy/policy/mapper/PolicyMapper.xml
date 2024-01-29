@@ -152,6 +152,8 @@
 		WHERE cno = #{cno}
 	</select>
 	
+	
+	
 	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		DELETE FROM like_policy
     	WHERE Email = #{Email} AND bno = #{bno}
