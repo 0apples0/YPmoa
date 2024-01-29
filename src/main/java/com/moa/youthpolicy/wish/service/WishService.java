@@ -129,7 +129,7 @@ public class WishService implements BoardInterface {
 		  public Map<Integer, Integer> clearAlarm() {
 		        // 데이터베이스에서 모든 정책의 알람 상태를 가져오기
 		        List<WishVO> wishList = mapper.getAlarm();
-
+		        log.info("가져온 알람상태"+wishList);
 		        // 정책 ID와 알람 상태를 담을 맵 초기화
 		        Map<Integer, Integer> buttonStates = new HashMap<>();
 
