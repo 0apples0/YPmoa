@@ -192,7 +192,29 @@
         
         $(document).ready(function ($) {
         	
-        	$('#summernote').summernote({
+        	// 모든 내용 선택 및 작성 확인
+            $('#writeForm').submit(function (event) {
+                var region = $('#region').val();
+                var category = $('#category').val();
+                var title = $('#titleInput').val();
+                var content = $('#summernote').summernote('code'); 
+
+                if (region === "") {
+                    alert("지역을 선택해주세요.");
+                    event.preventDefault();
+                }else if(category === ""){
+                    alert("관심분야를 선택해주세요.");
+                    event.preventDefault();
+                }else if(title === ""){
+                    alert("제목을 작성해주세요.");
+                    event.preventDefault();
+                }else if(content === "<p><br></p>" || content.trim() === "" || content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span><br></p>'){
+                    alert("내용을 작성해주세요.");
+                    event.preventDefault();
+                }
+            });
+
+            $('#summernote').summernote({
                 height: 500,
                 minHeight: null,
                 maxHeight: null,
@@ -211,14 +233,25 @@
                 ]
 
             });
-        	
+
         	$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
         	
-        	function sendFile(file, editor, welEdit) {
+            // userType이 0이면 공지 옵션만 보임
+            var userType = "${user.userType}";
+            if (userType === "0") {
+                // 기존 옵션 제거
+                $("#category").empty(); 
+                $("#region").empty(); 
+                // 공지 옵션 추가
+                $("#category").append('<option value="공지">공지</option>');
+                $("#region").append('<option value="공지">공지</option>');
+            }
+        	
+            function sendFile(file, editor, welEdit) {
             	console.log("file" + file);
         		//파라미터를 전달하기 위해 form객체 만든다.
         		var frm = new FormData();
- 
+
         		//위의 frm객체에 send_img이라는 파라미터를 지정!
         		frm.append("send_img", file);
         		//		frm.append("type", "saveImg");
@@ -250,7 +283,8 @@
         			console.log(e);
         		});
         	}
-        });
+
+        }); // document ready End
             
             
 

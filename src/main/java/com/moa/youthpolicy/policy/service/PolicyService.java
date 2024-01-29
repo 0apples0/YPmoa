@@ -55,7 +55,13 @@ public class PolicyService implements BoardGenericService {
 	public void modPolicy(PolicyVO vo) {
 		log.info("수정들어온 VO : " + vo);
 		mapper.modBoard(vo);
-		mapper.modp_Board(vo.getBoard());
+		Integer no = vo.getNo();
+		if(mapper.getBoard(no) != null) {
+			mapper.modp_Board(vo.getBoard());
+		}else {
+			mapper.writePlicyBoard(vo.getBoard());
+		}
+		
 	}
 
 	/*
