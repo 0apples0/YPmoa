@@ -504,7 +504,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		function chkLogin() {
 			userNick = $("#usernickForm input[name='writer']").val();
 			if (userNick == null || userNick == "") {
-				alert("로그인 필요");
+				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
 				return false;
 			} else {
 				return true;
@@ -673,12 +673,16 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
         	
         	// 댓글 신고 모달창
     	  row.on("click", ".policyGet_report", function (event) {
-    		  
     	  	  event.preventDefault();
-                if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-                  $("#cno").val(cno);
-                  $("#modalCenter").modal("show");
-              }
+    	  	  if(chkLogin()){
+                  if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+                      $("#cno").val(cno);
+                      $("#modalCenter").modal("show");
+                  }   	  		  
+    	  	  }else{
+    	  		  window.location.href = "/user/login";
+    	  	  }
+
     	  });
       	  // 댓글 수정
       	  row.on("click", ".commuComment_modBtn", function(){

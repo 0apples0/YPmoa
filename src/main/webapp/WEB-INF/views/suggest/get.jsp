@@ -56,14 +56,14 @@
                                 </div> 
                                 <div class="commuGet_btn">
 			                         <c:choose>
-					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
+					  					<c:when test = "${user ne null && user.nick ne null && (user.userType == 1 || user.userType == 0) && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
 											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
 										</c:when>
-					  					<c:when test = "${user ne null && user.nick ne null && user.userType == 0}">
-											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+										<c:when test="${vo.userType==0}">
+											<button id="return"
+												class="btn btn-primary commuGet_modifyBtn">목록</button>
 										</c:when>
 					 					<c:otherwise>
 											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>

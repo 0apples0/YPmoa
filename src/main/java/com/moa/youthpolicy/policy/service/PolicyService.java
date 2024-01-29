@@ -230,4 +230,11 @@ public class PolicyService implements BoardGenericService {
 		return vo;
 	}
 
+	// 댓글 작성자 유저타입 체크
+	public int checkWriterUserType(CommentsReportVO vo) {
+		int result = mapper.chkUserType(vo);
+		log.info("타입: "+result);
+		return result;
+	}
+
 }

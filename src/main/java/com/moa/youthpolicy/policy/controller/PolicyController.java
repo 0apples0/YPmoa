@@ -148,9 +148,16 @@ public class PolicyController {
 	
 	@ResponseBody
 	@PostMapping("/reportcomment")
-	public boolean reportcomment(CommentsReportVO vo) {
-		
-		return service.reportcomment(vo);
+	public int reportcomment(CommentsReportVO vo) {
+		int writerUserType = service.checkWriterUserType(vo);
+		if(writerUserType == 0) { //댓글 작성자가 관리자(userType: 0)면 신고 못하도록 처리
+			return 0;
+		}
+		else if(service.reportcomment(vo)) {
+			return 1;
+		}else {
+			return 2;
+		}
 	}
 	
 	@ResponseBody
