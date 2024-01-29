@@ -378,7 +378,7 @@ $(document).ready(function () {
                  row.append(contentTd);
                  
                  row.append($("<td>").text(formateDate));
-                 row.append($("<td>").addClass("board_countReportBtn").text(comment.countReport));
+                 row.append($("<td>").addClass("board_countReportBtn").text(comment.countCommentReport));
                  
                  let deleteTd = $("<td>");
                  let deleteLink = $("<a>").addClass("comment_deleteBtn").attr("href", "");

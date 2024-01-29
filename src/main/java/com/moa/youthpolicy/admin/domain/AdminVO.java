@@ -18,6 +18,7 @@ public class AdminVO {
 	int tipcno;
 	int policycno;
 	int countReport;
+	int countCommentReport;
 	int isdeleted; // 삭제 여부 판단
 	int isChecked; // 처리 여부 판단
 }

@@ -22,9 +22,11 @@ public interface AdminMapper {
 	public void updateBoardReport(Criteria cri);
 	public List<BoardReportVO> getBoardReportDetail(Criteria cri);
 	public void updateUserCountReport(Criteria cri);
+
 	//댓글 삭제
 	public void deleteComment(Criteria cri);
 	public void updateCommentReport(Criteria cri);
 	public List<CommentsReportVO> getCommentReportDetail(Criteria cri);
 	public void updateCommentCountReport(Criteria cri);
+	
 }
