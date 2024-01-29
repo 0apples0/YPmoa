@@ -260,5 +260,19 @@
 		SET content=#{content}
 		WHERE cno=#{cno}
 	</update>
-	
+ 
+	<select id="chkUserType" resultType="int" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
+		SELECT userType FROM user
+		WHERE nick =
+		<if test='boardType=="T"'>
+			(SELECT writer FROM tipboardcomments
+			WHERE cno = #{tipcno})
+		</if>
+		<if test='boardType=="P"'>
+			(SELECT writer FROM policyboardcomments
+			WHERE cno = #{policycno})
+		</if>
+
+	</select>
+
 </mapper>

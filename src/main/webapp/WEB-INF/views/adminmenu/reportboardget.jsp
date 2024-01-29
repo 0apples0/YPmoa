@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="닉네임을 입력하세요" name="keyword"/>
+                                        placeholder="닉네임을 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                                 </div>
                                 <div class="col-md-auto">
                                     <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>

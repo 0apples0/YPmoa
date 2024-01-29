@@ -65,7 +65,7 @@
                              
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="검색어를 입력하세요" name="keyword"/>
+                                        placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                                 </div>
                                 <div class="col-md-auto">
 
@@ -268,7 +268,7 @@
         </div>
     </div>
     
-    <form id="searchForm" method="post" action="/adminmenu/reportboardget">
+    <form id="moveToBoardReportForm" method="post" action="/adminmenu/reportboardget">
     	<input type="hidden" name="keyword" value=""/>
 	</form>
 <script>
@@ -313,10 +313,10 @@ $(document).ready(function () {
 
 		});
 		
-		row.on("click", ".board_countReportBtn", function(e){
+		row.on("click", "#moveBoardReport", function(e){
 			e.preventDefault();
-			$("#searchForm input[name='keyword']").val(nick);
-			$("#searchForm").submit();
+			$("#moveToBoardReportForm input[name='keyword']").val(nick);
+			$("#moveToBoardReportForm").submit();
 		});
 		
 	}
@@ -377,8 +377,11 @@ $(document).ready(function () {
                  row.append($("<td>").text(users.phone));
                  row.append($("<td>").text(formateDate));
                  
-                 let countReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveBoardReport").attr("colspan", "2").text(users.countReport);
+                 let countReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveBoardReport").text("게시글 "+users.countReport+"건");
                  row.append(countReportTd);
+                 
+                 let countCommentReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveCommentReport").text("댓글 "+users.countCommentReport+"건");
+                 row.append(countCommentReportTd);
                  
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
