@@ -237,4 +237,10 @@ public class PolicyService implements BoardGenericService {
 		return result;
 	}
 
+	public String getUrl() {
+		String result = mapper.getImageUrl();
+		log.info("서비스이미지"+result);
+		return result;
+	}
+
 }

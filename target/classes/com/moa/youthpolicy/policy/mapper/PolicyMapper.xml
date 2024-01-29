@@ -274,5 +274,12 @@
 		</if>
 
 	</select>
+	
+	<select id="getImageUrl" resultType="String">
+		SELECT REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(content, 'src="', -1), '"', 1), 'http://localhost:8090', '') AS imageUrl
+		FROM policyboard
+		WHERE policyboard.bno = #{policy.no}
+		LIMIT 1;
+	</select>
 
 </mapper>

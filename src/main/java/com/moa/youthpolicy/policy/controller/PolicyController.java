@@ -1,6 +1,8 @@
 package com.moa.youthpolicy.policy.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -166,5 +168,16 @@ public class PolicyController {
 				
 		return service.toggleCommentLike(vo).getLike();		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getImageUrl", method=RequestMethod.GET)
+	public Map<String, String> getImageUrl() {
+	    String imageUrl = service.getUrl();
+	    Map<String, String> response = new HashMap<>();
+	    response.put("imageUrl", imageUrl);
+	    return response;
+	}
+
+
 	
 }

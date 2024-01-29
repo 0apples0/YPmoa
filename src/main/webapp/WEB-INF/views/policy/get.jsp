@@ -134,13 +134,7 @@
 										<col style="width: 36%">
 									</colgroup>
 									<tbody>
-										<tr>
-											<td colspan="4"><img style="width: 80%;"
-												src="${pageContext.request.contextPath}/resources/img/카드1.png" />
-
-											</td>
-
-										</tr>
+										
 										<tr>
 											<td colspan="4">
 												<!-- policyCnDtl --> ${policy.policyCnDtl}

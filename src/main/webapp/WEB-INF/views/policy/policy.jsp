@@ -51,6 +51,7 @@
 				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
+					
 						<div class="col-md-auto">
 							<select class="form-select" name="rgnSeNm">
 								<option value=""
@@ -146,7 +147,6 @@
  	
             </div>
 
-		<!-- 체크박스를 누르면 바로 검색결과가 두두두 떴으면 좋겠습니다.. -->
 
 		<div id="policy_checkbox">
 			<div class="custom-control custom-checkbox">
@@ -508,10 +508,12 @@ function formatDate(date) {
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 		    	    var currentDate = new Date();
 		    	    
+		    	    var imageName = getImageUrlFromServer(policy.no);
+		    	    
 		    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 		    	        '<div class="rounded shadow overflow-hidden">' +
 		    	        '<div class="position-relative">' +
-		    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
+		    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/' + imageName + '.png" alt="">' +
 		    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
 		    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
 		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
@@ -548,9 +550,27 @@ function formatDate(date) {
 	
 		    	    // 정책 컨테이너에 추가
 		    	    $("#policyContainer").append(policyHtml);
+		    	    
+		    	    
 		    	}
-	     
-	     
+		     
+		     function getImageUrlFromServer(no) {
+		    	    $.ajax({
+		    	        url: "/policy/getImageUrl",
+		    	        type: "GET",
+		    	        dataType: "json",
+		    	        data: {bno : no},
+		    	        success: function(response) {
+		    	        	var imageUrl = response.imageUrl;
+							console.log(imageUrl);
+		    	            $('#thumbnail').attr('src', imageUrl);
+		    	        },
+		    	        error: function(xhr, status, error) {
+		    	            // 에러 처리
+		    	            console.error("에러 발생:", error);
+		    	        }
+		    	    });
+		    	}
 	
 	     
 }); // document.ready함수 끝
@@ -577,6 +597,10 @@ function confirmDelete(policyNo) {
         });
     }
 }
+
+
+
+
 
     </script>
 <%@include file="../includes/footer.jsp"%>
