@@ -16,7 +16,7 @@ public class UserVO {
     String interestField; // 관심 분야
     Date regDate; // 가입일
     Date leaveDate; // 탈퇴일
-    int countReport;    // 신고당한 횟수
+    int countReport;  // 신고당한 횟수
 
     // 새 비밀번호와 확인 비밀번호 관련 메서드 추가
     private String newPassword;
