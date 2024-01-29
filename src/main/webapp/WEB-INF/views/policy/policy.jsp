@@ -501,7 +501,7 @@ function formatDate(date) {
 
 		    	    // ...
 
-		    	    // 이미지 경로 사용
+		    	    // 이미지 경로 사용ㄹ
 		    	    var imagePath = policy.wishVO == null ? addWishImagePath : checkWishImagePath;
 		    	    
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
