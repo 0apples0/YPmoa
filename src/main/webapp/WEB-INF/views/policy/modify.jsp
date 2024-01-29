@@ -190,102 +190,68 @@
         <script>
         	
         
-        $(document).ready(function ($) {
-        	
-        	// 모든 내용 선택 및 작성 확인
-            $('#writeForm').submit(function (event) {
-                var region = $('#region').val();
-                var category = $('#category').val();
-                var title = $('#titleInput').val();
-                var content = $('#summernote').summernote('code'); 
-
-                if (region === "") {
-                    alert("지역을 선택해주세요.");
-                    event.preventDefault();
-                }else if(category === ""){
-                    alert("관심분야를 선택해주세요.");
-                    event.preventDefault();
-                }else if(title === ""){
-                    alert("제목을 작성해주세요.");
-                    event.preventDefault();
-                }else if(content === "<p><br></p>" || content.trim() === "" || content ==='<p><span style="font-family: LINESeedKR-Bd_light;">﻿</span><br></p>'){
-                    alert("내용을 작성해주세요.");
-                    event.preventDefault();
-                }
-            });
-
+        jQuery(document).ready(function ($) {
             $('#summernote').summernote({
-                height: 500,
-                minHeight: null,
-                maxHeight: null,
-                lang: "ko-KR",	// 한글 설정
+                height: 500,                
+                minHeight: null,             
+                maxHeight: null,                  
+                lang: "ko-KR",					// 한글 설정
                 focus: true,
                 toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['picture', ['[picture]']],
-                    ['insert', ['link', 'picture']],
-                ]
-
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['picture', ['[picture]']],
+                ['insert', ['link', 'picture']],
+            	],
+            	callbacks : {
+					onImageUpload : function(files, editor, welEdit) {
+						//alert("^^");
+						//console.log('img upload: ', files);
+						//이미지를 첨부하면 배열로 인식된다.
+						//이것을 서버로 비동기식 통신을 하는 
+						//함수를 호출하면서 보낸다.
+						sendFile(files[0], editor, welEdit);
+					}
+				}
             });
-
-        	$('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
-        	
-            // userType이 0이면 공지 옵션만 보임
-            var userType = "${user.userType}";
-            if (userType === "0") {
-                // 기존 옵션 제거
-                $("#category").empty(); 
-                $("#region").empty(); 
-                // 공지 옵션 추가
-                $("#category").append('<option value="공지">공지</option>');
-                $("#region").append('<option value="공지">공지</option>');
-            }
-        	
+            $('#summernote').summernote('fontName', 'LINESeedKR-Bd_light');
             function sendFile(file, editor, welEdit) {
             	console.log("file" + file);
-        		//파라미터를 전달하기 위해 form객체 만든다.
-        		var frm = new FormData();
+    			//파라미터를 전달하기 위해 form객체 만든다.
+    			var frm = new FormData();
+    			//위의 frm객체에 send_img이라는 파라미터를 지정!
+    			frm.append("send_img", file);
+    			//		frm.append("type", "saveImg");
+    			//비동기식 통신
+    			$.ajax({
+    				//			url: "saveImage.jsp",
+    				url : "/uploadImge",
+    				data : frm,
+    				cache : false,
+    				contentType : false,
+    				processData : false,
+    				type : "POST",
+    				dataType : "JSON" //나중 받을 데이터의 형식을 지정
+    			}).done(function(data) {
+    				//도착함수
+    				//alert(data.url);
+    				//에디터에 img태그로 저장하기 위해 
+    				//다음과 같이 img태그를 정의한다.
+    				//var image = $('<img>').attr('src',data.url);
+    				//에디터에 정의한 img태그를 보여준다.
+    				//$('#content').summernote('insertNode',image[0]);
+    				$('#summernote').summernote('insertImage', data.url);
+    			}).fail(function(e) {
+    				console.log(e);
+    			});
+    		}
 
-        		//위의 frm객체에 send_img이라는 파라미터를 지정!
-        		frm.append("send_img", file);
-        		//		frm.append("type", "saveImg");
-
-        		//비동기식 통신
-        		$.ajax({
-        			//			url: "saveImage.jsp",
-        			url : "/uploadImge",
-        			data : frm,
-        			cache : false,
-        			contentType : false,
-        			processData : false,
-        			type : "POST",
-        			dataType : "JSON" //나중 받을 데이터의 형식을 지정
-        		}).done(function(data) {
-        			//도착함수
-        			//alert(data.url);
-
-        			//에디터에 img태그로 저장하기 위해 
-        			//다음과 같이 img태그를 정의한다.
-        			//var image = $('<img>').attr('src',data.url);
-
-        			//에디터에 정의한 img태그를 보여준다.
-        			//$('#content').summernote('insertNode',image[0]);
-
-        			$('#summernote').summernote('insertImage', data.url);
-
-        		}).fail(function(e) {
-        			console.log(e);
-        		});
-        	}
-
-        }); // document ready End
-            
+        }); // 글쓰기에디터 ready함수 끝
             
 
 
