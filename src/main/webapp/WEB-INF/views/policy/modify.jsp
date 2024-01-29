@@ -190,7 +190,7 @@
         <script>
         	
         
-        jQuery(document).ready(function ($) {
+        $(document).ready(function ($) {
             $('#summernote').summernote({
                 height: 500,                
                 minHeight: null,             
