@@ -103,8 +103,7 @@ public class WishController {
 	@GetMapping("/endAlarm")
 	public int endAlarm() {
 		int response = wishService.endDateAlarm();
-		log.info("받아온 카운드 값: "+response);
-
+	
 		if(response > 0) {
 			return response;
 		}
