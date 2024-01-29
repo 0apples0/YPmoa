@@ -89,7 +89,7 @@ public class Criteria {
 	}
 	
 	public int getNextnextPage() {
-		this.nextnextPage = (int) (Math.floor((this.pageNum+pageAmount)/pageAmount)*pageAmount+1);
+		this.nextnextPage = (int) (Math.floor((this.pageNum+pageAmount-1)/pageAmount)*pageAmount+1);
 		return this.nextnextPage;
 		
 	}

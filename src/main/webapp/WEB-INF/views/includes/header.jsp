@@ -131,9 +131,9 @@
             </nav>
         </div>
    </div>
-   <form id="actionForm" action="/wish/wish" method="post">
+
 		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
-	</form>
+
    <form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
 		<input type="hidden" name="wishUser" value="${user.email}">
