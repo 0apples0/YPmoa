@@ -60,7 +60,7 @@
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
-                                                       <textarea class="form-control" name="policyNm"></textarea>
+                                                       <textarea class="form-control" name="policyCn"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
