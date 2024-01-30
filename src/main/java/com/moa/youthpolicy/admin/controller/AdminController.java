@@ -80,6 +80,7 @@ public class AdminController {
 		}else {
 			return "redirect:/errorPage";
 		}
+		
 		int total = adminService.getTotalCommentAmount(cri); //전체 신고 댓글 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
