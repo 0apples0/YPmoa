@@ -543,30 +543,29 @@
     
 }
 
-#communityBestCommentTable tbody tr td:first-child{
-	width: 55% !important;
-}
-#communityBestCommentTable tbody tr td:last-child{
-	width: 7% !important;
-}
 .custom-width tbody tr td:nth-child(5){
-    width: 11% !important;
+    width: 10% !important;
 }
 .custom-width tbody tr td:nth-child(3){
     width: 18% !important;
 }
 
-.policyGet_comment tbody tr td:nth-child(2){
+.policyGet_comment tbody tr td:nth-child(2), .policyGet_bestComment tbody tr td:nth-child(2){
     width: 10%;
 }
-.policyGet_comment tbody tr td:nth-child(3){
-    width: 17%;
+.policyGet_comment tbody tr td:nth-child(3), .policyGet_bestComment tbody tr td:nth-child(3){
+    width: 18%;
 }
-.policyGet_comment tbody tr td:nth-child(4){
-    width: 6%;
+.policyGet_comment tbody tr td:nth-child(4), .policyGet_bestComment tbody tr td:nth-child(4){
+    width: 7%;
 }
-.policyGet_comment tbody tr td:nth-child(5){
-    width: 6%;
+.policyGet_comment tbody tr td:nth-child(5), .policyGet_bestComment tbody tr td:nth-child(5){
+    width: 7%;
+}
+
+
+.policyGet_bestComment tbody tr td:first-child{
+	text-align:left !important;
 }
 
 .edit-delete-cell {

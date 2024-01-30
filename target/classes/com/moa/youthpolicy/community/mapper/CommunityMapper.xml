@@ -252,7 +252,7 @@
 	    SELECT COUNT(tipboardcomments.cno)
 	    FROM tipboard
 	    LEFT JOIN tipboardcomments ON tipboard.bno = tipboardcomments.bno
-	    WHERE tipboard.bno = #{bno} 
+	    WHERE tipboard.bno = #{bno} AND tipboard.isdeleted = 0; 
 	</select>
 
 	

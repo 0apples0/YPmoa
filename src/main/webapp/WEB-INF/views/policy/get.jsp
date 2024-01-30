@@ -126,7 +126,7 @@
 						<div class="table_section padding_infor_info">
 
 							<div class="table-responsive-sm">
-								<table class="table commu_table policy_dt_table">
+								<table class="table commu_table policy_dt_table policyGet_table">
 									<colgroup>
 										<col style="width: 14%">
 										<col style="width: 36%">
@@ -201,21 +201,24 @@
 				
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
 				<div id="communityBestCommentDiv" class="col-md-12">
-					<div class="white_shd_a full"
-						style="padding: 30px; padding-bottom: 0px;">
-						<h4 style="padding-left: 10px;">
-							<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
-								class="fa fa-fire text-primary commu_pic"></i>
-						</h4>
-						<div class="table-responsive-sm">
-							<table id="communityBestCommentTable"
-								class="table table-basic commu_table policyGet_comment">
- 
-								<tbody style="background-color: rgb(255, 239, 203);">
-								
-								</tbody>
-								
-							</table>
+					<div class="white_shd_a full" style="padding-bottom: 0px;">
+						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
+							<div style="border:1px solid grey">
+								<h4 style="padding-left: 10px;">
+									<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
+										class="fa fa-fire text-primary commu_pic"></i>
+								</h4>
+								<div class="table-responsive-sm">
+									<table id="communityBestCommentTable"
+										class="table table-basic commu_table policyGet_bestComment">
+
+										<tbody style="background-color: rgb(255, 239, 203);">
+
+										</tbody>
+
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -227,7 +230,7 @@
 						<div class="table_section padding_infor_info">
 							<div class="table-responsive-sm">
 								<table id="communityCommentTable"
-									class="table table-default commu_table policyGet_comment policyGet_table">
+									class="table table-default commu_table policyGet_comment">
 
 									<tbody>
 
