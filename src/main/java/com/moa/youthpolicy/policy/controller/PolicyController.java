@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.common.PageDTO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
+import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.service.PolicyService;
@@ -80,7 +82,7 @@ public class PolicyController {
 	public void policy(Criteria cri, Model model) {
 		log.info(cri);
 		cri.setAmount(8);
-		int total = service.getTotalAmount(cri); // tbl_board테이블의 모든 행의 갯수
+		int total = service.getTotalAmount(cri); // tbl_board�뀒�씠釉붿쓽 紐⑤뱺 �뻾�쓽 媛��닔
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 	}
@@ -135,14 +137,14 @@ public class PolicyController {
 	public void addComment(PolicyCommentVO vo) {
 		service.writeComment(vo);
 	}
-	// 댓글 삭제
+	// �뙎湲� �궘�젣
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
 	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		service.delCommunityComment(cno);
 		return "redirect:/policy/get?no=" + bno;
 	}
 	
-	// 댓글 수정
+	// �뙎湲� �닔�젙
 	@ResponseBody
 	@RequestMapping(value="/modifyComment", method={RequestMethod.GET, RequestMethod.POST})
 	public void modCommunityComment(@RequestParam("bno") Integer bno, PolicyCommentVO comment){
@@ -153,7 +155,7 @@ public class PolicyController {
 	@PostMapping("/reportcomment")
 	public int reportcomment(CommentsReportVO vo) {
 		int writerUserType = service.checkWriterUserType(vo);
-		if(writerUserType == 0) { //댓글 작성자가 관리자(userType: 0)면 신고 못하도록 처리
+		if(writerUserType == 0) { //�뙎湲� �옉�꽦�옄媛� 愿�由ъ옄(userType: 0)硫� �떊怨� 紐삵븯�룄濡� 泥섎━
 			return 0;
 		}
 		else if(service.reportcomment(vo)) {
@@ -170,14 +172,14 @@ public class PolicyController {
 		return service.toggleCommentLike(vo).getLike();		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/getImageUrl", method=RequestMethod.GET)
-	public Map<String, String> getImageUrl() {
-	    String imageUrl = service.getUrl();
-	    Map<String, String> response = new HashMap<>();
-	    response.put("imageUrl", imageUrl);
-	    return response;
-	}
+
+@ResponseBody
+@RequestMapping(value = "/getImageUrl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public String getImageUrl(@RequestParam("bno") int bno) {
+    String imageUrl = service.getUrl(bno);
+    return imageUrl;
+}
+	
 
 
 	

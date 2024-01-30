@@ -481,6 +481,16 @@
 
 /*** policy ***/
 
+.policy_adminWrite{
+	margin-bottom:30px
+	}
+
+.policy_btn{
+	padding: 10px;
+}
+.policy_adminModi{
+	margin-right: 5px;
+}
 
 
 .policyGet_reportDetail{
@@ -580,6 +590,9 @@
     background-color: rgba(239, 239, 239, 0.401);
 }
 
+.policy_dt_table tbody tr td{
+	text-align: left !important;
+}
 .policyWrite_table tbody tr td{
     text-align: left !important;
   

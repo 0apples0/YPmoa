@@ -40,5 +40,5 @@ public interface PolicyMapper {
 	public void modLikeComment(PolicyCommentVO vo);
 	public PolicyCommentVO getComment(PolicyCommentVO vo);
 	public int chkUserType(CommentsReportVO vo);
-	public String getImageUrl();
+	 String getImageUrl(int bno);
 }

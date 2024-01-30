@@ -13,6 +13,7 @@ import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.common.LikeBoardVO;
 import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.community.domain.CommunityCommentVO;
+import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
@@ -53,7 +54,7 @@ public class PolicyService implements BoardGenericService {
 	}
 	
 	public void modPolicy(PolicyVO vo) {
-		log.info("수정들어온 VO : " + vo);
+		log.info("�닔�젙�뱾�뼱�삩 VO : " + vo);
 		mapper.modBoard(vo);
 		Integer no = vo.getNo();
 		if(mapper.getBoard(no) != null) {
@@ -196,7 +197,7 @@ public class PolicyService implements BoardGenericService {
 	public void delCommunityComment(Integer cno) {
 		mapper.deleteComment(cno);		
 	}
-	// 댓글 수정
+	// �뙎湲� �닔�젙
 	public void modCommunityComment(PolicyCommentVO comment) {
 		mapper.modComment(comment);
 	}
@@ -217,9 +218,9 @@ public class PolicyService implements BoardGenericService {
 	public PolicyCommentVO toggleCommentLike(PolicyCommentVO vo) {
 		String email = AuthUtil.getCurrentUserAccount();
 		LikeCommentVO like = new LikeCommentVO(email, vo.getCno());
-		LikeCommentVO _vo = mapper.getLikeComment(like); //likeCommentVO 1개
-		vo = mapper.getComment(vo); // policyCommentVO 1개
-		if(_vo != null) { //likeCommentVo가 null이 아니라면
+		LikeCommentVO _vo = mapper.getLikeComment(like); //likeCommentVO 1媛�
+		vo = mapper.getComment(vo); // policyCommentVO 1媛�
+		if(_vo != null) { //likeCommentVo媛� null�씠 �븘�땲�씪硫�
 			mapper.delLikeComment(like);
 			vo.setLike(vo.getLike() - 1);
 		}else {
@@ -230,17 +231,17 @@ public class PolicyService implements BoardGenericService {
 		return vo;
 	}
 
-	// 댓글 작성자 유저타입 체크
+	// �뙎湲� �옉�꽦�옄 �쑀�����엯 泥댄겕
 	public int checkWriterUserType(CommentsReportVO vo) {
 		int result = mapper.chkUserType(vo);
-		log.info("타입: "+result);
+		log.info("���엯: "+result);
 		return result;
 	}
 
-	public String getUrl() {
-		String result = mapper.getImageUrl();
-		log.info("서비스이미지"+result);
-		return result;
+	public String getUrl(int bno) {
+	    return mapper.getImageUrl(bno);
 	}
+
+
 
 }

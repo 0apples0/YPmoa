@@ -136,7 +136,7 @@
                                 <div class="table_section padding_infor_info">
 
                                     <div class="table-responsive-sm">
-                                        <table class="table commu_table policy_dt_table">
+                                        <table class="table commu_table policy_dt_table" >
                                             <colgroup>
                                                 <col style="width: 14%">
                                                 <col style="width: 36%">

@@ -140,7 +140,7 @@
 
 <div class="container-xxl py-5">
 	<div class="container">
- <div class="commuGet_btn">
+ <div class="commuGet_btn policy_adminWrite">
  				<c:if test="${user.userType eq 0}">
 	                <a href="/policy/write"><button class="btn btn-primary">글쓰기</button></a>
 	            </c:if>
@@ -446,11 +446,14 @@ function formatDate(date) {
 		  	        },
 		  	        success: function (data) {
 		  	        	
-		 				console.log(data);
+		  	        	console.log(data);
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
-		  	               policy.crtDt = formatDate(policy.crtDt);
-		  	               addPolicyToContainer(policy, index + 1);
+		  	                policy.crtDt = formatDate(policy.crtDt);
+		  	                // 이미지 URL 가져오기
+		  	                getImageUrlFromServer(policy.no, function(imageUrl) {
+		  	                    addPolicyToContainer(policy, index + 1, imageUrl);
+		  	                });
 		  	            });
 		  	        },
 		  	        error: function (e) {
@@ -483,7 +486,7 @@ function formatDate(date) {
 		 	  
 	
 		    
-		     function addPolicyToContainer(policy, index) {
+		     function addPolicyToContainer(policy, index, imageUrl) {
 		    	 	var addWishImagePath = "addWish.png";
 		    	    var checkWishImagePath = "checkWish.png";
 		    	    
@@ -492,48 +495,50 @@ function formatDate(date) {
 		    	    console.log($("#usernickForm input[name='writer']").val());
 		    	    // userType이 0일 때만 삭제와 수정 버튼을 추가
 		    	    if ($("#usernickForm input[name='writer']").val() != "" && $("#usernickForm input[name='userType']").val() == 0) {
-		    	    	buttonHtml += '<div class="commuGet_btn" >' 
-		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-primary">수정</button></a>';
-		    	        buttonHtml += '<button class="btn btn-primary" onclick="confirmDelete(' + policy.no + ')">삭제</button>';
+		    	    	buttonHtml += '<div class="commuGet_btn policy_btn" >' 
+		    	        buttonHtml += '<a href="modify?no=' + policy.no + '"><button class="btn btn-outline-primary policy_adminModi">수정</button></a>';
+		    	        buttonHtml += '<button class="btn btn-outline-secondary" onclick="confirmDelete(' + policy.no + ')">삭제</button>';
 		    	        buttonHtml += '</div>'
 		    	        //buttonHtml += '<a href="delPolicy?no=' + policy.no + '"><button class="btn btn-primary" style="margin: 10px;">삭제</button>';
+		    	        var policyDetailMargin = 'mb-0';
+		    	    }else {
+		    	        var policyDetailMargin = 'mb-3_a';
 		    	    }
 
 		    	    // ...
 
-		    	    // 이미지 경로 사용ㄹ
+		    	    // 이미지 경로 사용
 		    	    var imagePath = policy.wishVO == null ? addWishImagePath : checkWishImagePath;
 		    	    
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 		    	    var currentDate = new Date();
-		    	    
-		    	    var imageName = getImageUrlFromServer(policy.no);
+		    	   console.log("이미지: "+imageUrl);
 		    	    
 		    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 		    	        '<div class="rounded shadow overflow-hidden">' +
-		    	        '<div class="position-relative">' +
-		    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/' + imageName + '.png" alt="">' +
+		    	        '<div class="position-relative overflow-hidden" style="height: 276px;" >' +
+		    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="height: 100%; object-fit: cover;" alt="">' +
 		    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
 		    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
 		    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
 		    	        '</a>' +
-		    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:-90px; left: 20px">' ;
+		    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:-150%;">' ;
 		    	      
 		    	         if((policy.aplyEndDt) === null || (policy.aplyEndDt) === "") {
-		    	            policyHtml += '<span class="policy_badge" style="background-color: red; left:-5px;">마감일상세확인</span>' ;
+		    	            policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
 		    	        } 
 		    	         else if ((policy.aplyEndDt) <= currentDate) {
-		    	            policyHtml +=  '<span class="policy_badge" style="background-color: green;">모집마감</span>';
+		    	            policyHtml +=  '<span class="policy_badge" style="background-color: green; left:25%;">모집마감</span>';
 		    	        } 
 		    	        else if ((policy.aplyEndDt) > currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
-		    	            policyHtml +=  '<span class="policy_badge" style="background-color: hotpink;">모집중</span>';
+		    	            policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; left: 40%;">모집중</span>';
 		    	              
 		    	        }
 		    	        policyHtml += '</div>' +
 		    	        '</div>' +
 		    	        '</div>' +
-		    	        '<div class="p-4 mt-2 policy_detail">' +
+		    	        '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +
 		    	        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
 		    	        		
 		    	        '<div class="d-flex">'+
@@ -554,23 +559,29 @@ function formatDate(date) {
 		    	    
 		    	}
 		     
-		     function getImageUrlFromServer(no) {
+		     function getImageUrlFromServer(no, callback) {
 		    	    $.ajax({
 		    	        url: "/policy/getImageUrl",
 		    	        type: "GET",
-		    	        dataType: "json",
-		    	        data: {bno : no},
+		    	        data: {bno: no},
+		    	        dataType: 'text', 
 		    	        success: function(response) {
-		    	        	var imageUrl = response.imageUrl;
-							console.log(imageUrl);
-		    	            $('#thumbnail').attr('src', imageUrl);
+		    	        	 console.log(response);
+		    	             // 응답이 없는 경우 기본값으로 '카드1.jpg'를 사용
+		    	             var imageUrl = response !== '' ? response : '카드1.png';
+		    	             console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
+		    	             // 콜백 함수 호출하여 이미지 URL 전달
+		    	             callback(imageUrl);
 		    	        },
 		    	        error: function(xhr, status, error) {
 		    	            // 에러 처리
 		    	            console.error("에러 발생:", error);
+		    	            callback('카드1.png');
 		    	        }
 		    	    });
 		    	}
+
+
 	
 	     
 }); // document.ready함수 끝

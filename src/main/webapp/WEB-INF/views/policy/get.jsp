@@ -101,7 +101,7 @@
 											<td>${policy.policyEnq}</td>
 											<!-- dtlLinkUrl-->
 											<th scope="row">신청 사이트</th>
-											<td><a href="#" onclick="openNewWindow('${policy.dtlLinkUrl}'); return false;">${policy.dtlLinkUrl}</a></td>
+											<td><a href="" onclick="openNewWindow('${policy.dtlLinkUrl}'); return false;">${policy.dtlLinkUrl}</a></td>
 										</tr>
 									</tbody>
 								</table>
