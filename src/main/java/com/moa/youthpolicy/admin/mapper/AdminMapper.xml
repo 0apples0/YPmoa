@@ -444,15 +444,32 @@
 			UPDATE policyboardcomments
 		</when>			
 		</choose>
+		<choose>
+		<when test="isdeleted == 1">
+			SET isdeleted = 0
+		</when>
+		<when test="isdeleted == 0">
 			SET isdeleted = 1
+		</when>
+		</choose>
 			WHERE cno = #{cno}		
 	</update>
 	
-	<!-- 댓글 삭제 시 user table의 countReport값을 1 증가 -->
+	<!-- 댓글 삭제 시 user table의 countCommentReport값을 1 증가 -->
 	<update id="updateCommentCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
-	    
-	    SET countCommentReport = countCommentReport + 1
+	    <choose>
+	    <when test="isdeleted == 1 and isChecked == 1">
+	    	SET countCommentReport = countCommentReport - 1
+	    </when>
+	    <when test="isdeleted == 0 and isChecked == 0">
+	    	SET countCommentReport = countCommentReport + 1
+	    </when>
+	    <otherwise>
+	    	SET countCommentReport = countCommentReport
+	    </otherwise>
+	    </choose>
+
 	    WHERE nick IN (
 	        SELECT DISTINCT writer
 	        FROM 
@@ -464,14 +481,29 @@
 	                policyboardcomments
 	            </when>
 	        </choose>
-	        WHERE boardType = #{boardType} AND cno = #{cno}
+	        WHERE 
+	        <choose>
+            <when test='boardType == "T"'>
+                boardType = #{boardType} AND bno = #{bno} AND cno = #{cno}
+            </when>
+            <when test='boardType == "P"'>
+                boardType = #{boardType} AND no = #{bno} AND cno = #{cno}
+            </when>
+        </choose>
 	    )
 	</update>
 	
 	<!-- 댓글 삭제 or 처리 시 isChecked를 1로 변경 -->
 	<update id="updateCommentReport" parameterType="com.moa.youthpolicy.common.Criteria">
 		UPDATE commentsreport
-		SET isChecked = 1
+	    <choose>
+	    <when test="isChecked == 1">
+	    	SET isChecked = 0
+	    </when>
+	    <when test="isChecked == 0">
+	    	SET isChecked = 1
+	    </when>
+	    </choose>
 		<choose>
 		<when test='boardType == "T"'>
 			WHERE tipcno = #{cno} 

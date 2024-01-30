@@ -79,8 +79,6 @@
                             <div class="table_section padding_infor_info_a">
                                 <div class="table-responsive-sm">
                                     <table id="admin_boardTable" class="table table-default admin_boardTable">
-
-
                                         <thead>
                                             <tr> 
                                                 <th data-sort="board">게시판</th>
@@ -99,10 +97,6 @@
                                 </div>
                             </div>
                         </div>
-                  
-
-
-
                     </div>
                 </div>
             </div>
@@ -191,16 +185,13 @@
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
         </div>
-
-
-
   
         <!-- Modal -->
         <div class="modal fade admin_modalInfo" id="modalCenterReportDetail" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
+                        <h5 class="modal-title" id="modalCenterTitle">게시글 신고</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -209,7 +200,6 @@
                                 <div class="modalDetailcount" id="modalDetailcount2">- 영리목적/홍보성 <span></span>회</div>
                                 <div class="modalDetailcount" id="modalDetailcount3">- 개인정보노출 <span></span>회</div>
                                 <div class="modalDetailcount" id="modalDetailcount4">- 기타 <span></span>회</div>
-
                         </div>
                         <div class="row">
                             <div class="col mb-3 admin_modalBox">
@@ -229,8 +219,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
-                      
-
                     </div>
                 </div>
             </div>

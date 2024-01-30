@@ -271,6 +271,10 @@
     <form id="moveToBoardReportForm" method="post" action="/adminmenu/reportboardget">
     	<input type="hidden" name="keyword" value=""/>
 	</form>
+	
+    <form id="moveToCommentReportForm" method="post" action="/adminmenu/reportcommentget">
+    	<input type="hidden" name="keyword" value=""/>
+	</form>
 <script>
 $(document).ready(function () {
 	loadTableData();
@@ -317,6 +321,12 @@ $(document).ready(function () {
 			e.preventDefault();
 			$("#moveToBoardReportForm input[name='keyword']").val(nick);
 			$("#moveToBoardReportForm").submit();
+		});
+		
+		row.on("click", "#moveCommentReport", function(e){
+			e.preventDefault();
+			$("#moveToCommentReportForm input[name='keyword']").val(nick);
+			$("#moveToCommentReportForm").submit();
 		});
 		
 	}
