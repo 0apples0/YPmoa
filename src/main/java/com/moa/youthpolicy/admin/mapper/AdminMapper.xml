@@ -124,7 +124,6 @@
 				WHERE userType = 3
 			</when>		
 		</choose>
-
 		
 		<if test='type == "nick" or type == null'>
 			<choose>
@@ -146,6 +145,11 @@
 				</otherwise>	
 			</choose>
 		</if>
+		<if test="selectedFilter == 'report'">
+        	AND (countReport > 0 OR countCommentReport > 0)
+    	</if>
+		
+		
 		ORDER BY regDate DESC
 		LIMIT #{start}, #{amount}
 	</select>
