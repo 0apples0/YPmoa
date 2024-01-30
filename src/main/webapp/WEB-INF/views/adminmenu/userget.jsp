@@ -175,7 +175,6 @@
 	        </li> 
         </ul>
 	</nav>
-	
 	<form id="actionForm" action="/adminmenu/userget" method="post">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -185,7 +184,6 @@
 		<input type="hidden" name="report" value="${pageMaker.cri.report }">
 		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">	
 	</form>
-	
 </div>
 
 <!-- 정지 버튼 Modal -->
@@ -197,8 +195,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" >
-                        <div style="text-align:center">해당 회원을 정지할까요?</div>
-                        
+            	<div style="text-align:center">해당 회원을 정지할까요?</div>
             </div>
             <div class="modal-footer" style="justify-content:center">
                 <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">확인</button>
@@ -297,7 +294,6 @@ $(document).ready(function () {
 			$("#moveToCommentReportForm input[name='keyword']").val(nick);
 			$("#moveToCommentReportForm").submit();
 		});
-		
 	}
 	
 	// 회원 정지/해제 (userType 값 변경)
@@ -411,8 +407,6 @@ $(document).ready(function () {
              if (newPageNum) {
                      actionForm.find("input[name='pageNum']").val(newPageNum);
                      actionForm.submit();   
-                     //   $("#actionForm input[name='pageNum']").val(newPageNum);
-        				//loadTableData(); // 서버에 새로운 페이지 정보 요청
              }
 		});      
      }
