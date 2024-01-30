@@ -101,7 +101,7 @@
 											<td>${policy.policyEnq}</td>
 											<!-- dtlLinkUrl-->
 											<th scope="row">신청 사이트</th>
-											<td><a href="#">${policy.dtlLinkUrl}</a></td>
+											<td><a href="#" onclick="openNewWindow('${policy.dtlLinkUrl}'); return false;">${policy.dtlLinkUrl}</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -446,6 +446,10 @@
 //선택한 값을 저장할 변수
 var selectedOption = "";
 var reporter = $("#usernickForm input[name='writer']").val();
+
+function openNewWindow(url) {
+    window.open(url, '_blank');
+}
 
 // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
 $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
