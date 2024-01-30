@@ -489,14 +489,7 @@
 	            </when>
 	        </choose>
 	        WHERE 
-	        <choose>
-            <when test='boardType == "T"'>
                 boardType = #{boardType} AND bno = #{bno} AND cno = #{cno}
-            </when>
-            <when test='boardType == "P"'>
-                boardType = #{boardType} AND no = #{bno} AND cno = #{cno}
-            </when>
-        </choose>
 	    )
 	</update>
 	
