@@ -304,7 +304,7 @@ function applyUserConditions(e) {
         	function formatDate(date) {
         		
         	    if (!date) {
-        	        return "상시모집";
+        	        return "마감일 상세 확인";
         	    }
         		  const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; 
         		  const formattedDate = new Date(date).toLocaleDateString('en-US', options); 
@@ -413,9 +413,10 @@ function applyUserConditions(e) {
 	            function hideButtonIfDateNull(policy) {
 	                // 현재 날짜를 가져옵니다.
 	                var currentDate = new Date();
-	                
+	                currentDate.setHours(0, 0, 0, 0);
+	                console.log(currentDate);
 	                // 날짜가 null이면서 현재 날짜보다 작거나 같으면 또는 상시모집인 경우 알림받기 버튼을 숨깁니다.
-	                if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "상시모집" || new Date(policy.aplyEndDt) < currentDate) {
+	                if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "마감일 상세 확인" || new Date(policy.aplyEndDt) < currentDate) {
 	                    $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
 	                }
 	            }
@@ -441,7 +442,7 @@ function applyUserConditions(e) {
 	    	        '<div class="d-flex">'+
 	    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' 
 	    	        
-	    	        if (policy.aplyEndDt !== "상시모집") {
+	    	        if (policy.aplyEndDt !== "마감일 상세 확인") {
 	    	            policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + (policy.aplyEndDt) + '</small>';
 	    	        }else{
 	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + (policy.aplyEndDt) + '</small>';
