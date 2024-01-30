@@ -3,6 +3,7 @@ package com.moa.youthpolicy.admin.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,15 @@ public class AdminController {
 	
 	// 유저 전체 리스트 출력
 	@RequestMapping(value="/userget", method= {RequestMethod.GET, RequestMethod.POST})
-	public void list(Criteria cri, Model model) {
+	public String list(Criteria cri, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user != null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
 		log.info("contorller : ");
 		log.info("type: "+cri.getType());
 		log.info("userType: "+cri.getUserType());
@@ -50,6 +59,7 @@ public class AdminController {
 		log.info("리얼엔드:"+pageResult.getRealEnd());
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
+		return "adminmenu/userget";
 	}	
 	
 	@ResponseBody
@@ -61,12 +71,21 @@ public class AdminController {
 	
 	// 신고 댓글 전체 리스트 출력
 	@RequestMapping(value="/reportcommentget", method= {RequestMethod.GET, RequestMethod.POST})
-	public void commentList(Criteria cri, Model model) {
+	public String commentList(Criteria cri, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user != null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
 		int total = adminService.getTotalCommentAmount(cri); //전체 신고 댓글 수 출력
 		log.info("totalpage: "+total);		
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
+		return "adminmenu/reportcommentget";
 	}	
 
 	@ResponseBody
@@ -78,7 +97,15 @@ public class AdminController {
 	
 	// 신고 게시글 리스트 출력
 	@RequestMapping(value="/reportboardget", method= {RequestMethod.GET, RequestMethod.POST})
-	public void reportboardlist(Criteria cri, Model model) {
+	public String reportboardlist(Criteria cri, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user != null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
 		log.info("contorller : ");
 		log.info("type: "+cri.getType());
 		log.info("type: "+cri.getBoardType());
@@ -89,6 +116,7 @@ public class AdminController {
 		log.info("리얼엔드:"+pageResult.getRealEnd());
 		log.info("endPage = " + pageResult.getEndPage());
 		model.addAttribute("pageMaker", pageResult);
+		return "adminmenu/reportboardget";
 	}	
 	
 	@ResponseBody
