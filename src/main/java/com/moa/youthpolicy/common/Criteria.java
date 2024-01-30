@@ -59,6 +59,9 @@ public class Criteria {
 	
 	// user검색조건
 	private Integer userType;
+	
+	// admin user 체크박스
+	private String report;
 
 	// report board 검색 조건
 	private String boardType;

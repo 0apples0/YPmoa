@@ -54,7 +54,7 @@
                         </div>
 						<div id="policy_checkbox">
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="form-check-input"
+								<input type="checkbox" class="form-check-input" name="report"
 									<c:out value="${pageMaker.cri.selectedFilter == 'report'?'checked':'' }"/>
 									id="customCheck"> 
 								<label class="custom-control-label" for="customCheck"> 신고 접수 된 유저</label>
@@ -182,6 +182,7 @@
 		<input type="hidden" name="userType" value="${pageMaker.cri.userType }">
 		<input type="hidden" name="type" value="${pageMaker.cri.type }">
 		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+		<input type="hidden" name="report" value="${pageMaker.cri.report }">
 		<input type="hidden" name="selectedFilter" value="${pageMaker.cri.selectedFilter }">	
 	</form>
 	
@@ -248,10 +249,7 @@ $(document).ready(function () {
 	// 신고 이력 있는 유저만 보이기
    	$("#customCheck").change(function () {
 	    // 체크박스 상태에 따라 actionForm의 값을 변경하고 submit 호출
-	    let selectedFilter = "";
-	    if ($("#customCheck").is(":checked")) {
-	        selectedFilter = "report";
-	    }
+	    let selectedFilter = ($("#customCheck").is(":checked")) ? "report" : "";
 	    // 선택한 필터 값을 hidden input에 설정
 	    $("#actionForm input[name='selectedFilter']").val(selectedFilter);
 	    $("#actionForm input[name='pageNum']").val(1);
@@ -334,7 +332,8 @@ $(document).ready(function () {
               userType: $("#searchForm select[name='userType']").val(),
 	          type: $("#searchForm select[name='type']").val(),
   	          keyword: $("#actionForm").find("input[name='keyword']").val(),
-			  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val()
+			  selectedFilter: $("#actionForm").find("input[name='selectedFilter']").val(),
+			  report: $("#actionForm").find("input[name='selectedFilter']").val(),
            },
            success: function(data){
        	  
@@ -411,7 +410,9 @@ $(document).ready(function () {
             // pageNum이 비어있지 않은 경우에만 submit 실행
              if (newPageNum) {
                      actionForm.find("input[name='pageNum']").val(newPageNum);
-                     actionForm.submit();       		  
+                     actionForm.submit();   
+                     //   $("#actionForm input[name='pageNum']").val(newPageNum);
+        				//loadTableData(); // 서버에 새로운 페이지 정보 요청
              }
 		});      
      }
