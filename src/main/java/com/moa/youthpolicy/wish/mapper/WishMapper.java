@@ -15,7 +15,7 @@ public interface WishMapper {
 	public void addWish(WishVO vo);
 	public List<PolicyVO> getWishList(Criteria cri);
 
-	public List<PolicyVO> getfiveboard();
+	public List<PolicyVO> getfiveboard(String wishUserEmail);
 	public int getTotalCount(Criteria cri);
 	public List<PolicyVO> wishList();
 	public Integer alarmWish(WishVO vo);
