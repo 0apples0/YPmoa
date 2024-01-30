@@ -142,12 +142,7 @@
 											</td>
 
 										</tr>
-										<tr>
-											<td colspan="4">
-												<!-- 정책신청방법 작성 --> ${policy.board.content}
-											</td>
-
-										</tr>
+										
 									</tbody>
 								</table>
 								<br>
@@ -232,7 +227,7 @@
 						<div class="table_section padding_infor_info">
 							<div class="table-responsive-sm">
 								<table id="communityCommentTable"
-									class="table table-basic commu_table policyGet_comment">
+									class="table table-default commu_table policyGet_comment policyGet_table">
 
 									<tbody>
 
@@ -695,17 +690,17 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
       	     		totalWidth += $(this).width();
       	     	});
       	        // content, writer, regDate 부분 input 태그로 교체(input 태그 기본값은 기존에 작성된 댓글 내용으로 지정)
-      	        let inputElement = $("<input>").addClass("commuComment_modInput").attr("type", "text").css("width", totalWidth+"px").val(content);
+      	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
       	        row.find("td").remove();
-      	        row.append($("<td>").append(inputElement));
+      	        row.append($("<td>").append(inputElement).attr("colspan", "3"));
       	        
-                  let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                  let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                   let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/policy/get?no="+bno).text("수정 완료");
                   
-                  let editCancelImg = $("<i>").addClass("fa fa-pen text-primary");
+                  let editCancelImg = $("<i>").addClass("fa fa-times text-secondary");
                   let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                   
-                  row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink));
+                  row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink).attr("colspan", "2"));
                   
                   // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                   $(".commuComment_modDoneBtn").on("click", function(){
@@ -859,21 +854,22 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                           // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
+                          let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
                        
            
-                          let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
+                          let deleteImg = $("<i>").addClass("fa fa-trash text-secondary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
-                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
+                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").attr("style","margin-left:3px;").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
                           // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                        	  $(".policyGet_comment").addClass("custom-width");
+                        	  reportTd.append( editLink,  deleteLink);
                           }else{
                         	  reportTd.append(reportImg, reportLink);
                           }
@@ -958,8 +954,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let reportImg = $("<img>").addClass("policyGet_report").attr("src", "${pageContext.request.contextPath}/resources/img/report.png")
-                          						.css("width", "20px");
+                          let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                           let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
