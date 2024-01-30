@@ -42,8 +42,10 @@ public class WishController {
 	// 메인화면에 게시글 5개 띄우기
 	@ResponseBody
 	@PostMapping("/getfiveBoard")
-	public List<PolicyVO> getfiveBoard(){
-		List<PolicyVO> list = wishService.getfiveboard();
+	public List<PolicyVO> getfiveBoard(HttpSession session){
+		UserVO user = (UserVO) session.getAttribute("user");
+		String wishUserEmail = user.getEmail();
+		List<PolicyVO> list = wishService.getfiveboard(wishUserEmail);
 		return list;
 	}
 	

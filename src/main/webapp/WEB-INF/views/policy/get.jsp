@@ -480,7 +480,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 				reason : $("#textarea1").val(),
 				boardType : "P",
 			},
-			success : function(data){
+			success : function(data){ 
 				$("#modalCenter").modal("hide");
 				if(data){
 					alert("신고 하였습니다");
@@ -498,7 +498,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		loadBestCommentTableData();
 
 		// 위시 버튼 클릭 시 이미지 변경        	
-		let no = $("#usernickForm input[name='no']").val();
+		let no = $("#actionForm input[name='no']").val();
 		function chkLogin() {
 			userNick = $("#usernickForm input[name='writer']").val();
 			if (userNick == null || userNick == "") {
