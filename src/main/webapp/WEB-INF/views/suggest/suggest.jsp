@@ -150,7 +150,7 @@
 					</a>
 				    </c:when>
 					<c:otherwise>
-						<a class="page-link"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>  
+						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>  
 					</c:otherwise>     
 				</c:choose>            
 			</li> 
@@ -163,7 +163,7 @@
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a class="page-link"><i class="fa fa-angle-left" aria-hidden="true"></i></a>  
+						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left" aria-hidden="true"></i></a>  
 					</c:otherwise>     
 				</c:choose>            
 			</li>            
@@ -182,7 +182,7 @@
 						</a>
 					</c:when> 
 					<c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-						<a class="page-link">
+						<a class="page-link" style="pointer-events: none; cursor: default;">
 							<i class="fa fa-angle-right" aria-hidden="true"></i>
 						</a>
 					</c:when>               
@@ -197,7 +197,7 @@
 	 		<li class="paginate_button page-item next">
 				<c:choose>
 					<c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-						<a class="page-link">
+						<a class="page-link" style="pointer-events: none; cursor: default;">
 						<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</a>  
 					</c:when>

@@ -38,13 +38,13 @@
     AND (
         <choose>
             <when test='type == ""'>
-                (policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
+                policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
             </when>
             <when test='type == "T"'>
-                (policy.policyNm LIKE CONCAT('%', #{keyword}, '%'))
+                policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
             </when>
             <when test='type == "C"'>
-                (policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
+                policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
             </when>
         </choose>
     )
@@ -56,7 +56,7 @@
 	    <if test="policyTypeNm != null and policyTypeNm != ''">
 	        AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
-	    <if test="selectedFilter != isAlert">
+	    <if test="selectedFilter == 'isAlert'">
 	        AND wish.isAlert LIKE 1
 			 AND CURRENT_TIMESTAMP &lt;= policy.aplyEndDt
 		</if>
@@ -73,10 +73,11 @@
 
 
 		<select id="getfiveboard" 
-			resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
+			resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="String">
 			SELECT policy.* FROM policy
 			JOIN wish ON policy.no =
 			wish.wishPolicy
+			WHERE wish.wishUser = #{wishUserEmail}
 			ORDER BY no DESC LIMIT 5
 		</select>
 
@@ -89,13 +90,13 @@
 	        AND (
 	            <choose>
 	                <when test='type == ""'>
-	                    AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
+	                    policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	                <when test='type == "T"'>
 	                    policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	                <when test='type == "C"'>
-	                   AND (policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
+	                   policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	            </choose>
 	        )
