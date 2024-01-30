@@ -34,7 +34,11 @@
 				</otherwise>	
 			</choose>
 		</if>
-
+		
+	    <if test="selectedFilter == 'report'">
+	        AND (countReport > 0 OR countCommentReport > 0)
+	    </if>
+	    
 	</select>
 
 	<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
@@ -148,7 +152,6 @@
 		<if test="selectedFilter == 'report'">
         	AND (countReport > 0 OR countCommentReport > 0)
     	</if>
-		
 		
 		ORDER BY regDate DESC
 		LIMIT #{start}, #{amount}

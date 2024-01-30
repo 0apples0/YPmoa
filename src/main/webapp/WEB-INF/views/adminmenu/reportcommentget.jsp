@@ -273,7 +273,7 @@ $(document).ready(function () {
 		});
 		
 		// 댓글 내용 클릭 시 링크
-		row.off("click", ".contentLink").on("click", ".contentLink", function(e){
+		row.off("click", ".titleLink").on("click", ".titleLink", function(e){
 			e.preventDefault();
 		    // 댓글이 속한 게시글의 bno 값을 가져옴
 		    let bno = $(this).data("bno");
@@ -286,7 +286,7 @@ $(document).ready(function () {
 					window.location.href = "/policy/get?no="+bno;
 				}				
 			}else{ // 확인용 alert! 관리자(userType: 0)는 볼 수 있도록 변경 필요
-				alert("삭제된 게시글입니다.");
+				alert("삭제/처리완료 된 댓글입니다.");
 			}
 		});
 		
@@ -421,7 +421,7 @@ $(document).ready(function () {
                  let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
                  let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
-                 // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
+                 // isdeleted: 댓글 삭제여부 (0:미삭제 1:삭제)
                  let rollbackTd = $("<td>").addClass("rollbackTd");
                  if(comment.isChecked == 1){
                 	 if(comment.isdeleted == 1){

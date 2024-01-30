@@ -247,7 +247,7 @@
 	    WHERE DATE(regDate) = CURDATE()
 	</select>
 
-	<!-- 댓글 수 가져오기 -->
+	<!-- 댓글 수 가져오ㄹ기 -->
 	<select id="getCommentNm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
 	    SELECT COUNT(tipboardcomments.cno)
 	    FROM tipboard
