@@ -47,6 +47,11 @@ public class HomeController {
 		return "/index";
 	}
 	
+	@GetMapping("/errorPage")
+	public void errorPage() {
+		
+	}
+	
 	@GetMapping("/index")
 	public String callBack(RedirectAttributes redirect, NaverAuthResponse response) {
 	    redirect.addFlashAttribute("NaverAuth", response);

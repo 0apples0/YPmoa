@@ -218,6 +218,7 @@ public class CommunityService implements BoardGenericService{
 		int commentNm = communityMapper.getCommentNm(cri);
 		return commentNm;
 	}
+	
 
 
 	

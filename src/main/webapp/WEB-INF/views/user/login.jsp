@@ -89,7 +89,6 @@
 <script>
 
 
-
 				
 				
 				 function chk_login() {
@@ -218,6 +217,8 @@
 
 <script>
 $(document).ready(function(){
+
+	
     var blockedUser = ${sessionScope.blockedUser};
     if (blockedUser) {
         $('#confirmBlockedUserModal').modal('show');
