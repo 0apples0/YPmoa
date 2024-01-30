@@ -203,7 +203,8 @@
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
-							<div style="border:1px solid grey">
+							<div style="border: 1px solid #ced4da; background-color: rgb(255, 244, 230)">
+
 								<h4 style="padding-left: 10px;">
 									<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
 										class="fa fa-fire text-primary commu_pic"></i>
@@ -212,7 +213,7 @@
 									<table id="communityBestCommentTable"
 										class="table table-basic commu_table policyGet_bestComment">
 
-										<tbody style="background-color: rgb(255, 239, 203);">
+										<tbody >
 
 										</tbody>
 
