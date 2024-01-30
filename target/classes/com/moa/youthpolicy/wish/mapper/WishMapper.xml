@@ -73,10 +73,11 @@
 
 
 		<select id="getfiveboard" 
-			resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
+			resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="String">
 			SELECT policy.* FROM policy
 			JOIN wish ON policy.no =
 			wish.wishPolicy
+			WHERE wish.wishUser = #{wishUserEmail}
 			ORDER BY no DESC LIMIT 5
 		</select>
 

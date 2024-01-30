@@ -116,7 +116,7 @@
                     <div class="full graph_head mini_board_more" >
                             <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                             <span class="mini_board_title">나의 위시 정책</span>
-                            <span class="mini_board_span"><a href="/wish/wish">더보기</a></span>
+                            <span class="mini_board_span"><a href="#" onclick="chkAndGoToWish()">더보기</a></span>
                     </div>
                     <div class="table_section padding_infor_info" >
                         <div class="table-responsive-sm">
@@ -250,19 +250,32 @@
     // 이전 값 저장 변수 초기화
     var prevNicknameValue = "";
     var prevPhoneNumberValue = "";
-    
-	
+
+	function chkAndGoToWish(){
+		if(chkLogin()){
+			window.location.href = "/wish/wish";
+		}else{
+			alert("로그인 후 이용 가능한 서비스입니다.");
+			window.location.href = "/user/login";
+		}
+	}
+	function chkLogin() {
+		userNick = $("#usernickForm input[name='writer']").val();
+		if (userNick == null || userNick == "") {
+			return false;
+		} else {
+			return true;
+		}
+	} 	
 	$(document).ready(function() {
 		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
 		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
-		
 		
 		if("${user.email}" != "")
 		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "" && $("#usernickForm input[name='userType']").val() != 0)
 		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
 				$("#modalCenter").modal("show");
 			}
-		
 		
 		// 초기화 시 확인 버튼 상태 업데이트
 		enableOrDisableConfirmButton();
@@ -328,19 +341,25 @@
 	             console.log("Error: " + error);
 	         }
 	     });
-	     // wish 가져오기
-	     $.ajax({
-	         type: "POST",
-	         url: "/wish/getfiveBoard",
-	         dataType: "json",
-	         success: function(data) {
-	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
-	             processData_Wish(data);
-	         },
-	         error: function(error) {
-	             console.log("Error: " + error);
-	         }
-	     });
+	     // wish 가져오기(로그인되어있지 않을 때는 ajax 요청 보내지 않고 문구 출력)
+	     if(chkLogin()){
+		     $.ajax({
+		         type: "POST",
+		         url: "/wish/getfiveBoard",
+		         dataType: "json",
+		         success: function(data) {
+		             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+		             processData_Wish(data);
+		         },
+		         error: function(error) {
+		             console.log("Error: " + error);
+		         }
+		     });	    	 
+	     }else{
+	    	 $("#wishList").html("<tr><td colspan='3'><br>로그인 후 이용 가능한 서비스입니다.<br></td></tr>");
+			 $("#wishList").closest('table').css('text-align', 'center');
+	     }
+
 	     // 건의 게시판 가져오기
 	     $.ajax({
 	         type: "POST",
@@ -401,7 +420,8 @@
 			$("#communityList").append(row);
 		});
 	}
- 
+	
+
 	// 위시리스트 추가
 	function processData_Wish(data) {
 	    // 데이터가 없으면 "위시리스트에 등록된 정책이 없습니다" 메시지 표시
@@ -409,7 +429,7 @@
 		    $("#wishList").html("<tr><td colspan='3'>위시리스트에 등록된 정책이 없습니다.<br>정책정보 게시판에서 마음에 드는 정책을 위시리스트에 담고<br>신청마감 알림도 받아보세요!</td></tr>");
 		    $("#wishList").closest('table').css('text-align', 'center');
 		    return;
-	    }
+	    }	
 	    $.each(data, function(index, policy) {
 		    policy.crtDt = formatDate(policy.crtDt);
 		    // 각 데이터에 대한 텍스트 길이 제한 

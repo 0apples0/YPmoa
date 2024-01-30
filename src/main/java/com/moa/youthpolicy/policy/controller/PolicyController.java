@@ -106,6 +106,7 @@ public class PolicyController {
 	@ResponseBody
 	@PostMapping("/toggleWish")
 	public void toggleWish(PolicyVO vo) {
+		log.info(vo);
 		service.toggleWish(vo);
 	}
 	

@@ -88,9 +88,9 @@ public class WishService implements BoardInterface {
 
 
 
-	public List<PolicyVO> getfiveboard() {
+	public List<PolicyVO> getfiveboard(String wishUserEmail) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		List<PolicyVO> list = mapper.getfiveboard();
+		List<PolicyVO> list = mapper.getfiveboard(wishUserEmail);
 		return list;
 	}
 	
