@@ -72,14 +72,25 @@ public class CommunityController {
 	
 	//게시글 자세히 보기 시, 댓글 리스트도 함께 출력
 	@RequestMapping(value="/get", method={RequestMethod.GET, RequestMethod.POST})
-	public void getCommunity(@RequestParam("bno") Integer bno, Criteria cri, Model model) {
+	public String getCommunity(@RequestParam("bno") Integer bno, Criteria cri, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");		
+		int isdeleted = communityService.getBoard(bno).getIsdeleted();
+		
+		if(isdeleted == 1) {
+			if(user != null) {
+				if(user.getUserType()==1 || user.getUserType()==3) {
+					return "redirect:/errorPage";
+				}
+			}else {
+				return "redirect:/errorPage";
+			}
+		}
 		
 		model.addAttribute("vo", communityService.getBoard(bno));
-		
-		
 		int total = communityService.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
+		return "/community/get";
 	}
 	
 	//글 작성 페이지로 이동
@@ -113,8 +124,24 @@ public class CommunityController {
 	
 	//글 수정
 	@GetMapping("/modify")
-	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
+	public String modCommunity(@RequestParam("bno") Integer bno, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		int isdeleted = communityService.getBoard(bno).getIsdeleted();
+		String writer = communityService.getBoard(bno).getWriter();
+		
+		if(user != null) {
+			if(!user.getNick().equals(writer)) {
+				return "redirect:/errorPage";
+			}else { // 작성자와 세션 유저 정보가 일치하더라도 삭제된 게시글이면 수정 불가
+				if(isdeleted==1) {
+					return "redirect:/errorPage";
+				}
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
 		model.addAttribute("vo", communityService.getBoard(bno));
+		return "/community/modify";
 	}
 	
 	@PostMapping("/modify")

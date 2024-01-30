@@ -39,7 +39,10 @@ public class UserController {
 	    log.info("마이페이지 조회");
 	    UserVO user = userService.get(Email);
 	    int userT = userService.chkUserType(user);
-
+		if(user == null) {
+			//model.addAttribute("alertLoginMessage", "로그인 후 이용 가능한 서비스입니다.");
+			return "redirect:/user/login";
+		}
 	    if(userT==1 || userT==0) { // 탈퇴 회원이 아니라면,
 	    	httpSession.setAttribute("user", user);
 	    	model.addAttribute("user", user);

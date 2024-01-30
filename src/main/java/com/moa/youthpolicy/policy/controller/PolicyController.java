@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.service.PolicyService;
+import com.moa.youthpolicy.user.domain.UserVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -40,7 +43,17 @@ public class PolicyController {
 	PolicyService service;
 	
 	@GetMapping("/write")
-	public void write() {}
+	public String write(HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");	
+		if(user!=null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
+		return "/policy/write";
+	}
 	@ResponseBody
 	@PostMapping("/delPolicy")
 	public String delPolicy(PolicyVO vo) {
@@ -93,8 +106,16 @@ public class PolicyController {
 		return service.getPage(cri);
 	}
 	
-	@RequestMapping(value={"/get", "/modify"}, method={RequestMethod.GET, RequestMethod.POST})
-	public void getpolicy(PolicyVO vo, Criteria cri , Model model) {		
+	@RequestMapping(value="/modify", method={RequestMethod.GET, RequestMethod.POST})
+	public String modpolicy(PolicyVO vo, Criteria cri , Model model, HttpSession session) {		
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user!=null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
 		model.addAttribute("policy", service.getBoard(vo.getNo()));
 		log.info(service.getBoard(vo.getNo()));
 		//int total = service.getCommentTotalAmount(vo.getNo());
@@ -103,7 +124,20 @@ public class PolicyController {
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info(pageResult.toString());
 		model.addAttribute("pageMaker", pageResult);
+		return "policy/modify";
 	}
+	
+	@RequestMapping(value="/get", method={RequestMethod.GET, RequestMethod.POST})
+	public void getpolicy(PolicyVO vo, Criteria cri , Model model, HttpSession session) {		
+		model.addAttribute("policy", service.getBoard(vo.getNo()));
+		log.info(service.getBoard(vo.getNo()));
+		//int total = service.getCommentTotalAmount(vo.getNo());
+		cri.setBno(vo.getNo());
+		int total = service.getCommentTotalAmount(cri);
+		PageDTO pageResult = new PageDTO(cri, total);
+		log.info(pageResult.toString());
+		model.addAttribute("pageMaker", pageResult);
+	}	
 	
 	@ResponseBody
 	@PostMapping("/toggleWish")

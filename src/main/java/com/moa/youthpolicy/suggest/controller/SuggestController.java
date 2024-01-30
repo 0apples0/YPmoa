@@ -56,20 +56,47 @@ public class SuggestController {
 	
 	// 게시글 상세보기 
 	@GetMapping("/get")
-	public void getCommunity(@RequestParam("bno") Integer bno, Model model, HttpSession session) {
+	public String getCommunity(@RequestParam("bno") Integer bno, Model model, HttpSession session) {
 	    UserVO user = (UserVO) session.getAttribute("user");
-	    
-	    if (user != null) {
-	        int likeStatus = suggestService.checkUserLike(bno, user.getEmail());
-	        model.addAttribute("likeStatus", likeStatus);
-	    }
+		int isdeleted = suggestService.getBoard(bno).getIsdeleted();
+		
+		if(isdeleted == 1) {
+			if(user != null) {
+		        int likeStatus = suggestService.checkUserLike(bno, user.getEmail());
+		        model.addAttribute("likeStatus", likeStatus);
+				if(user.getUserType()==1 || user.getUserType()==3) {
+					return "redirect:/errorPage";
+				}
+			}else {
+				return "redirect:/errorPage";
+			}
+		}
+
 	    model.addAttribute("vo", suggestService.getBoard(bno));
+	    return "/suggest/get";
 	}
 	
 	// 게시글 수정
 	@GetMapping("/modify")
-	public void getCommunity(@RequestParam("bno") Integer bno, Model model) {
+	public String modCommunity(@RequestParam("bno") Integer bno, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		int isdeleted = suggestService.getBoard(bno).getIsdeleted();
+		String writer = suggestService.getBoard(bno).getWriter();
+		
+		if(user != null) {
+			if(!user.getNick().equals(writer)) {
+				return "redirect:/errorPage";
+			}else { // 작성자와 세션 유저 정보가 일치하더라도 삭제된 게시글이면 수정 불가
+				if(isdeleted==1) {
+					return "redirect:/errorPage";
+				}
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
+		
 		model.addAttribute("vo", suggestService.getBoard(bno));
+		return "/suggest/modify";
 	}
 	
 	//글 작성

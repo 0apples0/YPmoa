@@ -257,8 +257,6 @@
 
 <script>
 
-
-
 document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
 
 function applyUserConditions(e) {
