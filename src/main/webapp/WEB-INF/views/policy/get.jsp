@@ -220,7 +220,7 @@
 					</div>
 				</div>
 
-				<!-- table section -->
+				<!-- table seㅇction -->
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
 
