@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="닉네임을 입력하세요" name="keyword"/>
+                                        placeholder="닉네임을 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                                 </div>
                                 <div class="col-md-auto">
                                     <button type="submit" id="searchBtn" class="btn btn-primary w-100">검색하기</button>
@@ -119,7 +119,7 @@
                            aria-hidden="true"></i></a>
                </c:when>
                <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-double-left"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>  
                </c:otherwise>     
                </c:choose>            
@@ -133,7 +133,7 @@
                            aria-hidden="true"></i></a>
                     </c:when>
                     <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-left"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
                </c:choose>            
@@ -154,7 +154,7 @@
                            aria-hidden="true"></i></a>
                </c:when> 
                <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-                  <a class="page-link"><i class="fa fa-angle-right"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>
                </c:when>               
                <c:otherwise>
@@ -168,7 +168,7 @@
             <li class="paginate_button page-item next">
                <c:choose>
                <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-                  <a class="page-link"><i class="fa fa-angle-double-right"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>  
 
                </c:when>
@@ -216,6 +216,7 @@
                                <table id="reportReasonTable" class="table table-bordered admin_boardModal">
                                 <thead>
                                     <th>신고자<br>닉네임</th>
+                                    <th>신고 사유</th>
                                     <th>기타 신고 사유</th>
                                     <th>신고날짜</th>
                                 </thead>
@@ -260,7 +261,7 @@
         
         
         <!-- 복구 버튼 Modal -->
-        <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
+        <div class="modal fade admin_Modal" id="modalCenterSelectRollback" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -272,7 +273,7 @@
                                 
                     </div>
                     <div class="modal-footer" style="justify-content:center">
-                        <button type="button" id="deleteCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                        <button type="button" id="rollbackCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
                         <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                       
 
@@ -293,7 +294,20 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	
-	function bindCommentActionHandlers(row, bno, boardType, isdeleted) {
+	function bindCommentActionHandlers(row, bno, boardType, isdeleted, isChecked) {
+		
+        let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+        let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
+        deleteLink.append(deleteImg);
+
+        
+        let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal").attr("id", "chkCompleteBtn");
+        let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal").attr("id", "delCompleteBtn");
+        let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
+        let rollbackBtn = $("<i>").addClass("fa fa-reply text-success fa-2x admin_reportModal");
+        rollbackLink.append(rollbackBtn);
+        
+        
 		// 신고 횟수 버튼 클릭 시 모달 표시
 		row.on("click", ".board_countReportBtn", function(e){
 			e.preventDefault();
@@ -319,73 +333,86 @@ $(document).ready(function () {
 		// 처리 버튼 클릭 시 삭제 완료 or 처리 완료 진행
 		row.off("click", ".board_deleteBtn").on("click", ".board_deleteBtn", function(e){
 			e.preventDefault();
+ 
 			$('#modalCenterSelect').modal('show');
 			//삭제 버튼 체크 시
 			$('#deleteCheckBtn').off("click").on("click", function(e){
 				e.preventDefault();
-
-				$.ajax({
-			        url: "/adminmenu/deleteBoard",
-			        type: "POST",
-			        dataType: "text", 
-			        data: {
-			        	bno: bno, // 삭제 대상 게시글 번호
-			        	boardType: boardType // 삭제 대상 게시판 타입
-			        },
-			        success: function (response) {
-			            console.log("게시글 삭제가 완료되었습니다.");
-			            // 게시글 삭제 완료 후 기존 삭제 버튼이 있던 자리에 텍스트 대체
-			            row.find('.board_deleteBtn').parent('td').empty().text('삭제 완료');
-
-			            $.ajax({
-			                url: "/adminmenu/updateBoardReport",
-			                type: "POST",
-			                dataType: "text", 
-			                data: {
-			                    bno: bno, // 처리 대상 게시글 번호
-			                    boardType: boardType // 처리 대상 게시판 타입
-			                },
-			                success: function (updateResponse) {
-			                    console.log("boardReport 테이블의 ischecked 값을 업데이트 했습니다.");
-			                },
-			                error: function (updateError) {
-			                    console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
-			                }
-			            });
-			            
-
-			        },
-			        error: function (error) {
-			            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
-			        }
-			    });				
+				updateIsdeleted(bno, boardType, isdeleted, isChecked);
+				
 			});
 			// 처리 버튼 클릭 시
 			$('#passCheckBtn').off("click").on("click", function(e){
 				e.preventDefault();
-				row.find('.board_deleteBtn').parent('td').empty().text('처리 완료');
-	            $.ajax({
-	                url: "/adminmenu/updateBoardReport",
-	                type: "POST",
-	                dataType: "text", 
-	                data: {
-	                    bno: bno, // 처리 대상 게시글 번호
-	                    boardType: boardType // 처리 대상 게시판 타입
-	                },
-	                success: function (updateResponse) {
-	                    console.log("boardReport 테이블의 ischecked 값을 업데이트했습니다.");
-	                },
-	                error: function (updateError) {
-	                    console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
-	                }
-	            });				
+				updateIsChecked(bno, boardType, isdeleted, isChecked);
 			});
-			
 		});
+		// 복구 버튼 체크 시
+		row.off("click", "#board_rollbackBtn").on("click", "#board_rollbackBtn", function(e){
+		
+			e.preventDefault();
+			$('#modalCenterSelectRollback').modal('show');
+			
+			$('#rollbackCheckBtn').off("click").on("click", function(e){
+				e.preventDefault();
+				if(isdeleted==1){ // 삭제된 상태라면 isdeleted 값을 0으로 변환
+					updateIsdeleted(bno, boardType, isdeleted, isChecked);
+					
+				}else{
+					updateIsChecked(bno, boardType, isdeleted, isChecked);
+					
+				}
+
+			});
+		});
+		
 	}
   	
+	// isdeleted 업데이트 메서드(복구, 삭제 등 조건에 따라 isdeleted값 0 또는 1로 업데이트)
+	function updateIsdeleted(bno, boardType, isdeleted, isChecked){
+		$.ajax({
+	        url: "/adminmenu/deleteBoard",
+	        type: "POST",
+	        dataType: "text", 
+	        data: {
+	        	bno: bno, // 삭제 대상 게시글 번호
+	        	boardType: boardType, // 삭제 대상 게시판 타입
+	        	isdeleted: isdeleted, // 삭제 여부
+	        	isChecked: isChecked
+	        },
+	        success: function (response) {
+	            console.log("게시글 삭제/복구가 완료되었습니다.");
+	            updateIsChecked(bno, boardType, isdeleted, isChecked);
+	        },
+	        error: function (error) {
+	            console.error("게시글 삭제 중 오류가 발생했습니다.", error);
+	        }
+	    });
+	}
+	
+	// isChecked 업데이트 메서드(복구, 삭제, 처리 등 조건에 따라 isChecked값 0 또는 1로 업데이트)
+	function updateIsChecked(bno, boardType, isdeleted, isChecked){
+		$.ajax({
+            url: "/adminmenu/updateBoardReport",
+            type: "POST",
+            dataType: "text", 
+            data: {
+                bno: bno, // 처리 대상 게시글 번호
+                boardType: boardType, // 처리 대상 게시판 타입
+                isdeleted: isdeleted, // 삭제 여부
+                isChecked: isChecked // 처리 여부
+            },
+            success: function (updateResponse) {
+                console.log("boardReport 테이블의 ischecked 값을 업데이트 했습니다.");
+                location.reload();
+            },
+            error: function (updateError) {
+                console.error("boardReport 테이블 업데이트 중 오류가 발생했습니다.", updateError);
+            }
+        });
+	}
+	
     function loadTableData(){
-        
         $.ajax({
            url: "/adminmenu/getReportboardList",// 요청할 서버 uri
            type: "POST", //요청방식 지정
@@ -428,33 +455,34 @@ $(document).ready(function () {
                  deleteLink.append(deleteImg);
                  deleteTd.append(deleteLink);
                  
-                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal");
-                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal");
+                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal").attr("id", "chkCompleteBtn");
+                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal").attr("id", "delCompleteBtn");
                  // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
                  // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
+                 let rollbackTd = $("<td>").addClass("rollbackTd");
                  if(board.isChecked == 1){
                 	 if(board.isdeleted == 1){
-                    	 row.append($("<td>").append(delCompleteBtn));               		 
+                    	 row.append($("<td>").append(delCompleteBtn));  
+                         
                 	 }else{
                 		 row.append($("<td>").append(chkCompleteBtn)); 
                 	 }
+                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
+                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                     
+                     rollbackLink.append(rollbackBtn);
+                     rollbackTd.append(rollbackLink);
                  }else{
                 	 row.append(deleteTd);  
                  }
                  
-                 let rollbackTd = $("<td>");
-                 let rollbackLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
-                 let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
-                 
-                 rollbackLink.append(rollbackBtn);
-                 rollbackTd.append(rollbackLink);
 				row.append(rollbackTd);
                  
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
                  
                  // row, board.bno, board.boardType 전달하여 활용하는 함수
-                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted);
+                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted, board.isChecked);
               });
            },
            error: function(e){
@@ -503,7 +531,18 @@ $(document).ready(function () {
                     // numeric: 숫자, 2-digit: 두자리 숫자 형식
                     let options = {year:"numeric", month:"2-digit", day:"2-digit"};
                     let formateDate = reportDate.toLocaleString("ko-KR", options);
-                    console.log(report.reasonCategory);
+        			let row = $("<tr>");
+        			row.append($("<td>").text(report.reporter));
+        			row.append($("<td>").text(report.reasonCategory));
+        			if(report.reason==null || report.reason==''){
+        				row.append($("<td>").text("-"));
+        			}else{
+        				row.append($("<td>").text(report.reason));        				
+        			}
+                    
+                    row.append($("<td>").text(formateDate)); 
+                    reasonTbody.append(row);
+                    
                     switch (report.reasonCategory) {
                     case "불건전한 내용":
                     	reportCount[0] += 1;
@@ -516,11 +555,6 @@ $(document).ready(function () {
                     	break;
                     case "기타":
                     	reportCount[3] += 1;
-            			let row = $("<tr>");
-            			row.append($("<td>").text(report.reporter));
-                        row.append($("<td>").text(report.reason));
-                        row.append($("<td>").text(formateDate)); 
-                        reasonTbody.append(row);
                         break;
                     default:
                         console.error("Unexpected reasonCategory:", report.reasonCategory);
@@ -528,10 +562,6 @@ $(document).ready(function () {
            		 	
             	});
             	
-            	let noReasontr = $("<tr>").append($("<td>").attr("colspan", 3).text("-"));
-            	if(reportCount[3]==0){ //기타 사유 없을 시 표에 - 표시
-            		reasonTbody.append(noReasontr);
-            	}
             	
             	$("#modalDetailcount1 span").text(reportCount[0]);
             	$("#modalDetailcount2 span").text(reportCount[1]);

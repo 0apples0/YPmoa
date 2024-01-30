@@ -126,7 +126,7 @@ public class AdminController {
 		return adminService.getBoardReportDetail(cri);
 	}
 	
-	// 신고 댓글 삭제 처리(isdeleted 값 업데이트, user table의 countReport 값 1증가)
+	// 신고 댓글 삭제 처리(isdeleted 값 업데이트, user table의 countCommentReport 값 1증가)
 	@ResponseBody
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
 	public void deleteComment(Criteria cri){

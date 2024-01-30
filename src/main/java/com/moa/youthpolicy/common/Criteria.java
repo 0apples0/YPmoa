@@ -62,6 +62,9 @@ public class Criteria {
 
 	// report board 검색 조건
 	private String boardType;
+	// report board 처리, 삭제 여부 판단
+	private int isdeleted;
+	private int isChecked;
 	
 	public Criteria() {
 		this(1,10);
@@ -86,7 +89,7 @@ public class Criteria {
 	}
 	
 	public int getNextnextPage() {
-		this.nextnextPage = (int) (Math.floor((this.pageNum+pageAmount)/pageAmount)*pageAmount+1);
+		this.nextnextPage = (int) (Math.floor((this.pageNum+pageAmount-1)/pageAmount)*pageAmount+1);
 		return this.nextnextPage;
 		
 	}

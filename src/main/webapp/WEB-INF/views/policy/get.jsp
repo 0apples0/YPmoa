@@ -134,13 +134,7 @@
 										<col style="width: 36%">
 									</colgroup>
 									<tbody>
-										<tr>
-											<td colspan="4"><img style="width: 80%;"
-												src="${pageContext.request.contextPath}/resources/img/카드1.png" />
-
-											</td>
-
-										</tr>
+										
 										<tr>
 											<td colspan="4">
 												<!-- policyCnDtl --> ${policy.policyCnDtl}
@@ -170,8 +164,10 @@
 								</div>
 								<div class="commuGet_btn">
 									<a href="/policy/policy"><button class="btn btn-primary">목록</button></a>
-									<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
-									<button class="btn btn-warning">삭제</button>
+									<c:if test="${user.userType == 0 }">
+										<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
+										<button class="btn btn-warning" id="deleteBtn">삭제</button>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -392,6 +388,48 @@
 	</div>
 </div>
 
+<!-- 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">삭제 확인</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" id="confirmDeleteBtn">삭제</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 확인 팝업 모달 끝-->
+
+<!-- 댓글 삭제 확인 팝업 모달 -->
+<div class="modal fade" id="confirmDeleteCommentModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">삭제 확인</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning"
+					id="confirmDeleteCommentBtn">삭제</button>
+				<button type="button" class="btn btn-secondary" 
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <form id="actionForm" action="/policy/get" method="post">
 	<input type="hidden" name="no" value="${policy.no}"> 
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
@@ -460,7 +498,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		function chkLogin() {
 			userNick = $("#usernickForm input[name='writer']").val();
 			if (userNick == null || userNick == "") {
-				alert("로그인 필요");
+				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
 				return false;
 			} else {
 				return true;
@@ -629,12 +667,16 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
         	
         	// 댓글 신고 모달창
     	  row.on("click", ".policyGet_report", function (event) {
-    		  
     	  	  event.preventDefault();
-                if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-                  $("#cno").val(cno);
-                  $("#modalCenter").modal("show");
-              }
+    	  	  if(chkLogin()){
+                  if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+                      $("#cno").val(cno);
+                      $("#modalCenter").modal("show");
+                  }   	  		  
+    	  	  }else{
+    	  		  window.location.href = "/user/login";
+    	  	  }
+
     	  });
       	  // 댓글 수정
       	  row.on("click", ".commuComment_modBtn", function(){
@@ -697,22 +739,29 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
       	  
       	// 댓글 삭제
       	row.on("click", ".commuComment_deleteBtn", function(){
-      		$.ajax({
-                  url: "/policy/deleteComment",
-                  type: "POST",
-                  dataType: "json", 
-                  data: {
-                      cno: cno, // 삭제 대상 댓글 번호
-                      bno: bno
-                  },
-                  success: function (response) {
-                  	alert(bno);
-                      console.log("삭제가 완료되었습니다.");
-                  },
-                  error: function (error) {
-                      console.error("삭제 중 오류가 발생했습니다.", error);
-                  }
-              });  
+      		$("#confirmDeleteCommentModal").modal("show");
+  	        // 기존 click 이벤트 제거
+  	        $("#confirmDeleteCommentBtn").off("click");
+  	        // 새로운 click 이벤트 등록
+  	        $("#confirmDeleteCommentBtn").on("click", function (e) {
+	      		$.ajax({
+	                  url: "/policy/deleteComment",
+	                  type: "POST",
+	                  dataType: "text", 
+	                  data: {
+	                      cno: cno, // 삭제 대상 댓글 번호
+	                      bno: bno
+	                  },
+	                  success: function (response) {
+	                	  $("#confirmDeleteCommentModal").modal("hide");
+	                	  window.location.href = "/policy/get?no="+bno;
+	                      console.log("삭제가 완료되었습니다.");
+	                  },
+	                  error: function (error) {
+	                      console.error("삭제 중 오류가 발생했습니다.", error);
+	                  }
+	              });
+  	        });
       	});
       	
       	row.on("click", ".commu_like", function() {
@@ -812,7 +861,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                        
            
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
+                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
                           let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                         
@@ -938,6 +987,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
             
            
          }
+
 
 	}); // document.ready함수
 </script>

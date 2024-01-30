@@ -55,7 +55,13 @@ public class PolicyService implements BoardGenericService {
 	public void modPolicy(PolicyVO vo) {
 		log.info("수정들어온 VO : " + vo);
 		mapper.modBoard(vo);
-		mapper.modp_Board(vo.getBoard());
+		Integer no = vo.getNo();
+		if(mapper.getBoard(no) != null) {
+			mapper.modp_Board(vo.getBoard());
+		}else {
+			mapper.writePlicyBoard(vo.getBoard());
+		}
+		
 	}
 
 	/*
@@ -222,6 +228,19 @@ public class PolicyService implements BoardGenericService {
 		}
 		mapper.modLikeComment(vo);
 		return vo;
+	}
+
+	// 댓글 작성자 유저타입 체크
+	public int checkWriterUserType(CommentsReportVO vo) {
+		int result = mapper.chkUserType(vo);
+		log.info("타입: "+result);
+		return result;
+	}
+
+	public String getUrl() {
+		String result = mapper.getImageUrl();
+		log.info("서비스이미지"+result);
+		return result;
 	}
 
 }

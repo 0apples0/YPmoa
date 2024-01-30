@@ -30,32 +30,35 @@
 	<select id="getWishList"
 		resultType="com.moa.youthpolicy.policy.domain.PolicyVO"
 		parameterType="com.moa.youthpolicy.common.Criteria">
-		SELECT policy.*
+		SELECT *
 		FROM policy
-		JOIN wish ON policy.no = wish.wishPolicy
-		WHERE wish.wishUser = #{wishUser}
-		<if test="type != null and keyword != null and keyword != ''">
-			<choose>
-				<when test='type == ""'>
-					AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE
-					CONCAT('%', #{keyword}, '%'))
-				</when>
-				<when test='type == "T"'>
-					AND policyNm LIKE CONCAT('%', #{keyword}, '%')
-				</when>
-				<when test='type == "C"'>
-					AND policyCn LIKE CONCAT('%', #{keyword}, '%')
-				</when>
-			</choose>
-		</if>
-		<if test="rgnSeNm != null and rgnSeNm != ''">
-			AND rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
-		</if>
-		<if test="policyTypeNm != null and policyTypeNm != ''">
-			AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
-		</if>
-		<if test="selectedFilter == 1">
-			AND wish.isAlert = 1
+	    JOIN wish ON policy.no = wish.wishPolicy
+	    WHERE wish.wishUser = #{wishUser}
+	  <if test="type != null and keyword != null and keyword != ''">
+    AND (
+        <choose>
+            <when test='type == ""'>
+                policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='type == "T"'>
+                policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='type == "C"'>
+                policy.policyCn LIKE CONCAT('%', #{keyword}, '%') or policy.policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+        </choose>
+    )
+</if>
+
+	    <if test="rgnSeNm != null and rgnSeNm != ''">
+	        AND policy.rgnSeNm LIKE CONCAT('%', #{rgnSeNm}, '%')
+	    </if>
+	    <if test="policyTypeNm != null and policyTypeNm != ''">
+	        AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
+	    </if>
+	    <if test="selectedFilter == 'isAlert'">
+	        AND wish.isAlert LIKE 1
+			 AND CURRENT_TIMESTAMP &lt;= policy.aplyEndDt
 		</if>
 		
 		ORDER BY
@@ -68,16 +71,17 @@
 
 	</select>
 
-	<select id="getfiveboard" 
-		resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
-		SELECT policy.* FROM policy
-		JOIN wish ON policy.no =
-		wish.wishPolicy
-		ORDER BY no DESC LIMIT 5
-	</select>
+
+		<select id="getfiveboard" 
+			resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
+			SELECT policy.* FROM policy
+			JOIN wish ON policy.no =
+			wish.wishPolicy
+			ORDER BY no DESC LIMIT 5
+		</select>
 
 		<select id="getTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	    SELECT COUNT(wish.wishPolicy)
+	    SELECT COUNT(*)
 	    FROM policy
 	    JOIN wish ON policy.no = wish.wishPolicy
 	    WHERE wish.wishUser = #{wishUser}
@@ -85,13 +89,13 @@
 	        AND (
 	            <choose>
 	                <when test='type == ""'>
-	                    policy.policyNm LIKE CONCAT('%', #{keyword}, '%') OR policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                    policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	                <when test='type == "T"'>
 	                    policy.policyNm LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	                <when test='type == "C"'>
-	                    policy.policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                   policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%')
 	                </when>
 	            </choose>
 	        )
@@ -102,7 +106,7 @@
 	    <if test="policyTypeNm != null and policyTypeNm != ''">
 	        AND policy.policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
-	    <if test="selectedFilter == 1">
+	    <if test="selectedFilter == 'isAlert'">
 	        AND wish.isAlert = 1
 	    </if>
 	</select>
@@ -126,19 +130,18 @@
 	</update>
 
 	<select id="getAlarm"
-		resultType="com.moa.youthpolicy.wish.domain.WishVO">
-		SELECT wishPolicy, isAlert
+		resultType="com.moa.youthpolicy.wish.domain.WishVO" parameterType="com.moa.youthpolicy.wish.domain.WishVO" >
+		SELECT *
 		FROM wish
-		WHERE wishUser = #{wishUser};
+		WHERE wishPolicy = #{wishPolicy} AND wishUser = #{wishUser}
 	</select>
 
 	<select id="getEndAlarm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-		  SELECT COUNT(policy.no)
-		  FROM policy
-		  JOIN wish ON policy.no = wish.wishPolicy
-		  WHERE policy.aplyEndDt IS NOT NULL AND wishUser = #{wishUser}
-		    AND ABS(DATEDIFF(CURDATE(), policy.aplyEndDt)) &lt;= 7
-		    AND wish.isAlert LIKE 1;
+		SELECT COUNT(wish.wishPolicy)
+	    FROM policy
+	    JOIN wish ON policy.no = wish.wishPolicy
+	    WHERE wish.wishUser = #{wishUser} AND wish.isAlert LIKE 1
+	     AND policy.aplyEndDt >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY);
 	</select>
 
 

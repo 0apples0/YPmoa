@@ -48,6 +48,9 @@ public class WishService implements BoardInterface {
 	@Override
 	public List<PolicyVO> getPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
+		cri.setAmount(8);
+		log.info("리스트 :" + cri );
+		
 		if (AuthUtil.isLogin()) {
 			for (PolicyVO vo : list) {
 				WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
@@ -126,10 +129,9 @@ public class WishService implements BoardInterface {
 		  
 		}
 
-		  public Map<Integer, Integer> clearAlarm() {
+		  public Map<Integer, Integer> clearAlarm(WishVO vo) {
 		        // 데이터베이스에서 모든 정책의 알람 상태를 가져오기
-		        List<WishVO> wishList = mapper.getAlarm();
-
+		        List<WishVO> wishList = mapper.getAlarm(vo);
 		        // 정책 ID와 알람 상태를 담을 맵 초기화
 		        Map<Integer, Integer> buttonStates = new HashMap<>();
 
@@ -143,9 +145,8 @@ public class WishService implements BoardInterface {
 
 	
 
-		public int endDateAlarm() {
-			int result = mapper.getEndAlarm();
-			log.info("마감알람 개수: "+result);
+		public int endDateAlarm(Criteria cri) {
+			int result = mapper.getEndAlarm(cri);
 			return result;
 		}
 

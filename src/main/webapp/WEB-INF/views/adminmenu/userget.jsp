@@ -49,10 +49,8 @@
                                     <select class="form-select" name="userType">
 										<option value="1"
 											<c:out value="${pageMaker.cri.userType == '1' or pageMaker.cri.userType == null ?'selected':'' }"/>>일반회원</option>
-										<option value="2"
-											<c:out value="${pageMaker.cri.userType == '2'?'selected':'' }"/>>탈퇴회원</option>
 										<option value="3"
-											<c:out value="${pageMaker.cri.userType == '3'?'selected':'' }"/>>강제탈퇴회원</option>											
+											<c:out value="${pageMaker.cri.userType == '3'?'selected':'' }"/>>정지회원</option>											
                                     </select>
                                 </div>
 
@@ -67,7 +65,7 @@
                              
                                 <div class="col-md-2">
                                     <input type="text" class="form-control datetimepicker-input font_light"
-                                        placeholder="검색어를 입력하세요" name="keyword"/>
+                                        placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                                 </div>
                                 <div class="col-md-auto">
 
@@ -116,18 +114,19 @@
 
                                         <thead>
                                             <tr> 
-                                                <th data-sort="area">아이디</th>
-                                                <th data-sort="category">닉네임</th>
-                                                <th data-sort="title">이름</th>
-                                                <th data-sort="author">연락처</th>
+                                                <th data-sort="Email">아이디</th>
+                                                <th data-sort="nickname">닉네임</th>
+                                                <th data-sort="name">이름</th>
+                                                <th data-sort="phone">연락처</th>
                                                 <th data-sort="date">가입일자</th>
-                                                <th data-sort="like"  colspan="2">신고이력</th>
+                                                <th data-sort="reportNum"  colspan="2">신고이력</th>
                                                 <c:choose>
 						                            <c:when test="${pageMaker.cri.userType == 2 or pageMaker.cri.userType == 3}">
-						                                <th data-sort="like">정지일자</th>
+						                                <th data-sort="leaveDate">정지일자</th>
+						                                <th data-sort="rollback">정지해제</th>
 						                            </c:when>
 						                            <c:otherwise>
-						                                <th data-sort="like">회원정지</th>
+						                                <th data-sort="leave">회원정지</th>
 						                            </c:otherwise>
 					                            </c:choose>
                                             </tr>
@@ -157,7 +156,7 @@
                            aria-hidden="true"></i></a>
                </c:when>
                <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-double-left"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-left"
                            aria-hidden="true"></i></a>  
                </c:otherwise>     
                </c:choose>            
@@ -171,7 +170,7 @@
                            aria-hidden="true"></i></a>
                     </c:when>
                     <c:otherwise>
-                  <a class="page-link"><i class="fa fa-angle-left"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left"
                            aria-hidden="true"></i></a>  
                     </c:otherwise>     
                </c:choose>            
@@ -192,7 +191,7 @@
                            aria-hidden="true"></i></a>
                </c:when> 
                <c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-                  <a class="page-link"><i class="fa fa-angle-right"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-right"
                            aria-hidden="true"></i></a>
                </c:when>               
                <c:otherwise>
@@ -206,7 +205,7 @@
             <li class="paginate_button page-item next">
                <c:choose>
                <c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-                  <a class="page-link"><i class="fa fa-angle-double-right"
+                  <a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-right"
                            aria-hidden="true"></i></a>  
 
                </c:when>
@@ -229,6 +228,49 @@
 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		</form>
     </div>
+
+    <!-- 정지 버튼 Modal -->
+    <div class="modal fade admin_Modal" id="modalCenterSelect" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">회원 관리</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                            <div style="text-align:center">해당 회원을 정지할까요?</div>
+                            
+                </div>
+                <div class="modal-footer" style="justify-content:center">
+                    <button type="button" id="deleteCheckBtn" class="btn btn-warning" data-bs-dismiss="modal">확인</button>
+                    <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 복구 버튼 Modal -->
+    <div class="modal fade admin_Modal" id="modalCenterSelectRollback" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">정지회원 관리</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                            <div style="text-align:center">회원 정지를 해제할까요?</div>
+                </div>
+                <div class="modal-footer" style="justify-content:center">
+                    <button type="button" id="rollbackCheckBtn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                    <button type="button" id="passCheckBtn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form id="moveToBoardReportForm" method="post" action="/adminmenu/reportboardget">
+    	<input type="hidden" name="keyword" value=""/>
+	</form>
 <script>
 $(document).ready(function () {
 	loadTableData();
@@ -249,26 +291,55 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	
-	// 회원 정지
-	function bindCommentActionHandlers(row, Email) {
-		row.on("click", ".user_deleteBtn", function(){
-    		$.ajax({
-                url: "/adminmenu/deleteUser",
-                type: "POST",
-                dataType: "json", 
-                data: {
-                	Email: Email // 정지 대상 아이디(이메일)
-                },
-                success: function (response) {
-                    console.log("회원 정지가 완료되었습니다.");
-                },
-                error: function (error) {
-                    console.error("정지 처리 중 오류가 발생했습니다.", error);
-                }
-            });  			
+	
+	function bindCommentActionHandlers(row, Email, userType, nick) {
+		// 회원 정지
+		row.on("click", ".user_deleteBtn", function(e){
+			e.preventDefault();
+			$("#modalCenterSelect").modal("show");
+			$("#deleteCheckBtn").on("click", function(e){
+				updateUserType(Email, userType);
+			});
+			
 		});
+		// 회원 정지해제
+		row.on("click", "#board_rollbackBtn", function(e){
+			e.preventDefault();
+			$("#modalCenterSelectRollback").modal("show");
+			$("#rollbackCheckBtn").on("click", function(e){
+				e.preventDefault();
+				updateUserType(Email, userType);		
+			});
+
+		});
+		
+		row.on("click", "#moveBoardReport", function(e){
+			e.preventDefault();
+			$("#moveToBoardReportForm input[name='keyword']").val(nick);
+			$("#moveToBoardReportForm").submit();
+		});
+		
 	}
 	
+	// 회원 정지/해제 (userType 값 변경)
+	function updateUserType(Email, userType){
+		$.ajax({
+            url: "/adminmenu/deleteUser",
+            type: "POST",
+            dataType: "text", 
+            data: {
+            	Email: Email, // 정지/해제 대상 아이디(이메일)
+				userType: userType // 유저타입
+            },
+            success: function (response) {
+                console.log("회원 정지/해제가 완료되었습니다.");
+                location.reload();
+            },
+            error: function (error) {
+                console.error("정지/해제 처리 중 오류가 발생했습니다.", error);
+            }
+        });  	
+	}
     function loadTableData(){
         
         $.ajax({
@@ -306,8 +377,11 @@ $(document).ready(function () {
                  row.append($("<td>").text(users.phone));
                  row.append($("<td>").text(formateDate));
                  
-                 let countReportTd = $("<td>").attr("colspan", "2").text(users.countReport);
+                 let countReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveBoardReport").text("게시글 "+users.countReport+"건");
                  row.append(countReportTd);
+                 
+                 let countCommentReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveCommentReport").text("댓글 "+users.countCommentReport+"건");
+                 row.append(countCommentReportTd);
                  
                  let deleteTd = $("<td>");
                  let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
@@ -320,16 +394,23 @@ $(document).ready(function () {
                  if(users.userType == 1){
                      deleteTd.append(deleteImg, deleteLink);
                      row.append(deleteTd);                	 
-                 }else{ // 탈퇴회원, 강제탈퇴 회원 검색이라면, 탈퇴일자 표시
+                 }else{ // 정지 회원 검색이라면, 탈퇴일자 표시
                      let leaveDateTd = $("<td>").text(formateLeaveDate);
-    				 row.append(leaveDateTd);                	 
+    				 row.append(leaveDateTd);
+    				 let rollbackTd = $("<td>").addClass("rollbackTd");
+                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
+                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+                     
+                     rollbackLink.append(rollbackBtn);
+                     rollbackTd.append(rollbackLink);
+                     row.append(rollbackTd);
                  }
 
                  userTbody.append(row);
                  console.log("pagemaker: "+${pageMaker.realEnd});
                  
-                 // 회원 아이디(Email)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
-                 bindCommentActionHandlers(row, users.email);
+                 // 회원 정보(Email, userType)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
+                 bindCommentActionHandlers(row, users.email, users.userType, users.nick);
               });
            },
            error: function(e){

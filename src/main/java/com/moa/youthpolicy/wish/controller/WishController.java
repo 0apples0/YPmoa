@@ -50,8 +50,9 @@ public class WishController {
 	
 	@RequestMapping(value = {"/wish", "/wishPaging"}, method = {RequestMethod.GET,  RequestMethod.POST })
 	public void wish(Criteria cri, Model model) {
-		log.info(cri);
+		
 		cri.setAmount(8);
+		log.info(cri);
 		int total = wishService.getTotalAmount(cri); 
 		log.info("전체글"+ total);
 		PageDTO pageResult = new PageDTO(cri, total);
@@ -59,7 +60,7 @@ public class WishController {
 		
 	}
 	
-	// 위시한 policy 리스트 가져f오기 
+	// 위시한 policy 리스트 가져오기 
 	@ResponseBody
 	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){
@@ -91,20 +92,21 @@ public class WishController {
 	    return result;
 	}
 	
+	// 알림 상태 가져오기
 	@ResponseBody
 	@GetMapping("/alarmClear")
-	  public Map<Integer, Integer> alarmClear() {
+	  public Map<Integer, Integer> alarmClear(WishVO vo) {
         // 서비스에서 현재 버튼 상태를 가져오는 메서드 호출
-        Map<Integer, Integer> buttonStates = wishService.clearAlarm();
+        Map<Integer, Integer> buttonStates = wishService.clearAlarm(vo);
         return buttonStates;
     }
-
+	
+	// 알람 띄우기
 	@ResponseBody
 	@GetMapping("/endAlarm")
-	public int endAlarm() {
-		int response = wishService.endDateAlarm();
-		log.info("받아온 카운드 값: "+response);
-
+	public int endAlarm(Criteria cri) {
+		int response = wishService.endDateAlarm(cri);
+	
 		if(response > 0) {
 			return response;
 		}

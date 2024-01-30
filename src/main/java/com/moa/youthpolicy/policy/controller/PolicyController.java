@@ -1,6 +1,8 @@
 package com.moa.youthpolicy.policy.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -134,8 +136,9 @@ public class PolicyController {
 	}
 	// 댓글 삭제
 	@RequestMapping(value="/deleteComment", method={RequestMethod.GET, RequestMethod.POST})
-	public void delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
+	public String delCommunityComment(@RequestParam("cno") Integer cno, @RequestParam("bno") Integer bno){
 		service.delCommunityComment(cno);
+		return "redirect:/policy/get?no=" + bno;
 	}
 	
 	// 댓글 수정
@@ -147,9 +150,16 @@ public class PolicyController {
 	
 	@ResponseBody
 	@PostMapping("/reportcomment")
-	public boolean reportcomment(CommentsReportVO vo) {
-		
-		return service.reportcomment(vo);
+	public int reportcomment(CommentsReportVO vo) {
+		int writerUserType = service.checkWriterUserType(vo);
+		if(writerUserType == 0) { //댓글 작성자가 관리자(userType: 0)면 신고 못하도록 처리
+			return 0;
+		}
+		else if(service.reportcomment(vo)) {
+			return 1;
+		}else {
+			return 2;
+		}
 	}
 	
 	@ResponseBody
@@ -158,5 +168,16 @@ public class PolicyController {
 				
 		return service.toggleCommentLike(vo).getLike();		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getImageUrl", method=RequestMethod.GET)
+	public Map<String, String> getImageUrl() {
+	    String imageUrl = service.getUrl();
+	    Map<String, String> response = new HashMap<>();
+	    response.put("imageUrl", imageUrl);
+	    return response;
+	}
+
+
 	
 }

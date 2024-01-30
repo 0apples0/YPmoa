@@ -2,8 +2,11 @@ package com.moa.youthpolicy.wish.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moa.youthpolicy.common.Criteria;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.user.domain.UserVO;
 import com.moa.youthpolicy.wish.domain.WishVO;
 
 public interface WishMapper {
@@ -18,7 +21,8 @@ public interface WishMapper {
 	public Integer alarmWish(WishVO vo);
 	public int updateIsAlert(WishVO vo);
 	public int alarmClear(WishVO vo);
-	public List<WishVO> getAlarm();
+	public List<WishVO> getAlarm(WishVO vo);
 	public List<PolicyVO> getListWithPasing(Criteria cri);
-	public int getEndAlarm();
+	public int getEndAlarm(Criteria cri);
+	public UserVO getEmail(String email);
 }

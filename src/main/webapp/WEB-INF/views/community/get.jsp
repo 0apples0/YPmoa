@@ -61,7 +61,7 @@
 								<div class="commuGet_btn">
 									<c:choose>
 										<c:when
-											test="${user ne null && user.nick ne null && user.userType == 1 && user.nick == vo.writer}">
+											test="${user ne null && user.nick ne null && (user.userType == 1 || user.userType == 0) && user.nick == vo.writer}">
 											<button id="return"
 												class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn"
@@ -69,12 +69,9 @@
 											<button type="button" id="deleteBtn"
 												class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
 										</c:when>
-										<c:when
-											test="${user ne null && user.nick ne null && user.userType == 0}">
+										<c:when test="${vo.userType==0}">
 											<button id="return"
 												class="btn btn-primary commuGet_modifyBtn">목록</button>
-											<button type="button" id="deleteBtn"
-												class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
 										</c:when>
 										<c:otherwise>
 											<button id="return"
@@ -343,7 +340,9 @@
 			},
 			success : function(data){
 				$("#modalCenter").modal("hide");
-				if(data){
+				if(data == 0){
+					alert("해당 댓글은 신고할 수 없습니다") //관리자 댓글 신고 불가 알림
+				}else if(data == 1){
 					alert("신고 하였습니다");
 				}else{
 					alert("이미 신고했습니다");
@@ -369,7 +368,7 @@
 				boardType : "T"
 			},
 			success : function(data){
-				$("#modalCenterBoard").modal("hide");
+				$("#modalCenter").modal("hide");
 				if(data){
 					alert("신고 하였습니다");
 				}else{
@@ -386,7 +385,7 @@
     			userNick = $("#usernickForm input[name='nick']")
     					.val();
     			if (userNick == null || userNick == "") {
-    				alert("로그인 필요");
+    				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
     				return false;
     			} else {
     				return true;
@@ -400,7 +399,6 @@
     	    		$("#modalCenter").modal("show");
     	    		$('.commu_report').attr('onclick', 'reportBoard()');
     	    	} else {
-    	            alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
     	            window.location.href = "/user/login";
     	        }
     	    	
@@ -440,7 +438,7 @@
     	    }
     	    
     	 	// 모달이 닫힐 때 실행되는 이벤트
-    	    $('#modalCenter, #modalCenterBoard').on('hidden.bs.modal', function () {
+    	    $('#modalCenter').on('hidden.bs.modal', function () {
     	        // 모달이 닫힐 때마다 입력 값 초기화
     	        $('.form-check-input').prop('disabled', false);
     	        $('.form-check-input').prop('checked', false);
@@ -548,14 +546,17 @@
          function bindCommentActionHandlers(row, cno, bno) {
 	        	// 댓글 신고 모달창
 	       	  row.on("click", ".policyGet_report", function (event) {
-	       		  
-	                   if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-	                     $("#cno").val(cno);
-	                     $('#modalCenterTitle').text('댓글 신고');
-	                     
-	                     $("#modalCenter").modal("show");
-	                     $('.commu_report').attr('onclick', 'report()');
-	                 }
+		       		if (chkLogin()) {
+	                    if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
+		                     $("#cno").val(cno);
+		                     $('#modalCenterTitle').text('댓글 신고');
+		                     
+		                     $("#modalCenter").modal("show");
+		                     $('.commu_report').attr('onclick', 'report()');
+	                    }
+		       		}else{
+                    	window.location.href = "/user/login";
+                    }
 	       	  });
         	 
         	  // 댓글 수정

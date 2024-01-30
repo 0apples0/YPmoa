@@ -53,7 +53,19 @@
             <div class="row g-2 justify-content-center">
                 <div class="col-md-10">
                 <form action="/policy/indexsearch" method="post">
-                
+                <div class="row g-2">
+                    		<div class="col-md-7" style="margin-bottom:10px; margin-left:10px; ">
+                    		<img src="/resources/img/campfire.png" style="width:40px; padding-bottom:10px"/>
+                    			<span style="font-size:larger">인기 검색어</span>
+                    			<a href="/policy/policy?type=C&keyword=중소기업">#<span>중소기업</span></a>
+                    			<a href="/policy/policy?type=C&keyword=19세">#<span>19세</span></a>
+                    			<a href="/policy/policy?type=C&keyword=대학생">#<span>대학생</span></a>
+                    			<a href="/policy/policy?type=C&keyword=창업">#<span>창업</span></a>
+                    			<a href="/policy/policy?type=C&keyword=전세">#<span>전세</span></a>
+                    			
+                    		</div>
+                    	
+                    	</div>
                    	 <div class="row g-2 justify-content-center">                    
 	                        <div class="col-md-3_a">
 	                            <select class="form-select" name="rgnSeNm">
@@ -81,18 +93,7 @@
 	                		</div>	                	
                     	</div>
                     	
-                    	<div class="row g-2">
-                    		<div class="col-md-7">
-                    			<span>인기 검색어</span>
-                    			<a href="">#<span>중소기업</span></a>
-                    			<a href="">#<span>19세</span></a>
-                    			<a href="">#<span>대학생</span></a>
-                    			<a href="">#<span>창업</span></a>
-                    			<a href="">#<span>전세</span></a>
-                    			
-                    		</div>
                     	
-                    	</div>
                     	
                     
                     	

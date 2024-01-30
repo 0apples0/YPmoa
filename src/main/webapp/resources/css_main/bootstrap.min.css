@@ -5432,6 +5432,21 @@ fieldset:disabled .btn {
   vertical-align: baseline;
   border-radius: 10px
 }
+.policy_badge {
+  position: relative;
+  top: -75px;
+  right: -13px;
+  display: inline-block;
+  padding: .35em .65em;
+  font-size: .65em;
+  font-weight: 700;
+  color: white;
+  background-color: #ff50c1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10px
+}
 .badge_board{
   position: relative;
   

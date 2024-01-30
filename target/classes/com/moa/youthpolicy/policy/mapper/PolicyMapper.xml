@@ -14,13 +14,13 @@
 	    <if test="type != null and keyword != null and keyword != ''">
 	        <choose>
 	            <when test='type == ""'>
-	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
 	            <when test='type == "T"'>
 	                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	            <when test='type == "C"'>
-	                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                AND (policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
 	        </choose>
 	    </if>
@@ -54,13 +54,13 @@
 	    <if test="type != null and keyword != null and keyword != ''">
 		    <choose>
 	            <when test='type == ""'>
-	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%'))
+	                AND (policyNm LIKE CONCAT('%', #{keyword}, '%') OR policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
 	            <when test='type == "T"'>
 	                AND policyNm LIKE CONCAT('%', #{keyword}, '%')
 	            </when>
 	            <when test='type == "C"'>
-	                AND policyCn LIKE CONCAT('%', #{keyword}, '%')
+	                AND (policyCn LIKE CONCAT('%', #{keyword}, '%') or policyCnDtl LIKE CONCAT('%', #{keyword}, '%'))
 	            </when>
 	        </choose>
 		</if>
@@ -151,6 +151,8 @@
 		SELECT * FROM policyboardcomments
 		WHERE cno = #{cno}
 	</select>
+	
+	
 	
 	<delete id="delLike" parameterType="com.moa.youthpolicy.common.LikeBoardVO">
 		DELETE FROM like_policy
@@ -258,5 +260,26 @@
 		SET content=#{content}
 		WHERE cno=#{cno}
 	</update>
+ 
+	<select id="chkUserType" resultType="int" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
+		SELECT userType FROM user
+		WHERE nick =
+		<if test='boardType=="T"'>
+			(SELECT writer FROM tipboardcomments
+			WHERE cno = #{tipcno})
+		</if>
+		<if test='boardType=="P"'>
+			(SELECT writer FROM policyboardcomments
+			WHERE cno = #{policycno})
+		</if>
+
+	</select>
 	
+	<select id="getImageUrl" resultType="String">
+		SELECT REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(content, 'src="', -1), '"', 1), 'http://localhost:8090', '') AS imageUrl
+		FROM policyboard
+		WHERE policyboard.bno = #{policy.no}
+		LIMIT 1;
+	</select>
+
 </mapper>
