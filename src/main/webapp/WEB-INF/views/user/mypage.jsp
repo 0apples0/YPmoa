@@ -146,6 +146,9 @@
 
 <script>	
 $(document).ready(function() {
+	$("#phoneValidation").hide();
+	$("#nickValidation").hide();
+	disableRegisterButton();
     // 초기에 'phoneck' 버튼 비활성화
     $("#phoneck").prop("disabled", true);
     // 초기에 'nickchk' 버튼 비활성화
@@ -185,12 +188,14 @@ $(document).ready(function() {
 	    var phoneValidation = $("#phoneValidation");
 	
 	    if (!phoneRegex.test(phoneField.val())) {
-	        alert("올바른 연락처를 입력해주세요.").show();
+	    	$("#phoneValidation").text("올바른 연락처를 입력해주세요.").show();
+	    	phoneCheckDone = false;
+            enableOrDisableRegisterButton();
 	        return;
 	    }
         // 여기에 연락처 중복 체크 로직을 추가
         var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
-    
+        $("#phoneValidation").hide();
         // Ajax를 이용하여 서버에 연락처 중복 체크 요청
         $.ajax({
             type: "POST",
@@ -223,11 +228,14 @@ $(document).ready(function() {
         // 유효성 검사
         var nickRegex = /^(?:[가-힣]{1,10}|[a-zA-Z]{1,20}|[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{2,14})$/;
         if (!nickRegex.test(nickname)) {
-            alert("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
+        	$("#nickValidation").text("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
+        	nickCheckDone = false;
+            enableOrDisableRegisterButton();
             return;  // 유효성 검사를 통과하지 못하면 여기서 함수 종료
         }
         // 여기에 닉네임 중복 체크 로직을 추가
         var nickname = $(".regi_sub_form-control[name='nick']").val();
+        $("#nickValidation").hide();
     
         // Ajax를 이용하여 서버에 닉네임 중복 체크 요청
         $.ajax({

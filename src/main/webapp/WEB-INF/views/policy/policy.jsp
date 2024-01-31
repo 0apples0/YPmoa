@@ -277,10 +277,20 @@
 
 document.getElementById("applyConditionsBtn").onclick = applyUserConditions;
 function applyUserConditions(e) {
-	e.preventDefault();
-	if("${user.address}" == null){
-		
+	var email = "${user.email}";
+	console.log(email);
+	if(email == null || email == ""){
+		alert("로그인 후 이용가능합니다");
 		return;
+	}
+	e.preventDefault();
+	if("${user.address}" == null || "${user.address}" == "" || "${user.interestField}" == ""){
+		var confirmApplyConditions = confirm("맞춤조건을 적용하시겠습니까?");
+        if (!confirmApplyConditions) {
+            return; // 사용자가 취소한 경우 동작 중단
+        }else{
+        	window.location.href = "/user/mypage?Email=${user.email}";
+        }
 	}
     // 사용자 정보 가져오기
     var user = {
