@@ -57,15 +57,55 @@
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
 							
+								<option value="경상북도"
+									<c:out value="${pageMaker.cri.rgnSeNm == '경상북도'?'selected':'' }"/>>경상북도</option>
+								
+								<option value="경산시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '경산시'?'selected':'' }"/>>경산시</option>
+								<option value="경주시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '경주시'?'selected':'' }"/>>경주시</option>
 								<option value="구미시"
 									<c:out value="${pageMaker.cri.rgnSeNm == '구미시'?'selected':'' }"/>>구미시</option>
-								
+								<option value="김천시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '김천시'?'selected':'' }"/>>김천시</option>
+								<option value="문경시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '문경시'?'selected':'' }"/>>문경시</option>
+								<option value="상주시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '상주시'?'selected':'' }"/>>상주시</option>
 								<option value="안동시"
 									<c:out value="${pageMaker.cri.rgnSeNm == '안동시'?'selected':'' }"/>>안동시</option>
+								<option value="영주시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '영주시'?'selected':'' }"/>>영주시</option>
+								<option value="영천시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '영천시'?'selected':'' }"/>>영천시</option>
+								<option value="포항시"
+									<c:out value="${pageMaker.cri.rgnSeNm == '포항시'?'selected':'' }"/>>포항시</option>
+								<option value="군위군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '군위군'?'selected':'' }"/>>군위군</option>
+								<option value="봉화군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '봉화군'?'selected':'' }"/>>봉화군</option>
+								<option value="성주군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '성주군'?'selected':'' }"/>>성주군</option>
+								<option value="영덕군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '영덕군'?'selected':'' }"/>>영덕군</option>
+								<option value="영양군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '영양군'?'selected':'' }"/>>영양군</option>
+								<option value="예천군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '예천군'?'selected':'' }"/>>예천군</option>
+								<option value="고령군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '고령군'?'selected':'' }"/>>고령군</option>
+								<option value="청도군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '청도군'?'selected':'' }"/>>청도군</option>
+								<option value="청송군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '청송군'?'selected':'' }"/>>청송군</option>
+								<option value="칠곡군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '칠곡군'?'selected':'' }"/>>칠곡군</option>
+								<option value="울릉군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '울릉군'?'selected':'' }"/>>울릉군</option>
 								<option value="울진군"
 									<c:out value="${pageMaker.cri.rgnSeNm == '울진군'?'selected':'' }"/>>울진군</option>
-								<option value="부천시"
-									<c:out value="${pageMaker.cri.rgnSeNm == '부천시'?'selected':'' }"/>>부천시</option>
+								<option value="의성군"
+									<c:out value="${pageMaker.cri.rgnSeNm == '의성군'?'selected':'' }"/>>의성군</option>
 									
 							</select>
 						</div>
@@ -74,12 +114,26 @@
 							<select class="form-select" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
-								<option value="주거"
-									<c:out value="${pageMaker.cri.policyTypeNm == '주거'?'selected':'' }"/>>주거</option>
+								<option value="일자리 (창업)"
+									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (창업)'?'selected':'' }"/>>일자리 (창업)</option>
+								<option value="일자리 (취업)"
+									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (취업)'?'selected':'' }"/>>일자리 (취업)</option>
+								<option value="참여"
+									<c:out value="${pageMaker.cri.policyTypeNm == '참여'?'selected':'' }"/>>참여</option>
 								<option value="교육"
 									<c:out value="${pageMaker.cri.policyTypeNm == '교육'?'selected':'' }"/>>교육</option>
-								<option value="신혼부부"
-									<c:out value="${pageMaker.cri.policyTypeNm == '신혼부부'?'selected':'' }"/>>신혼부부</option>
+								<option value="복지"
+									<c:out value="${pageMaker.cri.policyTypeNm == '복지'?'selected':'' }"/>>복지</option>
+								<option value="주거비 지원"
+									<c:out value="${pageMaker.cri.policyTypeNm == '주거비 지원'?'selected':'' }"/>>주거비 지원</option>
+								<option value="문화"
+									<c:out value="${pageMaker.cri.policyTypeNm == '문화'?'selected':'' }"/>>문화</option>
+								<option value="금융"
+									<c:out value="${pageMaker.cri.policyTypeNm == '금융'?'selected':'' }"/>>금융</option>
+								<option value="주택공급"
+									<c:out value="${pageMaker.cri.policyTypeNm == '주택공급'?'selected':'' }"/>>주택공급</option>
+								<option value="건강"
+									<c:out value="${pageMaker.cri.policyTypeNm == '건강'?'selected':'' }"/>>건강</option>
 							</select>
 						</div>
 						<div class="col-md-auto">
@@ -99,19 +153,18 @@
 								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 
 						</div>
-                        
-					</div>
-					<div class="row g-2 justify-content-center policy_search_box">
-						
-						<!-- 조건+제목+내용 / 제목+내용 검색 -->
-						<div class="col-md-1 ">
+                        <div class="col-md-auto">
 							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
 						</div>
-						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
-						<div class="col-md-2">
+					</div>
+					
+					<div class="row g-2 justify-content-center policy_search_box">
+						
+						
+						<div class="col-md-auto">
 							<button id="applyConditionsBtn" class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
-						<div class="col-md-1_a">
+						<div class="col-md-auto">
 							<button type="reset" class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
