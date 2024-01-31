@@ -915,10 +915,19 @@
 }
 
 /*** find login info ***/
+
+
 .userModi_findID{
     margin-left: 5px;
 }
 
+
+.usermodi_idBtn{
+	margin-top:35px;
+}
+.usermodi_nameBox{
+	margin-top:50px;
+}
 
 /*** register ***/
 

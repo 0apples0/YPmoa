@@ -279,6 +279,14 @@ public class UserController {
 	    vo.setPW(Password);
 	    return userService.chkPW(vo);
 	}
+
+	
+	@GetMapping("/findLoginInfo")
+	public void findLoginInfo(UserVO vo, HttpSession session) {
+		//log.info(vo.toString());
+		//userService.register(vo, session);
+		//return "redirect:/";
+	}
 	
 	@ResponseBody
 	@PostMapping("/chkUserType")
@@ -287,7 +295,6 @@ public class UserController {
 	    vo.setEmail(Email);
 	    return userService.chkUserType(vo);
 	}
-	
 	
 
 }

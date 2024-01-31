@@ -52,9 +52,9 @@
                                         </div>
                                         <div class="field">
                                             <button type="button" class="login_registerBtn a_btn" style="cursor: pointer;"
-                                                onclick="">회원가입</button>
+                                                onclick="moveToRegister()">회원가입</button>
                                             <button type="button" class="forgot a_btn" style="cursor: pointer;"
-                                                onclick="">아이디/비밀번호 찾기</button>
+                                                onclick="moveToFindLoginInfo()">아이디/비밀번호 찾기</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -88,7 +88,13 @@
 
 <script>
 
+function moveToRegister(){
+	window.location.href = "/user/register";
+}
 
+function moveToFindLoginInfo(){
+	window.location.href = "/user/findLoginInfo";
+}
 				
 				
 				 function chk_login() {

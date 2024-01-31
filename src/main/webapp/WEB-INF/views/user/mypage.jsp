@@ -104,7 +104,9 @@
                                     <div class="col-sm-10">
                                         <input type="text" required class="regi_sub_form-control phone-mask" id="phone" name="phone" value="<%= user.getPhone().toString() %>" aria-describedby="basic-default-phone" />
                                         <button type="button" class="btn btn-primary regi_checkBtn" id="phoneck">중복확인</button>
+                                        
                                     </div>
+                                    <div class="col-sm-9_b" ><span class="validation" id="phoneValidation">유효성검사</span></div>
                                 </div>
                                 <!-- 닉네임 입력, 중복확인 버튼 -->
                                 <div class="row mb-3">
@@ -113,6 +115,7 @@
                                         <input type="text" class="regi_sub_form-control" required id="nick" name="nick" value="<%=user.getNick()%>" placeholder="한글 10글자, 영어 20자, 한글+영어 20자 이내" />
                                         <button type="button" class="btn btn-primary  regi_checkBtn" id="nickchk">중복확인</button>
                                     </div>
+                                    <div class="col-sm-9_b" ><span class="validation" id="nickValidation">유효성검사</span></div>
                                 </div>
                                 <!-- 수정완료, 비밀번호 변경, 초기화, 회원탈퇴 버튼 -->
                                 <div class="col-sm-12" id="regi_btn">

@@ -39,7 +39,7 @@
 									        
                                             <h3>아이디 찾기<i class="fa fa-user-check text-primary userModi_findID"></i></h3>
 									    </div>
-									    <div class="row mb-3">
+									    <div class="row mb-3 usermodi_nameBox">
 									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">이름</label>
 									        <div class="col-sm-8_a">
 									            <div class="input-group input-group-merge">
@@ -62,8 +62,8 @@
 									        </div>
 									    </div>
 							 				
-									    <div class="col-sm-12" id="regi_btn">
-									        <button type="submit" class="btn btn-primary">아이디찾기</button>
+									    <div class="col-sm-12 usermodi_idBtn" id="regi_btn">
+									        <button type="submit" class="btn btn-primary findId_Btn">아이디찾기</button>
 									        <button type="reset" class="btn btn-secondary">초기화</button>
 									    </div>
 									</form>
@@ -84,11 +84,22 @@
 									        <h3>비밀번호 찾기<i class="fa fa-key text-primary userModi_findID"></i></h3>
 									    </div>
 									    <div class="row mb-3">
-									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">아이디</label>
+									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">이름</label>
 									        <div class="col-sm-8_a">
 									            <div class="input-group input-group-merge">
 											    <input type="text" class="regi_pwd_form-control"
 											           required
+											           name="currentPassword"
+											           aria-describedby="basic-default-password" />
+									            </div>
+									        </div>
+									    </div>
+									    <div class="row mb-3">
+									        <label class="col-sm-2 col-form-label" id="regi_pwd_letter">아이디</label>
+									        <div class="col-sm-8_a">
+									            <div class="input-group input-group-merge">
+											    <input type="text" class="regi_pwd_form-control"
+											           required placeholder="이메일을 입력하세요"
 											           name="currentPassword"
 											           aria-describedby="basic-default-password" />
 									            </div>
@@ -107,7 +118,7 @@
 									    </div>
 							 				
 									    <div class="col-sm-12" id="regi_btn">
-									        <button type="submit" class="btn btn-primary">비밀번호 찾기</button>
+									        <button type="button" class="btn btn-primary userModi_findPwdBtn">비밀번호 찾기</button>
 									        <button type="reset" class="btn btn-secondary">초기화</button>
 									    </div>
 									</form>
@@ -122,8 +133,59 @@
     </div>
 </div>
 
-<script>
+<%-- 아이디 찾기 모달 --%>
+<div class="modal fade" id="usermodi_idModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">아이디 찾기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="text-align:center;">회원님의 아이디는 <span class="text-primary">유민유민</span>입니다.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">로그인</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+<%-- 아이디 찾기 모달 끝 --%>
 
+<%-- 비번 찾기 모달 --%>
+<div class="modal fade" id="usermodi_pwdModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">비밀번호 찾기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="text-align:center;">임시비밀번호가 발급되었습니다.</div>
+			<div class="modal-body" style="text-align:center;"><span class="text-primary">yumin123</span></div>
+			<div class="modal-body" style="text-align:center;">해당 비밀번호로 로그인 뒤 비밀번호를 변경해주세요.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">로그인</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+<%-- 비번 찾기 모달 끝 --%>
+
+<script>
+$(document).ready(function(){
+    $(".findId_Btn").click(function(){
+        $("#usermodi_idModal").modal('show');
+    });
+    $(".userModi_findPwdBtn").click(function(){
+        $("#usermodi_pwdModal").modal('show');
+    });
+});
 </script>
 
 <!-- Booking End -->
