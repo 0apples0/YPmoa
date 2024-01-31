@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -165,12 +166,33 @@ public class UserService implements UserGenericService {
 	}
 	
 	public String findUserID(UserVO vo) {
-		
-		return null;
+		String result = mapper.findUserID(vo);
+		log.info("아이디"+result);
+		return result;
 	}
 	
-	public void changePW(UserVO vo) {
+	public String createTempPW() {
+		int length = 8; // 임시 PW 길이
+		String randomString;
+		String charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		Random random = new Random();
+		StringBuilder result = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            result.append(charset.charAt(random.nextInt(charset.length())));
+        }
+        return result.toString();
+	}
+	
+	public String changeToTempPW(UserVO vo) {
+		UserVO tempvo = mapper.chkCurrentUser(vo);
+		if(tempvo==null) {
+			return null;
+		}
+		String newPW = createTempPW();
 		
+		tempvo.setPW(newPW);
+		mapper.changeToTempPW(tempvo);
+		return newPW;
 	}
 	
 	private String hashingPW(String pw) {

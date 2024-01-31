@@ -76,6 +76,22 @@
     <select id="chkUserType" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="int">
         SELECT userType FROM user WHERE Email = #{Email}
     </select>
+    
+        <!-- 회원정보 찾기 -->
+    <select id="findUserID" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="java.lang.String">
+        SELECT Email FROM user
+        WHERE name = #{name} AND phone = #{phone}
+    </select>
+    
+    <select id="chkCurrentUser" parameterType="com.moa.youthpolicy.user.domain.UserVO" resultType="com.moa.youthpolicy.user.domain.UserVO">
+    	SELECT * FROM user
+    	WHERE name = #{name} AND phone = #{phone} AND email = #{email}
+    </select>
+    
+    <update id="changeToTempPW" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+        UPDATE user SET PW=#{PW}        
+        WHERE name = #{name} AND phone = #{phone} AND email = #{email}
+    </update>
         
     <!-- Additional SQL queries and mapping statements can be added here -->
 </mapper>

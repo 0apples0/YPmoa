@@ -283,9 +283,26 @@ public class UserController {
 	
 	@GetMapping("/findLoginInfo")
 	public void findLoginInfo(UserVO vo, HttpSession session) {
-		//log.info(vo.toString());
-		//userService.register(vo, session);
-		//return "redirect:/";
+	}
+	
+	//아이디 찾기
+	@ResponseBody
+	@PostMapping("/findID")
+	public String showID(UserVO vo) {
+		log.info(vo.toString());
+		String userID = userService.findUserID(vo);
+		log.info(userID);
+		return userID;
+	}
+	
+	//비밀번호 찾기(임시 비밀번호 발급)
+	@ResponseBody
+	@PostMapping("/findPW")
+	public String showPW(UserVO vo) {
+		log.info(vo.toString());
+		String userTempPW = userService.changeToTempPW(vo);
+		log.info(userTempPW);
+		return userTempPW;
 	}
 	
 	@ResponseBody
