@@ -112,7 +112,7 @@ public class WishController {
 	@GetMapping("/endAlarm")
 	public int endAlarm(Criteria cri) {
 		int response = wishService.endDateAlarm(cri);
-	
+		log.info("마감: "+response);
 		if(response > 0) {
 			return response;
 		}
