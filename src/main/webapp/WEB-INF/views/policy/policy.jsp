@@ -466,7 +466,7 @@ function formatDate(date) {
 			                .catch(function(error) {
 			                    console.error("정책 정보를 가져오는 중 오류 발생:", error);
 			                });
-			        } // 여기에 중괄호가 누락되어 있었습니다.
+			        } 
 			    }); // $.ajax 함수의 중괄호 닫기
 			    let actionForm = $("#actionForm");
 			    $(".paginate_button a").on("click", function(e){
@@ -520,7 +520,6 @@ function formatDate(date) {
 		    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 		    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 		    	    var currentDate = new Date();
-		    	   console.log("이미지: "+imageUrl);
 		    	    
 		    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
 		    	        '<div class="rounded shadow overflow-hidden">' +

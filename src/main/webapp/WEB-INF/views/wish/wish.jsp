@@ -128,11 +128,21 @@
     <!-- Booking End -->
 
 
+<%-- 위시리스트 없을 때 뜨는 문구 --%>
+
+<div class="container-xxl py-5 wish_emptyShow" hidden="hidden">
+	<div class="container wow fadeInUp" data-wow-delay="0.1s"
+		style="height: 70px;">
+		
+		<div class="wish_hideLetter" style="text-align:center">검색 결과가 없거나 위시리스트가 비어있습니다.</div>
+	</div>
+</div>
+
+<%-- 위시없문구 끝 --%>
+
 
 <div class="container-xxl py-5 wish_hide">
 	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
-	<!-- <div class="wish_noWIsh">위시리스트가 비어있습니다. 마음에 드는 정책을 위시리스트에 등록해보세요!
-			</div> -->	
 		<div id="policy_checkbox" style="float: left;">
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input wish_check" name="isAlert"
@@ -150,6 +160,7 @@
 
 
 		<div class="row g-4" id="wishContainer">
+
 			<!-- 값 들어갈 곳 -->
 		</div>
 		<!-- wishContainer 끝 -->
@@ -367,21 +378,44 @@ function applyUserConditions(e) {
 			  	        wishUser: $("#usernickForm").find("input[name='wishUser']").val(),
 			  	    },
 
-		  	        success: function (data) {
-		  	        	if(){
-		  	        		
-		  	        	}
-		  	        	
-		  	        	
-		  	        	
-		 				 $("#wishContainer").empty();
-		  	            // 정책 정보를 동적으로 추가
-		  	            data.forEach(function (policy, index) {
-		  	               policy.aplyEndDt = formatDate(policy.aplyEndDt);
-		  	               addPolicyToContainer(policy, index + 1	);
-		  	            });
-		  	         
-		  	        },
+			  	  success: function(data) {
+			  	    if (data.length > 0) {
+			  	        console.log(data);
+			  	        
+			  	        // 비동기 작업을 순차적으로 실행하기 위한 함수
+			  	        function processPolicy(index) {
+			  	            // 모든 작업이 완료되면 종료
+			  	            if (index >= data.length) {
+			  	                console.log("모든 작업 완료");
+			  	                return;
+			  	            }
+
+			  	            // 현재 작업할 데이터
+			  	            var policy = data[index];
+
+			  	            // 이미지 URL 가져오는 비동기 작업을 수행
+			  	            getImageUrlFromServer(policy.no, function(imageUrl) {
+			  	                // 정책 정보에 이미지 URL 추가
+			  	                policy.aplyEndDt = formatDate(policy.aplyEndDt);
+			  	                // 요소를 순서대로 추가
+			  	                addPolicyToContainer(policy, index + 1, imageUrl);
+			  	                
+			  	                // 다음 작업을 처리하기 위해 재귀 호출
+			  	                processPolicy(index + 1);
+			  	            });
+			  	        }
+
+			  	        // 첫 번째 작업 시작
+			  	        processPolicy(0);
+			  	    } else {
+			  	        $(".wish_hide").hide();
+			  	        $(".wish_emptyShow").removeAttr("hidden");
+			  	    }
+			  	},
+
+
+
+
 		  	        error: function (e) {
 		  	            console.log(e);
 		  	        }
@@ -420,7 +454,6 @@ function applyUserConditions(e) {
 	                // 현재 날짜를 가져옵니다.
 	                var currentDate = new Date();
 	                currentDate.setHours(0, 0, 0, 0);
-	                console.log(currentDate);
 	                // 날짜가 null이면서 현재 날짜보다 작거나 같으면 또는 상시모집인 경우 알림받기 버튼을 숨깁니다.
 	                if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "마감일 상세 확인" || new Date(policy.aplyEndDt) < currentDate) {
 	                    $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
@@ -429,19 +462,38 @@ function applyUserConditions(e) {
 
 		  	
             
-            function addPolicyToContainer(policy, index) {
+            function addPolicyToContainer(policy, index, imageUrl) {
             	
 	    	    
 	    	    var displayPolicyName = policy.policyNm ? policy.policyNm.replace(/\([^)]*\)/g, '') : '';   // 제목에 괄호 빼고 표시
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
-	    	    console.log(policy.no);
-	    	    
-	    	  
+	    	    var currentDate = new Date(); // 현재 날짜
+
+	    	    // policy.aplyEndDt를 Date 객체로 변환
+	    	    var endDt = new Date(policy.aplyEndDt);
+	    	    console.log(currentDate);
+				console.log(endDt);
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden">' +
-	    	        '<div class="position-relative">' +
-	    	        '<img class="img-fluid" src="' + contextPath + '/resources/img/카드' + (index ? index : '2') + '.png" alt="">' +
-	    	        '</div>' +
+	    	        '<div class="position-relative overflow-hidden" style="height: 276px;">' +
+	    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="height: 100%; object-fit: cover;" alt="">'+
+	    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:21%; left:77%">' ;
+
+	    	    if((policy.aplyEndDt)=== "마감일 상세 확인") {
+	    	        policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
+	    	    } 
+	    	    else if (endDt <= currentDate) {
+	    	        policyHtml +=  '<span class="policy_badge" style="background-color: green; left:25%;">모집마감</span>';
+	    	    } 
+	    	    else if (endDt > currentDate && policy.aplyEndDt !== null && policy.aplyEndDt !== "") {
+	    	        policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; left: 40%;">모집중</span>';
+	    	    }
+
+	
+	    	        
+	    	        
+	    	        
+	    	        policyHtml+= '</div>' + '</div>'+
 	    	        '<div class="p-4 mt-2">' +
 	    	        '<h5 class="fw-bold mb-4"><a href="/policy/get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
 	    	        		
@@ -468,6 +520,32 @@ function applyUserConditions(e) {
 	    	    hideButtonIfDateNull(policy);
 	    	    buttonClear(policy.no);
 	    	}
+            
+            // 이미지 썸네일
+             function getImageUrlFromServer(no, callback) {
+		    	    $.ajax({
+		    	        url: "/policy/getImageUrl",
+		    	        type: "GET",
+		    	        data: {bno: no},
+		    	        dataType: 'text', 
+		    	        success: function(response) {
+		    	        	 console.log(response);
+		    	             // 응답이 없는 경우 기본값으로 '카드1.jpg'를 사용
+		    	             var imageUrl = response !== '' ? response : '카드1.png';
+		    	             console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
+		    	             // 콜백 함수 호출하여 이미지 URL 전달
+		    	             callback(imageUrl);
+		    	        },
+		    	        error: function(xhr, status, error) {
+		    	            // 에러 처리
+		    	            console.error("에러 발생:", error);
+		    	            callback('카드1.png');
+		    	        }
+		    	    });
+		    	}
+            
+            
+            
      	
          	// 알람 눌렀을 때
 			$("body").on("click", ".wish_alarm", function() {
