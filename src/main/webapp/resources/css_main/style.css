@@ -184,7 +184,7 @@
 .col-sm-2,
 .col-sm-4 {
   flex: 1;
-  margin: 0px; /* 셀 사이 간격 조절을 위한 마진 설정 */
+  margin: 0px; 
 }
 
 .col-sm-2 {
