@@ -119,7 +119,7 @@
 											<div class="col-sm-9_b" ><span class="validation" id="nickValidation">유효성검사</span></div>
 										</div>
 
-										<div class="col-sm-9" id="regi_btn">
+										<div class="col-sm-12" id="regi_btn">
 											<button type="submit" class="btn btn-primary"
 												id="regi_regiBtn">회원가입</button>
 											<button type="reset" class="btn btn-secondary">초기화</button>
