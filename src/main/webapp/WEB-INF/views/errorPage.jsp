@@ -62,7 +62,7 @@
                  <div class="error_page">
                     <div class="center">
                        <div class="error_icon" style="text-align: center;">
-                          <img  style="width: 50%;" src="${pageContext.request.contextPath}/resources/img/page-misc-error-light.png" alt="#">
+                          <img style="width: 50%;" src="${pageContext.request.contextPath}/resources/img/page-misc-error-light.png" alt="404Image"/>
                        </div>
                     </div>
                     <br>
