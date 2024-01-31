@@ -704,7 +704,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                   let editCancelImg = $("<i>").addClass("fa fa-times text-secondary");
                   let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                   
-                  row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink).attr("colspan", "2"));
+                  row.append($("<td>").append(editLink,editCancelLink).attr("colspan", "2"));
                   
                   // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                   $(".commuComment_modDoneBtn").on("click", function(){

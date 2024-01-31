@@ -568,7 +568,7 @@
 }
 
 .policyGet_bestComment tbody tr td{
-	border-color: red;
+	border-color: rgba(0, 0, 0, 0.2);
 }
 
 .policyGet_comment tbody tr td:nth-child(2), .policyGet_bestComment tbody tr td:nth-child(2){
