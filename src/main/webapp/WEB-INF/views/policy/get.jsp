@@ -138,7 +138,7 @@
 										<tr>
 											<td colspan="4">
 												<!-- policyCnDtl --> ${policy.policyCnDtl}
-
+																	 ${policy.board.content }
 											</td>
 
 										</tr>
