@@ -153,10 +153,11 @@
 
 
 #login_menu_box{
-    width: 150px;
+    width: 100px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
+    padding-right:0px;
     padding-left: 0px;
     padding-top: 42px;
 }
@@ -816,18 +817,22 @@
 	margin-right:3px;
 }
 
-
-
 .commuGet_btn{
-    text-align: right;
+   text-align: right;
 }
 
 .commuGet_like{
     display: flex;
 }
 
+.commuGet_listBtn{
+	margin-right:1%;
+	margin-top:20px;
+}
 
-
+.commuGet_modifyBtn, .commuGet_deleteBtn, .commuGet_postReport{
+	margin-top:20px;
+}
 .commuGet_likeBox{
     display: flex;
     justify-content: center;
@@ -852,7 +857,7 @@
 	text-align: left !important;
 }
 .commu_table{
-	width:1130px !important;
+	width:100% !important;
 }
 
 
@@ -885,7 +890,9 @@
     text-align: center;
 }
 
-
+.commu_table_a tbody tr td:last-child{
+	width: 5% !important;
+}
 
 
 

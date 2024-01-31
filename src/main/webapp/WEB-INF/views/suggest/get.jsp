@@ -57,16 +57,16 @@
                                 <div class="commuGet_btn">
 			                         <c:choose>
 					  					<c:when test = "${user ne null && user.nick ne null && (user.userType == 1 || user.userType == 0) && user.nick == vo.writer}">
-											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
-											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정하기</button>
-											<button type="button" id="deleteBtn" class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+											<button id="return" class="btn btn-primary commuGet_listBtn">목록</button>
+											<button id="modifyBtn" class="btn btn-warning commuGet_modifyBtn">수정</button>
+											<button type="button" id="deleteBtn" class="btn btn-secondary commuGet_deleteBtn">삭제</button>
 										</c:when>
 										<c:when test="${vo.userType==0}">
 											<button id="return"
 												class="btn btn-primary commuGet_modifyBtn">목록</button>
 										</c:when>
 					 					<c:otherwise>
-											<button id="return" class="btn btn-primary commuGet_modifyBtn">목록</button>
+											<button id="return" class="btn btn-primary commuGet_listBtn">목록</button>
 											<button id="repot" class="btn btn-warning commuGet_postReport">신고하기</button>
 										</c:otherwise>
 									</c:choose>
@@ -135,14 +135,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">삭제 확인</h5>
+                <h5 class="modal-title">게시글 삭제</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                정말로 삭제하시겠습니까?
+            <div class="modal-body" style=" font-family: 'LINESeedKR-Bd_light';">
+                게시글을 삭제하시겠습니까?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">삭제</button>
+                <button type="button" class="btn btn-warning" id="confirmDeleteBtn">삭제</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
             </div>
         </div>

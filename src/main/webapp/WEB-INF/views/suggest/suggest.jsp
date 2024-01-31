@@ -176,16 +176,15 @@
 					<div id="policy_checkbox">
 						<c:choose>
 		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1}">
-								<div class="col-md-1 policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
-								</div>
-								<div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+								<div class="col-md-auto policy_writeBtn">
+									<button id="writeBtn" class="btn btn-warning ">글쓰기</button>
 									<button id="gotoMineBtn" class="btn btn-warning">내글보기</button>
-								</div>	                       	  
+								</div>
+								                      	  
 							</c:when>
 		 					<c:otherwise>
-								<div class="col-md-1 policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
+								<div class="col-md-auto policy_writeBtn">
+									<button id="writeBtn" class="btn btn-warning ">글쓰기</button>
 								</div>	                        
 							</c:otherwise>
 						</c:choose>
@@ -415,8 +414,11 @@
 	                        let row = $("<tr>");
 	                        row.append($("<td>").text(board.region));
 	                        row.append($("<td>").text(board.category));
-	                        let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text(board.title);         
+	                        let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text(board.title);      
 	                        
+	                        let commentNm = $("<span>").addClass("board_commentNm").attr("data-bno", board.bno).text("");
+	                        
+	                        titleLink.append(commentNm);
 	                        
 	                        let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
 							addedBno.forEach(function(bno) {
