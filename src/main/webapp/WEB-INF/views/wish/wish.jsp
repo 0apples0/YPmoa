@@ -129,7 +129,7 @@
 
 
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 wish_hide">
 	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
 	<!-- <div class="wish_noWIsh">위시리스트가 비어있습니다. 마음에 드는 정책을 위시리스트에 등록해보세요!
 			</div> -->	
@@ -368,6 +368,12 @@ function applyUserConditions(e) {
 			  	    },
 
 		  	        success: function (data) {
+		  	        	if(){
+		  	        		
+		  	        	}
+		  	        	
+		  	        	
+		  	        	
 		 				 $("#wishContainer").empty();
 		  	            // 정책 정보를 동적으로 추가
 		  	            data.forEach(function (policy, index) {
@@ -448,7 +454,7 @@ function applyUserConditions(e) {
 	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + (policy.aplyEndDt) + '</small>';
 	    	        }
 	    	       
-	    	        policyHtml +=
+	    	        policyHtml +=	
 	    	        '</div>'+
 	    	        '</div>' +
 	    	        '<div class="commuGet_btn" >' +
