@@ -131,8 +131,36 @@
             </nav>
         </div>
    </div>
-
-		<input type="hidden" name="isAlert" value="${pageMaker.cri.isAlert }">
+   
+   <div class="modal fade" id="noAlamModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">위시리스트</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="font-family: 'LINESeedKR-Bd_light';">마감일이 일주일 이내인 정책이 없습니다.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="confirmDeleteBtn">확인</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+   
+   
+	<form action="/wish/wish" method="POST" id="alertForm">
+		<input type="hidden" name="isAlert" value="isAlert">
+		<input type="hidden" name="pageNum" value="1">
+		<input type="hidden" name="amount" value="8">
+		<input type="hidden" name="rgnSeNm" value="${pageMaker.cri.rgnSeNm }">
+		<input type="hidden" name="policyTypeNm" value="${pageMaker.cri.policyTypeNm }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }"> 
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+			<input type="hidden" name="selectedFilter" value="isAlert">
+	</form>
 
    <form id="usernickForm" action="community/community" method="post">
 		<input type="hidden" name="writer" value="${user.nick}">
@@ -194,6 +222,24 @@
 
    window.onload = function() {
 	   endAlarm();
+	   
+	   $("a[href='/wish/wish']").click(function(e){
+	        e.preventDefault();
+	        if ($(".badge").is(":hidden")) {
+	            // hidden 속성이 있는 경우 모달을 띄움
+	            showModal();
+	        } else {
+	            // hidden 속성이 없는 경우 폼 제출
+	            $("#alertForm").submit();
+	        }
+	    });
+	   
+	   
+	   function showModal() {
+		    // noAlamModal id를 가진 모달을 띄움
+		    $("#noAlamModal").modal("show");
+		}
+	   
 	 };
 
 
