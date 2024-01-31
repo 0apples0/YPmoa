@@ -66,7 +66,7 @@
                                     <option value="의성군">의성군</option>
                                 </select>
                             </div>
-                            <!-- Interest Field 선택 -->
+                            <!-- Interest Field 선택ㄹ -->
                             <div class="col-md-3_b">
                                 <select class="form-select" name="interestField">
                                     <c:choose>
