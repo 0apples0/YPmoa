@@ -541,6 +541,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		// 좋아요 버튼 클릭 시 이미지 변경
 		$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
+						window.location.href="/user/login";
 						return;
 					}
 					$.ajax({
@@ -775,6 +776,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
         		return;
         	}*/
 			if (!chkLogin()) {
+				window.location.href="/user/login";
 				return;
 			}
         	var likeButton = $(this); // 현재 클릭한 좋아요 버튼을 저장
