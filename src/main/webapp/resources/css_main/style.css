@@ -163,18 +163,20 @@
 }
 
 #admin_login_menu_box{
-    width: 180px;
+    width: 142px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
+     padding-right:0px;
     padding-left: 0px;
     padding-top: 42px;
 }
 #login_menu_box_guest{
-    width: 150px;
+    width: 112px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
+    padding-right:0px;
     padding-left: 0px;
     padding-top: 30px;
 }
@@ -578,7 +580,7 @@
     width: 18%;
 }
 .policyGet_comment tbody tr td:nth-child(4), .policyGet_bestComment tbody tr td:nth-child(4){
-    width: 8%;
+    width: 9%;
 }
 .policyGet_comment tbody tr td:nth-child(5), .policyGet_bestComment tbody tr td:nth-child(5){
     width: 7%;
@@ -840,14 +842,7 @@
     display: flex;
 }
 
-.commuGet_listBtn{
-	margin-right:1%;
-	margin-top:20px;
-}
 
-.commuGet_modifyBtn, .commuGet_deleteBtn, .commuGet_postReport{
-	margin-top:20px;
-}
 .commuGet_likeBox{
     display: flex;
     justify-content: center;

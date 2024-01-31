@@ -58,8 +58,8 @@
 			                         <c:choose>
 					  					<c:when test = "${user ne null && user.nick ne null && (user.userType == 1 || user.userType == 0) && user.nick == vo.writer}">
 											<button id="return" class="btn btn-primary commuGet_listBtn">목록</button>
-											<button id="modifyBtn" class="btn btn-warning commuGet_modifyBtn">수정</button>
-											<button type="button" id="deleteBtn" class="btn btn-secondary commuGet_deleteBtn">삭제</button>
+											<button id="modifyBtn" class="btn btn-primary commuGet_modifyBtn">수정</button>
+											<button type="button" id="deleteBtn" class="btn btn-warning commuGet_deleteBtn">삭제</button>
 										</c:when>
 										<c:when test="${vo.userType==0}">
 											<button id="return"

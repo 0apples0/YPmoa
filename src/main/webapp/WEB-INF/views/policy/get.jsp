@@ -185,9 +185,6 @@
 <div class="container-xxl py-5_a">
 	<div class="container">
 
-
-
-
 		<div class="row g-4">
 			<div class="wow fadeIn" data-wow-delay="0.01s">
 				<h3 style="margin-left: 20px;">댓글</h3>
@@ -196,7 +193,7 @@
 						class="form-control datetimepicker-input font_light"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
 					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn" disabled
-						style="margin-left: 20px;">댓글 작성</button>
+						style="margin-left: 10px;">댓글 작성</button>
 				</div>
 				
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
@@ -698,10 +695,8 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
       	        row.find("td").remove();
       	        row.append($("<td>").append(inputElement).attr("colspan", "3"));
       	        
-                  let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                   let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/policy/get?no="+bno).text("수정 완료");
                   
-                  let editCancelImg = $("<i>").addClass("fa fa-times text-secondary");
                   let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                   
                   row.append($("<td>").append(editLink,editCancelLink).attr("colspan", "2"));
@@ -858,14 +853,12 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                           // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
                        
            
-                          let deleteImg = $("<i>").addClass("fa fa-trash text-secondary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
-                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").attr("style","margin-left:3px;").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
@@ -958,7 +951,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                          let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           // 이미지와 link를 <td> 엘리먼트에 추가

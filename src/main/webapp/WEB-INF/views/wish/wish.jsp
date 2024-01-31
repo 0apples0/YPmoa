@@ -148,19 +148,18 @@
 								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 
 						</div>
-                        
+                        <div class="col-md-auto ">
+							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
+						</div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
 						
-						<!-- 조건+제목+내용 / 제목+내용 검색 -->
-						<div class="col-md-1 ">
-							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
-						</div>
+						
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
-						<div class="col-md-2">
+						<div class="col-md-auto">
 							<button class="btn btn-warning w-100" id="applyConditionsBtn">내 맞춤조건 적용</button>
 						</div>
-						<div class="col-md-1_a">
+						<div class="col-md-auto">
 							<button type="reset"  class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
