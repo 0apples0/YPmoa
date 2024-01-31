@@ -429,60 +429,67 @@ function formatDate(date) {
 			});
 			
 			
-		     function loadTableData() {
-		    	//$("#policyContainer").empty();
-		  	    $.ajax({
-		  	        url: "/policy/getList",
-		  	        type: "POST",
-		  	        dataType: "json",
-		  	        data: {
-		  	            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
-		  	            amount: $("#actionFrom").find("input[name='amount']").val(),
-		  	            type: $("#searchForm select[name='type']").val(),
-		  	            keyword: $("#actionFrom").find("input[name='keyword']").val(),
-		  	            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
-	        			policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
-	        			selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
-		  	        },
-		  	        success: function (data) {
-		  	        	
-		  	        	console.log(data);
-		  	            // 정책 정보를 동적으로 추가
-		  	            data.forEach(function (policy, index) {
-		  	                policy.crtDt = formatDate(policy.crtDt);
-		  	                // 이미지 URL 가져오기
-		  	                getImageUrlFromServer(policy.no, function(imageUrl) {
-		  	                    addPolicyToContainer(policy, index + 1, imageUrl);
-		  	                });
-		  	            });
-		  	        },
-		  	        error: function (e) {
-		  	            console.log(e);
-		  	        }
-		  	    });
-		  	    
-		  	  let actionForm = $("#actionForm");
-		      $(".paginate_button a").on("click", function(e){
-		      
-		         //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
-		         e.preventDefault(); //이벤트 초기화
-		         //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		         console.log(actionForm);
-		         /*
-		         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		         actionForm.submit();
-		         */
-		         console.log("href : " + $(this).attr("href"));
-		          // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-		          let newPageNum = $(this).attr("href");
-		         console.log("newPageNum : " + newPageNum);
-		          // pageNum이 비어있지 않은 경우에만 submit 실행
-		          if (newPageNum) {
-		              actionForm.find("input[name='pageNum']").val(newPageNum);
-		              actionForm.submit();
-		          }
-		      });
-		  	}
+			function loadTableData() {
+			    //$("#policyContainer").empty();
+			    $.ajax({
+			        url: "/policy/getList",
+			        type: "POST",
+			        dataType: "json",
+			        data: {
+			            pageNum: $("#actionFrom").find("input[name='pageNum']").val(),
+			            amount: $("#actionFrom").find("input[name='amount']").val(),
+			            type: $("#searchForm select[name='type']").val(),
+			            keyword: $("#actionFrom").find("input[name='keyword']").val(),
+			            rgnSeNm: $("#searchForm select[name='rgnSeNm']").val(),
+			            policyTypeNm: $("#searchForm select[name='policyTypeNm']").val(),
+			            selectedFilter: $("#actionFrom").find("input[name='selectedFilter']").val()
+			        },
+			        success: function (data) {
+			            var promises = data.map(function(policy) {
+			                return new Promise(function(resolve, reject) {
+			                    // 이미지 URL 가져오기
+			                    getImageUrlFromServer(policy.no, function(imageUrl) {
+			                        // 정책 정보에 이미지 URL 추가
+			                        policy.imageUrl = imageUrl;
+			                        resolve(policy);
+			                    });
+			                });
+			            });
+			            Promise.all(promises)
+			                .then(function(policies) {
+			                    // 모든 정책 정보가 준비된 후 화면에 추가
+			                    policies.forEach(function(policy, index) {
+			                        policy.crtDt = formatDate(policy.crtDt);
+			                        addPolicyToContainer(policy, index + 1, policy.imageUrl);
+			                    });
+			                })
+			                .catch(function(error) {
+			                    console.error("정책 정보를 가져오는 중 오류 발생:", error);
+			                });
+			        } // 여기에 중괄호가 누락되어 있었습니다.
+			    }); // $.ajax 함수의 중괄호 닫기
+			    let actionForm = $("#actionForm");
+			    $(".paginate_button a").on("click", function(e){
+			        // 기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+			        e.preventDefault(); // 이벤트 초기화
+			        // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			        console.log(actionForm);
+			        /*
+			        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			        actionForm.submit();
+			        */
+			        console.log("href : " + $(this).attr("href"));
+			        // pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
+			        let newPageNum = $(this).attr("href");
+			        console.log("newPageNum : " + newPageNum);
+			        // pageNum이 비어있지 않은 경우에만 submit 실행
+			        if (newPageNum) {
+			            actionForm.find("input[name='pageNum']").val(newPageNum);
+			            actionForm.submit();
+			        }
+			    });
+			}
+
 		 	  
 	
 		    
