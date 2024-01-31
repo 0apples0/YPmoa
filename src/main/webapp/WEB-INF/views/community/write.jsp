@@ -26,17 +26,45 @@
 									<div class="" style="width: 13%; margin-left:10px">
 										<select class="form-select" id="region" name="region">
 								        <option selected value="" >지역</option>
-									    <option value="부천시">부천시</option>
-									    <option value="수원시">수원시</option>
-									    <option value="광명시">광명시</option>
+									    <option value="경상북도">경상북도</option>
+	                                    <option value="경산시">경산시</option>
+	                                    <option value="경주시">경주시</option>
+	                                    <option value="구미시">구미시</option>
+	                                    <option value="김천시">김천시</option>
+	                                    <option value="문경시">문경시</option>
+	                                    <option value="상주시">상주시</option>
+	                                    <option value="안동시">안동시</option>
+	                                    <option value="영주시">영주시</option>
+	                                    <option value="영천시">영천시</option>
+	                                    <option value="포항시">포항시</option>
+	                                    <option value="군위군">군위군</option>
+	                                    <option value="봉화군">봉화군</option>
+	                                    <option value="성주군">성주군</option>
+	                                    <option value="영덕군">영덕군</option>
+	                                    <option value="영양군">영양군</option>
+	                                    <option value="예천군">예천군</option>
+	                                    <option value="고령군">고령군</option>
+	                                    <option value="청도군">청도군</option>
+	                                    <option value="청송군">청송군</option>
+	                                    <option value="칠곡군">칠곡군</option>
+	                                    <option value="울릉군">울릉군</option>
+	                                    <option value="울진군">울진군</option>
+	                                    <option value="의성군">의성군</option>
 									    </select>
 									</div>
 									<div class="" style="width: 13%; padding-left:0px">
 									    <select class="form-select" id="category" name="category">
 									    <option selected value="" >관심분야</option>
-									    <option value="주거">주거</option>
-									    <option value="교육">교육</option>
-									    <option value="신혼부부">신혼부부</option>
+									    <option value="일자리 (창업)">일자리 (창업)</option>
+	                                    <option value="일자리 (취업)">일자리 (취업)</option>
+	                                    <option value="참여">참여</option>
+	                                    <option value="교육">교육</option>
+	                                    <option value="복지">복지</option>
+	                                    <option value="주거비 지원">주거비 지원</option>
+	                                    <option value="문화">문화</option>
+	                                    <option value="금융">금융</option>
+	                                    <option value="주택공급">주택공급</option>
+	                                    <option value="건강">건강</option>
 									    </select>
 									</div>
 									<input class="form-control" id="titleInput" name="title"
