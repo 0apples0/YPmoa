@@ -469,7 +469,7 @@ function applyUserConditions(e) {
 	    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
 	    	    var currentDate = new Date(); // 현재 날짜
 
-	    	    // policy.aplyEndDt를 Date 객체로 변환
+	    	    // policy.aplyEndDt를 Date 객체ㄹ로 변환
 	    	    var endDt = new Date(policy.aplyEndDt);
 	    	    console.log(currentDate);
 				console.log(endDt);
