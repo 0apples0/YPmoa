@@ -79,7 +79,7 @@
 									    <div class="col-sm-12" id="regi_btn">
 									        <button type="submit" class="btn btn-primary" style="margin-right:5px">수정하기</button>
 									        <button type="reset" class="btn btn-secondary"  style="margin-right:5px">초기화</button>
-									        <button type="button" class="btn btn-warning">취소</button>
+									        <button type="button" onclick="getBack()" class="btn btn-warning">취소</button>
 									    </div>
 									</form>
 									<%
@@ -99,8 +99,15 @@
     </div>
 </div>
 <script>
+function getBack(){
+	var userEmail = "<%=user.getEmail()%>";
+	location.href = "/user/mypage?Email=" + userEmail;
+}
+
 	document.addEventListener("DOMContentLoaded", function () {
 	    var pwUpdateForm = document.getElementById("pwUpdate");
+	    
+	    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 	
 	    pwUpdateForm.addEventListener("submit", function (event) {
 	    	var dbPassword = "<%= user.getPW() %>";
@@ -108,6 +115,13 @@
 	        var newPassword = pwUpdateForm.elements["newPassword"].value;
 	        var confirmPassword = pwUpdateForm.elements["confirmPassword"].value;
             var isPasswordUpdated = [[${flash.isPasswordUpdated}]];
+            
+       	    // 유효성 검사 추가
+            if (!passwordRegex.test(newPassword)) {
+                alert("비밀번호는 최소 8자 이상의 길이, 대소문자 및 숫자, 특수 문자를 포함해야 합니다.");
+                event.preventDefault();
+                return;
+            }
             
             if (currentPassword !== dbPassword) {
                 alert("현재 비밀번호가 올바르지 않습니다. 다시 확인해주세요.");

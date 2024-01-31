@@ -117,7 +117,9 @@
                                 <!-- 수정완료, 비밀번호 변경, 초기화, 회원탈퇴 버튼 -->
                                 <div class="col-sm-12" id="regi_btn">
                                     <button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
+                                    <%if(user.getPW() != null || user.getPW() != ""){ %>
                                     <button type="button" class="btn btn-primary" id="modpw_regiBtn">비밀번호 변경</button>
+                                    <%} %>
                                     <button type="reset" class="btn btn-primary">초기화</button>
                                     <button type="button" class="btn btn-warning" id="user_delBtn">회원탈퇴</button>
                                 </div>
@@ -174,6 +176,15 @@ $(document).ready(function() {
     
     // 연락처 중복 체크 버튼 클릭 시
     $("#phoneck").on("click", function () {
+    	
+    	var phoneRegex = /^([0-9]{11})$/;
+	    var phoneField = $(".regi_sub_form-control[name='phone']");
+	    var phoneValidation = $("#phoneValidation");
+	
+	    if (!phoneRegex.test(phoneField.val())) {
+	        alert("올바른 연락처를 입력해주세요.").show();
+	        return;
+	    }
         // 여기에 연락처 중복 체크 로직을 추가
         var phoneNumber = $(".regi_sub_form-control[name='phone']").val();
     
@@ -202,6 +213,16 @@ $(document).ready(function() {
     
     // 닉네임 중복 체크 버튼 클릭 시
     $("#nickchk").on("click", function () {
+    	var nicknameField = $(".regi_sub_form-control[name='nick']");
+        var nicknameValidation = $("#nickValidation");
+        var nickname = nicknameField.val();
+
+        // 유효성 검사
+        var nickRegex = /^(?:[가-힣]{1,10}|[a-zA-Z]{1,20}|[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{2,14})$/;
+        if (!nickRegex.test(nickname)) {
+            alert("닉네임은 한글 10글자 또는 영어 20글자 이내로 입력해주세요.").show();
+            return;  // 유효성 검사를 통과하지 못하면 여기서 함수 종료
+        }
         // 여기에 닉네임 중복 체크 로직을 추가
         var nickname = $(".regi_sub_form-control[name='nick']").val();
     

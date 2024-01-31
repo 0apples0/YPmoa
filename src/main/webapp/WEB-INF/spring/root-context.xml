@@ -9,14 +9,21 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components ypmoa.c5u6wmg4ipxx.ap-northeast-2.rds.amazonaws.com: -->
+	<!-- Root Context: defines shared resources visible to all other web components 
 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/> 
-	    <property name="jdbcUrl" value="jdbc:mysql://3306/ypmoa?useSSL=false&amp;serverTimezone=Asia/Seoul"/>
+	    <property name="jdbcUrl" value="jdbc:mysql://ypmoa.c5u6wmg4ipxx.ap-northeast-2.rds.amazonaws.com:3306/ypmoa?useSSL=false&amp;serverTimezone=Asia/Seoul"/>
 	    <property name="username" value="root"/>
 	    <property name="password" value="ypmoa0000"/>
 	</bean>
+	-->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/> 
+        <property name= "jdbcUrl" value="jdbc:mysql://localhost:3306/ypmoa?useSSL=false&amp;serverTimezone=Asia/Seoul"/>
+        <property name="username" value="root"/>
+        <property name="password" value="0000"/>
+    </bean>
 	
 	<!-- Maven Dependencies > HikariCP  -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" 

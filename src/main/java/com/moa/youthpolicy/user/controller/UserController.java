@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.moa.youthpolicy.common.AuthUtil;
 import com.moa.youthpolicy.login.naver.NaverAuthResponse;
 import com.moa.youthpolicy.user.domain.UserVO;
 import com.moa.youthpolicy.user.mapper.UserMapper;
@@ -39,9 +40,12 @@ public class UserController {
 	    log.info("마이페이지 조회");
 	    UserVO user = userService.get(Email);
 	    int userT = userService.chkUserType(user);
-		if(user == null) {
+		if(user == null ) {
 			//model.addAttribute("alertLoginMessage", "로그인 후 이용 가능한 서비스입니다.");
 			return "redirect:/user/login";
+		}
+		if(!AuthUtil.getCurrentUserAccount().equals(user.getEmail())) {
+			return "redirect:/user/mypage?Email="+AuthUtil.getCurrentUserAccount();
 		}
 	    if(userT==1 || userT==0) { // 탈퇴 회원이 아니라면,
 	    	httpSession.setAttribute("user", user);
@@ -85,6 +89,14 @@ public class UserController {
                                  HttpServletRequest request,
                                  RedirectAttributes redirectAttributes,
                                  Model model) {
+    	if(user.getPW() == null || user.getPW() == "") {
+    		if(AuthUtil.isLogin()) {
+    			return "redirect:/user/mypage?Email="+AuthUtil.getCurrentUserAccount();
+    		}else {
+    			return "redirect:/user/login";
+    		}
+    		
+    	}
         boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
         log.info("컨트롤러 : "+model);
         if (passwordUpdated) {
