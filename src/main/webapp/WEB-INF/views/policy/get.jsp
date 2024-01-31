@@ -203,7 +203,7 @@
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
-							<div style="border: 1px solid #ced4da; background-color: rgb(255, 244, 230)">
+							<div class="policy_bestCmt" >
 
 								<h4 style="padding-left: 10px;">
 									<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
@@ -229,7 +229,7 @@
 					<div class="white_shd_a full margin_bottom_30">
 
 						<div class="table_section padding_infor_info">
-							<div class="table-responsive-sm">
+							<div class="table-responsive-sm policy_cmtBox">
 								<table id="communityCommentTable"
 									class="table table-default commu_table policyGet_comment">
 
@@ -960,14 +960,14 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           let reportTd = $("<td>");
                           let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-primary");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
-                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
 
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                        	  $(".policyGet_bestComment").addClass("custom-width");
+                        	  reportTd.append(editLink, deleteLink);
                           }else{
                         	  reportTd.append(reportImg, reportLink);
                           }

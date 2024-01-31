@@ -735,10 +735,10 @@
                           // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
                         	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
-                        	  reportTd.css("width", "130px");
+                        	  reportTd.css("width", "11%");
                           }else{
                         	  reportTd.append(reportImg, reportLink);
-                        	  reportTd.css("width", "70px");
+                        	  reportTd.css("width", "7%");
                           }
 
                           // 새로운 <td> 엘리먼트를 행에 추가
@@ -817,8 +817,6 @@
                               
                            	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                               let reportTd = $("<td>");
-                              reportTd.css("width", "100px");
-                              console.log("Report TD created");
                               let editImg = $("<i>").addClass("fa fa-pen text-primary");
                               let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                               

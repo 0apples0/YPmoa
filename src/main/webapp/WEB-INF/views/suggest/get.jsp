@@ -91,22 +91,22 @@
             <div class="modal-body">
                 <div id="policyGet_checkbox">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1"
+                        <input type="checkbox" class="form-check-input" id="customCheck1"
                             data-textarea-id="textarea2">
                         <label class="custom-control-label" for="customCheck1">불건전한 내용</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2"
+                        <input type="checkbox" class="form-check-input" id="customCheck2"
                             data-textarea-id="textarea3">
                         <label class="custom-control-label" for="customCheck2">영리목적/홍보성</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck3"
+                        <input type="checkbox" class="form-check-input" id="customCheck3"
                             data-textarea-id="textarea4">
                         <label class="custom-control-label" for="customCheck3">개인정보노출</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck4"
+                        <input type="checkbox" class="form-check-input" id="customCheck4"
                             data-textarea-id="textarea1">
                         <label class="custom-control-label" for="customCheck4">기타(아래에 작성해주세요)</label>
                     </div>

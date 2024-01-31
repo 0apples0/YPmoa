@@ -487,6 +487,17 @@
 
 /*** policy ***/
 
+.policy_cmtBox{
+	padding: 30px;
+	padding-top:0px;
+}
+
+.policy_bestCmt{
+	border: 1px solid #ced4da; 
+	background-color: rgb(255, 244, 230);
+	padding: 30px;
+}
+
 .policy_adminWrite{
 	margin-bottom:30px
 	}
@@ -550,10 +561,14 @@
 }
 
 .custom-width tbody tr td:nth-child(5){
-    width: 10% !important;
+    width: 9% !important;
 }
 .custom-width tbody tr td:nth-child(3){
     width: 18% !important;
+}
+
+.policyGet_bestComment tbody tr td{
+	border-color: red;
 }
 
 .policyGet_comment tbody tr td:nth-child(2), .policyGet_bestComment tbody tr td:nth-child(2){
@@ -563,7 +578,7 @@
     width: 18%;
 }
 .policyGet_comment tbody tr td:nth-child(4), .policyGet_bestComment tbody tr td:nth-child(4){
-    width: 7%;
+    width: 8%;
 }
 .policyGet_comment tbody tr td:nth-child(5), .policyGet_bestComment tbody tr td:nth-child(5){
     width: 7%;

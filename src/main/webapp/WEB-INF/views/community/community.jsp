@@ -178,16 +178,16 @@
 					<div id="policy_checkbox">
 						<c:choose>
 		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1}">
-								<div class="col-md-1 policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
+								<div class="col-md-auto policy_writeBtn">
+									<button id="writeBtn" class="btn btn-warning">글쓰기</button>
 								</div>
-								<div class="col-md-1 policy_writeBtn" style="margin-right: 10px;">
+								<div class="col-md-auto policy_writeBtn" style="margin-right: 10px;">
 									<button id="gotoMineBtn" class="btn btn-warning ">내글보기</button>
 								</div>	                       	  
 							</c:when>
 		 					<c:otherwise>
-								<div class="col-md-1 policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning w-100">글쓰기</button>
+								<div class="col-md-auto policy_writeBtn">
+									<button id="writeBtn" class="btn btn-warning">글쓰기</button>
 								</div>	                        
 							</c:otherwise>
 						</c:choose>
