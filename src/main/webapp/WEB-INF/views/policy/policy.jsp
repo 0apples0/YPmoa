@@ -333,7 +333,7 @@ function applyUserConditions(e) {
 	var email = "${user.email}";
 	console.log(email);
 	if(email == null || email == ""){
-		alert("로그인 후 이용가능합니다");
+		alert("로그인 후 이용 가능한 서비스입니다.");
 		return;
 	}
 	e.preventDefault();
@@ -436,7 +436,7 @@ function formatDate(date) {
 		    e.preventDefault();
 		    userNick = $("#usernickForm input[name='writer']").val();
 		    if(userNick == null || userNick==""){
-		    	alert("로그인 필요");
+		    	alert("로그인 후 이용 가능한 서비스입니다.");
 		    	return;
 		    }
 		
