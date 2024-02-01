@@ -131,6 +131,7 @@
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0">
                                         <h2>정책 상세</h2>
+                                        <input class="form-control" name="policyCnDtl">
                                     </div>
                                 </div>
                                 <div class="table_section padding_infor_info">

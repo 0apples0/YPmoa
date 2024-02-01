@@ -7,9 +7,9 @@
 	<div class="container">
 		<div class="row g-5"></div>
 		<div class="rounded p-4" id="footer_box">
-			<a href=""> <img
+			 <img
 				src="${pageContext.request.contextPath}/resources/img/foot.svg"
-				id="logo" /></a>
+				id="logo" />
 		</div>
 
 
@@ -18,13 +18,11 @@
 
 </div>
 
-</div>
 <!-- Footer End -->
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 	class="bi bi-arrow-up"></i></a>
-</div>
 
 
     <!-- JavaScript Libraries -->

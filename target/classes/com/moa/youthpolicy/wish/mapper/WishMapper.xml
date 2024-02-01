@@ -34,7 +34,7 @@
 		FROM policy
 	    JOIN wish ON policy.no = wish.wishPolicy
 	    WHERE wish.wishUser = #{wishUser}
-	  <if test="type != null and keyword != null and keyword != ''">
+	  <if test="type != null  and keyword != null and keyword != ''">
     AND (
         <choose>
             <when test='type == ""'>
@@ -138,12 +138,13 @@
 	</select>
 
 	<select id="getEndAlarm" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-		SELECT COUNT(wish.wishPolicy)
-	    FROM policy
-	    JOIN wish ON policy.no = wish.wishPolicy
-	    WHERE wish.wishUser = #{wishUser} AND wish.isAlert LIKE 1
-	     AND policy.aplyEndDt >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY);
-	</select>
+    SELECT COUNT(wish.wishPolicy)
+    FROM policy
+    JOIN wish ON policy.no = wish.wishPolicy
+    WHERE wish.wishUser = #{wishUser} 
+    AND wish.isAlert LIKE 1
+    AND policy.aplyEndDt &lt;= DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY);
+</select>
 
 
 

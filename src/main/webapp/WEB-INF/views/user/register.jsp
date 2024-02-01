@@ -74,7 +74,7 @@
 											<div class="col-sm-9_b" ><span class="validation" id="passwordValidation">유효성검사</span></div>
 										</div>
 										<div class="row mb-3" style="align-items: center">
-											<label class="col-sm-2 col-form-label" id="regi_pwd_letter" style="font-size:small;">비밀번호 확인</label>
+											<label class="col-sm-2 col-form-label" id="regi_pwd_letter" >비밀번호 확인</label>
 											<div class="col-sm-10">
 												<div class="input-group input-group-merge">
 													<input type="password" class="regi_pwd_form-control" 
@@ -119,7 +119,7 @@
 											<div class="col-sm-9_b" ><span class="validation" id="nickValidation">유효성검사</span></div>
 										</div>
 
-										<div class="col-sm-9" id="regi_btn">
+										<div class="col-sm-12" id="regi_btn">
 											<button type="submit" class="btn btn-primary"
 												id="regi_regiBtn">회원가입</button>
 											<button type="reset" class="btn btn-secondary">초기화</button>

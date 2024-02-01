@@ -65,9 +65,9 @@
 											<button id="return"
 												class="btn btn-primary commuGet_modifyBtn">목록</button>
 											<button id="modifyBtn"
-												class="btn btn-primary commuGet_modifyBtn">수정하기</button>
+												class="btn btn-primary commuGet_modifyBtn">수정</button>
 											<button type="button" id="deleteBtn"
-												class="btn btn-primary commuGet_deleteBtn">삭제하기</button>
+												class="btn btn-warning commuGet_deleteBtn">삭제</button>
 										</c:when>
 										<c:when test="${vo.userType==0}">
 											<button id="return"
@@ -105,16 +105,18 @@
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info">
+						<div class="policy_bestCmt" >
 							<h4 style="padding-left: 10px;">
 								<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
 									class="fa fa-fire text-primary commu_pic"></i>
 							</h4>
 							<div class="table-responsive-sm">
 								<table id="communityBestCommentTable"
-									class="table table-basic commu_table policyGet_comment">
-									<tbody style="background-color: rgb(255, 239, 203);">
+									class="table table-basic commu_table policyGet_bestComment">
+									<tbody >
 									</tbody>
 								</table>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -123,7 +125,7 @@
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
 						<div class="table_section padding_infor_info">
-							<div class="table-responsive-sm">
+							<div class="table-responsive-sm policy_cmtBox">
 								<table id="communityCommentTable"
 									class="table table-basic commu_table policyGet_comment">
 									<tbody>
@@ -267,11 +269,11 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">삭제 확인</h5>
+				<h5 class="modal-title">게시글 삭제</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-body">게시글을 삭제하시겠습니까?</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" id="confirmDeleteBtn">삭제</button>
 				<button type="button" class="btn btn-secondary"
@@ -288,11 +290,11 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">삭제 확인</h5>
+				<h5 class="modal-title">댓글 삭제</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-body">댓글을 삭제하시겠습니까?</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning"
 					id="confirmDeleteCommentBtn">삭제</button>
@@ -370,7 +372,7 @@
 			success : function(data){
 				$("#modalCenter").modal("hide");
 				if(data){
-					alert("신고 하였습니다");
+					alert("신고했습니다");
 				}else{
 					alert("이미 신고했습니다");
 				}
@@ -575,15 +577,13 @@
         	        let inputElement = $("<input>").addClass("commuComment_modInput form-control").attr("type", "text").val(content);
         	        
         	        row.find("td").remove();
-        	        row.append($("<td>").attr("colspan", 4).append(inputElement));
+        	        row.append($("<td>").attr("colspan", "3").append(inputElement));
         	        
-                    let editImg = $("<i>").addClass("fa fa-pen text-primary");
                     let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/community/get?bno="+bno).text("수정 완료");
                     
-                    let editCancelImg = $("<i>").addClass("fa fa-times text-primary");
                     let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                     
-                    row.append($("<td>").css("width","160px").append(editImg, editLink,editCancelImg, editCancelLink));
+                    row.append($("<td>").attr("colspan", "2").append(editLink,editCancelLink));
                   
                     // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                     $(".commuComment_modDoneBtn").on("click", function(){
@@ -721,24 +721,21 @@
                           
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                           
            
-                          let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
-                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
                           // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
-                        	  reportTd.css("width", "130px");
+                        	  reportTd.append(editLink, deleteLink);
+                        	  $(".policyGet_comment").addClass("custom-width");
                           }else{
                         	  reportTd.append(reportImg, reportLink);
-                        	  reportTd.css("width", "70px");
                           }
 
                           // 새로운 <td> 엘리먼트를 행에 추가
@@ -817,23 +814,19 @@
                               
                            	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                               let reportTd = $("<td>");
-                              reportTd.css("width", "100px");
-                              console.log("Report TD created");
-                              let editImg = $("<i>").addClass("fa fa-pen text-primary");
                               let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "#").text("수정");
                               
-                              let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                               let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
                               
-                              let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                              let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                               let reportLink = $("<a>").addClass("policyGet_report commuComment_reportBtn").attr("href", "#").text("신고");
                             
                               // 이미지와 link를 <td> 엘리먼트에 추가
                               // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
                               // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
                               if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                            	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
-                            	 
+                            	  reportTd.append(editLink,deleteLink);
+                            	  $(".policyGet_bestComment").addClass("custom-width");
                               }else{
                             	  reportTd.append(reportImg, reportLink);
                               }

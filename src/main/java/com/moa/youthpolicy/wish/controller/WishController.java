@@ -52,15 +52,17 @@ public class WishController {
 	
 	@RequestMapping(value = {"/wish", "/wishPaging"}, method = {RequestMethod.GET,  RequestMethod.POST })
 	public String wish(Criteria cri, Model model, HttpSession session) {
+		log.info("알람: "+cri.getIsAlert());
 		UserVO user = (UserVO) session.getAttribute("user");
 		if(user == null) {
 			//model.addAttribute("alertLoginMessage", "로그인 후 이용 가능한 서비스입니다.");
 			return "redirect:/user/login";
 		}
 		cri.setAmount(8);
-		log.info(cri);
+		
 		int total = wishService.getTotalAmount(cri); 
 		log.info("전체글"+ total);
+		log.info("여기: "+cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 		return "/wish/wish";
@@ -112,7 +114,6 @@ public class WishController {
 	@GetMapping("/endAlarm")
 	public int endAlarm(Criteria cri) {
 		int response = wishService.endDateAlarm(cri);
-	
 		if(response > 0) {
 			return response;
 		}

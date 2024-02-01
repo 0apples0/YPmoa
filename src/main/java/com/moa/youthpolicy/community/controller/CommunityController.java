@@ -253,7 +253,6 @@ public class CommunityController {
 	@GetMapping("/commentNm")
 	public int commentNm(Criteria cri) {
 		int commentNm = communityService.getcommentNm(cri);
-		log.info("댓글개수"+commentNm);
 		return commentNm;
 	}
 	

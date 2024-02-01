@@ -185,9 +185,6 @@
 <div class="container-xxl py-5_a">
 	<div class="container">
 
-
-
-
 		<div class="row g-4">
 			<div class="wow fadeIn" data-wow-delay="0.01s">
 				<h3 style="margin-left: 20px;">댓글</h3>
@@ -196,14 +193,14 @@
 						class="form-control datetimepicker-input font_light"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
 					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn" disabled
-						style="margin-left: 20px;">댓글 작성</button>
+						style="margin-left: 10px;">댓글 작성</button>
 				</div>
 				
 				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
-							<div style="border: 1px solid #ced4da; background-color: rgb(255, 244, 230)">
+							<div class="policy_bestCmt" >
 
 								<h4 style="padding-left: 10px;">
 									<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
@@ -229,7 +226,7 @@
 					<div class="white_shd_a full margin_bottom_30">
 
 						<div class="table_section padding_infor_info">
-							<div class="table-responsive-sm">
+							<div class="table-responsive-sm policy_cmtBox">
 								<table id="communityCommentTable"
 									class="table table-default commu_table policyGet_comment">
 
@@ -541,6 +538,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		// 좋아요 버튼 클릭 시 이미지 변경
 		$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
+						window.location.href="/user/login";
 						return;
 					}
 					$.ajax({
@@ -698,13 +696,11 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
       	        row.find("td").remove();
       	        row.append($("<td>").append(inputElement).attr("colspan", "3"));
       	        
-                  let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                   let editLink = $("<a>").addClass("commuComment_modDoneBtn").attr("href", "/policy/get?no="+bno).text("수정 완료");
                   
-                  let editCancelImg = $("<i>").addClass("fa fa-times text-secondary");
                   let editCancelLink = $("<a>").addClass("commuComment_cancelmodBtn").attr("href", "").text("취소");
                   
-                  row.append($("<td>").append(editImg, editLink,editCancelImg, editCancelLink).attr("colspan", "2"));
+                  row.append($("<td>").append(editLink,editCancelLink).attr("colspan", "2"));
                   
                   // 수정 완료 버튼 클릭 시 조건에 따라 ajax 호출
                   $(".commuComment_modDoneBtn").on("click", function(){
@@ -775,6 +771,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
         		return;
         	}*/
 			if (!chkLogin()) {
+				window.location.href="/user/login";
 				return;
 			}
         	var likeButton = $(this); // 현재 클릭한 좋아요 버튼을 저장
@@ -858,14 +855,12 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                           // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let editImg = $("<i>").addClass("fa fa-pen text-secondary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           
                        
            
-                          let deleteImg = $("<i>").addClass("fa fa-trash text-secondary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
-                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").attr("style","margin-left:3px;").text("신고");
                         
                           // 이미지와 link를 <td> 엘리먼트에 추가
@@ -958,16 +953,16 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           
                        	  // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
                           let reportTd = $("<td>");
-                          let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-primary");
+                          let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
-                          let editImg = $("<i>").addClass("fa fa-pen text-primary");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
                           // 이미지와 link를 <td> 엘리먼트에 추가
                           let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
                           let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
 
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                        	  reportTd.append(editImg, editLink, deleteImg, deleteLink);
+                        	  $(".policyGet_bestComment").addClass("custom-width");
+                        	  reportTd.append(editLink, deleteLink);
                           }else{
                         	  reportTd.append(reportImg, reportLink);
                           }
