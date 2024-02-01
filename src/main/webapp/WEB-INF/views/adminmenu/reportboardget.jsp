@@ -411,65 +411,70 @@ $(document).ready(function () {
                  
               //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
               //for(let item of items) -> items == data, item ==board 역할
-              $.each(data, function(index, board){
-                
-                 let regDate=new Date(board.regDate);
-                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
-                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-                 let formateDate = regDate.toLocaleString("ko-KR", options);
-
-                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-                 let row = $("<tr>");
-                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁" : "건의"));
-                 row.append($("<td>").text(board.writer));
-                 
-                 let titleTd = $("<td>").addClass("adminBoard_titleTd");
-               	 let titleLink = $("<a>").addClass("titleLink").attr("href", "").text(board.title);
-               	 titleTd.append(titleLink);
-                 row.append(titleTd);
-                 
-                 row.append($("<td>").text(formateDate));
-                 row.append($("<td>").addClass("board_countReportBtn").text(board.countReport));
-                 
-                 let deleteTd = $("<td>");
-                 let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
-                 let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
-                 deleteLink.append(deleteImg);
-                 deleteTd.append(deleteLink);
-                 
-                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal").attr("id", "chkCompleteBtn");
-                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal").attr("id", "delCompleteBtn");
-                 // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
-                 // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
-                 let rollbackTd = $("<td>").addClass("rollbackTd");
-                 if(board.isChecked == 1){
-                	 if(board.isdeleted == 1){
-                    	 row.append($("<td>").append(delCompleteBtn));  
-                         
-                	 }else{
-                		 row.append($("<td>").append(chkCompleteBtn)); 
-                	 }
-                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
-                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
-                     
-                     rollbackLink.append(rollbackBtn);
-                     rollbackTd.append(rollbackLink);
-                 }else{
-                	 row.append(deleteTd);  
-                 }
-                 
-				row.append(rollbackTd);
-                 
-                 userTbody.append(row);
-                 console.log("pagemaker: "+${pageMaker.realEnd});
-                 
-                 // row, board.bno, board.boardType 전달하여 활용하는 함수
-                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted, board.isChecked);
-              });
-           },
-           error: function(e){
-              console.log(e);
-           }
+              if (data.length === 0) {
+						// 검색 결과가 없는 경우 메시지 표시
+						userTbody.append("<tr><td colspan='7' class='text-center' style='text-align:center !important'>검색 결과가 없습니다.</td></tr>");
+			  } else {
+	              	$.each(data, function(index, board){
+	                
+	                 let regDate=new Date(board.regDate);
+	                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
+	                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+	                 let formateDate = regDate.toLocaleString("ko-KR", options);
+	
+	                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+	                 let row = $("<tr>");
+	                 row.append($("<td>").text(board.boardType === "T" ? "꿀팁" : "건의"));
+	                 row.append($("<td>").text(board.writer));
+	                 
+	                 let titleTd = $("<td>").addClass("adminBoard_titleTd");
+	               	 let titleLink = $("<a>").addClass("titleLink").attr("href", "").text(board.title);
+	               	 titleTd.append(titleLink);
+	                 row.append(titleTd);
+	                 
+	                 row.append($("<td>").text(formateDate));
+	                 row.append($("<td>").addClass("board_countReportBtn").text(board.countReport));
+	                 
+	                 let deleteTd = $("<td>");
+	                 let deleteLink = $("<a>").addClass("board_deleteBtn").attr("href", "");
+	                 let deleteImg = $("<i>").addClass("fa fa-cog fa-2x text-secondary admin_reportModal");
+	                 deleteLink.append(deleteImg);
+	                 deleteTd.append(deleteLink);
+	                 
+	                 let chkCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-primary fa-2x admin_reportModal").attr("id", "chkCompleteBtn");
+	                 let delCompleteBtn = $("<i>").addClass("fa fa-check-circle	text-danger fa-2x admin_reportModal").attr("id", "delCompleteBtn");
+	                 // isChecked: 관리자의 처리여부 (0:미처리 1:처리)
+	                 // isdeleted: 게시글의 삭제여부 (0:미삭제 1:삭제)
+	                 let rollbackTd = $("<td>").addClass("rollbackTd");
+	                 if(board.isChecked == 1){
+	                	 if(board.isdeleted == 1){
+	                    	 row.append($("<td>").append(delCompleteBtn));  
+	                         
+	                	 }else{
+	                		 row.append($("<td>").append(chkCompleteBtn)); 
+	                	 }
+	                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
+	                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+	                     
+	                     rollbackLink.append(rollbackBtn);
+	                     rollbackTd.append(rollbackLink);
+	                 }else{
+	                	 row.append(deleteTd);  
+	                 }
+	                 
+					row.append(rollbackTd);
+	                 
+	                 userTbody.append(row);
+	                 console.log("pagemaker: "+${pageMaker.realEnd});
+	                 
+	                 // row, board.bno, board.boardType 전달하여 활용하는 함수
+	                 bindCommentActionHandlers(row, board.bno, board.boardType, board.isdeleted, board.isChecked);
+	              	});
+			  }
+           	},
+           	error: function(e){
+              	console.log(e);
+           	}
         });
         
         $(".paginate_button a").on("click", function(e){
