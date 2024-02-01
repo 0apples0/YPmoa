@@ -352,7 +352,7 @@ function applyUserConditions(e) {
     };
     // 주소 선택
     var rgnSeNmSelect = document.getElementById("selectRgnSeNm");
-	
+
 	if (rgnSeNmSelect && rgnSeNmSelect.tagName === 'SELECT') {
 	    var rgnSeNmOptions = rgnSeNmSelect.options;
 	
@@ -362,7 +362,7 @@ function applyUserConditions(e) {
 	            break;
 	        }
 	    }
-	}
+	} 
 
     // 관심 분야 선택
     var policyTypeNmSelect = document.getElementById("selectPolicyTypeNm");

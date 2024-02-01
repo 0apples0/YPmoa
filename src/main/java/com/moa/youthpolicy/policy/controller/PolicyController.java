@@ -211,6 +211,7 @@ public class PolicyController {
 @RequestMapping(value = "/getImageUrl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public String getImageUrl(@RequestParam("bno") int bno) {
     String imageUrl = service.getUrl(bno);
+    log.info(imageUrl + bno);
     return imageUrl;
 }
 	
