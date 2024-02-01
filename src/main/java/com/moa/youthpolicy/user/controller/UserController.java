@@ -105,7 +105,6 @@ public class UserController {
     		}else {
     			return "redirect:/user/login";
     		}
-    		
     	}
         boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
         log.info("컨트롤러 : "+model);
