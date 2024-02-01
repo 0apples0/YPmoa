@@ -185,7 +185,7 @@
 	
    <script>
    function checkAndNavigateToMypage(Email) {
-       // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
+       // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이ㄹ페이지로 이동
        var user_email = null;
        user_email = Email;
        console.log(user_email);
