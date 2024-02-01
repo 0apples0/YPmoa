@@ -133,7 +133,7 @@ function getBack(){
 	            alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다");
 	            event.preventDefault();
 	        }else if (isPasswordUpdated) {
-                alert("비밀번호가 성공적으로 업데이트되었습니다");
+                alert("비밀번호가 성공적으로 업데이트되었습니다.\n다시 로그인해주세요.");
             }
 	    });
 	});
