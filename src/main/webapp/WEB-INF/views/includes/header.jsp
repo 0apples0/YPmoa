@@ -159,7 +159,7 @@
 			</div>
 			<div class="modal-body" style="font-family: 'LINESeedKR-Bd_light';">마감일이 일주일 이내인 정책이 없습니다.</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="confirmDeleteBtn">확인</button>
+				<button type="button" class="btn btn-primary" id="confirmDeleteBtn" data-bs-dismiss="modal">확인</button>
 				
 			</div>
 		</div>
