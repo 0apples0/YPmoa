@@ -209,8 +209,8 @@
 <div class="container-xxl py-5 wish_emptyShow" hidden="hidden">
 	<div class="container wow fadeInUp" data-wow-delay="0.1s"
 		style="height: 70px;">
-		
 		<div class="wish_hideLetter" style="text-align:center">검색 결과가 없거나 위시리스트가 비어있습니다.</div>
+		<div style="text-align:center"><a href="/policy/policy" >정책 둘러보러 가기</a></div>
 	</div>
 </div>
 
