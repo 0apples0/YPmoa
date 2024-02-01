@@ -161,7 +161,7 @@
 									<a href="/policy/policy"><button class="btn btn-primary">목록</button></a>
 									<c:if test="${user.userType == 0 }">
 										<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
-										<button class="btn btn-warning" id="deleteBtn">삭제</button>
+										<button class="btn btn-warning" onclick="delPolicy()">삭제</button>
 									</c:if>
 								</div>
 							</div>
@@ -375,7 +375,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onclick="report()">신고하기</button>
+				<button type="button" class="btn btn-primary" id="reportBtn" disabled="disabled" onclick="report()">신고하기</button>
 				<button type="button" class="btn btn-outline-secondary"
 					data-bs-dismiss="modal">취소</button>
 
@@ -426,6 +426,27 @@
 	</div>
 </div>
 
+<!-- 게시글삭제모달 -->
+<div class="modal fade" id="confirmDeletePolicyModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">삭제 확인</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">정말로 삭제하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning"
+					id=confirmDeletePolicyBtn>삭제</button>
+				<button type="button" class="btn btn-secondary" 
+					data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <form id="actionForm" action="/policy/get" method="post">
 	<input type="hidden" name="no" value="${policy.no}"> 
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
@@ -446,6 +467,12 @@ var reporter = $("#usernickForm input[name='writer']").val();
 function openNewWindow(url) {
     window.open(url, '_blank');
 }
+function delPolicy() {
+    // 삭제 확인 모달을 띄우기 위해 Bootstrap의 모달 API 사용
+    $('#confirmDeletePolicyModal').modal('show');
+}
+
+
 
 // 모달 내부의 체크박스들에 대한 이벤트 핸들러 등록
 $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", function() {
@@ -457,6 +484,13 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
         selectedOption = "개인정보노출";
     } else if ($("#customCheck4").is(":checked")) {
         selectedOption = "기타";
+    }
+    if ($("#customCheck1").is(":checked") || $("#customCheck2").is(":checked") || $("#customCheck3").is(":checked") || $("#customCheck4").is(":checked")) {
+        // 하나 이상의 체크박스가 선택되어 있으면 버튼 활성화
+        $("#reportBtn").prop("disabled", false);
+    } else {
+        // 모든 체크박스가 선택되어 있지 않으면 버튼 비활성화
+        $("#reportBtn").prop("disabled", true);
     }
 });
 
@@ -478,15 +512,27 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 			},
 			success : function(data){ 
 				$("#modalCenter").modal("hide");
-				if(data){
-					alert("신고 하였습니다");
+				if(data == 0){
+					alert("관리자 댓글은 신고할 수 없습니다.");
+				}else if(data == 2){
+					alert("이미 신고했습니다"); 
 				}else{
-					alert("이미 신고했습니다");
+					alert("신고 하였습니다");
 				}
-				
+				resetModalValues(); // 모달 내부의 값들 초기화 함수 호출
 			}
 		});
 	    
+	}
+	// 모달 내부의 값들을 초기화하는 함수
+	function resetModalValues() {
+		$("#reportBtn").prop("disabled", true);
+	    $("#customCheck1").prop("checked", false);
+	    $("#customCheck2").prop("checked", false);
+	    $("#customCheck3").prop("checked", false);
+	    $("#customCheck4").prop("checked", false);
+	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").prop("disabled", false);
+	    $("#textarea1").val("");
 	}
 
 	$(document).ready(function() {
@@ -504,6 +550,22 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 				return true;
 			}
 		}
+		
+		$('#confirmDeletePolicyBtn').on('click', function () {
+			 $.ajax({
+		            type: "POST",
+		            url: "/policy/delPolicy",
+		            data: { no: "${policy.no}" },
+		            success: function () {
+		                // 삭제 성공 시, 여러 가지 작업 수행
+		                alert("삭제되었습니다.");
+		                window.location.href = '/policy/policy';
+		            },
+		            error: function () {
+		                alert("삭제 중 오류가 발생했습니다.");
+		            }
+		        });
+	    });
 
 		$("#policyGet_heartBtn")
 				.click(function() {
@@ -567,12 +629,11 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 
 		// 신고 모달창
 		$("td").click(function(event) {
-					event.preventDefault();
-					if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {
-						$("#modalCenter").modal("show");
+					event.preventDefault();			
+					if ($(event.target).is(".policyGet_report, .policyGet_report img") || $(event.target).closest(".policyGet_report").length > 0) {						
+						$("#reportBtn").prop("disabled", true);						
 					}
 				});
-		
 		
 		// 체크박스 중복 방지
 		$('.custom-control-input').on('change',function() {
@@ -827,6 +888,10 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                   success: function(data){
                      let boardTbody = $("#communityCommentTable tbody");
                      boardTbody.empty(); // 기존 테이블 행 삭제
+                     
+                     if (data.length === 0) {
+ 		                boardTbody.append("<tr><td colspan='4' class='text-center' style='text-align:center !important'>등록 된 댓글이 없습니다. </td></tr>");
+ 		            }
                         
                      //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
                      //for(let item of items) -> items == data, item ==board 역할

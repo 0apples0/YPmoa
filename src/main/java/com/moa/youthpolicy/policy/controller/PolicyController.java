@@ -189,7 +189,7 @@ public class PolicyController {
 	@PostMapping("/reportcomment")
 	public int reportcomment(CommentsReportVO vo) {
 		int writerUserType = service.checkWriterUserType(vo);
-		if(writerUserType == 0) { //�뙎湲� �옉�꽦�옄媛� 愿�由ъ옄(userType: 0)硫� �떊怨� 紐삵븯�룄濡� 泥섎━
+		if(writerUserType == 0) {
 			return 0;
 		}
 		else if(service.reportcomment(vo)) {

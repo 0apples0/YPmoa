@@ -53,7 +53,7 @@
 					<div class="row  policy_row g-2">
 					
 						<div class="col-md-auto">
-							<select class="form-select" name="rgnSeNm">
+							<select class="form-select" id="selectRgnSeNm" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
 							
@@ -111,7 +111,7 @@
 						</div>
 						
 						<div class="col-md-auto">
-							<select class="form-select" name="policyTypeNm">
+							<select class="form-select" id="selectPolicyTypeNm" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
 								<option value="일자리 (창업)"
@@ -350,24 +350,33 @@ function applyUserConditions(e) {
         address: "${user.address}",
         interestField: "${user.interestField}"
     };
-
     // 주소 선택
-    var addressSelect = document.getElementsByName("rgnSeNm")[0];
-    for (var i = 0; i < addressSelect.options.length; i++) {
-        if (addressSelect.options[i].value === user.address) {
-            addressSelect.options[i].selected = true;
-            break;
-        }
-    }
+    var rgnSeNmSelect = document.getElementById("selectRgnSeNm");
+	
+	if (rgnSeNmSelect && rgnSeNmSelect.tagName === 'SELECT') {
+	    var rgnSeNmOptions = rgnSeNmSelect.options;
+	
+	    for (var i = 0; i < rgnSeNmOptions.length; i++) {
+	        if (rgnSeNmOptions[i].value === user.address) {
+	            rgnSeNmOptions[i].selected = true;
+	            break;
+	        }
+	    }
+	}
 
     // 관심 분야 선택
-    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
-    for (var j = 0; j < interestFieldSelect.options.length; j++) {
-        if (interestFieldSelect.options[j].value === user.interestField) {
-            interestFieldSelect.options[j].selected = true;
-            break;
-        }
-    }
+    var policyTypeNmSelect = document.getElementById("selectPolicyTypeNm");
+
+	if (policyTypeNmSelect && policyTypeNmSelect.tagName === 'SELECT') {
+	    var policyTypeNmOptions = policyTypeNmSelect.options;
+	
+	    for (var j = 0; j < policyTypeNmOptions.length; j++) {
+	        if (policyTypeNmOptions[j].value === user.interestField) {
+	            policyTypeNmOptions[j].selected = true;
+	            break;
+	        }
+	    }
+	}
 }
 
 
