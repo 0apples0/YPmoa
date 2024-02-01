@@ -33,7 +33,17 @@ public class AdminController {
 	private final AdminService adminService;
 	
 	@GetMapping("/adminmenu")
-	public void adminmenu() {}	
+	public String adminmenu(HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user != null) {
+			if(user.getUserType()!=0) {
+				return "redirect:/errorPage";
+			}
+		}else {
+			return "redirect:/errorPage";
+		}
+		return "adminmenu/adminmenu";
+	}	
 	
 	// 유저 전체 리스트 출력
 	@RequestMapping(value="/userget", method= {RequestMethod.GET, RequestMethod.POST})

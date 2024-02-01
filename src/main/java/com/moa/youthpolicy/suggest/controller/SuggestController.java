@@ -142,6 +142,7 @@ public class SuggestController {
 	//글 삭제
 	@PostMapping("/remove")
 	public String removePage(@RequestParam("bno") Integer bno, RedirectAttributes rttr) {
+		log.info("글 삭제 컨트롤러로 들어오긴 했니 ?");
 	    if (suggestService.removeBoard(bno)) {
 	        rttr.addFlashAttribute("result", "success");
 	    }

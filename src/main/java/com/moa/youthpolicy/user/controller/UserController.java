@@ -41,7 +41,6 @@ public class UserController {
 	    UserVO user = userService.get(Email);
 	    int userT = userService.chkUserType(user);
 		if(user == null || !AuthUtil.isLogin()) {
-			//model.addAttribute("alertLoginMessage", "로그인 후 이용 가능한 서비스입니다.");
 			return "redirect:/user/login";
 		}
 		if(!AuthUtil.getCurrentUserAccount().equals(user.getEmail())) {
@@ -94,46 +93,40 @@ public class UserController {
 	
     @PostMapping("/modify")
     public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
-                                 @RequestParam("currentPassword") String currentPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 HttpServletRequest request,
-                                 RedirectAttributes redirectAttributes,
-                                 Model model) {
-    	if(user.getPW() == null || user.getPW() == "") {
-    		if(AuthUtil.isLogin()) {
-    			return "redirect:/user/mypage?Email="+AuthUtil.getCurrentUserAccount();
-    		}else {
-    			return "redirect:/user/login";
-    		}
-    	}
-        boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
-        log.info("컨트롤러 : "+model);
-        if (passwordUpdated) {
-        	HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
-        	redirectAttributes.addFlashAttribute("successMessage", "비밀번호가 성공적으로 업데이트되었습니다");
-            redirectAttributes.addFlashAttribute("isPasswordUpdated", true);
-            return "redirect:/user/login";
-        } else {
-        	redirectAttributes.addAttribute("errorMessage", "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요");
-            return "redirect:/user/modify";
-        }
-
-    }
+            @RequestParam("currentPassword") String currentPassword,
+            @RequestParam("newPassword") String newPassword,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
+			if (AuthUtil.isLogin()) {
+				String currentUserEmail = AuthUtil.getCurrentUserAccount();
+				
+				// 비밀번호가 업데이트되었는지 여부를 확인
+				boolean passwordUpdated = userService.updatePassword(user, currentPassword, newPassword);
+				
+				if (passwordUpdated) {
+				// 세션 무효화 (로그아웃)
+				HttpSession session = request.getSession(false);
+				
+				if (session != null) {
+				session.invalidate();
+				}
+				// 비밀번호 업데이트 성공 시 로그인 페이지로 이동
+				return "redirect:/user/login";
+				} else {
+				// 비밀번호 업데이트 실패 시 수정 페이지로 이동
+				return "redirect:/user/modify";
+				}
+			} else {
+				// 로그인되지 않은 상태에서 비밀번호 변경 페이지로 진입할 때 로그인 페이지로 이동
+				return "redirect:/user/login";
+				}
+			}
 	
     @GetMapping("/login")
     public void login() {
     	
     }
-    /*
-    @PostMapping("/login")
-    @ResponseBody
-    public void login(@RequestParam String Email, HttpSession session) {
-        UserVO user = userService.get(Email);
-        session.setAttribute("user", user);
-    }*/
+
     @PostMapping("/login")
     @ResponseBody
     public void login(@RequestParam String Email, HttpSession session) {
@@ -156,38 +149,21 @@ public class UserController {
     			
     }
     
+	@PostMapping("/remove")
+	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	    UserVO currentUser = userService.getCurrentUser(request);
+	    if (currentUser != null) {
+	        String email = currentUser.getEmail();
+	        userService.removeUser(email);
+	        request.getSession().invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/user/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
+	        return "redirect:/user/login";
+	    }
+	}
 
-	@PostMapping("/remove")
-	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
-	    UserVO currentUser = userService.getCurrentUser(request);
-	    if (currentUser != null) {
-	        String email = currentUser.getEmail();
-	        userService.removeUser(email);
-	        request.getSession().invalidate();
-	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
-	        return "redirect:/user/login";
-	    } else {
-	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
-	        return "redirect:/user/login";
-	    }
-	}
-/*
-	@PostMapping("/remove")
-	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
-	    UserVO currentUser = userService.getCurrentUser(request);
-	    if (currentUser != null) {
-	        String email = currentUser.getEmail();
-	        userService.removeUser(email);
-	        userService.addleaveUser(currentUser);
-	        request.getSession().invalidate();
-	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
-	        return "redirect:/user/login";
-	    } else {
-	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요한 서비스입니다.");
-	        return "redirect:/user/login";
-	    }
-	}
-	*/
 	@GetMapping("/naver_login")
 	public String naverLogin() {
 	    String uri = userService.getUri();
@@ -200,19 +176,6 @@ public class UserController {
 	    String uri = userService.doGoogleLogin();
 	    return "redirect:" + uri;
 	}
-/*
-	@GetMapping("/getGoogleCode")
-	@ResponseBody
-	public void g_login(HttpServletRequest request) {
-		Map<String, String> param = new HashMap<String, String>();
-		System.out.println("code: " + request.getParameter("code"));
-		
-		param.put("code", request.getParameter("code"));
-		
-		System.out.println("param : " + param.toString());
-		userService.getGoogleToken(param);	// 토큰 + 고객 정보 + (로그인/회원)
-
-	}*/
 	
 	@GetMapping("/getGoogleCode")
 	public String g_login(HttpServletRequest request, HttpSession session) {
@@ -322,5 +285,4 @@ public class UserController {
 	    return userService.chkUserType(vo);
 	}
 	
-
 }
