@@ -202,7 +202,7 @@
                         </div>
                             <div class="col mb-3 admin_modalBox">
                                <table id="reportReasonTable" class="table table-bordered admin_boardModal">
-                                <thead>
+                                <thead>	
                                     <th>신고자<br>닉네임</th>
                                     <th>신고 사유</th>
                                     <th>기타 신고 사유</th>

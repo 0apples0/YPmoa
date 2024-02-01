@@ -186,7 +186,6 @@
 	                <div class="modalDetailcount" id="modalDetailcount3">- 개인정보노출 <span></span>회</div>
 	                <div class="modalDetailcount" id="modalDetailcount4">- 기타 <span></span>회</div>
 				</div>
-				<div class="row">
 					<div class="col mb-3 admin_modalBox">
 						<table id="reportReasonTable" class="table table-bordered admin_boardModal">
                         <thead>
@@ -200,7 +199,6 @@
                         </tbody>
 						</table>
                     </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>

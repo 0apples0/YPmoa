@@ -786,11 +786,12 @@
 
 
 #reportReasonTable thead tr th:nth-child(2){
-	width: 5%
+	width: 6%
+	
 }
 
 #reportReasonTable thead tr th:nth-child(1){
-	width: 17%
+	width: 6%
 }
 
 #reportReasonTable thead tr th:nth-child(4){
@@ -798,8 +799,11 @@
 }
 
 #reportReasonTable thead tr th:nth-child(3){
-	width: 5%
+	width: 18%;
+	word-wrap : break-word;
 }
+
+
 
 #admin_boardTable tbody tr td:nth-child(4){
 	width: 17%;
