@@ -73,14 +73,24 @@ public class UserController {
 			return true;
 		}
 		return false;
-		
 	}
 	
 	@GetMapping("/modify")
-	public String modPW(Model model) {
-		return "user/modify";
+	public String myPage(@RequestParam(name = "email") String email, Model model, HttpSession session) {
+	    // 현재 로그인한 사용자의 이메일 얻어오기
+	    UserVO user = (UserVO)session.getAttribute("user");
+	    // URL에 입력된 이메일과 로그인한 사용자의 이메일 비교
+	    if (user.getEmail() == null || !user.getEmail().equals(email)) {
+	    	log.info("에러/비번변경 url 이메일 : "+ email);
+	    	log.info("에러/비번변경 로근 유저 이메일 : "+ user.getEmail());
+	        // 세션에 저장된 이메일이 없거나 이메일이 다르면 에러 페이지로 리다이렉트 또는 에러 페이지를 보여줌
+	        return "redirect:/errorPage";
+	    }
+	    // 이메일이 일치하면 원래의 처리를 계속 진행
+    	log.info("비번변경 url 이메일 : "+ email);
+    	log.info("비번변경 로근 유저 이메일 : "+ user.getEmail());
+	    return "user/modify";
 	}
-	
 	
     @PostMapping("/modify")
     public String updatePassword(@ModelAttribute("pwUpdate") UserVO user,
