@@ -321,7 +321,7 @@
 	</div>
 </div>
 
-<!-- 확인 팝업 모달 -->
+<!-- 확인 팝업 ㄹ모달 -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">

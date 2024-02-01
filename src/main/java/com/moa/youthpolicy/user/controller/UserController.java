@@ -85,6 +85,10 @@ public class UserController {
 	        // 세션에 저장된 이메일이 없거나 이메일이 다르면 에러 페이지로 리다이렉트 또는 에러 페이지를 보여줌
 	        return "redirect:/errorPage";
 	    }
+	    
+	    if(user.getPW()==null || user.getPW()=="") {
+	    	return "redirect:/errorPage";
+	    }
 	    // 이메일이 일치하면 원래의 처리를 계속 진행
     	log.info("비번변경 url 이메일 : "+ email);
     	log.info("비번변경 로근 유저 이메일 : "+ user.getEmail());
