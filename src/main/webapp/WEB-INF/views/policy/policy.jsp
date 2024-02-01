@@ -635,7 +635,7 @@ function formatDate(date) {
 		    	        success: function(response) {
 		    	        	 console.log(response);
 		    	             // 응답이 없는 경우 기본값으로 '카드1.jpg'를 사용
-		    	             var imageUrl = response !== '' ? response : '카드1.png';
+		    	             var imageUrl = response !== '' || response == null ? response : '카드1.png';
 		    	             console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
 		    	             // 콜백 함수 호출하여 이미지 URL 전달
 		    	             callback(imageUrl);

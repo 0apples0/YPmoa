@@ -276,10 +276,16 @@
 	</select>
 	
 	<select id="getImageUrl" resultType="String" parameterType="int">
-		SELECT REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(content, 'src="', -1), '"', 1), 'http://localhost:8090/resources/save_img/', '') AS imageUrl
-		FROM policyboard
-		WHERE bno = #{bno}
-		LIMIT 1;
-	</select>
+    SELECT 
+        CASE 
+            WHEN content LIKE '%src="%'
+                THEN REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(content, 'src="', -1), '"', 1), 'http://localhost:8090/resources/save_img/', '')
+            ELSE NULL
+        END AS imageUrl
+    FROM policyboard
+    WHERE bno = #{bno}
+    LIMIT 1;
+</select>
+
 
 </mapper>
