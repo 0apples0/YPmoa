@@ -486,6 +486,7 @@ $(document).ready(function () {
 	        }
 	    });
 
+	    
 	    let actionForm = $("#actionForm");
 
 	    $(".paginate_button a").on("click", function (e) {
