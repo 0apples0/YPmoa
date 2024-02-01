@@ -107,15 +107,31 @@
                 </div>
                 </c:otherwise>
                 </c:choose>
+                
+                
+                <%-- mobile: 사용자에 따른 안내 문구 변경 --%>
+                <div id="nickname_box_mobile" style="display: none">
+                    <p id="nickname">
+                       <c:choose>
+                       <c:when test = "${user ne null && user.userType == 0}">
+                       	  관리자님,
+                       </c:when>
+                       <c:when test="${user ne null && user.nick ne null}">
+                          ${user.nick}님, 
+                       </c:when>
+                       </c:choose>  
+                          방문을 환영합니다!
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                <a href="/" class="navbar-brand d-block d-lg-none">
-                    <h1 class="m-0 text-primary text-uppercase">청년정책모아</h1>
+        <div class="col-lg-12 mobile_header">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 mobile_logoBox">
+                <a href="/" class="navbar-brand d-block d-lg-none mobile_logo">
+                   <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span> 
+                    <i class="fa fa-bars text-secondary"></i>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">
