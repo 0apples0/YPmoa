@@ -111,7 +111,7 @@
 	                WHERE board.bno = CASE
 	                    WHEN boardType = 'T' AND boardreport.tipbno IS NOT NULL THEN boardreport.tipbno
 	                    WHEN boardType = 'S' AND boardreport.suggestbno IS NOT NULL THEN boardreport.suggestbno
-	                    ELSE NULL
+	                    ELSE 1=1
 	                END
 	                AND board.writer LIKE CONCAT('%', #{keyword}, '%')
 	            )
