@@ -188,6 +188,7 @@
 </script>
 
 <script>
+
 $(document).ready(function(){
     var blockedUser = ${sessionScope.blockedUser};
     if (blockedUser) {
