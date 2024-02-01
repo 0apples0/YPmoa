@@ -69,17 +69,46 @@
                    	 <div class="row g-2 justify-content-center">                    
 	                        <div class="col-md-3_a">
 	                            <select class="form-select" name="rgnSeNm">
-	                                <option selected>지역선택</option>
+	                                <option value="" selected>지역선택</option>
+	                                <option value="경상북도">경상북도</option>
+	                                <option value="경산시">경산시</option> 
+	                                <option value="경주시">경주시</option>
 	                                <option value="구미시">구미시</option>
-	                                <option value="안동시">안동시</option> 
+	                                <option value="김천시">김천시</option>
+	                                <option value="문경시">문경시</option>
+	                                <option value="상주시">상주시</option>
+	                                <option value="안동시">안동시</option>
+	                                <option value="영주시">영주시</option>
+	                                <option value="영천시">영천시</option>
+	                                <option value="포항시">포항시</option>
+	                                <option value="군위군">군위군</option>
+	                                <option value="봉화군">봉화군</option>
+	                                <option value="성주군">성주군</option>
+	                                <option value="영덕군">영덕군</option>
+	                                <option value="영양군">영양군</option>
+	                                <option value="예천군">예천군</option>
+	                                <option value="고령군">고령군</option>
+	                                <option value="청도군">청도군</option>
+	                                <option value="청송군">청송군</option>
+	                                <option value="칠곡군">칠곡군</option>
+	                                <option value="경주시">경주시</option>
 	                                <option value="울진군">울진군</option>
+	                                <option value="의성군">의성군</option>
 	                            </select>
 	                        </div>
 	                        <div class="col-md-3_a" >
 	                            <select class="form-select" name="policyTypeNm">
 	                                <option selected value="">정책분야</option>
-	                                <option value="주거">주거</option>
+	                                <option value="일자리 (창업)">일자리 (창업)</option>
+	                                <option value="일자리 (취업)">일자리 (취업)</option>
+	                                <option value="참여">참여</option>
 	                                <option value="교육">교육</option>
+	                                <option value="복지">복지</option>
+	                                <option value="주거비 지원">주거비 지원</option>
+	                                <option value="문화">문화</option>
+	                                <option value="금융">금융</option>
+	                                <option value="주택공급">주택공급</option>
+	                                <option value="건강">건강</option>
 	                            </select>
 	                        </div>
 	                        <div class="col-md-5">
@@ -88,8 +117,9 @@
 	                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" name="keyword"/>
 	                            </div>
 	                        </div>
+	                        <input type="hidden" name="pageNum" value=1>
 	                        <div class="col-md-2">
-	                    		<button type="submit" class="btn btn-primary w-100">정책검색</button>
+	                    		<button type="submit" id="searchBtn" class="btn btn-primary w-100">정책검색</button>
 	                		</div>	                	
                     	</div>
                     	

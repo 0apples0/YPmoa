@@ -100,7 +100,7 @@
 									<c:out value="${pageMaker.cri.rgnSeNm == '청송군'?'selected':'' }"/>>청송군</option>
 								<option value="칠곡군"
 									<c:out value="${pageMaker.cri.rgnSeNm == '칠곡군'?'selected':'' }"/>>칠곡군</option>
-								<option value="울릉군"
+								<option value="경주시"
 									<c:out value="${pageMaker.cri.rgnSeNm == '울릉군'?'selected':'' }"/>>울릉군</option>
 								<option value="울진군"
 									<c:out value="${pageMaker.cri.rgnSeNm == '울진군'?'selected':'' }"/>>울진군</option>
