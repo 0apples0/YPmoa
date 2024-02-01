@@ -67,7 +67,7 @@
                                                     <!-- policyTypeNm -->
                                                     <th scope="row">* 시행 지역</th>
                                                     <td>
-                                                        <select class="form-control" id="rgnSeNm" name="rgnSeNm">
+                                                        <select class="form-select" id="rgnSeNm" name="rgnSeNm">
 							                                <option value="경상북도">경상북도</option>
 							                                <option value="경산시">경산시</option> 
 							                                <option value="경주시">경주시</option>
@@ -101,7 +101,7 @@
                                                 <tr>
                                                     <th scope="row">* 정책 유형</th>
                                                     <td>
-                                                        <select class="form-control" id="policyTypeNm" name="policyTypeNm">
+                                                        <select class="form-select" id="policyTypeNm" name="policyTypeNm">
                                                         	<option selected value="">정책분야</option>
 							                                <option value="일자리 (창업)">일자리 (창업)</option> 
 							                                <option value="일자리 (취업)">일자리 (취업)</option>
