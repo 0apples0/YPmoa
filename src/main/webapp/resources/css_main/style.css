@@ -52,7 +52,7 @@
 		width: 100% !important;
 	}
 	
-	#login_menu_box, #login_menu_box_guest, #login_menu_box_admin{
+	#login_menu_box, #login_menu_box_guest, #admin_login_menu_box{
 		padding-top: 20px !important;
 		padding-bottom: 0px !important;
 		margin-left: auto !important;

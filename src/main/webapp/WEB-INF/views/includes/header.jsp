@@ -237,6 +237,8 @@
 	 }
 
    window.onload = function() {
+	   
+
 	   endAlarm();
 	   
 	   $("a[href='/wish/wish']").click(function(e){
@@ -256,7 +258,28 @@
 		    $("#noAlamModal").modal("show");
 		}
 	   
-	 };
+	   
+	   var $dropdownToggle = $(".navbar-toggler");
+	    var $dropdownMenu = $("#navbarCollapse");
+	    var showClass = "show";
+	    var collapsedClass = "collapsed";
+	    
+	    $dropdownToggle.click(function() {
+	        var $this = $(this);
+	        var isExpanded = $this.attr("aria-expanded") === "true";
+	        
+	        if (!isExpanded) {
+	            $this.attr("aria-expanded", "true");
+	            $dropdownMenu.addClass(showClass);
+	        } else {
+	            $this.attr("aria-expanded", "false");
+	            $dropdownMenu.removeClass(showClass);
+	            $this.addClass(collapsedClass);
+	        }
+	    });
+
+	 }; // window.onload끝
+	 
 
 
 
