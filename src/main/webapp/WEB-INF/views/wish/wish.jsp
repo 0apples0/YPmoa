@@ -691,7 +691,7 @@ function applyUserConditions(e) {
                 e.preventDefault();
                 userNick = $("#usernickForm input[name='writer']").val();
                 if (userNick == null || userNick == "") {
-                    alert("로그인 필요");
+                    alert("로그인이 필요한 서비스입니다.");
                     return;
                 }
 
