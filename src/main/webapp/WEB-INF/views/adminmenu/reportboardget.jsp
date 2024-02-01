@@ -162,6 +162,11 @@
 							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</a>
 	 				</c:when>
+	 				<c:when test="${pageMaker.realEnd==0}">
+	 					<a class="page-link" style="pointer-events: none; cursor: default;">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a>
+	 				</c:when>
 	 				<c:otherwise>
 	 					<a class="page-link" href="${pageMaker.realEnd}">
 							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
