@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!-- Page Header End -->
+<!-- Page Header Endㄹ -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
     <h6 class="section-title text-center text-primary text-uppercase">Reported comment</h6>
     <h1 class="mb-4"><span class="text-primary text-uppercase">댓글</span> 관리</h1>
