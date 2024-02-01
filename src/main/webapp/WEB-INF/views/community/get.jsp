@@ -250,16 +250,14 @@
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="form-check-input" id="customCheck4"
 							data-textarea-id="textarea1"> <label
-							class="custom-control-label" for="customCheck4">기타(아래에
-							작성해주세요)</label>
+							class="custom-control-label" for="customCheck4">기타(아래에 작성해주세요)</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col mb-3">
 						<label class="form-label">신고내용</label>
 						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-							style="resize: none;"
-							class="policyGet_reportDetail font_light form-control"></textarea>
+							style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
 					</div>
 				</div>
 			</div>

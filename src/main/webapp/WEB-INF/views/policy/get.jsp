@@ -1,9 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@include file="../includes/header.jsp"%>
 
 <!-- Page Header Start -->
@@ -12,39 +9,25 @@
 		<div class="container text-center ">
 			<h1 class=" display-3 text-white mb-3 animated slideInDown"
 				id="login_h1">Policy</h1>
-
 			<p id="login_p">정책 상세정보</p>
-
-
-
 		</div>
 	</div>
 </div>
 <!-- Page Header End -->
 <div class="container-xxl py-5_a">
 	<div class="container">
-
-
-
-
 		<div class="row g-4">
 			<div class="wow fadeIn" data-wow-delay="0.1s">
-
 				<!-- table section -->
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
 						<div class="policyGet_title">
 							<!-- policyNm -->
 							<h1>${policy.policyNm}</h1>
-
 						</div>
 						<div class="full graph_head" style="padding-bottom: 7px;">
 							<div class="heading1 policyGet_title">
 								<h2>정책 개요</h2>
-								<!-- 위시버튼인데요 누르면 알림으로 위시리스트에 등록되었습니다
-                                            다시 누르면 취소되었습니다 이렇게 떴으면 좋겠어..
-                                            그리고 이 버튼이 policy게시판의 하트에서도 반영되어야해여..
-                                        -->
 								<div id="policyGet_heart_box">
 									<img
 										src="${pageContext.request.contextPath}/resources/img/${policy.wishVO == null ? 'addWish' : 'checkWish'}.png"
@@ -53,7 +36,6 @@
 							</div>
 						</div>
 						<div class="table_section padding_infor_info">
-
 							<div class="table-responsive-sm">
 								<table class="table table-bordered commu_table policy_dt_table">
 									<colgroup>
@@ -84,8 +66,6 @@
 											<th scope="row">지원규모</th>
 											<td>${policy.policyScl}</td>
 										</tr>
-
-
 										<tr>
 											<!-- aplyBangDt -->
 											<th scope="row">신청 시작 날짜</th>
@@ -94,7 +74,6 @@
 											<th scope="row">신청 마감 날짜</th>
 											<td>${policy.aplyEndDt}</td>
 										</tr>
-
 										<tr>
 											<!-- policyEnq -->
 											<th scope="row">연락처</th>
@@ -105,16 +84,9 @@
 										</tr>
 									</tbody>
 								</table>
-
 							</div>
 						</div>
-
-
 					</div>
-
-
-
-
 				</div>
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
@@ -124,7 +96,6 @@
 							</div>
 						</div>
 						<div class="table_section padding_infor_info">
-
 							<div class="table-responsive-sm">
 								<table class="table commu_table policy_dt_table policyGet_table">
 									<colgroup>
@@ -134,15 +105,13 @@
 										<col style="width: 36%">
 									</colgroup>
 									<tbody>
-										
 										<tr>
 											<td colspan="4">
-												<!-- policyCnDtl --> ${policy.policyCnDtl}
-																	 ${policy.board.content }
+												<!-- policyCnDtl --> 
+												${policy.policyCnDtl}
+												${policy.board.content }
 											</td>
-
 										</tr>
-										
 									</tbody>
 								</table>
 								<br>
@@ -166,19 +135,11 @@
 								</div>
 							</div>
 						</div>
-
-
 					</div>
-
-
-
-
 				</div>
 			</div>
-
 		</div>
 	</div>
-
 </div>
 
 
@@ -201,7 +162,6 @@
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
 							<div class="policy_bestCmt" >
-
 								<h4 style="padding-left: 10px;">
 									<i class="fa fa-fire text-primary commu_pic"></i>베스트댓글 <i
 										class="fa fa-fire text-primary commu_pic"></i>
@@ -209,51 +169,31 @@
 								<div class="table-responsive-sm">
 									<table id="communityBestCommentTable"
 										class="table table-basic commu_table policyGet_bestComment">
-
 										<tbody >
-
 										</tbody>
-
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<!-- table seㅇction -->
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
-
 						<div class="table_section padding_infor_info">
 							<div class="table-responsive-sm policy_cmtBox">
 								<table id="communityCommentTable"
 									class="table table-default commu_table policyGet_comment">
-
 									<tbody>
-
-
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
-
-
-
-
 				</div>
 			</div>
-
-
-
-
-
-
-
 		</div>
 	</div>
-
 
 	<%-- 페이징 적용 --%>
 	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
@@ -342,43 +282,40 @@
 				<div id="policyGet_checkbox">
 					<input type="hidden" id="cno">
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
+						<input type="checkbox" class="form-check-input"
 							id="customCheck1" data-textarea-id="textarea2"> <label
 							class="custom-control-label" for="customCheck1">불건전한 내용</label>
 					</div>
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
+						<input type="checkbox" class="form-check-input"
 							id="customCheck2" data-textarea-id="textarea3"> <label
 							class="custom-control-label" for="customCheck2">영리목적/홍보성</label>
 					</div>
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
+						<input type="checkbox" class="form-check-input"
 							id="customCheck3" data-textarea-id="textarea4"> <label
 							class="custom-control-label" for="customCheck3">개인정보노출</label>
 					</div>
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input"
+						<input type="checkbox" class="form-check-input"
 							id="customCheck4" data-textarea-id="textarea1"> <label
 							class="custom-control-label" for="customCheck4">기타(아래에
 							작성해주세요)</label>
 					</div>
-
 				</div>
 				<div class="row">
 					<div class="col mb-3">
 						<label class="form-label">신고내용</label>
-
 						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-							style="resize: none;" class="policyGet_reportDetail font_light"></textarea>
+							style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
 					</div>
 				</div>
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="reportBtn" disabled="disabled" onclick="report()">신고하기</button>
+				<button type="button" class="btn btn-primary commu_report" id="reportBtn" onclick="report()">신고하기</button>
 				<button type="button" class="btn btn-outline-secondary"
 					data-bs-dismiss="modal">취소</button>
-
 			</div>
 		</div>
 	</div>
@@ -534,7 +471,16 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 	    $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").prop("disabled", false);
 	    $("#textarea1").val("");
 	}
-
+ 	// 모달이 닫힐 때 실행되는 이벤트
+    $('#modalCenter').on('hidden.bs.modal', function () {
+        // 모달이 닫힐 때마다 입력 값 초기화
+        $('.form-check-input').prop('disabled', false);
+        $('.form-check-input').prop('checked', false);
+        $('.policyGet_reportDetail').val('');
+        $('.policyGet_reportDetail').prop('disabled', true);
+        updateReportButtonState(); // 신고하기 버튼 상태 업데이트
+    });  
+ 	
 	$(document).ready(function() {
 		loadTableData();
 		loadBestCommentTableData();
@@ -636,42 +582,36 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 				});
 		
 		// 체크박스 중복 방지
-		$('.custom-control-input').on('change',function() {
+		$('.form-check-input').on('change',function() {
 					if ($(this).prop('checked')) {
-						$('.custom-control-input').not(this).prop('disabled', true);
+						$('.form-check-input').not(this).prop('disabled', true);
 					} else {
-						$('.custom-control-input').prop('disabled', false);
+						$('.form-check-input').prop('disabled', false);
 					}
 				});
 
 		// 기타 항목에 체크했을 때만 입력창 활성화
-		$(".custom-control-input").change(function() {
+		$(".form-check-input").change(function() {
 			var isChecked = $(this).prop("checked");
-
 					$(".policyGet_reportDetail").prop("disabled", true);
-
 					if (isChecked) {
 						var textareaId = $(this).data("textarea-id");
 						$("#" + textareaId).prop("disabled",false);
 					}
 				});
 
-		// 아무 체크도 안했을 때 선택버튼 비활성화
-		$(".custom-control-input").change(updateReportButtonState);
-
+		// 아무 체크도 안했을 때 신고버튼 비활성화
+		$(".form-check-input").change(updateReportButtonState);
 		$(".policyGet_reportDetail").on("keyup",updateReportButtonState);
 
 		updateReportButtonState();
 
 		function updateReportButtonState() {
-			var anyCheckboxChecked = $(".custom-control-input:checked").length > 0;
-
-			var anyTextareaContent = $(".policyGet_reportDetail").filter(
-					function() {
-						return $(this).val().trim() !== "";
-					}).length > 0;
-
-			$(".commu_commentBtn").prop("disabled",!(anyCheckboxChecked || anyTextareaContent));
+			var anyCheckboxChecked = $(".form-check-input:checked").length > 0;
+			var anyTextareaContent = $(".policyGet_reportDetail").filter(function() {
+				return $(this).val().trim() !== "";
+			}).length > 0;
+			$(".commu_report").prop("disabled",!(anyCheckboxChecked || anyTextareaContent));
 		}
 
 		// 댓글창 내용 있어야 버튼 활성화
@@ -738,8 +678,9 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
     	  	  }else{
     	  		  window.location.href = "/user/login";
     	  	  }
-
     	  });
+        	
+        	
       	  // 댓글 수정
       	  row.on("click", ".commuComment_modBtn", function(){
       		  event.preventDefault();
@@ -843,22 +784,6 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                     cno: cno,
                     bno : bno
                 },
-                /*
-                success: function (response) {
-                    // 서버에서 좋아요 토글에 대한 응답을 받으면 이미지와 좋아요 갯수를 업데이트
-                    let likeImg = row.find(".commu_like");
-                    let likeCountSpan = row.find(".like-count");
-
-                    // 이미지 변경
-                    let currentSrc = likeImg.attr("src");
-                    let newSrc = (currentSrc == "${pageContext.request.contextPath}/resources/img/addLike.png") ?
-                        "${pageContext.request.contextPath}/resources/img/checkLike.png" :
-                        "${pageContext.request.contextPath}/resources/img/addLike.png";
-                    likeImg.attr("src", newSrc);
-
-                    // 좋아요 갯수 업데이트
-                    likeCountSpan.text(response + "개");
-                },*/
                 success: function (response) {
                 	var currentSrc = likeButton.attr("src");
 		            var newSrc = (currentSrc === "/resources/img/addLike.png") ? "/resources/img/checkLike.png" : "/resources/img/addLike.png";
@@ -909,38 +834,35 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                          row.append($("<td>").text(board.writer));
                          row.append($("<td>").text(formateDate));
                          
-                          // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
-                          let likeTd = $("<td>");
-                          let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src",
-                        		  board.likevo  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png");
-                          let likeSpan = $("<span>").addClass("like-count").text(board.like + "개"); // 좋아요 갯수를 표시할 클래스 추가
-                          //let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
-                          // 이미지와 span을 <td> 엘리먼트에 추가
-                          likeTd.append(likeImg).append(likeSpan);
+                         // 새로운 <td> 엘리먼트 생성 (좋아요 이미지와 span 포함)
+                         let likeTd = $("<td>");
+                         let likeImg = $("<img>").addClass("commu_like policyGet_like").attr("src",
+                         board.likevo  == null ? "${pageContext.request.contextPath}/resources/img/addLike.png" : "${pageContext.request.contextPath}/resources/img/checkLike.png");
+                         let likeSpan = $("<span>").addClass("like-count").text(board.like + "개"); // 좋아요 갯수를 표시할 클래스 추가
+                         //let likeSpan = $("<span>").text(board.like+"개"); // **이곳에 좋아요 수 반영 필요
+                         // 이미지와 span을 <td> 엘리먼트에 추가
+                         likeTd.append(likeImg).append(likeSpan);
                           
-                          // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
-                          let reportTd = $("<td>");
-                          let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
-                          
-                       
-           
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
-                          let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
-                          let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").attr("style","margin-left:3px;").text("신고");
+                         // 새로운 <td> 엘리먼트 생성 (신고 이미지와 link 포함)
+                         let reportTd = $("<td>");
+                         let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
+                         let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
+                         let reportImg = $("<i>").addClass("fa fa-exclamation-triangle text-danger");
+                         let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").attr("style","margin-left:3px;").text("신고");
                         
-                          // 이미지와 link를 <td> 엘리먼트에 추가
-                          // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
-                          // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
-                          if("${user.nick}"!=null && board.writer === "${user.nick}"){
-                        	  $(".policyGet_comment").addClass("custom-width");
-                        	  reportTd.append( editLink,  deleteLink);
-                          }else{
-                        	  reportTd.append(reportImg, reportLink);
-                          }
+                         // 이미지와 link를 <td> 엘리먼트에 추가
+                         // 현재 접속한 회원과 댓글 작성자가 일치하면 수정,삭제 버튼 표시 
+                         // 현재 접속한 회원과 댓글 작성자가 일치하지 않으면 신고 버튼만 표시
+                         if("${user.nick}"!=null && board.writer === "${user.nick}"){
+                         	$(".policyGet_comment").addClass("custom-width");
+                        	reportTd.append( editLink,  deleteLink);
+                         }else{
+                        	reportTd.append(reportImg, reportLink);
+                         }
 
-                          // 새로운 <td> 엘리먼트를 행에 추가
-                          row.append(likeTd);
-                          row.append(reportTd);
+                         // 새로운 <td> 엘리먼트를 행에 추가
+                         row.append(likeTd);
+                         row.append(reportTd);
                           
                          boardTbody.append(row);
                          console.log("pagemaker: "+${pageMaker.realEnd});
@@ -955,24 +877,18 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                });
                
                $(".paginate_button a").on("click", function(e){
-
-                   //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
+            	   //기존에 가진 이벤트를 중단(기본적으로 수행하는 행동을 막는 역할)
                    e.preventDefault(); //이벤트 초기화
                    //pageNum 값을 사용자가 누른 a태그의 href 속성값으로 변경
-                    let newPageNum = $(this).attr("href");
+                   let newPageNum = $(this).attr("href");
                    console.log("newPageNum : " + newPageNum);
-                    // pageNum이 비어있지 않은 경우에만 submit 실행
-                   
-                    
+                   // pageNum이 비어있지 않은 경우에만 submit 실행
                    let actionForm = $("#actionForm");
-                    if (newPageNum) {
-                            actionForm.find("input[name='pageNum']").val(newPageNum);
-                            actionForm.submit();       		  
-                  	  
-
+                   if (newPageNum) {
+                	   actionForm.find("input[name='pageNum']").val(newPageNum);
+                       actionForm.submit();       		  
                     }
                 });      
-              
             }
 		
 		function loadBestCommentTableData(){
@@ -1046,11 +962,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                   console.log(e);
                }
             });
-            
-           
          }
-
-
 	}); // document.ready함수
 </script>
 
