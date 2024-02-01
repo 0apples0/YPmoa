@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control datetimepicker-input font_light"
-                                placeholder="검색어를 입력하세요" name="keyword"/>
+                                placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                         </div>
                         <div class="col-md-1_a ">
                             <button type="submit" id="searchBtn" class="btn btn-primary w-100" >검색하기</button>
