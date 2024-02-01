@@ -110,7 +110,7 @@
 							                                <option value="복지">복지</option>
 							                                <option value="주거비 지원">주거비 지원</option>
 							                                <option value="문화">문화</option>
-							                                <option value="금융">금융</option>
+							                                <option value="금융">금융</option> 
 							                                <option value="주택공급">주택공급</option>
 							                                <option value="건강">건강</option>
                                                         </select>
