@@ -97,8 +97,8 @@
                 </c:when>
                 <c:otherwise>
                 <div id="login_menu_box">
-                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" /></a>
-                       <a href="/wish/wish" id="notify_letter">알림 <span class="badge" hidden>new</span></a>
+                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
+                       <p  id="notify_letter">알림 <span class="badge" hidden>new</span></p></a>
                     
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>

@@ -574,7 +574,7 @@
 
 .policyGet_reportDetail{
     width: 465px;
-    height: 200px;
+    height: 86px;
 }
 
 #policyGet_checkbox{
@@ -780,6 +780,35 @@
 
 
 /*** admin ***/
+#reportReasonTable{
+	max-width: 100%;
+}
+
+
+#reportReasonTable thead tr th:nth-child(2){
+	width: 5%
+}
+
+#reportReasonTable thead tr th:nth-child(1){
+	width: 17%
+}
+
+#reportReasonTable thead tr th:nth-child(4){
+	width: 5%
+}
+
+#reportReasonTable thead tr th:nth-child(3){
+	width: 5%
+}
+
+#admin_boardTable tbody tr td:nth-child(4){
+	width: 17%;
+}
+
+
+.user_deleteBtn{
+	margin-left: 5px;
+}
 
 .board_countReportBtn:hover{
 	cursor: pointer;
