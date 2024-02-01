@@ -44,6 +44,62 @@
     z-index: 99;
 }
 
+/*** mobile ***/
+@media (max-width: 500.00px) {
+	
+	/*** header ***/
+    #logo{
+		width: 100% !important;
+	}
+	
+	#login_menu_box, #login_menu_box_guest, #login_menu_box_admin{
+		padding-top: 20px !important;
+		padding-bottom: 0px !important;
+		margin-left: auto !important;
+	}
+	
+	#nickname {
+		padding-right: 0px !important;
+		padding-top: 0px !important;
+	} 
+	
+	.mobile_logo{
+		width: 50%; !important
+	}
+	
+	
+	#logo{
+		padding-top: 0px !important;
+	}
+
+	#nickname_box{
+		display: none !important;
+	}
+	
+	#nickname_box_mobile{
+		display: block !important;
+	}
+	
+	#login_menu_box p {
+		margin-bottom: 10px !important;
+	}
+	
+	#notify{
+		padding-bottom: 5px !important;
+		padding-top: 3px !important;
+	}
+	
+	.mobile_header .p-3{
+		padding-top: 0px !important;
+	}
+	
+} /* 모바일 끝 */
+
+
+
+
+
+
 
 /*** Spinner ***/
 #spinner {
