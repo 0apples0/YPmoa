@@ -142,7 +142,7 @@
         </div>
         <div class="row g-4" id="mini_table">
             <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="white_shd_b full margin_bottom_30">
+                <div class="white_shd_b full margin_bottom_30 index_miniboard">
                     <div class="full graph_head mini_board_more" >
                             <span><img src="${pageContext.request.contextPath}/resources/img/checkWish.png" id="mini_heart"/></span>
                             <span class="mini_board_title">나의 위시 정책</span>
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="white_shd_b full margin_bottom_30">
+                <div class="white_shd_b full margin_bottom_30 index_miniboard">
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책정보</span>
@@ -176,7 +176,7 @@
                 </div>
             </div>
             <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="white_shd_b full margin_bottom_30">
+                <div class="white_shd_b full margin_bottom_30 index_miniboard">
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">꿀팁모음</span>
@@ -193,7 +193,7 @@
                 </div>
             </div>
             <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="white_shd_b	 full margin_bottom_30">
+                <div class="white_shd_b	 full margin_bottom_30 index_miniboard">
                     <div class="full graph_head mini_board_more">
                         <span><img src="${pageContext.request.contextPath}/resources/img/commentManage.png" id="mini_heart"/></span>
                         <span class="mini_board_title">정책건의</span>
@@ -215,7 +215,7 @@
 <!-- Service End -->
 
  <!-- Modal -->
-        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -298,6 +298,11 @@
 		}
 	} 	
 	$(document).ready(function() {
+		$("#modalCenter").modal({
+		    backdrop: 'static',
+		    keyboard:false
+		});
+		
 		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
 		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
 		
@@ -408,8 +413,8 @@
 	// 정책모음 게시판 가져오기
 	function processData(data) {
 		if (data.length === 0) {
-			$("#wishList").html("<tr><td colspan='3'>정책모음 게시판이 비어있습니다.</td></tr>");
-			$("#wishList").closest('table').css('text-align', 'center');
+			$("#policy").html("<tr><td colspan='3'>정책정보 게시판이 비어있습니다.</td></tr>");
+			$("#policy").closest('table').css('text-align', 'center');
 			return;
 		}
 	    // 테이블에 데이터 추가

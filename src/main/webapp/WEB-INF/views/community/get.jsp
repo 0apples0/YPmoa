@@ -140,64 +140,72 @@
 	</div>
 	<%-- 페이징 적용 --%>
 	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
-		<ul class="pagination justify-content-center policy_page_navbox">
-			<%-- <<버튼: 10페이지 이전 --%>
-			<li class="paginate_button policy_page-item_prev prev"><c:choose>
-					<c:when
-						test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
-						<a class="page-link" href="${pageMaker.cri.prevprevPage}"><i
-							class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-					</c:when>
+	    <ul class="pagination justify-content-center policy_page_navbox">
+			<%-- <<버튼: 첫페이지로 --%>
+			<li class="paginate_button policy_page-item_prev prev">
+				<c:choose>
+			    <c:when test="${pageMaker.cri.pageNum == 1}">
+			    	<a class="page-link" style="pointer-events: none; cursor: default;">
+			    		<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+			    	</a>
+			    </c:when>				
+				<c:otherwise>
+					<a class="page-link" href="1">
+						<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+					</a>
+			    </c:otherwise>
+
+			    </c:choose>
+			</li> 
+			<%-- <버튼: 10페이지 이전 --%>
+			<li class="paginate_button policy_page-item prev">
+				<c:choose>
+					<c:when test="${(pageMaker.cri.pageNum - pageMaker.cri.amount) >=1}">
+					<a class="page-link" href="${pageMaker.cri.prevprevPage}">
+						<i class="fa fa-angle-left" aria-hidden="true"></i>
+					</a>
+				    </c:when>
 					<c:otherwise>
-						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-left"
-							aria-hidden="true"></i></a>
-					</c:otherwise>
-				</c:choose></li>
-			<%-- <버튼: 1페이지 이전 --%>
-			<li class="paginate_button policy_page-item prev"><c:choose>
-					<c:when test="${(pageMaker.cri.pageNum) >1}">
-						<a class="page-link" href="${pageMaker.cri.pageNum -1 }"><i
-							class="fa fa-angle-left" aria-hidden="true"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left"
-							aria-hidden="true"></i></a>
-					</c:otherwise>
-				</c:choose></li>
+						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-left" aria-hidden="true"></i></a>  
+					</c:otherwise>     
+				</c:choose>         
+			</li>            
 			<%-- 페이지 넘버 --%>
-			<c:forEach var="num" begin="${pageMaker.startPage}"
-				end="${pageMaker.endPage}">
-				<li
-					class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-					<a class="page-link" href="${num}">${num}</a>
-				</li>
+		    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+		        <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+		            <a class="page-link" href="${num}">${num}</a>
+		        </li>
 			</c:forEach>
-			<%-- >버튼: 1페이지 이동 --%>
-			<li class="paginate_button policy_page-item next"><c:choose>
-					<c:when test="${(pageMaker.cri.pageNum < pageMaker.endPage)}">
-						<a class="page-link" href="${pageMaker.cri.pageNum +1 }"><i
-							class="fa fa-angle-right" aria-hidden="true"></i></a>
-					</c:when>
-					<c:when test="${(pageMaker.cri.pageNum+1 > pageMaker.realEnd)}">
-						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-right"
-							aria-hidden="true"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a class="page-link" href="${pageMaker.endPage+1}"><i
-							class="fa fa-angle-right" aria-hidden="true"></i></a>
-					</c:otherwise>
-				</c:choose></li>
-			<%-- >>버튼: 10페이지 이동 --%>
-			<li class="paginate_button page-item next"><c:choose>
+			<%-- >버튼: 10페이지 이후 --%>
+			<li class="paginate_button policy_page-item next">
+				<c:choose>
 					<c:when test="${pageMaker.realEnd == pageMaker.endPage}">
-						<a class="page-link" style="pointer-events: none; cursor: default;"><i class="fa fa-angle-double-right"
-							aria-hidden="true"></i></a>
+						<a class="page-link" style="pointer-events: none; cursor: default;">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>  
 					</c:when>
 					<c:otherwise>
-						<a class="page-link" href="${pageMaker.cri.nextnextPage}"> <i
-							class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-					</c:otherwise>
-				</c:choose></li>
+						<a class="page-link" href="${pageMaker.cri.nextnextPage}">
+							<i class="fa fa-angle-right"  aria-hidden="true"></i>
+						</a>
+					</c:otherwise>     
+				</c:choose>           
+			</li>              
+			<%-- >>버튼: 마지막페이지로 --%>  
+	 		<li class="paginate_button page-item next">
+	 			<c:choose>
+	 				<c:when test="${pageMaker.cri.pageNum == pageMaker.realEnd}">
+	 					<a class="page-link" style="pointer-events: none; cursor: default;">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a>
+	 				</c:when>
+	 				<c:otherwise>
+	 					<a class="page-link" href="${pageMaker.realEnd}">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a>
+	 				</c:otherwise>
+	 			</c:choose>
+			</li>
 		</ul>
 	</nav>
 </div>
@@ -326,7 +334,7 @@
     
     function report() {
 		if("${user.nick}"==null || "${user.nick}"==""){
-			alert("로그인 후 이용 가능한 서비스 입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 			//window.location.href = "/user/login";
 			return;
 		}
@@ -355,7 +363,7 @@
     
     function reportBoard() {
 		if("${user.nick}"==null || "${user.nick}"==""){
-			alert("로그인 후 이용 가능한 서비스 입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 			//window.location.href = "/user/login";
 			return;
 		}
@@ -387,7 +395,7 @@
     			userNick = $("#usernickForm input[name='nick']")
     					.val();
     			if (userNick == null || userNick == "") {
-    				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+    				alert("로그인이 필요한 서비스입니다.");
     				return false;
     			} else {
     				return true;
@@ -452,6 +460,7 @@
         	// 좋아요 버튼 클릭 시 이미지 변경
 			$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
+						window.location.href="/user/login";
 						return;
 					}
 					$.ajax({
@@ -504,13 +513,13 @@
             // 비로그인 시 댓글 작성 불가
             $("#AddcommentInput").on("click", function(){
             	if("${user.nick}"==null || "${user.nick}"==""){
-            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		alert("로그인이 필요한 서비스입니다.");
             		window.location.href = "/user/login";
             	}
             });
             $("#AddcommentBtn").on("click", function(){
             	if("${user.nick}"==null || "${user.nick}"==""){
-            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		alert("로그인이 필요한 서비스입니다.");
             		window.location.href = "/user/login";
             	}
             });           
@@ -650,6 +659,7 @@
 			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
 			row.on("click", ".commu_like", function(){
 				if (!chkLogin()) {
+					window.location.href="/user/login";
 					return;
 				}
 				//추가
@@ -869,7 +879,7 @@
         });
         
         // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
-        $("#confirmDeleteBtn").on("click", function () {
+        $(document).on("click", "#confirmDeleteBtn", function () {
             // 여기에 삭제 요청을 보내는 코드 추가
             $.ajax({
                 type: "POST",

@@ -348,10 +348,11 @@ $(document).ready(function() {
         var userEmail = "<%=user.getEmail()%>";
 
         // 이메일 값을 modify.jsp로 전달하는 URL 생성
-        var redirectUrl = "/user/modify?email=" + encodeURIComponent(userEmail);
+        var redirectUrl = "/user/modify?email=" + userEmail;
 
         // modify.jsp로 이동
         window.location.href = redirectUrl;
+        console.error(userEmail);
     });
     
     // 회원탈퇴 버튼 눌렀을 때

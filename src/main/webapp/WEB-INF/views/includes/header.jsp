@@ -12,7 +12,6 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<!-- 버전 -->
 <!-- Favicon -->
 <link href="${pageContext.request.contextPath}/resources/img/favicon.ico" rel="icon">
 <!-- Icon Font Stylesheet -->
@@ -107,15 +106,31 @@
                 </div>
                 </c:otherwise>
                 </c:choose>
+                
+                
+                <%-- mobile: 사용자에 따른 안내 문구 변경 --%>
+                <div id="nickname_box_mobile" style="display: none">
+                    <p id="nickname">
+                       <c:choose>
+                       <c:when test = "${user ne null && user.userType == 0}">
+                       	  관리자님,
+                       </c:when>
+                       <c:when test="${user ne null && user.nick ne null}">
+                          ${user.nick}님, 
+                       </c:when>
+                       </c:choose>  
+                          방문을 환영합니다!
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                <a href="/" class="navbar-brand d-block d-lg-none">
-                    <h1 class="m-0 text-primary text-uppercase">청년정책모아</h1>
+        <div class="col-lg-12 mobile_header">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 mobile_logoBox">
+                <a href="/" class="navbar-brand d-block d-lg-none mobile_logo">
+                   <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span> 
+                    <i class="fa fa-bars text-secondary"></i>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav py-0" id="main_menu">
@@ -143,7 +158,7 @@
 			</div>
 			<div class="modal-body" style="font-family: 'LINESeedKR-Bd_light';">마감일이 일주일 이내인 정책이 없습니다.</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="confirmDeleteBtn">확인</button>
+				<button type="button" class="btn btn-primary" id="confirmDeleteBtn" data-bs-dismiss="modal">확인</button>
 				
 			</div>
 		</div>
@@ -169,7 +184,7 @@
 	
    <script>
    function checkAndNavigateToMypage(Email) {
-       // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이페이지로 이동
+       // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이ㄹ페이지로 이동
        var user_email = null;
        user_email = Email;
        console.log(user_email);
@@ -221,6 +236,8 @@
 	 }
 
    window.onload = function() {
+	   
+
 	   endAlarm();
 	   
 	   $("a[href='/wish/wish']").click(function(e){
@@ -240,7 +257,28 @@
 		    $("#noAlamModal").modal("show");
 		}
 	   
-	 };
+	   
+	   var $dropdownToggle = $(".navbar-toggler");
+	    var $dropdownMenu = $("#navbarCollapse");
+	    var showClass = "show";
+	    var collapsedClass = "collapsed";
+	    
+	    $dropdownToggle.click(function() {
+	        var $this = $(this);
+	        var isExpanded = $this.attr("aria-expanded") === "true";
+	        
+	        if (!isExpanded) {
+	            $this.attr("aria-expanded", "true");
+	            $dropdownMenu.addClass(showClass);
+	        } else {
+	            $this.attr("aria-expanded", "false");
+	            $dropdownMenu.removeClass(showClass);
+	            $this.addClass(collapsedClass);
+	        }
+	    });
+
+	 }; // window.onload끝
+	 
 
 
 
