@@ -412,7 +412,7 @@
 	        		//for(let item of items) -> items == data, item ==board 역할
 					if (data.length === 0) {
 						// 검색 결과가 없는 경우 메시지 표시
-						boardTbody.append("<tr><td colspan='6' class='text-center' style='text-align:center !important'>검색 결과가 없습니다.</td></tr>");
+						boardTbody.append("<tr><td colspan='6' class='text-center' style='text-align:center !important'>등록된 게시글 또는 검색 결과가 없습니다.</td></tr>");
 					} else {
 						$.each(data, function(index, board){
 							getCommentNm(board.bno);
