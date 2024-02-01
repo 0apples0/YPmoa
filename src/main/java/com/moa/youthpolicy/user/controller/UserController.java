@@ -149,7 +149,6 @@ public class UserController {
     			
     }
     
-
 	@PostMapping("/remove")
 	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
 	    UserVO currentUser = userService.getCurrentUser(request);
