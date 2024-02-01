@@ -293,9 +293,6 @@
 	    });
 
 	 }; // window.onload끝
-	 
-
-
 
 </script>
    
