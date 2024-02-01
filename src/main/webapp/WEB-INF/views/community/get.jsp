@@ -879,7 +879,7 @@
         });
         
         // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
-        $("#confirmDeleteBtn").on("click", function () {
+        $(document).on("click", "#confirmDeleteBtn", function () {
             // 여기에 삭제 요청을 보내는 코드 추가
             $.ajax({
                 type: "POST",
