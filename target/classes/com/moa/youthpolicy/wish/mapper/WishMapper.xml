@@ -34,7 +34,7 @@
 		FROM policy
 	    JOIN wish ON policy.no = wish.wishPolicy
 	    WHERE wish.wishUser = #{wishUser}
-	  <if test="type != null and type != '' and keyword != null and keyword != ''">
+	  <if test="type != null  and keyword != null and keyword != ''">
     AND (
         <choose>
             <when test='type == ""'>

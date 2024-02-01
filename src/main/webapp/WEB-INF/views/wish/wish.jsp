@@ -8,7 +8,7 @@
 
 
 
-        <!-- Page fsdf ㄹㄹㄹ  -->
+        <!-- Page  -->
         <div class="container-fluid page-header mb-5 p-0">
             <div class="page-header-inner" id="login_banner">
                 <div class="container text-center ">
@@ -28,33 +28,36 @@
             <span class="text-primary text-uppercase">정책</span> 위시리스트 </h1>
         </div>
         <!-- Booking Start -->
-        <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container_search">
-                <div class="bg-white mypage_shadow" style="padding: 35px;">
-                    <div class="row g-2">
+<div class="container-fluid mypage_booking pb-5 wow fadeIn"
+	data-wow-delay="0.1s">
+	<div class="container_search">
+		<div class="bg-white mypage_shadow" style="padding: 35px;">
+			<div class="row g-2">
 
-                        <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
-                                src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
-
-
-                    </div>
-
-
-
-                    <div class="row policy_row g-2">
+				<h3 class=" text-center text-primary ">
+					상세검색<img id="policy_search"
+						src="${pageContext.request.contextPath}/resources/img/search.png" />
+				</h3>
 
 
-                        <form id="searchForm" >
+			</div>
+
+
+
+			<div class="row policy_row g-2">
+
+
+				<form id="searchForm">
 
 					<div class="row  policy_row g-2">
 						<div class="col-md-auto">
 							<select class="form-select" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
-							
+
 								<option value="경상북도"
 									<c:out value="${pageMaker.cri.rgnSeNm == '경상북도'?'selected':'' }"/>>경상북도</option>
-								
+
 								<option value="경산시"
 									<c:out value="${pageMaker.cri.rgnSeNm == '경산시'?'selected':'' }"/>>경산시</option>
 								<option value="경주시"
@@ -101,18 +104,20 @@
 									<c:out value="${pageMaker.cri.rgnSeNm == '울진군'?'selected':'' }"/>>울진군</option>
 								<option value="의성군"
 									<c:out value="${pageMaker.cri.rgnSeNm == '의성군'?'selected':'' }"/>>의성군</option>
-									
+
 							</select>
 						</div>
-						
+
 						<div class="col-md-auto">
 							<select class="form-select" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
 								<option value="일자리 (창업)"
-									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (창업)'?'selected':'' }"/>>일자리 (창업)</option>
+									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (창업)'?'selected':'' }"/>>일자리
+									(창업)</option>
 								<option value="일자리 (취업)"
-									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (취업)'?'selected':'' }"/>>일자리 (취업)</option>
+									<c:out value="${pageMaker.cri.policyTypeNm == '일자리 (취업)'?'selected':'' }"/>>일자리
+									(취업)</option>
 								<option value="참여"
 									<c:out value="${pageMaker.cri.policyTypeNm == '참여'?'selected':'' }"/>>참여</option>
 								<option value="교육"
@@ -120,7 +125,8 @@
 								<option value="복지"
 									<c:out value="${pageMaker.cri.policyTypeNm == '복지'?'selected':'' }"/>>복지</option>
 								<option value="주거비 지원"
-									<c:out value="${pageMaker.cri.policyTypeNm == '주거비 지원'?'selected':'' }"/>>주거비 지원</option>
+									<c:out value="${pageMaker.cri.policyTypeNm == '주거비 지원'?'selected':'' }"/>>주거비
+									지원</option>
 								<option value="문화"
 									<c:out value="${pageMaker.cri.policyTypeNm == '문화'?'selected':'' }"/>>문화</option>
 								<option value="금융"
@@ -132,55 +138,70 @@
 							</select>
 						</div>
 						<div class="col-md-auto">
-                            <select class="form-select" name="type">
-                                <option value="" 
-                                 	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
-                                <option value="T" 
-                                 	<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
-                                <option value="C"
-                                 	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
-                            </select>
-                        </div>
-                        <div class="col-md-3">
+							<select class="form-select" name="type">
+								<option value=""
+									<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
+								<option value="T"
+									<c:out value="${pageMaker.cri.type == 'T'?'selected':''}"/>>제목</option>
+								<option value="C"
+									<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>
+							</select>
+						</div>
+						<div class="col-md-3">
 
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
-								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
+								placeholder="검색어를 입력하세요" name="keyword"
+								value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}" />
 
 						</div>
-                        <div class="col-md-auto ">
-							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
+						<div class="col-md-auto ">
+							<button type="submit" id="searchBtn"
+								class="btn btn-primary w-100">검색하기</button>
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center policy_search_box">
-						
-						
+
+
 						<!-- 저장된 본인의 맞춤정보에 따라 조건 적용 -->
 						<div class="col-md-auto">
-							<button class="btn btn-warning w-100" id="applyConditionsBtn">내 맞춤조건 적용</button>
+							<button class="btn btn-warning w-100" id="applyConditionsBtn">내
+								맞춤조건 적용</button>
 						</div>
 						<div class="col-md-auto">
-							<button type="reset"  class="btn btn-secondary ">초기화</button>
+							<button type="reset" class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
-					<div class="row g-2 justify-content-center">
-
-
-						
-					</div>
+					<div class="row g-2 justify-content-center"></div>
 				</form>
-                                
-                                
-                            </div>
-                        </div>
-
-                    </div>
 
 
-                </div>
-   
+			</div>
+		</div>
 
-    <!-- Booking End -->
+	</div>
+	<div class="container wow fadeInUp" data-wow-delay="0.1s"
+		style="height: 70px;">
+		<div id="policy_checkbox" style="float: right; margin-top:30px;">
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="form-check-input wish_check"
+					name="isAlert"
+					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
+					id="customCheck"> <label class="custom-control-label"
+					for="customCheck">알림받은 정책보기</label>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+</div>
+
+
+<!-- Booking End -->
 
 
 <%-- 위시리스트 없을 때 뜨는 문구 --%>
@@ -196,19 +217,8 @@
 <%-- 위시없문구 끝 --%>
 
 
-<div class="container-xxl py-5 wish_hide">
-	<div class="container wow fadeInUp" data-wow-delay="0.1s" style="height: 70px;">
-		<div id="policy_checkbox" style="float: left;">
-			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="form-check-input wish_check" name="isAlert"
-					<c:out value="${pageMaker.cri.selectedFilter == 'isAlert'?'checked':'' }"/>
-					id="customCheck"> <label class="custom-control-label"
-					for="customCheck">알림받은 정책보기</label>
-			</div>
-			
-		</div>
-
-	</div>
+<div class="container-xxl py-5 ">
+	
 
 
 	<div class="container">
@@ -225,7 +235,7 @@
 
 
 	<%-- 페이징 적용 --%>
-	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp">
+	<nav aria-label="Page navigation" class="commu_page_nav wow fadeInUp wish_hide">
 	    <ul class="pagination justify-content-center policy_page_navbox">
 			<%-- <<버튼: 10페이지 이전 --%>
 			<li class="paginate_button policy_page-item_prev prev">
