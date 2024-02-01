@@ -334,7 +334,7 @@
     
     function report() {
 		if("${user.nick}"==null || "${user.nick}"==""){
-			alert("로그인 후 이용 가능한 서비스 입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 			//window.location.href = "/user/login";
 			return;
 		}
@@ -363,7 +363,7 @@
     
     function reportBoard() {
 		if("${user.nick}"==null || "${user.nick}"==""){
-			alert("로그인 후 이용 가능한 서비스 입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 			//window.location.href = "/user/login";
 			return;
 		}
@@ -395,7 +395,7 @@
     			userNick = $("#usernickForm input[name='nick']")
     					.val();
     			if (userNick == null || userNick == "") {
-    				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+    				alert("로그인이 필요한 서비스입니다.");
     				return false;
     			} else {
     				return true;
@@ -460,6 +460,7 @@
         	// 좋아요 버튼 클릭 시 이미지 변경
 			$(".policyGet_likeBtn").click(function() {
 					if (!chkLogin()) {
+						window.location.href="/user/login";
 						return;
 					}
 					$.ajax({
@@ -512,13 +513,13 @@
             // 비로그인 시 댓글 작성 불가
             $("#AddcommentInput").on("click", function(){
             	if("${user.nick}"==null || "${user.nick}"==""){
-            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		alert("로그인이 필요한 서비스입니다.");
             		window.location.href = "/user/login";
             	}
             });
             $("#AddcommentBtn").on("click", function(){
             	if("${user.nick}"==null || "${user.nick}"==""){
-            		alert("로그인 후 이용 가능한 서비스 입니다.");
+            		alert("로그인이 필요한 서비스입니다.");
             		window.location.href = "/user/login";
             	}
             });           
@@ -658,6 +659,7 @@
 			// 댓글 좋아요 버튼에 이벤트 핸들러 추가
 			row.on("click", ".commu_like", function(){
 				if (!chkLogin()) {
+					window.location.href="/user/login";
 					return;
 				}
 				//추가
