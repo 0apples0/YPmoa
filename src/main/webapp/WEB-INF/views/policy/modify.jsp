@@ -69,7 +69,7 @@
 														    <option value="경산시" ${policy.policyCn == '경산시' ? 'selected' : ''}>경산시</option>
 														    <option value="경주시" ${policy.policyCn == '경주시' ? 'selected' : ''}>경주시</option>
 														    <option value="구미시" ${policy.policyCn == '구미시' ? 'selected' : ''}>구미시</option>
-														    <option value="김천시" ${policy.policyCn == '김천시' ? 'selected' : ''}>김천시</option>
+														    <option value="김천시" ${policy.policyCn == '김천시' ? 'selected' : ''}>김천시</option> 
 														    <option value="문경시" ${policy.policyCn == '문경시' ? 'selected' : ''}>문경시</option>
 														    <option value="상주시" ${policy.policyCn == '상주시' ? 'selected' : ''}>상주시</option>
 														    <option value="안동시" ${policy.policyCn == '안동시' ? 'selected' : ''}>안동시</option>

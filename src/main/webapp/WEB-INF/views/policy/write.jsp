@@ -103,7 +103,7 @@
                                                     <td>
                                                         <select class="form-control" id="policyTypeNm" name="policyTypeNm">
                                                         	<option selected value="">정책분야</option>
-							                                <option value="일자리 (창업)">일자리 (창업)</option>
+							                                <option value="일자리 (창업)">일자리 (창업)</option> 
 							                                <option value="일자리 (취업)">일자리 (취업)</option>
 							                                <option value="참여">참여</option>
 							                                <option value="교육">교육</option>
