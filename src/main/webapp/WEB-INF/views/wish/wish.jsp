@@ -304,6 +304,7 @@
 			</li>
 		</ul>
 	</nav>
+	
 	<form id="actionForm" action="/wish/wish" method="post">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
