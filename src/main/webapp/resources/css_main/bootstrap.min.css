@@ -2435,7 +2435,7 @@ progress {
 
 .form-control:disabled,
 .form-control:read-only {
-  background-color: #ffffff;
+  background-color: #dddddd73;
   opacity: 1
 }
 
