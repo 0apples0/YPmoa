@@ -41,82 +41,116 @@
 	    
 	</select>
 
-	<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	    SELECT
-	        COUNT(DISTINCT CASE
-	                WHEN boardType = 'T' AND EXISTS (SELECT 1 FROM tipboardcomments WHERE tipcno = commentsreport.tipcno) THEN commentsreport.tipcno
-	                WHEN boardType = 'P' AND EXISTS (SELECT 1 FROM policyboardcomments WHERE policycno = commentsreport.policycno) THEN commentsreport.policycno
-	                ELSE NULL
-	            END
-	        ) AS totalCount
-	    FROM commentsreport
-	    WHERE
-	        <choose>
-	            <when test="boardType == null or boardType==''">
-	                1=1
-	            </when>
-	            <when test='boardType == "T"'>
-	                boardType = 'T'
-	            </when>
-	            <when test='boardType == "P"'>
-	                boardType = 'P'
-	            </when>
-	        </choose>
-	        <if test="keyword != null and keyword != ''">
-	            AND EXISTS (
-	                SELECT 1 FROM (
-	                    SELECT tipcno AS cno, writer FROM tipboardcomments WHERE boardType = 'T'
-	                    UNION ALL
-	                    SELECT policycno AS cno, writer FROM policyboardcomments WHERE boardType = 'P'
-	                ) comment
-	                WHERE comment.cno = CASE
-	                    WHEN boardType = 'T' AND commentsreport.tipcno IS NOT NULL THEN commentsreport.tipcno
-	                    WHEN boardType = 'P' AND commentsreport.policycno IS NOT NULL THEN commentsreport.policycno
-	                    ELSE NULL
-	                END
-	                AND comment.writer LIKE CONCAT('%', #{keyword}, '%')
-	            )
-	        </if>
-	</select>
+<select id="getCommentTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+    <choose>
+        <when test='boardType == "T"'>
+            <!-- boardType이 T인 경우 -->
+            SELECT COUNT(*) FROM (
+                SELECT t.cno
+                FROM tipboardcomments t
+                WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.tipcno = t.cno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND t.writer IN (
+                        SELECT writer FROM tipboardcomments WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </when>
+        <when test='boardType == "P"'>
+            <!-- boardType이 P인 경우 -->
+            SELECT COUNT(*) FROM (
+                SELECT p.cno
+                FROM policyboardcomments p
+                WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.policycno = p.cno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND p.writer IN (
+                        SELECT writer FROM policyboardcomments WHERE boardType = 'P' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </when>
+        <otherwise>
+            <!-- boardType이 없는 경우 -->
+            SELECT COUNT(*) FROM (
+                SELECT t.cno
+                FROM tipboardcomments t
+                WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.tipcno = t.cno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND t.writer IN (
+                        SELECT writer FROM tipboardcomments WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+                UNION
+                SELECT p.cno
+                FROM policyboardcomments p
+                WHERE EXISTS (SELECT 1 FROM commentsreport cr WHERE cr.policycno = p.cno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND p.writer IN (
+                        SELECT writer FROM policyboardcomments WHERE boardType = 'P' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </otherwise>
+    </choose>
+</select>
 	
-	<select id="getBoardTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
-	    SELECT
-	        COUNT(DISTINCT CASE
-	                WHEN boardType = 'T' AND EXISTS (SELECT 1 FROM tipboard WHERE tipbno = boardreport.tipbno) THEN boardreport.tipbno
-	                WHEN boardType = 'S' AND EXISTS (SELECT 1 FROM suggestedboard WHERE suggestbno = boardreport.suggestbno) THEN boardreport.suggestbno
-	                ELSE NULL
-	            END
-	        ) AS totalCount
-	    FROM boardreport
-	    WHERE
-	        <choose>
-	            <when test="boardType == null or boardType==''">
-	                1=1
-	                
-	            </when>
-	            <when test='boardType == "T"'>
-	                boardType = 'T'
-	            </when>
-	            <when test='boardType == "S"'>
-	                boardType = 'S'
-	            </when>
-	        </choose>
-	        <if test="keyword != null and keyword != ''">
-	            AND EXISTS (
-	                SELECT 1 FROM (
-	                    SELECT tipbno AS bno, writer FROM tipboard WHERE boardType = 'T'
-	                    UNION ALL
-	                    SELECT suggestbno AS bno, writer FROM suggestedboard WHERE boardType = 'S'
-	                ) board
-	                WHERE board.bno = CASE
-	                    WHEN boardType = 'T' AND boardreport.tipbno IS NOT NULL THEN boardreport.tipbno
-	                    WHEN boardType = 'S' AND boardreport.suggestbno IS NOT NULL THEN boardreport.suggestbno
-	                    ELSE 1=1
-	                END
-	                AND board.writer LIKE CONCAT('%', #{keyword}, '%')
-	            )
-	        </if>
-	</select>
+<select id="getBoardTotalCount" resultType="int" parameterType="com.moa.youthpolicy.common.Criteria">
+    <choose>
+        <when test='boardType == "T"'>
+            SELECT COUNT(*) FROM (
+                SELECT t.bno
+                FROM tipboard t
+                WHERE EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND t.writer IN (
+                        SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </when>
+        <when test='boardType == "S"'>
+            SELECT COUNT(*) FROM (
+                SELECT s.bno
+                FROM suggestedboard s
+                WHERE EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND s.writer IN (
+                        SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </when>
+        <otherwise>
+            SELECT COUNT(*) FROM (
+                SELECT t.bno
+                FROM tipboard t
+                WHERE EXISTS (SELECT 1 FROM boardreport br WHERE br.tipbno = t.bno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND t.writer IN (
+                        SELECT writer FROM tipboard WHERE boardType = 'T' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+                UNION
+                SELECT s.bno
+                FROM suggestedboard s
+                WHERE EXISTS (SELECT 1 FROM boardreport br WHERE br.suggestbno = s.bno)
+                <!-- 추가된 검색 조건 -->
+                <if test="keyword != null and keyword != ''">
+                    AND s.writer IN (
+                        SELECT writer FROM suggestedboard WHERE boardType = 'S' AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </if>
+            ) AS totalCount
+        </otherwise>
+    </choose>
+</select>
 
 	<select id="getListWithPaging" resultType="UserVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM user
