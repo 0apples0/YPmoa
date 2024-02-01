@@ -571,7 +571,7 @@ $(document).ready(function () {
 		        	 if (firstImgSrc && firstImgSrc.length > 1) {
 		                 imageUrl = firstImgSrc[1];
 		             } else {
-		                 console.log("첫 번째 img 태그를 찾을 수 없습니다.");
+		                 console.log("img 태그 가져오지 못함");
 		             }
 				 }else{
 					 imageUrl = '카드1.png';
@@ -587,7 +587,7 @@ $(document).ready(function () {
 	            callback('카드1.png');
 	        }
 	    });
-	} // getImageUrlFromServer End
+	} 
 
 }); // document.ready함수 끝
 
