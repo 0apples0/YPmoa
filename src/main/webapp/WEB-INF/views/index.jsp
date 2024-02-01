@@ -215,7 +215,7 @@
 <!-- Service End -->
 
  <!-- Modal -->
-        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -298,6 +298,11 @@
 		}
 	} 	
 	$(document).ready(function() {
+		$("#modalCenter").modal({
+		    backdrop: 'static',
+		    keyboard:false
+		});
+		
 		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
 		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
 		
