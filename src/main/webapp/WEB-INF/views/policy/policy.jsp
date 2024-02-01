@@ -565,8 +565,18 @@ $(document).ready(function () {
 	        dataType: 'text', 
 	        success: function(response) {
 	        	 console.log(response);
-	             // 응답이 없는 경우 기본값으로 '카드1.jpg'를 사용
-	             var imageUrl = response !== '' || response == null ? response : '카드1.png';
+	        	 var imageUrl;
+				 if(response != null && response !=''){
+		        	 var firstImgSrc = response.match(/<img src="http:\/\/localhost:8090\/resources\/save_img\/([^"]+)"/);
+		        	 if (firstImgSrc && firstImgSrc.length > 1) {
+		                 imageUrl = firstImgSrc[1];
+		             } else {
+		                 console.log("첫 번째 img 태그를 찾을 수 없습니다.");
+		             }
+				 }else{
+					 imageUrl = '카드1.png';
+				 }
+
 	             console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
 	             // 콜백 함수 호출하여 이미지 URL 전달
 	             callback(imageUrl);
