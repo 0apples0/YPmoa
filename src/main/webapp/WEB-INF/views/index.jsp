@@ -413,8 +413,8 @@
 	// 정책모음 게시판 가져오기
 	function processData(data) {
 		if (data.length === 0) {
-			$("#wishList").html("<tr><td colspan='3'>정책정보 게시판이 비어있습니다.</td></tr>");
-			$("#wishList").closest('table').css('text-align', 'center');
+			$("#policy").html("<tr><td colspan='3'>정책정보 게시판이 비어있습니다.</td></tr>");
+			$("#policy").closest('table').css('text-align', 'center');
 			return;
 		}
 	    // 테이블에 데이터 추가
