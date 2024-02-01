@@ -564,22 +564,22 @@ $(document).ready(function () {
 	        data: {bno: no},
 	        dataType: 'text', 
 	        success: function(response) {
-	        	 console.log(response);
-	        	 var imageUrl;
-				 if(response != null && response !=''){
-		        	 var firstImgSrc = response.match(/<img src="http:\/\/localhost:8090\/resources\/save_img\/([^"]+)"/);
-		        	 if (firstImgSrc && firstImgSrc.length > 1) {
-		                 imageUrl = firstImgSrc[1];
-		             } else {
-		                 console.log("img 태그 가져오지 못함");
-		             }
-				 }else{
-					 imageUrl = '카드1.png';
-				 }
+	            console.log(response);
+	            var imageUrl;
 
-	             console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
-	             // 콜백 함수 호출하여 이미지 URL 전달
-	             callback(imageUrl);
+	            // 정규식을 사용하여 img 태그 추출
+	            var imgTagMatch = response.match(/<img src="http:\/\/localhost:8090\/resources\/save_img\/([^"]+)"/);
+	            if (imgTagMatch && imgTagMatch.length > 1) {
+	                imageUrl = imgTagMatch[1];
+	            } else {
+	                imageUrl = '카드1.png';
+	                console.log("img 태그가 없음");
+	            }
+
+	            console.log("이미지 URL 성공적으로 가져옴:", imageUrl);
+
+	            // 콜백 함수 호출하여 이미지 URL 전달
+	            callback(imageUrl);
 	        },
 	        error: function(xhr, status, error) {
 	            // 에러 처리
