@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class PolicyService implements BoardGenericService {
+public class PolicyService implements BoardGenericService<PolicyVO> {
 
 	@Autowired
 	WishMapper wishMapper;
@@ -39,22 +39,13 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> void delBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-
-	}
-	public void delBoard(PolicyVO vo) {
+	public boolean delBoard(PolicyVO vo) {
 		mapper.delPolicy(vo);
+		return false;
 	}
 
 	@Override
-	public <T> void  modBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void modPolicy(PolicyVO vo) {
-		log.info("�닔�젙�뱾�뼱�삩 VO : " + vo);
+	public boolean modBoard(PolicyVO vo) {
 		mapper.modBoard(vo);
 		Integer no = vo.getNo();
 		if(mapper.getBoard(no) != null) {
@@ -62,7 +53,7 @@ public class PolicyService implements BoardGenericService {
 		}else {
 			mapper.writePlicyBoard(vo.getBoard());
 		}
-		
+		return false;
 	}
 
 	/*
@@ -92,25 +83,16 @@ public class PolicyService implements BoardGenericService {
 	}
 
 	@Override
-	public <T> void writeBoard(T boardVO) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public void wirteBoard(PolicyVO vo) {
+	public void writeBoard(PolicyVO vo) {
 		mapper.writePolicy(vo);
 		vo.getBoard().setBno(vo.getNo());
 		log.info(vo);
 		mapper.writePlicyBoard(vo.getBoard());
 	}
+	
 
 	@Override
-	public <T> void toggleLike(T boardVO) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public PolicyVO likeToggle(PolicyVO vo) {
+	public PolicyVO toggleLike(PolicyVO vo) {
 		PolicyVO _vo = mapper.getPolicy(vo.getNo());
 		if (AuthUtil.isLogin()) {
 			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), vo.getNo());
@@ -125,12 +107,6 @@ public class PolicyService implements BoardGenericService {
 			return _vo;
 		}
 		return null;
-	}
-
-	@Override
-	public void getBack() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -170,11 +146,6 @@ public class PolicyService implements BoardGenericService {
 		}
 		return result;
 	}
-/*
-	public int getCommentTotalAmount(Integer bno) {		
-		return mapper.getCommentTotalCount(bno);
-	}
-*/
 	public int getCommentTotalAmount(Criteria cri) {		
 		return mapper.getCommentTotalCount(cri);
 	}
@@ -197,7 +168,7 @@ public class PolicyService implements BoardGenericService {
 	public void delCommunityComment(Integer cno) {
 		mapper.deleteComment(cno);		
 	}
-	// �뙎湲� �닔�젙
+	
 	public void modCommunityComment(PolicyCommentVO comment) {
 		mapper.modComment(comment);
 	}
@@ -231,7 +202,6 @@ public class PolicyService implements BoardGenericService {
 		return vo;
 	}
 
-	// �뙎湲� �옉�꽦�옄 �쑀�����엯 泥댄겕
 	public int checkWriterUserType(CommentsReportVO vo) {
 		int result = mapper.chkUserType(vo);
 		log.info("���엯: "+result);

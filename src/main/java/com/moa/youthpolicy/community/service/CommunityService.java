@@ -25,21 +25,23 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 @AllArgsConstructor
-public class CommunityService implements BoardGenericService{
+public class CommunityService implements BoardGenericService<CommunityVO>{
 
 	private final CommunityMapper communityMapper; // 二쇱엯
 	
 	@Override
-	public <T> void delBoard(Class<T> board) {
-		// TODO Auto-generated method stub
-		
+	public boolean delBoard(CommunityVO board) {
+		int result = communityMapper.deleteBoard(board.getBno());
+        return result == 1; // 삭제가 성공하면 true, 실패하면 false를 반환
 	}
 
 	@Override
-	public <T> void modBoard(Class<T> board) {
-		log.info("modify");
-		
+	public boolean modBoard(CommunityVO vo) {
+		 // 수정된 내용을 Mapper를 통해 DB에 반영
+        int result = communityMapper.modifyBoard(vo);
+        return result == 1; // 수정된 행이 1개일 경우 true 반환
 	}
+
 
 	@Override
 	public CommunityVO getBoard(Integer key) {
@@ -124,24 +126,12 @@ public class CommunityService implements BoardGenericService{
 		communityMapper.modComment(comment);
 	}
 	@Override
-	public <T> void writeBoard(T boardVO) {
-		// TODO Auto-generated method stub
-		
+	public void writeBoard(CommunityVO boardVO) {
+		communityMapper.write(boardVO);
 	}
 
 	@Override
-	public <T> void toggleLike(T boardVO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getBack() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public CommunityVO likeToggle(CommunityVO vo) {
+	public CommunityVO toggleLike(CommunityVO vo) {
 		CommunityVO _vo = communityMapper.getBoard(vo.getBno());
 		if (AuthUtil.isLogin()) {
 			LikeBoardVO like = new LikeBoardVO(AuthUtil.getCurrentUserAccount(), vo.getBno());
@@ -156,6 +146,7 @@ public class CommunityService implements BoardGenericService{
 			return _vo;
 		}
 		return null;
+		
 	}
 
 	public CommunityCommentVO likeCommentToggle(CommunityCommentVO vo) {
@@ -176,22 +167,7 @@ public class CommunityService implements BoardGenericService{
 		return null;
 	}
 
-	public void write(CommunityVO communityVO) {
-		communityMapper.write(communityVO);
-		
-	}
 
-	//글 삭제
-	public boolean removeBoard(Integer bno) {
-		int result = communityMapper.deleteBoard(bno);
-        return result == 1; // 삭제가 성공하면 true, 실패하면 false를 반환
-	}
-
-	public boolean modifyBoard(CommunityVO vo) {
-        // 수정된 내용을 Mapper를 통해 DB에 반영
-        int result = communityMapper.modifyBoard(vo);
-        return result == 1; // 수정된 행이 1개일 경우 true 반환
-	}
 
 	// 게시글 신고
 	public boolean reportBoard(BoardReportVO vo) {
