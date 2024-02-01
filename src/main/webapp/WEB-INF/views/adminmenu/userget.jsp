@@ -376,7 +376,7 @@ $(document).ready(function () {
 	                 row.append(countCommentReportTd);
 	                 
 	                 let deleteTd = $("<td>");
-	                 let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
+	                 let deleteImg = $("<i>").addClass("fa fa-minus-circle text-primary");
 	                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("정지");                 
 	                 
 	                 let leaveDate = new Date(users.leaveDate);

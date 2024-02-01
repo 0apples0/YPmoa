@@ -391,7 +391,7 @@
 		         }
 		     });	    	 
 	     }else{
-	    	 $("#wishList").html("<tr><td colspan='3'><br>로그인 후 이용 가능한 서비스입니다.<br></td></tr>");
+	    	 $("#wishList").html("<tr><td colspan='3'>로그인 후 이용 가능한 서비스입니다.<br></td></tr>");
 			 $("#wishList").closest('table').css('text-align', 'center');
 	     }
 

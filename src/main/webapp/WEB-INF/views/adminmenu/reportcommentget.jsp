@@ -173,7 +173,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade admin_modalInfo" id="modalCenterReportDetail" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
