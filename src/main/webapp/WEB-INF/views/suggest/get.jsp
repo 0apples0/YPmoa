@@ -343,11 +343,13 @@ $(document).ready(function () {
     // 삭제 버튼
     // 삭제 버튼 클릭 시 확인 팝업 표시
     $("#deleteBtn").on("click", function () {
+    	console.log("이건 화면 삭제 버튼");
         $("#confirmDeleteModal").modal("show");
     });
 
     // 확인 팝업에서 삭제 버튼 클릭 시 삭제 요청 전송
-    $("#confirmDeleteBtn").on("click", function () {
+     $(document).on("click", "#confirmDeleteBtn", function () {
+    	console.log("모달 삭제 버튼 눌리긴 해 ?");
         // 여기에 삭제 요청을 보내는 코드 추가
         $.ajax({
             type: "POST",
@@ -357,6 +359,8 @@ $(document).ready(function () {
             },
             success: function (data) {
                 // 삭제 성공 시에 처리할 내용 추가
+                console.log("삭제 성공");
+                alert("게시글이 삭제되었습니다.");
                 self.location = "/suggest/suggest";
             },
             error: function (error) {
