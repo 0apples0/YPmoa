@@ -1021,9 +1021,8 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
                           let reportImg =  $("<i>").addClass("fa fa-exclamation-triangle text-danger");
                           let reportLink = $("<a>").addClass("policyGet_report").attr("href", "#").text("신고");
                           let editLink = $("<a>").addClass("commuComment_modBtn").attr("href", "").text("수정");
-                          // 이미지와 link를 <td> 엘리먼트에 추가
-                          let deleteImg = $("<i>").addClass("fa fa-trash text-primary");
-                          let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "/policy/get?no="+board.bno).text("삭제");
+                          
+						  let deleteLink = $("<a>").addClass("commuComment_deleteBtn").attr("href", "#").text("삭제");
 
                           if("${user.nick}"!=null && board.writer === "${user.nick}"){
                         	  $(".policyGet_bestComment").addClass("custom-width");

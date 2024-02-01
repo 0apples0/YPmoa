@@ -260,7 +260,6 @@
 	   
 	   var $dropdownToggle = $(".navbar-toggler");
 	    var $dropdownMenu = $("#navbarCollapse");
-	    var showClass = "show";
 	    var collapsedClass = "collapsed";
 	    
 	    $dropdownToggle.click(function() {
@@ -269,11 +268,11 @@
 	        
 	        if (!isExpanded) {
 	            $this.attr("aria-expanded", "true");
-	            $dropdownMenu.addClass(showClass);
+	            $dropdownMenu.addClass("show"); // true일 때 collapse 클래스에 show 클래스 추가
 	            $this.removeClass(collapsedClass); // true일 때 collapsed 클래스 제거
 	        } else {
 	            $this.attr("aria-expanded", "false");
-	            $dropdownMenu.removeClass(showClass);
+	            $dropdownMenu.removeClass("show"); // false일 때 collapse 클래스에 show 클래스 제거
 	            $this.addClass(collapsedClass); // false일 때 collapsed 클래스 추가
 	        }
 	    });
