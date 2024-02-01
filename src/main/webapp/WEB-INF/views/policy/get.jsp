@@ -151,7 +151,7 @@
 				<h3 style="margin-left: 20px;">댓글</h3>
 				<div style="display: flex; justify-content: center;">
 					<input type="text" name="AddcommentInput" id="AddcommentInput"
-						class="form-control datetimepicker-input font_light"
+						class="form-control datetimepicker-input font_light commu_cmtInput"
 						style="width: 88%;" placeholder="서로를 배려하는 댓글 문화를 만듭시다" />
 					<button class="btn btn-primary commu_commentBtn" id="AddcommentBtn" disabled
 						style="margin-left: 10px;">댓글 작성</button>
@@ -302,7 +302,7 @@
 							class="custom-control-label" for="customCheck3">개인정보노출</label>
 					</div>
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="form-check-input"
+						<input type="checkbox" class="form-check-input checkEtc"
 							id="customCheck4" data-textarea-id="textarea1"> <label
 							class="custom-control-label" for="customCheck4">기타(아래에
 							작성해주세요)</label>
@@ -586,42 +586,43 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 					}
 				});
 		
-		// 체크박스 중복 방지
-		$('.form-check-input').on('change',function() {
-					if ($(this).prop('checked')) {
-						$('.form-check-input').not(this).prop('disabled', true);
-					} else {
-						$('.form-check-input').prop('disabled', false);
-					}
-				});
+		 // 체크박스 중복 방지
+	    $('.form-check-input').on('change', function () {
+	        if ($(this).prop('checked')) {
+	            $('.form-check-input').not(this).prop('disabled', true);
+	        } else {
+	            $('.form-check-input').prop('disabled', false);
+	        }
+	    });
 
-		// 기타 항목에 체크했을 때만 입력창 활성화
-		$(".form-check-input").change(function() {
-			var isChecked = $(this).prop("checked");
-					$(".policyGet_reportDetail").prop("disabled", true);
-					if (isChecked) {
-						var textareaId = $(this).data("textarea-id");
-						$("#" + textareaId).prop("disabled",false);
-					}
-				});
+	    // 기타 항목에 체크했을 때만 입력창 활성화
+	    $(".form-check-input").change(function () {
+	        var isChecked = $(this).prop("checked");
+	        $(".policyGet_reportDetail").prop("disabled", true);
+	        if (isChecked) {
+	            var textareaId = $(this).data("textarea-id");
+	            $("#" + textareaId).prop("disabled", false);
+	        }
+	    });
+	    
+	    // 아무 체크도 안했을 때 선택버튼 비활성화
+	    $(".form-check-input").change(updateReportButtonState);
+	    $(".policyGet_reportDetail").on("keyup", updateReportButtonState);
 
-		// 아무 체크도 안했을 때 신고버튼 비활성화
-		$(".form-check-input").change(updateReportButtonState);
-		$(".policyGet_reportDetail").on("keyup",updateReportButtonState);
+	    updateReportButtonState();
 
-		updateReportButtonState();
+	    function updateReportButtonState() {
+	        var anyCheckboxChecked = $(".form-check-input:checked").length > 0;
+	        var anyTextareaContent = $(".policyGet_reportDetail").filter(function () {
+	            return $(this).val().trim() !== "";
+	        }).length > 0;
+	        $(".commu_report").prop("disabled", !(anyCheckboxChecked || anyTextareaContent));
+	    }
 
-		function updateReportButtonState() {
-			var anyCheckboxChecked = $(".form-check-input:checked").length > 0;
-			var anyTextareaContent = $(".policyGet_reportDetail").filter(function() {
-				return $(this).val().trim() !== "";
-			}).length > 0;
-			$(".commu_report").prop("disabled",!(anyCheckboxChecked || anyTextareaContent));
-		}
 
 		// 댓글창 내용 있어야 버튼 활성화
-		var commentInput = $(".form-control");
-		var submitButton = $(".btn-primary");
+		var commentInput = $(".commu_cmtInput");
+		var submitButton = $(".commu_commentBtn");
 
 		commentInput.on("input",function() {
 				var isInputNotEmpty = commentInput.val().trim().length > 0;

@@ -30,6 +30,7 @@ public class WishService implements BoardInterface {
 
 	@Autowired
 	PolicyMapper policyMapper;
+	
 	@Override
 	public <T> void delBoard(Class<T> board) {
 		// TODO Auto-generated methodf stub
@@ -112,11 +113,9 @@ public class WishService implements BoardInterface {
 				vo.setWishUser(email);
 			}
 		 	int currentIsAlert = mapper.alarmWish(vo);
-		 	log.info(" 여기까지 : "+ currentIsAlert);
 		    // 새로운 isAlert 값을 계산 (0과 1을 반전)
 		    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
 		    // 새로운 isAlert 값을 업데이트
-		    log.info("업데이트된 알람: "+newIsAlert);
 		    vo.setIsAlert(newIsAlert);
 		    mapper.updateIsAlert(vo);
 		    return newIsAlert;
