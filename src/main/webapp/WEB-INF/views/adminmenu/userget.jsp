@@ -337,61 +337,70 @@ $(document).ready(function () {
        	  
               let userTbody = $("#admin_userTable tbody");
               userTbody.empty(); // 기존 테이블 행 삭제
-                 
-              //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
-              //for(let item of items) -> items == data, item ==board 역할
-              $.each(data, function(index, users){
-                
-                 let regDate=new Date(users.regDate);
-                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
-                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
-                 let formateDate = regDate.toLocaleString("ko-KR", options);
+              if (data.length === 0) {
+					// 검색 결과가 없는 경우 메시지 표시
+					if($("#searchForm select[name='userType']").val()==3){
+						userTbody.append("<tr><td colspan='9' class='text-center' style='text-align:center !important'>검색 결과가 없습니다.</td></tr>");
+					}else{
+						userTbody.append("<tr><td colspan='8' class='text-center' style='text-align:center !important'>검색 결과가 없습니다.</td></tr>");
+					}
+		  	  }else{
+		             //Ajax가 반환한 데이터를 "순회"=='반복자'하여 처리
+	              //for(let item of items) -> items == data, item ==board 역할
+	              $.each(data, function(index, users){
+	                
+	                 let regDate=new Date(users.regDate);
+	                 // numeric: 숫자, 2-digit: 두자리 숫자 형식
+	                 let options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
+	                 let formateDate = regDate.toLocaleString("ko-KR", options);
 
-                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
-                 // 동적으로 데이터 처리
-                 console.log(users);
-                 let row = $("<tr>");
-                 row.append($("<td>").text(users.email));
-                 row.append($("<td>").text(users.nick));
-                 row.append($("<td>").text(users.name));
-                 row.append($("<td>").text(users.phone));
-                 row.append($("<td>").text(formateDate));
-                 
-                 let countReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveBoardReport").text("게시글 "+users.countReport+"건");
-                 row.append(countReportTd);
-                 
-                 let countCommentReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveCommentReport").text("댓글 "+users.countCommentReport+"건");
-                 row.append(countCommentReportTd);
-                 
-                 let deleteTd = $("<td>");
-                 let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
-                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("정지");                 
-                 
-                 let leaveDate = new Date(users.leaveDate);
-                 let formateLeaveDate = leaveDate.toLocaleString("ko-KR", options);
-                 
-                 // 일반 회원 검색이라면, 삭제 버튼 표시
-                 if(users.userType == 1){
-                     deleteTd.append(deleteImg, deleteLink);
-                     row.append(deleteTd);                	 
-                 }else{ // 정지 회원 검색이라면, 탈퇴일자 표시
-                     let leaveDateTd = $("<td>").text(formateLeaveDate);
-    				 row.append(leaveDateTd);
-    				 let rollbackTd = $("<td>").addClass("rollbackTd");
-                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
-                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
-                     
-                     rollbackLink.append(rollbackBtn);
-                     rollbackTd.append(rollbackLink);
-                     row.append(rollbackTd);
-                 }
+	                 // 데이터를 순회하여 테이블 목록을 불러와 테이블 바디에 추가
+	                 // 동적으로 데이터 처리
+	                 console.log(users);
+	                 let row = $("<tr>");
+	                 row.append($("<td>").text(users.email));
+	                 row.append($("<td>").text(users.nick));
+	                 row.append($("<td>").text(users.name));
+	                 row.append($("<td>").text(users.phone));
+	                 row.append($("<td>").text(formateDate));
+	                 
+	                 let countReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveBoardReport").text("게시글 "+users.countReport+"건");
+	                 row.append(countReportTd);
+	                 
+	                 let countCommentReportTd = $("<td>").addClass("board_countReportBtn").attr("id","moveCommentReport").text("댓글 "+users.countCommentReport+"건");
+	                 row.append(countCommentReportTd);
+	                 
+	                 let deleteTd = $("<td>");
+	                 let deleteImg = $("<i>").addClass("fa fa-minus-circle fa-2x text-primary");
+	                 let deleteLink = $("<a>").addClass("user_deleteBtn").attr("href", "").text("정지");                 
+	                 
+	                 let leaveDate = new Date(users.leaveDate);
+	                 let formateLeaveDate = leaveDate.toLocaleString("ko-KR", options);
+	                 
+	                 // 일반 회원 검색이라면, 삭제 버튼 표시
+	                 if(users.userType == 1){
+	                     deleteTd.append(deleteImg, deleteLink);
+	                     row.append(deleteTd);                	 
+	                 }else{ // 정지 회원 검색이라면, 탈퇴일자 표시
+	                     let leaveDateTd = $("<td>").text(formateLeaveDate);
+	    				 row.append(leaveDateTd);
+	    				 let rollbackTd = $("<td>").addClass("rollbackTd");
+	                	 let rollbackLink = $("<a>").attr("href", "").attr("id", "board_rollbackBtn");
+	                     let rollbackBtn = $("<i>").addClass("fa fa-reply	text-success fa-2x admin_reportModal");
+	                     
+	                     rollbackLink.append(rollbackBtn);
+	                     rollbackTd.append(rollbackLink);
+	                     row.append(rollbackTd);
+	                 }
 
-                 userTbody.append(row);
-                 console.log("pagemaker: "+${pageMaker.realEnd});
-                 
-                 // 회원 정보(Email, userType)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
-                 bindCommentActionHandlers(row, users.email, users.userType, users.nick);
-              });
+	                 userTbody.append(row);
+	                 console.log("pagemaker: "+${pageMaker.realEnd});
+	                 
+	                 // 회원 정보(Email, userType)를 클릭 이벤트 핸들러에 전달하여 활용할 수 있도록 함
+	                 bindCommentActionHandlers(row, users.email, users.userType, users.nick);
+	              });
+		  	  }
+ 
            },
            error: function(e){
               console.log(e);
