@@ -369,7 +369,7 @@
 						<label class="form-label">신고내용</label>
 
 						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-							style="resize: none;" class="policyGet_reportDetail font_light"></textarea>
+							style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
 					</div>
 				</div>
 
