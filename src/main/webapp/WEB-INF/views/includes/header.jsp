@@ -270,10 +270,11 @@
 	        if (!isExpanded) {
 	            $this.attr("aria-expanded", "true");
 	            $dropdownMenu.addClass(showClass);
+	            $this.removeClass(collapsedClass); // true일 때 collapsed 클래스 제거
 	        } else {
 	            $this.attr("aria-expanded", "false");
 	            $dropdownMenu.removeClass(showClass);
-	            $this.addClass(collapsedClass);
+	            $this.addClass(collapsedClass); // false일 때 collapsed 클래스 추가
 	        }
 	    });
 
