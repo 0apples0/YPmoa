@@ -578,7 +578,6 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 				});
 
 		
-
 		// 신고 모달창
 		$("td").click(function(event) {
 					event.preventDefault();			
