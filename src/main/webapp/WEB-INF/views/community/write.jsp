@@ -175,7 +175,6 @@ $(document).ready(function ($) {
 
 		//위의 frm객체에 send_img이라는 파라미터를 지정!
 		frm.append("send_img", file);
-		//		frm.append("type", "saveImg");
 
 		//비동기식 통신
 		$.ajax({
