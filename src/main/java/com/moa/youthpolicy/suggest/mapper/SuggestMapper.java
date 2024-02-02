@@ -25,7 +25,7 @@ public interface SuggestMapper {
     // 좋아요 수 갱신 메서드 추가
     int updateSuggestedBoardLikeCount(@Param("bno") int bno, @Param("like") int like);
     // 좋아요 수 가져오기
-    int getLikeCount(@Param("bno") int bno);
+    SuggestVO getLikeCount(int bno);
     // 게시글 신고
 	public BoardReportVO getReportBoard(BoardReportVO vo);
 	public void reportBoard(BoardReportVO vo);

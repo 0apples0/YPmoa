@@ -145,8 +145,8 @@
 	</update>
 	
 	<!-- 좋아요 개수 가져오기 -->
-	<select id="getLikeCount" resultType="int" parameterType="int">
-	    SELECT `like` FROM suggestedboard WHERE bno = #{bno}
+	<select id="getLikeCount" resultType="com.moa.youthpolicy.common.BoardReportVO" parameterType="int">
+	    SELECT * FROM suggestedboard WHERE bno = #{bno}
 	</select>
 	
 	<!-- 좋아요 갯수 출력 -->

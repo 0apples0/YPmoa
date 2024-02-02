@@ -199,6 +199,11 @@
 							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</a>
 	 				</c:when>
+	 				<c:when test="${pageMaker.realEnd==0}">
+	 					<a class="page-link" style="pointer-events: none; cursor: default;">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a>
+	 				</c:when>
 	 				<c:otherwise>
 	 					<a class="page-link" href="${pageMaker.realEnd}">
 							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -256,8 +261,9 @@
 				<div class="row">
 					<div class="col mb-3">
 						<label class="form-label">신고내용</label>
-						<textarea disabled id="textarea1" placeholder="신고내용을 작성해주세요"
-							style="resize: none;" class="policyGet_reportDetail font_light form-control"></textarea>
+						<textarea disabled id="textarea1" placeholder="90자까지 작성 가능합니다"
+							style="resize: none;" class="policyGet_reportDetail font_light form-control"
+							maxlength="90"></textarea>
 					</div>
 				</div>
 			</div>
@@ -858,6 +864,9 @@
                    }
                 });
              }
+            
+            
+            
         }); // document.ready함수
         
         // 목록 버튼

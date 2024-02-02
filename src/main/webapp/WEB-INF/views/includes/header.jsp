@@ -97,8 +97,8 @@
                 </c:when>
                 <c:otherwise>
                 <div id="login_menu_box">
-                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" /></a>
-                       <a href="/wish/wish" id="notify_letter">알림 <span class="badge" hidden>new</span></a>
+                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
+                       <p  id="notify_letter">알림 <span class="badge" hidden>new</span></p></a>
                     
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>
@@ -182,19 +182,27 @@
 		<input type="hidden" name="wishUser" value="${user.email}">
 	</form>
 	
+	<input type="hidden" name="chkUserType" value="${user.userType }">
+	
    <script>
    function checkAndNavigateToMypage(Email) {
        // 여기에서 로그인 여부를 확인하고, 필요한 경우 알림창을 띄우거나 마이ㄹ페이지로 이동
        var user_email = null;
        user_email = Email;
        console.log(user_email);
+       
+       var userTypeValue = document.getElementsByName('chkUserType')[0].value;
+
        if (!user_email) {
            // 로그인 페이지로
            alert("로그인이 필요한 서비스입니다.");
            window.location.href = "/user/login";
        } else {
-    	   window.location.href = "/user/mypage?Email=" + user_email;
-    	   
+           if(userTypeValue == 0){
+        	   alert("관리자는 이용할 수 없는 기능입니다.")
+           }else{
+        	   window.location.href = "/user/mypage?Email=" + user_email;
+           }
        }
    }
    
@@ -208,11 +216,18 @@
 	   var user_email = null;
        user_email = Email;
        console.log("로그인"+user_email);
+       
+       var userTypeValue = document.getElementsByName('chkUserType')[0].value;
+       
        if(!user_email){
     	   alert("로그인이 필요한 서비스입니다.");
            window.location.href = "/user/login";
        }else{
-    	   document.getElementById("myForm").submit();
+    	   if(userTypeValue == 0){
+        	   alert("관리자는 이용할 수 없는 기능입니다.")
+           }else{
+    	   	   document.getElementById("myForm").submit();
+           }
        }
    }
  
@@ -278,9 +293,6 @@
 	    });
 
 	 }; // window.onload끝
-	 
-
-
 
 </script>
    

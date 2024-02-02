@@ -68,6 +68,7 @@
                                                     <th scope="row">* 시행 지역</th>
                                                     <td>
                                                         <select class="form-select" id="rgnSeNm" name="rgnSeNm">
+															<option selected value="">지역선택</option>
 							                                <option value="경상북도">경상북도</option>
 							                                <option value="경산시">경산시</option> 
 							                                <option value="경주시">경주시</option>
@@ -137,8 +138,7 @@
                                                     <th scope="row">지원규모</th>
                                                     <td> <input class="form-control" name="policyScl"></td>
                                                     <th scope="row">신청 사이트</th>
-                                                    <td><a
-                                                            href="#"> <input class="form-control" name="dtlLinkUrl"></a>
+                                                    <td><input class="form-control" name="dtlLinkUrl">
                                                     </td>
                                                 </tr>
                                                 <tr>

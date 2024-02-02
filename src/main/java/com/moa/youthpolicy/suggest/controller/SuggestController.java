@@ -133,7 +133,7 @@ public class SuggestController {
 		vo.setContent(content);
 		vo.setRegion(region);
 		
-		if (suggestService.modifyBoard(vo)) {
+		if (suggestService.modBoard(vo)) {
 		rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/suggest/get?bno=" + bno;
@@ -141,9 +141,9 @@ public class SuggestController {
 	
 	//글 삭제
 	@PostMapping("/remove")
-	public String removePage(@RequestParam("bno") Integer bno, RedirectAttributes rttr) {
+	public String removePage(SuggestVO vo, RedirectAttributes rttr) {
 		log.info("글 삭제 컨트롤러로 들어오긴 했니 ?");
-	    if (suggestService.removeBoard(bno)) {
+	    if (suggestService.delBoard(vo)) {
 	        rttr.addFlashAttribute("result", "success");
 	    }
 	    return "redirect:/suggest/suggest";
@@ -169,7 +169,7 @@ public class SuggestController {
 	    SuggestVO suggestVO = new SuggestVO();
 	    suggestVO.setBno(bno);
 	   // 좋아요 여부를 반환
-	    return suggestService.toggleLike(suggestVO, user.getEmail());
+	    return suggestService.toggleLike(suggestVO).getLike();
 	}
 	
 	// 좋아요 확인
@@ -189,7 +189,7 @@ public class SuggestController {
     @GetMapping("/getLikeCount")
     @ResponseBody
     public int getLikeCount(@RequestParam("bno") int bno) {
-        return suggestService.getLikeCount(bno);
+        return suggestService.getLikeCount(bno).getLike();
     }
     
     // 게시글 신고

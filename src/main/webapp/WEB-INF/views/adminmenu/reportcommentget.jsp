@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<!-- Page Header End -->
+<!-- Page Header Endㄹ -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
     <h6 class="section-title text-center text-primary text-uppercase">Reported comment</h6>
     <h1 class="mb-4"><span class="text-primary text-uppercase">댓글</span> 관리</h1>
@@ -173,7 +173,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade admin_modalInfo" id="modalCenterReportDetail" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCenterTitle">댓글신고</h5>
@@ -186,7 +186,6 @@
 	                <div class="modalDetailcount" id="modalDetailcount3">- 개인정보노출 <span></span>회</div>
 	                <div class="modalDetailcount" id="modalDetailcount4">- 기타 <span></span>회</div>
 				</div>
-				<div class="row">
 					<div class="col mb-3 admin_modalBox">
 						<table id="reportReasonTable" class="table table-bordered admin_boardModal">
                         <thead>
@@ -200,7 +199,6 @@
                         </tbody>
 						</table>
                     </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>

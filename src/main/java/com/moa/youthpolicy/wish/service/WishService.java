@@ -23,30 +23,39 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class WishService implements BoardInterface {
+public class WishService implements BoardInterface<WishVO> {
 	
 	@Autowired
 	WishMapper mapper;
 
 	@Autowired
 	PolicyMapper policyMapper;
+	
 	@Override
-	public <T> void delBoard(Class<T> board) {
-		// TODO Auto-generated methodf stub
-		
+	public boolean delBoard(WishVO vo) {
+		if (AuthUtil.isLogin()) {
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
+			log.info("wish 넘버 " + vo.getWishPolicy());
+			log.info("wish지우기" + wish);
+
+			mapper.delWish(wish);
+
+		}
+		return false;
 	}
 
 	@Override
-	public <T> void modBoard(Class<T> board) {
+	public boolean modBoard(WishVO board) {
 		// TODO Auto-generated ffmethod stub
-		
+		return false;
 	}	
 
-
-	
-
 	@Override
-	public List<PolicyVO> getPage(Criteria cri){
+	public List<WishVO> getPage(Criteria cri){
+		return null;
+	}
+	
+	public List<PolicyVO> getWishPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
 		cri.setAmount(8);
 		
@@ -80,10 +89,6 @@ public class WishService implements BoardInterface {
 		return null;
 	}
 
-	public WishVO getEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 
@@ -99,28 +104,15 @@ public class WishService implements BoardInterface {
 		return list;
 	}
 
-	public void delWish(WishVO vo) {
-		if (AuthUtil.isLogin()) {
-			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
-			log.info("wish 넘버 " + vo.getWishPolicy());
-			log.info("wish지우기" + wish);
-
-			mapper.delWish(wish);
-
-		}
-	}
-
 		public int wishAlarm(WishVO vo) {
 			if(AuthUtil.isLogin()) {
 				String email = AuthUtil.getCurrentUserAccount();
 				vo.setWishUser(email);
 			}
 		 	int currentIsAlert = mapper.alarmWish(vo);
-		 	log.info(" 여기까지 : "+ currentIsAlert);
 		    // 새로운 isAlert 값을 계산 (0과 1을 반전)
 		    int newIsAlert = (currentIsAlert == 0) ? 1 : 0;
 		    // 새로운 isAlert 값을 업데이트
-		    log.info("업데이트된 알람: "+newIsAlert);
 		    vo.setIsAlert(newIsAlert);
 		    mapper.updateIsAlert(vo);
 		    return newIsAlert;

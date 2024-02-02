@@ -175,7 +175,6 @@ $(document).ready(function ($) {
 
 		//위의 frm객체에 send_img이라는 파라미터를 지정!
 		frm.append("send_img", file);
-		//		frm.append("type", "saveImg");
 
 		//비동기식 통신
 		$.ajax({
@@ -188,8 +187,6 @@ $(document).ready(function ($) {
 			type : "POST",
 			dataType : "JSON" //나중 받을 데이터의 형식을 지정
 		}).done(function(data) {
-			//도착함수
-			//alert(data.url);
 
 			//에디터에 img태그로 저장하기 위해 
 			//다음과 같이 img태그를 정의한다.
