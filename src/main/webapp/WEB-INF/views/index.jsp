@@ -3,7 +3,7 @@
 <%@include file="includes/header.jsp" %>
 
 <!-- Carousel Start -->
-<div class="container-fluid p-0 mb-5">
+<div class="container-fluid p-0 mb-3">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -12,7 +12,7 @@
             </div>
             <div class="carousel-item">
             <a href="/community/community">
-                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
+                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
             </div>
             <div class="carousel-item">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner3.png" alt="Image">
@@ -34,14 +34,15 @@
 <!-- Booking Start -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-        <div class="bg-white shadow" style="padding: 35px;">
+        <div class="bg-white shadow mobile_index_searchBox" style="padding: 35px;">
             <div class="row g-2 justify-content-center">
                 <div class="col-md-10">
                 <form action="/policy/indexsearch" method="post">
                 <div class="row g-2">
-                    		<div class="col-md-7" style="margin-bottom:10px; margin-left:10px; ">
-                    		<img src="/resources/img/campfire.png" style="width:40px; padding-bottom:10px"/>
-                    			<span style="font-size:larger">인기 검색어</span>
+                    		<div class="col-md-7 mobile_index_bestsearch" style="margin-bottom:10px; margin-left:10px; ">
+                    		<img src="/resources/img/campfire.png" class="mobile_fire" style="width:30px; padding-bottom:10px"/>
+                    			<span style="font-size:larger">인기 검색어</span><span id="insertionPoint"></span>
+                    			
                     			<a href="/policy/policy?type=C&keyword=중소기업">#<span>중소기업</span></a>
                     			<a href="/policy/policy?type=C&keyword=19세">#<span>19세</span></a>
                     			<a href="/policy/policy?type=C&keyword=대학생">#<span>대학생</span></a>
@@ -52,7 +53,7 @@
                     	
                     	</div>
                    	 <div class="row g-2 justify-content-center">                    
-	                        <div class="col-md-3_a">
+	                        <div class="col-md-3_a mobile_index_select">
 	                            <select class="form-select" name="rgnSeNm">
 	                                <option value="" selected>지역선택</option>
 	                                <option value="경상북도">경상북도</option>
@@ -81,7 +82,7 @@
 	                                <option value="의성군">의성군</option>
 	                            </select>
 	                        </div>
-	                        <div class="col-md-3_a" >
+	                        <div class="col-md-3_a mobile_index_select" >
 	                            <select class="form-select" name="policyTypeNm">
 	                                <option selected value="">정책분야</option>
 	                                <option value="일자리 (창업)">일자리 (창업)</option>
@@ -123,7 +124,7 @@
 <div class="container-xxl " id="mini_board">
     <div class="container">
         <div class="text-center wow fadeInUp" id="mini_title" data-wow-delay="0.1s">
-            <h6 class="section-title text-center ">게시판</h6>
+            <h6 class="section-title text-center mobile_boardtitle">게시판</h6>
         </div>
         <div class="row g-4" id="mini_table">
             <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
@@ -135,7 +136,7 @@
                     </div>
                     <div class="table_section padding_infor_info" >
                         <div class="table-responsive-sm">
-                            <table class="table table-hover index_table_a" id="wishList" style="text-align:left;" >
+                            <table class="table table-basic index_table_a" id="wishList" style="text-align:left;" >
                                 <tbody>
                                 </tbody>
                             </table>
@@ -152,7 +153,7 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table class="table table-hover index_table_a" id="policy" style="text-align:left;">
+                            <table class="table table-basic index_table_a" id="policy" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -169,7 +170,7 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table class="table table-hover index_table_b" id="communityList" style="text-align:left;">
+                            <table class="table table-basic index_table_b" id="communityList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -186,7 +187,7 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table class="table table-hover index_table_b" id="suggestList" style="text-align:left;">
+                            <table class="table table-basic index_table_b" id="suggestList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -291,6 +292,47 @@
 		}
 	} 	
 	$(document).ready(function() {
+		
+		// 모바일 반응형 - 인기검색어 조절
+   var isBrAdded = false;
+
+    function addBreak() {
+        if (!isBrAdded) {
+            var insertionPoint = document.getElementById('insertionPoint');
+            insertionPoint.insertAdjacentHTML('beforebegin', '<br>');
+            isBrAdded = true;
+        }
+    }
+
+    function removeBreak() {
+        var brElement = document.querySelector('#insertionPoint + br');
+        if (brElement) {
+            brElement.remove();
+            isBrAdded = false;
+        }
+    }
+
+    function handleWindowSize() {
+        if (window.innerWidth <= 500) {
+            addBreak();
+        } else {
+            removeBreak();
+        }
+    }
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 500) {
+            handleWindowSize();
+        } else {
+            removeBreak();
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        handleWindowSize();
+    });
+	    
+		
 		$("#modalCenter").modal({
 		    backdrop: 'static',
 		    keyboard:false
@@ -419,7 +461,7 @@
 	        var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 	        var row = "<tr>" +
 	        			"<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
-	                    "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
+	                    "<td class='ellipsis' id='mini_board_title' ><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
 	                    "<td class='list_date'>" + policy.crtDt + "</td>" +
 						"</tr>";
 			$("#policy").append(row);
@@ -461,7 +503,8 @@
 	    $.each(data, function(index, policy) {
 		    policy.crtDt = formatDate(policy.crtDt);
 		    // 각 데이터에 대한 텍스트 길이 제한 
-		    var maxTextLength = 20; // 적절한 길이로 조절
+			var maxTextLength = calculateMaxTextLength();  // 적절한 길이로 조절
+			console.log(maxTextLength);
 		    // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 		    var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 			var row = "<tr>" +
@@ -473,6 +516,20 @@
 		});
     }
 
+	function calculateMaxTextLength() {
+	    return (window.innerWidth <= 500) ? 10 : 20;
+	}
+
+	function updateTextLength() {
+	    var maxTextLength = calculateMaxTextLength();
+	    $("#wishList td.ellipsis a").each(function() {
+	        var text = $(this).text();
+	        var newText = (text.length > maxTextLength) ? text.substring(0, maxTextLength) + '...' : text;
+	        $(this).text(newText);
+	    });
+	}
+	
+	
 	// 건의게시판 추가
 		function processSuggestData(data) {
 		if (data.length === 0) {
@@ -623,6 +680,9 @@
 	    function logout() {
 	    	window.location.href = "/user/logout";
 	    }
+	    
+	    
+	    
 	
 </script>
 

@@ -129,12 +129,12 @@
                 <a href="/" class="navbar-brand d-block d-lg-none mobile_logo">
                    <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
                 </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <button type="button" class="navbar-toggler" >
                     <i class="fa fa-bars text-secondary"></i>
                 </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="collapse navbar-collapse justify-content-between mobile_menu" >
                     <div class="navbar-nav py-0" id="main_menu">
-                        <a href="/policy/policy" class="nav-item nav-link" style="margin-left:80px">정책정보</a>
+                        <a href="/policy/policy" class="nav-item nav-link mobile_menu_first" style="margin-left:80px">정책정보</a>
                         <a href="/suggest/suggest" class="nav-item nav-link">정책건의</a>
                         <a href="/community/community" onclick="resetSettings()" class="nav-item nav-link">꿀팁모음</a>
                         <form id="myForm" action="/wish/wish" method="post" class="nav-item nav-link" style="margin-right:80px; padding-right:0px">
@@ -274,23 +274,16 @@
 	   
 	   
 	   var $dropdownToggle = $(".navbar-toggler");
-	    var $dropdownMenu = $("#navbarCollapse");
-	    var collapsedClass = "collapsed";
-	    
+	    var $dropdownMenu = $(".mobile_menu");
+
 	    $dropdownToggle.click(function() {
-	        var $this = $(this);
-	        var isExpanded = $this.attr("aria-expanded") === "true";
-	        
-	        if (!isExpanded) {
-	            $this.attr("aria-expanded", "true");
-	            $dropdownMenu.addClass("show"); // true일 때 collapse 클래스에 show 클래스 추가
-	            $this.removeClass(collapsedClass); // true일 때 collapsed 클래스 제거
+	        if ($dropdownMenu.is(":visible")) {
+	            $dropdownMenu.stop().slideUp();
 	        } else {
-	            $this.attr("aria-expanded", "false");
-	            $dropdownMenu.removeClass("show"); // false일 때 collapse 클래스에 show 클래스 제거
-	            $this.addClass(collapsedClass); // false일 때 collapsed 클래스 추가
+	            $dropdownMenu.stop().slideDown();
 	        }
 	    });
+
 
 	 }; // window.onload끝
 
