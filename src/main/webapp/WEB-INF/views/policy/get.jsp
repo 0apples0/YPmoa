@@ -496,7 +496,7 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		function chkLogin() {
 			userNick = $("#usernickForm input[name='writer']").val();
 			if (userNick == null || userNick == "") {
-				alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+				alert("로그인이 필요한 서비스입니다.");
 				return false;
 			} else {
 				return true;
@@ -521,8 +521,14 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 
 		$("#policyGet_heartBtn")
 				.click(function() {
+					 var userTypeValue = document.getElementsByName('chkUserType')[0].value;
 							if (!chkLogin()) {
 								return;
+							}else{
+								if(userTypeValue==0){
+									alert("관리자는 이용할 수 없는 기능입니다.");
+									return;
+								}
 							}
 							$.ajax({
 								url : "/policy/toggleWish",
@@ -632,13 +638,13 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 		
 		$("#AddcommentInput").on("click", function(){
         	if("${user.nick}"==null || "${user.nick}"==""){
-        		alert("로그인 후 이용 가능한 서비스 입니다.");
+        		alert("로그인이 필요한 서비스입니다.");
         		window.location.href = "/user/login";
         	}
         });
         $("#AddcommentBtn").on("click", function(){
         	if("${user.nick}"==null || "${user.nick}"==""){
-        		alert("로그인 후 이용 가능한 서비스 입니다.");
+        		alert("로그인이 필요한 서비스입니다.");
         		window.location.href = "/user/login";
         	}
         });
