@@ -109,7 +109,7 @@
 										<tr>
 											<td colspan="4">
 												<!-- policyCnDtl --> 
-												${policy.policyCnDtl}
+												<pre class="font_light">${policy.policyCnDtl}</pre>
 												${policy.board.content }
 											</td>
 										</tr>

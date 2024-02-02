@@ -31,10 +31,14 @@
 	        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
 	    <if test="selectedFilter == 'applyDate'">
-	        AND aplyPsbltyYn = 'Y'
+    		AND aplyBgngDt &lt;= CURRENT_DATE
+    		AND aplyEndDt &gt;= CURRENT_DATE
+	    </if>
+	    <if test="selectedFilter == 'futureApply'">
+    		AND aplyBgngDt &gt; CURRENT_DATE
 	    </if>
 	    <if test="selectedFilter == 'overDate'">
-	        AND aplyPsbltyYn = 'N'
+	        AND aplyEndDt &lt; CURRENT_DATE
 	    </if>
 	    ORDER BY
 	    <choose>
@@ -71,10 +75,14 @@
 	        AND policyTypeNm LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
 	    <if test="selectedFilter == 'applyDate'">
-	        AND aplyPsbltyYn = 'Y'
+    		AND aplyBgngDt &lt;= CURRENT_DATE
+    		AND aplyEndDt &gt;= CURRENT_DATE
+	    </if>
+	    <if test="selectedFilter == 'futureApply'">
+    		AND aplyBgngDt &gt; CURRENT_DATE
 	    </if>
 	    <if test="selectedFilter == 'overDate'">
-	        AND aplyPsbltyYn = 'N'
+	        AND aplyEndDt &lt; CURRENT_DATE
 	    </if>
 	</select>
 	

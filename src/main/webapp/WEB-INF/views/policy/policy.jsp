@@ -177,15 +177,21 @@
 			</div>
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input"
-					<c:out value="${pageMaker.cri.selectedFilter == 'overDate'?'checked':'' }"/>
+					<c:out value="${pageMaker.cri.selectedFilter == 'futureApply'?'checked':'' }"/>
 					id="customCheck3"> <label class="custom-control-label"
-					for="customCheck3">신청마감</label>
+					for="customCheck3">모집예정</label>
+			</div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="form-check-input"
+					<c:out value="${pageMaker.cri.selectedFilter == 'overDate'?'checked':'' }"/>
+					id="customCheck4"> <label class="custom-control-label"
+					for="customCheck4">신청마감</label>
 			</div>
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="form-check-input"
 					<c:out value="${pageMaker.cri.selectedFilter == 'like'?'checked':'' }"/>
-					id="customCheck4"> <label class="custom-control-label"
-					for="customCheck4">좋아요 많은 순</label>
+					id="customCheck5"> <label class="custom-control-label"
+					for="customCheck5">좋아요 많은 순</label>
 			</div>
 		</div>
 		<div class="row g-4" id="policyContainer">
@@ -383,8 +389,10 @@ $(document).ready(function () {
 	   	    } else if ($("#customCheck2").is(":checked")) {
 	   	    	selectedFilter = "applyDate";
 	   	    } else if ($("#customCheck3").is(":checked")) {
-	   	    	selectedFilter = "overDate";
+	   	    	selectedFilter = "futureApply";
 	   	    } else if ($("#customCheck4").is(":checked")) {
+	   	    	selectedFilter = "overDate";
+	   	    } else if ($("#customCheck5").is(":checked")) {
 	   	    	selectedFilter = "like";
 	   	    }
 
@@ -551,11 +559,13 @@ $(document).ready(function () {
 		if((policy.aplyEndDt) === null || (policy.aplyEndDt) === "") {
             policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
         } 
-         else if ((policy.aplyEndDt) <= currentDate) {
+         else if ((policy.aplyEndDt) < currentDate) {
             policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
         } 
-        else if ((policy.aplyEndDt) > currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
+        else if (policy.aplyEndDt >= currentDate && policy.aplyBgngDt <= currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
             policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
+        }else if (policy.aplyBgngDt > currentDate){
+        	policyHtml +=  '<span class="policy_badge" style="background-color: DodgerBlue; ">모집예정</span>';
         }
 		
 		policyHtml += '</div>' + '</div>' + '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +
