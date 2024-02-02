@@ -72,7 +72,7 @@ public class WishController {
 	@ResponseBody
 	@RequestMapping(value = "/get", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<PolicyVO> get(Criteria cri){
-		List<PolicyVO> result =  wishService.getPage(cri);
+		List<PolicyVO> result =  wishService.getWishPage(cri);
 	
 		return result;
 	}
@@ -85,7 +85,7 @@ public class WishController {
 	@PostMapping("/del")
 	public void del(WishVO vo) {
 	    // 실제 삭제 작업
-	    wishService.delWish(vo);
+	    wishService.delBoard(vo);
 	    log.info("삭제완료");
 	}
 

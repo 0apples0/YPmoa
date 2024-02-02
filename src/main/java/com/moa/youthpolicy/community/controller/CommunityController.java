@@ -108,15 +108,15 @@ public class CommunityController {
 		communityVO.setWriter(user.getNick());
 		communityVO.setUserType(user.getUserType());
 	
-		communityService.write(communityVO);
+		communityService.writeBoard(communityVO);
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/community/community";
 	}	
 
 	//글 삭제
 	@PostMapping("/remove")
-	public String removePage(@RequestParam("bno") Integer bno, RedirectAttributes rttr) {
-	    if (communityService.removeBoard(bno)) {
+	public String removePage(CommunityVO vo, RedirectAttributes rttr) {
+	    if (communityService.delBoard(vo)) {
 	        rttr.addFlashAttribute("result", "success");
 	    }
 	    return "redirect:/community/community";
@@ -157,7 +157,7 @@ public class CommunityController {
 		vo.setContent(content);
 		vo.setRegion(region);
 		
-		if (communityService.modifyBoard(vo)) {
+		if (communityService.modBoard(vo)) {
 		rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/community/get?bno=" + bno;
@@ -218,7 +218,7 @@ public class CommunityController {
 	@ResponseBody
 	@PostMapping("/toggleLike")
 	public int toggleLike(CommunityVO vo) {
-		return communityService.likeToggle(vo).getLike();
+		return communityService.toggleLike(vo).getLike();
 	}
 
 	@ResponseBody

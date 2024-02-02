@@ -72,7 +72,7 @@ public class PolicyController {
 	
 	@PostMapping("/write")
 	public String writePolicy(PolicyVO vo) {
-		service.wirteBoard(vo);
+		service.writeBoard(vo);
 		return "redirect:/policy/policy";			
 	}
 	
@@ -87,7 +87,7 @@ public class PolicyController {
 	public String modify(PolicyVO vo) {
 		log.info(vo.getAplyBgngDt());
 		log.info(vo.getAplyEndDt());
-		service.modPolicy(vo);
+		service.modBoard(vo);
 		return "redirect:/policy/get?no="+vo.getNo();
 	}
 	
@@ -150,7 +150,7 @@ public class PolicyController {
 	@PostMapping("/toggleLike")
 	public int toggleLike(PolicyVO vo) {
 		log.info(vo);
-		return service.likeToggle(vo).getLike();
+		return service.toggleLike(vo).getLike();
 	}
 	
 	@ResponseBody

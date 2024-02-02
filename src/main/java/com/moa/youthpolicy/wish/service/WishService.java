@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class WishService implements BoardInterface {
+public class WishService implements BoardInterface<WishVO> {
 	
 	@Autowired
 	WishMapper mapper;
@@ -32,22 +32,30 @@ public class WishService implements BoardInterface {
 	PolicyMapper policyMapper;
 	
 	@Override
-	public <T> void delBoard(Class<T> board) {
-		// TODO Auto-generated methodf stub
-		
+	public boolean delBoard(WishVO vo) {
+		if (AuthUtil.isLogin()) {
+			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
+			log.info("wish 넘버 " + vo.getWishPolicy());
+			log.info("wish지우기" + wish);
+
+			mapper.delWish(wish);
+
+		}
+		return false;
 	}
 
 	@Override
-	public <T> void modBoard(Class<T> board) {
+	public boolean modBoard(WishVO board) {
 		// TODO Auto-generated ffmethod stub
-		
+		return false;
 	}	
 
-
-	
-
 	@Override
-	public List<PolicyVO> getPage(Criteria cri){
+	public List<WishVO> getPage(Criteria cri){
+		return null;
+	}
+	
+	public List<PolicyVO> getWishPage(Criteria cri){
 		List<PolicyVO> list = mapper.getWishList(cri);
 		cri.setAmount(8);
 		
@@ -94,17 +102,6 @@ public class WishService implements BoardInterface {
 	public List<PolicyVO> getWishList() {
 		List<PolicyVO> list = mapper.wishList();
 		return list;
-	}
-
-	public void delWish(WishVO vo) {
-		if (AuthUtil.isLogin()) {
-			WishVO wish = new WishVO(AuthUtil.getCurrentUserAccount(), vo.getWishPolicy());
-			log.info("wish 넘버 " + vo.getWishPolicy());
-			log.info("wish지우기" + wish);
-
-			mapper.delWish(wish);
-
-		}
 	}
 
 		public int wishAlarm(WishVO vo) {
