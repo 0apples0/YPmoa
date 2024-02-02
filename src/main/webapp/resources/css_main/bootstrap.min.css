@@ -7438,6 +7438,14 @@ button,
   left: 100% !important
 }
 
+.start-policy{
+	left: 87% !important
+}
+
+.top-policy{
+	top: 9% !important
+}
+
 .end-0 {
   right: 0 !important
 }
@@ -7745,6 +7753,10 @@ button,
   font-size: 20px;
 }
 
+.align-items-center_policy{
+	align-items: center !important;
+	padding-right: 10px;
+}
 
 
 .align-items-right{

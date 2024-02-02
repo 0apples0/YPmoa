@@ -539,24 +539,20 @@ function applyUserConditions(e) {
 				console.log(endDt);
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
 	    	        '<div class="rounded shadow overflow-hidden" >' +
-	    	        '<div class="position-relative overflow-hidden"  >' +
-	    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'"  alt="">'+
-	    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:21%; left:77%">' ;
+	    	        '<div class="position-relative policy_listImage"  >' +
+	    	        '<img class="img-fluid policy_image" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="">'+
+	    	        '<div class="position-absolute start-policy top-policy translate-middle d-flex align-items-center_policy">' ;
 
 	    	    if((policy.aplyEndDt)=== "마감일 상세 확인") {
 	    	        policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
 	    	    } 
 	    	    else if (endDt <= currentDate) {
-	    	        policyHtml +=  '<span class="policy_badge" style="background-color: green; left:25%;">모집마감</span>';
+	    	        policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
 	    	    } 
 	    	    else if (endDt > currentDate && policy.aplyEndDt !== null && policy.aplyEndDt !== "") {
-	    	        policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; left: 40%;">모집중</span>';
+	    	        policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
 	    	    }
 
-	
-	    	        
-	    	        
-	    	        
 	    	        policyHtml+= '</div>' + '</div>'+
 	    	        '<div class="p-4 mt-2">' +
 	    	        '<h5 class="fw-bold mb-4"><a href="/policy/get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +

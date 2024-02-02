@@ -534,25 +534,26 @@ $(document).ready(function () {
 		    	    
    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
    	        '<div class="rounded shadow overflow-hidden" >' +
-   	        '<div class="position-relative"  ">' +
-   	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="" >' +
+   	        '<div class="position-relative policy_listImage">' +
+   	        '<img class="img-fluid policy_image" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="" >' +
    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
    	        '</a>' +
-   	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:-150%;">' ;
+   	    	'</div>' +
+   	        '<div class="position-absolute start-policy top-policy translate-middle d-flex align-items-center_policy" >' ;
   	      
 		if((policy.aplyEndDt) === null || (policy.aplyEndDt) === "") {
             policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
         } 
          else if ((policy.aplyEndDt) <= currentDate) {
-            policyHtml +=  '<span class="policy_badge" style="background-color: green; left:25%;">모집마감</span>';
+            policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
         } 
         else if ((policy.aplyEndDt) > currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
-            policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; left: 40%;">모집중</span>';
+            policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
         }
 		
-		policyHtml += '</div>' + '</div>' + '</div>' + '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +
+		policyHtml += '</div>' + '</div>' + '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +
         '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
         '<div class="d-flex">'+ '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
         '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
