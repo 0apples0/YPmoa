@@ -34,7 +34,7 @@
 <!-- Booking Start -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-        <div class="bg-white shadow mobile_index_searchBox" style="padding: 35px;">
+        <div class="bg-white mobile_index_searchBox" style="padding: 35px; margin-top: 56px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.146);">
             <div class="row g-2 justify-content-center">
                 <div class="col-md-10">
                 <form action="/policy/indexsearch" method="post">
