@@ -533,9 +533,9 @@ $(document).ready(function () {
    	    var currentDate = new Date();
 		    	    
    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
-   	        '<div class="rounded shadow overflow-hidden">' +
-   	        '<div class="position-relative overflow-hidden" style="height: 276px;" >' +
-   	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="height: 100%; object-fit: cover;" alt="">' +
+   	        '<div class="rounded shadow overflow-hidden" >' +
+   	        '<div class="position-relative"  ">' +
+   	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="" >' +
    	        '<div class="position-absolute start-90 top-100 translate-middle d-flex align-items-center">' +
    	        '<a class="btn btn-square mx-1 toggleLink" href='+policy.no+'  data-target="policy_heart_' + index + '">' +
    	        '<img class="policy_heart" id="policy_heart_' + index + '" src="' + contextPath + '/resources/img/'+ imagePath +'" />' +
@@ -569,7 +569,6 @@ $(document).ready(function () {
 	        data: {bno: no},
 	        dataType: 'text', 
 	        success: function(response) {
-	            console.log(response);
 	            var imageUrl;
 
 	            // 정규식을 사용하여 img 태그 추출

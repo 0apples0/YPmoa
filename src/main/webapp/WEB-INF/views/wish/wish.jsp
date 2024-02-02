@@ -538,9 +538,9 @@ function applyUserConditions(e) {
 	    	    console.log(currentDate);
 				console.log(endDt);
 	    	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's" data-wish-policy="' + policy.no + '">' +
-	    	        '<div class="rounded shadow overflow-hidden">' +
-	    	        '<div class="position-relative overflow-hidden" style="height: 276px;">' +
-	    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="height: 100%; object-fit: cover;" alt="">'+
+	    	        '<div class="rounded shadow overflow-hidden" >' +
+	    	        '<div class="position-relative overflow-hidden"  >' +
+	    	        '<img class="img-fluid" src="' + contextPath + '/resources/save_img/'+ imageUrl +'"  alt="">'+
 	    	        '<div class="position-absolute translate-middle d-flex align-items-center" style="top:21%; left:77%">' ;
 
 	    	    if((policy.aplyEndDt)=== "마감일 상세 확인") {

@@ -162,19 +162,13 @@
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0">
                                         <h2>정책 상세</h2>
-                                        <input class="form-control" name="policyCnDtl">
                                     </div>
                                 </div>
                                 <div class="table_section padding_infor_info">
 
                                     <div class="table-responsive-sm">
                                         <table class="table commu_table policy_dt_table" >
-                                            <colgroup>
-                                                <col style="width: 14%">
-                                                <col style="width: 36%">
-                                                <col style="width: 14%">
-                                                <col style="width: 36%">
-                                            </colgroup>
+                                          
                                             <tbody>
                                                
                                                 <tr style="text-align: center;">

@@ -170,9 +170,6 @@ a:focus {
     width: 100%;
 }
 
-.container {
-    width: 100%;
-}
 
 .section_padding {
     padding: 80px 0 100px;
@@ -947,7 +944,7 @@ a[data-toggle="collapse"] {
     padding: 18px 25px 15px;
     float: left;
     width: 100%;
-    border-bottom: solid #f3f3f3 2px;
+    border-bottom: solid #e5e5e5 2px;
 }
 
 .heading1 {
