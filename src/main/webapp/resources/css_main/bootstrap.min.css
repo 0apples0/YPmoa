@@ -684,7 +684,7 @@ progress {
 }
 @media (min-width: 1200px) {
   .container-fluid{
-    width: 100%;
+    width: 90%;
   }
   .container,
   .container-sm,
@@ -7755,7 +7755,7 @@ button,
 
 .align-items-center_policy{
 	align-items: center !important;
-	padding-right: 10px;
+	padding-right: 17px;
 }
 
 
