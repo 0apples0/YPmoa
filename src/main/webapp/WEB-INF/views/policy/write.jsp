@@ -157,6 +157,37 @@
 
 
                         </div>
+                        
+                        <div class="col-md-12">
+						<div class="white_shd_a full margin_bottom_30">
+
+							<div class="full graph_head">
+								<div class="heading1 margin_0">
+									<h2>정책 상세</h2>
+								</div>
+							</div>
+
+							<div class="table_section padding_infor_info">
+
+								<div class="table-responsive-sm">
+									<table
+										class="table commu_table policy_dt_table policyWrite_table policyGet_table">
+										<tbody>
+
+											<tr>
+												<td colspan="4">
+												<textarea class="form-control"
+														name="policyCnDtl">${policy.policyCnDtl}</textarea></td>
+
+											</tr>
+
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
                         <div class="col-md-12">
                             <div class="white_shd_a full margin_bottom_30">
                                 <div class="full graph_head">

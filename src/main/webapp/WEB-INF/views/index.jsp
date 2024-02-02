@@ -7,27 +7,15 @@
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner1.png" alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-start justify-content-center">
-                    <div class="p-3" style="max-width: 1000px;">
-                        <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">신청하기</a>
-                        <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">상세보기</a>
-                    </div>
-                </div>
+             <a href="/policy/policy">
+                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
             </div>
             <div class="carousel-item">
             <a href="/community/community">
-                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner22.png" alt="Image"></a>
-
+                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
             </div>
             <div class="carousel-item">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner3.png" alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-end">
-                    <div class="p-3" style="max-width: 1000px;">
-                        <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">신청하기</a>
-                        <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">상세보기</a>
-                    </div>
-                </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
