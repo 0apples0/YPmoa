@@ -89,7 +89,6 @@
                                     <option value="건강">건강</option>
                                 </select>
                             </div>
-                            <!-- 저장하기 버튼 -->
                             <div class="col-md-auto">
                                 <button type="button" class="btn btn-primary" id="saveButton">저장하기</button>
                             </div>
