@@ -282,11 +282,19 @@
     var prevPhoneNumberValue = "";
 
 	function chkAndGoToWish(){
-		if(chkLogin()){
-			window.location.href = "/wish/wish";
-		}else{
-			alert("로그인 후 이용 가능한 서비스입니다.");
+		var userTypeValue = document.getElementsByName('chkUserType')[0].value;
+		
+
+		if(!chkLogin()){
+			alert("로그인이 필요한 서비스입니다.");
 			window.location.href = "/user/login";
+		}else{
+			if(userTypeValue==0){
+				alert("관리자는 이용할 수 없는 기능입니다.")
+			}else{
+				window.location.href = "/wish/wish";
+			}
+
 		}
 	}
 	function chkLogin() {
@@ -391,7 +399,7 @@
 		         }
 		     });	    	 
 	     }else{
-	    	 $("#wishList").html("<tr><td colspan='3'>로그인 후 이용 가능한 서비스입니다.<br></td></tr>");
+	    	 $("#wishList").html("<tr><td colspan='3'>로그인이 필요한 서비스입니다.<br></td></tr>");
 			 $("#wishList").closest('table').css('text-align', 'center');
 	     }
 
