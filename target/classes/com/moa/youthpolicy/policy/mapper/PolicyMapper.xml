@@ -181,8 +181,9 @@
 	
 	<update id="modBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO">
         UPDATE policy
-        SET aplyBgngDt = #{aplyBgngDt}, rgnSeNm = #{rgnSeNm},
-        policyCn = #{policyCn}, sprvsnInstNm = #{sprvsnInstNm}, policyTypeNm = #{policyTypeNm}, policyScl = #{policyScl},
+        SET aplyBgngDt = #{aplyBgngDt}, rgnSeNm = #{rgnSeNm}, policyNm = #{policyNm},
+        policyCn = #{policyCn}, sprvsnInstNm = #{sprvsnInstNm}, policyCnDtl = #{policyCnDtl},
+        policyEnq = #{policyEnq}, policyTypeNm = #{policyTypeNm}, policyScl = #{policyScl},
         aplyEndDt = #{aplyEndDt}, dtlLinkUrl = #{dtlLinkUrl}
         WHERE no = #{no}   
 	</update>
@@ -196,10 +197,10 @@
 	<insert id="writePolicy" parameterType="com.moa.youthpolicy.policy.domain.PolicyVO"
 		keyColumn="no" keyProperty="no" useGeneratedKeys="true">
 		INSERT INTO policy
-		(policyNm, rgnSeNm, sprvsnInstNm, policyTypeNm, policyCnDtl, aplyBgngDt, aplyEndDt
+		(policyNm, rgnSeNm, sprvsnInstNm, policyTypeNm, policyCnDtl, policyCn, aplyBgngDt, aplyEndDt
 		,policyScl , dtlLinkUrl, policyEnq)
-		values (#{policyNm}, #{rgnSeNm}, #{sprvsnInstNm} , #{policyTypeNm} , #{policyCnDtl}
-		, #{aplyBgngDt}, #{aplyEndDt}, #{dtlLinkUrl}, #{policyScl}, #{policyEnq})
+		values (#{policyNm}, #{rgnSeNm}, #{sprvsnInstNm} , #{policyTypeNm} , #{policyCnDtl}, #{policyCn}
+		, #{aplyBgngDt}, #{aplyEndDt}, #{policyScl}, #{dtlLinkUrl}, #{policyEnq})
 	</insert>
 	
 	<insert id="writePlicyBoard" parameterType="com.moa.youthpolicy.policy.domain.PolicyBoardVO">

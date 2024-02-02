@@ -53,6 +53,12 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
+                                                    <th scope="row">* 정책 이름</th>
+                                                    <td colspan="3">
+                                                       <input class="form-control" id="policyNm" name="policyNm" value="${policy.policyNm}"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <!-- policyCn-->
                                                     <th scope="row">정책 소개</th>
                                                     <td colspan="3">
@@ -65,29 +71,29 @@
                                                     <th scope="row">시행 지역</th>
                                                     <td>
                                                         <select class="form-select" name="rgnSeNm">
-                                                       	    <option value="경상북도" ${policy.policyCn == '경상북도' ? 'selected' : ''}>경상북도</option>
-														    <option value="경산시" ${policy.policyCn == '경산시' ? 'selected' : ''}>경산시</option>
-														    <option value="경주시" ${policy.policyCn == '경주시' ? 'selected' : ''}>경주시</option>
-														    <option value="구미시" ${policy.policyCn == '구미시' ? 'selected' : ''}>구미시</option>
-														    <option value="김천시" ${policy.policyCn == '김천시' ? 'selected' : ''}>김천시</option> 
-														    <option value="문경시" ${policy.policyCn == '문경시' ? 'selected' : ''}>문경시</option>
-														    <option value="상주시" ${policy.policyCn == '상주시' ? 'selected' : ''}>상주시</option>
-														    <option value="안동시" ${policy.policyCn == '안동시' ? 'selected' : ''}>안동시</option>
-														    <option value="영주시" ${policy.policyCn == '영주시' ? 'selected' : ''}>영주시</option>
-														    <option value="영천시" ${policy.policyCn == '영천시' ? 'selected' : ''}>영천시</option>
-														    <option value="포항시" ${policy.policyCn == '포항시' ? 'selected' : ''}>포항시</option>
-														    <option value="군위군" ${policy.policyCn == '군위군' ? 'selected' : ''}>군위군</option>
-														    <option value="봉화군" ${policy.policyCn == '봉화군' ? 'selected' : ''}>봉화군</option>
-														    <option value="성주군" ${policy.policyCn == '성주군' ? 'selected' : ''}>성주군</option>
-														    <option value="영덕군" ${policy.policyCn == '영덕군' ? 'selected' : ''}>영덕군</option>
-														    <option value="영양군" ${policy.policyCn == '영양군' ? 'selected' : ''}>영양군</option>
-														    <option value="예천군" ${policy.policyCn == '예천군' ? 'selected' : ''}>예천군</option>
-														    <option value="고령군" ${policy.policyCn == '고령군' ? 'selected' : ''}>고령군</option>
-														    <option value="청도군" ${policy.policyCn == '청도군' ? 'selected' : ''}>청도군</option>
-														    <option value="청송군" ${policy.policyCn == '청송군' ? 'selected' : ''}>청송군</option>
-														    <option value="칠곡군" ${policy.policyCn == '칠곡군' ? 'selected' : ''}>칠곡군</option>
-														    <option value="울진군" ${policy.policyCn == '울진군' ? 'selected' : ''}>울진군</option>
-														    <option value="의성군" ${policy.policyCn == '의성군' ? 'selected' : ''}>의성군</option>
+                                                       	    <option value="경상북도" ${policy.rgnSeNm == '경상북도' ? 'selected' : ''}>경상북도</option>
+														    <option value="경산시" ${policy.rgnSeNm == '경산시' ? 'selected' : ''}>경산시</option>
+														    <option value="경주시" ${policy.rgnSeNm == '경주시' ? 'selected' : ''}>경주시</option>
+														    <option value="구미시" ${policy.rgnSeNm == '구미시' ? 'selected' : ''}>구미시</option>
+														    <option value="김천시" ${policy.rgnSeNm == '김천시' ? 'selected' : ''}>김천시</option> 
+														    <option value="문경시" ${policy.rgnSeNm == '문경시' ? 'selected' : ''}>문경시</option>
+														    <option value="상주시" ${policy.rgnSeNm == '상주시' ? 'selected' : ''}>상주시</option>
+														    <option value="안동시" ${policy.rgnSeNm == '안동시' ? 'selected' : ''}>안동시</option>
+														    <option value="영주시" ${policy.rgnSeNm == '영주시' ? 'selected' : ''}>영주시</option>
+														    <option value="영천시" ${policy.rgnSeNm == '영천시' ? 'selected' : ''}>영천시</option>
+														    <option value="포항시" ${policy.rgnSeNm == '포항시' ? 'selected' : ''}>포항시</option>
+														    <option value="군위군" ${policy.rgnSeNm == '군위군' ? 'selected' : ''}>군위군</option>
+														    <option value="봉화군" ${policy.rgnSeNm == '봉화군' ? 'selected' : ''}>봉화군</option>
+														    <option value="성주군" ${policy.rgnSeNm == '성주군' ? 'selected' : ''}>성주군</option>
+														    <option value="영덕군" ${policy.rgnSeNm == '영덕군' ? 'selected' : ''}>영덕군</option>
+														    <option value="영양군" ${policy.rgnSeNm == '영양군' ? 'selected' : ''}>영양군</option>
+														    <option value="예천군" ${policy.rgnSeNm == '예천군' ? 'selected' : ''}>예천군</option>
+														    <option value="고령군" ${policy.rgnSeNm == '고령군' ? 'selected' : ''}>고령군</option>
+														    <option value="청도군" ${policy.rgnSeNm == '청도군' ? 'selected' : ''}>청도군</option>
+														    <option value="청송군" ${policy.rgnSeNm == '청송군' ? 'selected' : ''}>청송군</option>
+														    <option value="칠곡군" ${policy.rgnSeNm == '칠곡군' ? 'selected' : ''}>칠곡군</option>
+														    <option value="울진군" ${policy.rgnSeNm == '울진군' ? 'selected' : ''}>울진군</option>
+														    <option value="의성군" ${policy.rgnSeNm == '의성군' ? 'selected' : ''}>의성군</option>
                                                         </select>
                                                     </td>
                                                     <!-- operInstNm -->

@@ -116,10 +116,8 @@
 							                                <option value="건강">건강</option>
                                                         </select>
                                                     </td>
-                                                    <th scope="row">지원 대상</th>
-                                                    <td>
-                                                        <input class="form-control" name="policyCnDtl">
-                                                    </td>
+                                                    <th scope="row">지원규모</th>
+                                                    <td> <input class="form-control" name="policyScl"></td>
                                                 </tr>
 
 
@@ -134,19 +132,15 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <!-- policySd -->
-                                                    <th scope="row">지원규모</th>
-                                                    <td> <input class="form-control" name="policyScl"></td>
+                                                    <th scope="row">연락처</th>
+                                                    <td>
+                                                        <input class="form-control" name="policyEnq">
+                                                    </td>
                                                     <th scope="row">신청 사이트</th>
                                                     <td><input class="form-control" name="dtlLinkUrl">
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="row">연락처</th>
-                                                    <td colspan="3">
-                                                        <input class="form-control" name="policyEnq">
-                                                    </td>
-                                                </tr>
+
                                              
                                               
                                             </tbody>
