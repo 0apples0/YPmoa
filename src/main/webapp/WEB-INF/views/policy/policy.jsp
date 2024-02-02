@@ -557,7 +557,7 @@ $(document).ready(function () {
    	        '<div class="position-absolute start-policy top-policy translate-middle d-flex align-items-center_policy" >' ;
   	      
 		if((policy.aplyEndDt) === null || (policy.aplyEndDt) === "") {
-            policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
+            policyHtml += '<span class="policy_badge" style="background-color: red; ">별도확인</span>' ;
         } 
          else if ((policy.aplyEndDt) < currentDate) {
             policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
@@ -565,7 +565,7 @@ $(document).ready(function () {
         else if (policy.aplyEndDt >= currentDate && policy.aplyBgngDt <= currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
             policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
         }else if (policy.aplyBgngDt > currentDate){
-        	policyHtml +=  '<span class="policy_badge" style="background-color: DodgerBlue; ">모집예정</span>';
+        	policyHtml +=  '<span class="policy_badge" style="background-color: #d21eff; ">모집예정</span>';
         }
 		
 		policyHtml += '</div>' + '</div>' + '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +

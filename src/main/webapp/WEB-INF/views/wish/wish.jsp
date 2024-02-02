@@ -51,7 +51,7 @@
 
 					<div class="row  policy_row g-2">
 						<div class="col-md-auto">
-							<select class="form-select" name="rgnSeNm">
+							<select class="form-select"  id="selectRgnSeNm" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
 
@@ -109,7 +109,7 @@
 						</div>
 
 						<div class="col-md-auto">
-							<select class="form-select" name="policyTypeNm">
+							<select class="form-select" id="selectPolicyTypeNm" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
 								<option value="일자리 (창업)"
@@ -347,23 +347,28 @@ function applyUserConditions(e) {
     };
 	console.log(user);
     // 주소 선택
-    var addressSelect = document.getElementsByName("rgnSeNm")[0];
-    for (var i = 0; i < addressSelect.options.length; i++) {
-        if (addressSelect.options[i].value === user.address) {
-            addressSelect.options[i].selected = true;
-            break;
-        }
+    var addressSelect = document.getElementById("selectRgnSeNm");
+    if(addressSelect && addressSelect.tagName ==='SELECT'){
+	    for (var i = 0; i < addressSelect.options.length; i++) {
+	        if (addressSelect.options[i].value === user.address) {
+	            addressSelect.options[i].selected = true;
+	            break;
+	        }
+	    }
     }
 
     // 관심 분야 선택
-    var interestFieldSelect = document.getElementsByName("policyTypeNm")[0];
-    for (var j = 0; j < interestFieldSelect.options.length; j++) {
-        if (interestFieldSelect.options[j].value === user.interestField) {
-            interestFieldSelect.options[j].selected = true;
-            break;
-        }
+    var interestFieldSelect = document.getElementById("selectPolicyTypeNm");
+    if(interestFieldSelect && interestFieldSelect.tagName ==='SELECT'){
+	    for (var j = 0; j < interestFieldSelect.options.length; j++) {
+	        if (interestFieldSelect.options[j].value === user.interestField) {
+	            interestFieldSelect.options[j].selected = true;
+	            break;
+	        }
+	    }
     }
 }
+
         $(document).ready(function () {
         	
         	loadTableData();
@@ -460,7 +465,8 @@ function applyUserConditions(e) {
 			  	            // 이미지 URL 가져오는 비동기 작업을 수행
 			  	            getImageUrlFromServer(policy.no, function(imageUrl) {
 			  	                // 정책 정보에 이미지 URL 추가
-			  	                policy.aplyEndDt = formatDate(policy.aplyEndDt);
+			  	                // 여기용 policy.aplyEndDt = formatDate(policy.aplyEndDt);
+			  	                chkEndDt = formatDate(policy.aplyEndDt);
 			  	                // 요소를 순서대로 추가
 			  	                addPolicyToContainer(policy, index + 1, imageUrl);
 			  	                
@@ -519,7 +525,7 @@ function applyUserConditions(e) {
 	                var currentDate = new Date();
 	                currentDate.setHours(0, 0, 0, 0);
 	                // 날짜가 null이면서 현재 날짜보다 작거나 같으면 또는 상시모집인 경우 알림받기 버튼을 숨깁니다.
-	                if (!policy.aplyEndDt || policy.aplyEndDt.toLowerCase() === "마감일 상세 확인" || new Date(policy.aplyEndDt) < currentDate) {
+	                if (!policy.aplyEndDt || chkEndDt === "마감일 상세 확인" || policy.aplyEndDt < currentDate) {
 	                    $('[data-wish-policy="' + policy.no + '"] .wish_alarm').hide();
 	                }
 	            }
@@ -543,15 +549,19 @@ function applyUserConditions(e) {
 	    	        '<img class="img-fluid policy_image" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="">'+
 	    	        '<div class="position-absolute start-policy top-policy translate-middle d-flex align-items-center_policy">' ;
 
-	    	    if((policy.aplyEndDt)=== "마감일 상세 확인") {
-	    	        policyHtml += '<span class="policy_badge" style="background-color: red; ">마감일상세확인</span>' ;
-	    	    } 
-	    	    else if (endDt <= currentDate) {
-	    	        policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
-	    	    } 
-	    	    else if (endDt > currentDate && policy.aplyEndDt !== null && policy.aplyEndDt !== "") {
-	    	        policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
-	    	    }
+
+	    			if((policy.aplyEndDt) === null || (policy.aplyEndDt) === "") {
+	    	            policyHtml += '<span class="policy_badge" style="background-color: red; ">별도확인</span>' ;
+	    	        } 
+	    	         else if ((policy.aplyEndDt) < currentDate) {
+	    	            policyHtml +=  '<span class="policy_badge" style="background-color: green; ">모집마감</span>';
+	    	        } 
+	    	        else if (policy.aplyEndDt >= currentDate && policy.aplyBgngDt <= currentDate && (policy.aplyEndDt) != null && (policy.aplyEndDt != "")) {
+	    	            policyHtml +=  '<span class="policy_badge" style="background-color: hotpink; ">모집중</span>';
+	    	        }else if (policy.aplyBgngDt > currentDate){
+	    	        	policyHtml +=  '<span class="policy_badge" style="background-color: #d21eff; ">모집예정</span>';
+	    	        }
+
 
 	    	        policyHtml+= '</div>' + '</div>'+
 	    	        '<div class="p-4 mt-2">' +
@@ -560,10 +570,10 @@ function applyUserConditions(e) {
 	    	        '<div class="d-flex">'+
 	    	        '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' 
 	    	        
-	    	        if (policy.aplyEndDt !== "마감일 상세 확인") {
-	    	            policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + (policy.aplyEndDt) + '</small>';
+	    	        if (chkEndDt !== "마감일 상세 확인") {
+	    	            policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">신청마감일<br>' + formatDate(policy.aplyEndDt) + '</small>';
 	    	        }else{
-	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + (policy.aplyEndDt) + '</small>';
+	    	        	 policyHtml += '<small class="policy_startDate" style="margin-left:auto; text-align:right;">' + chkEndDt + '</small>';
 	    	        }
 	    	       
 	    	        policyHtml +=	
