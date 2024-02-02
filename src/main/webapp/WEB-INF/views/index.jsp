@@ -16,12 +16,9 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner22.png" alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-right justify-content-end">
-                    <div class="p-3" style="max-width: 1000px;">
-                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight" id="headerBtn">게시판 보기</a>
-                    </div>
-                </div>
+            <a href="/community/community">
+                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner22.png" alt="Image"></a>
+
             </div>
             <div class="carousel-item">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner3.png" alt="Image">

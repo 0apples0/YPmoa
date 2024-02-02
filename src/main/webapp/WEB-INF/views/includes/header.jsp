@@ -85,20 +85,20 @@
                 <c:choose>
 				<c:when test="${user ne null && user.userType == 0}">
 				    <div  id="admin_login_menu_box">
-                    <a href="/adminmenu/adminmenu"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
+                    <a href="/adminmenu/adminmenu" style="margin-right:8px"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
                     <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
                 	</div>
 				</c:when>
                 <c:when test="${user eq null && user.nick eq null}">
                 <div id="login_menu_box_guest">
-                    <a href="/user/login"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
+                    <a href="/user/login" style="margin-right:8px"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
                     <a href="/user/register"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
                 </div>
                 </c:when>
                 <c:otherwise>
                 <div id="login_menu_box">
-                    <a href="/wish/wish"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
-                       <p  id="notify_letter">알림 <span class="badge" hidden>new</span></p></a>
+                    <a href="/wish/wish" class="notify_letter"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
+                       알림 <span class="badge" hidden>new</span></a>
                     
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>

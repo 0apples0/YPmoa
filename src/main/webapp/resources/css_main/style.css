@@ -209,7 +209,7 @@
 
 
 #login_menu_box{
-    width: 100px;
+    width: 108px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -219,7 +219,7 @@
 }
 
 #admin_login_menu_box{
-    width: 142px;
+    width: 150px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -228,7 +228,7 @@
     padding-top: 42px;
 }
 #login_menu_box_guest{
-    width: 112px;
+    width: 121px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -253,8 +253,8 @@
     flex-basis: 40%; /* 두 번째, 세 번째 열 너비 설정 */
   }
 
-#login_letter,
-#register_letter {
+.login_letter,
+.register_letter {
   margin: 0; /* 기본 마진 제거 */
 }
 
@@ -300,8 +300,9 @@
 }
 
 
-#notify_letter{
+.notify_letter{
     width: 30px;
+    margin-right:8px;
 }
 
 #notify{
