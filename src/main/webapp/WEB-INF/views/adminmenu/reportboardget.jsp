@@ -267,7 +267,9 @@
             </div>
         </div>
         
-        
+	<form id="userTypeForm">
+		<input type="hidden" name="userType" value="${user.userType}">
+	</form>        
   
 <script>
 $(document).ready(function () {
@@ -302,6 +304,7 @@ $(document).ready(function () {
 		
 		// 제목 클릭 시 링크
 		row.off("click", ".titleLink").on("click", ".titleLink", function(e){
+			let chkuserType = $("#userTypeForm input[name='userType']").val();
 			e.preventDefault();
 			if(isdeleted == 0){ 
 				if(boardType === "T"){
@@ -309,11 +312,15 @@ $(document).ready(function () {
 				}else if(boardType === "S"){
 					window.location.href = "/suggest/get?bno="+bno;
 				}				
-			}else{ // 확인용 alert! 관리자(userType: 0)는 볼 수 있도록 변경 필요
-				alert("삭제된 게시글입니다.");
+			}else{
+				if(chkuserType==0){
+					if(boardType === "T"){
+						window.location.href = "/community/get?bno="+bno;
+					}else if(boardType === "S"){
+						window.location.href = "/suggest/get?bno="+bno;
+					}	
+				}
 			}
-
-    		
 		});
 		// 처리 버튼 클릭 시 삭제 완료 or 처리 완료 진행
 		row.off("click", ".board_deleteBtn").on("click", ".board_deleteBtn", function(e){
