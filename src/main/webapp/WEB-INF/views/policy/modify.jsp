@@ -255,7 +255,7 @@
 									<br>
 
 									<div>
-										<button type="submit" class="btn btn-primary">수정하기</button>
+										<button type="submit" class="btn btn-primary modiBtn">수정하기</button>
 										<a href="/policy/get?no=${policy.no }"><button
 												class="btn btn-warning">취소</button></a>
 

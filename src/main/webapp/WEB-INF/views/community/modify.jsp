@@ -82,7 +82,7 @@
 	                                </table>
 	                                <br>
 	                                <div>
-	                                    <button type="submit" class="btn btn-primary">수정하기</button>
+	                                    <button type="submit" class="btn btn-primary writeBtn">수정하기</button>
 	                                    <button type="button" class="btn btn-warning" onclick="history.back()">취소</button>
 	                                </div>
 	                            	<input type="hidden" id="bno" name="bno" value="${vo.bno}" />

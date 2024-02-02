@@ -177,7 +177,7 @@
 						<c:choose>
 		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1}">
 								<div class="col-md-auto policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning ">글쓰기</button>
+									<button id="writeBtn" class="btn btn-warning writeBtn">글쓰기</button>
 									<button id="gotoMineBtn" class="btn btn-warning">내글보기</button>
 								</div>
 								                      	  

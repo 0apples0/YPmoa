@@ -97,7 +97,7 @@
 	                                </table>
 	                                <br>
 	                                <div>
-	                                    <button type="submit" class="btn btn-primary">등록하기</button>
+	                                    <button type="submit" class="btn btn-primary writeBtn">등록하기</button>
 	                                    <button type="button" class="btn btn-warning" onclick="history.back()">취소</button>
 	                                 </div>
 	                             </div>

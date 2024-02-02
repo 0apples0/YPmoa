@@ -548,6 +548,22 @@
 }
 
 /*** policy ***/
+
+.listBtn{
+	margin-right: 4px;
+}
+
+.modifyBtn{
+	margin-right: 4px;
+}
+
+.regiBtn{
+	margin-right: 4px;
+}
+
+.modiBtn{
+	margin-right: 4px;
+}
 .policy_listImage{
 	position: relative; 
     width: 100%; 
@@ -792,6 +808,10 @@
     line-height: 1;
 }
 /*** suggest ***/
+.writeBtn{
+	margin-right: 4px;
+}
+
 .sug_input{
     width: 1200px !important;
 }

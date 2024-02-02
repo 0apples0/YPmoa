@@ -128,9 +128,9 @@
 									<div class="g-4 policyGet_letter">개</div>
 								</div>
 								<div class="commuGet_btn">
-									<a href="/policy/policy"><button class="btn btn-primary">목록</button></a>
+									<a href="/policy/policy"><button class="btn btn-primary listBtn">목록</button></a>
 									<c:if test="${user.userType == 0 }">
-										<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary">수정</button></a>
+										<a href="/policy/modify?no=${policy.no }"><button class="btn btn-primary modifyBtn">수정</button></a>
 										<button class="btn btn-warning" onclick="delPolicy()">삭제</button>
 									</c:if>
 								</div>

@@ -90,8 +90,8 @@
                                 </select>
                             </div>
                             <!-- 저장하기 버튼 -->
-                            <div class="col-md-3_b">
-                                <button type="button" class="btn btn-primary w-100" id="saveButton">저장하기</button>
+                            <div class="col-md-auto">
+                                <button type="button" class="btn btn-primary" id="saveButton">저장하기</button>
                             </div>
                         </div>
                     </div>
@@ -147,11 +147,11 @@
                                 </div>
                                 <!-- 수정완료, 비밀번호 변경, 초기화, 회원탈퇴 버튼 -->
                                 <div class="col-sm-12" id="regi_btn">
-                                    <button type="submit" class="btn btn-primary" id="mod_regiBtn">수정완료</button>
+                                    <button type="submit" class="btn btn-primary writeBtn" id="mod_regiBtn">수정완료</button>
                                     <% if(user.getPW() != null && user.getPW() != ""){ %>
-                                    <button type="button" class="btn btn-primary" id="modpw_regiBtn">비밀번호 변경</button>
+                                    <button type="button" class="btn btn-primary writeBtn" id="modpw_regiBtn">비밀번호 변경</button>
                                     <% } %>
-                                    <button type="reset" class="btn btn-primary">초기화</button>
+                                    <button type="reset" class="btn btn-primary writeBtn">초기화</button>
                                     <button type="button" class="btn btn-warning" id="user_delBtn">회원탈퇴</button>
                                 </div>
                             </div>

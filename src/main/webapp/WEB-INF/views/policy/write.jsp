@@ -184,7 +184,7 @@
                                         <br>
                                        
                                         <div>
-                                            <button type="button" onclick="validate()" class="btn btn-primary">등록하기</button>
+                                            <button type="button" onclick="validate()" class="btn btn-primary regiBtn">등록하기</button>
                                             <button class="btn btn-warning" onclick="getBack(event)">취소</button>
                                         </div>
                                      
