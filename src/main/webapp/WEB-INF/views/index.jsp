@@ -11,11 +11,12 @@
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
             </div>
             <div class="carousel-item">
-            <a href="/community/community">
+            <a href="/suggest/suggest">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
             </div>
             <div class="carousel-item">
-                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/banner3.png" alt="Image">
+              <a href="/community/community">
+                <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_꿀팁게시판.gif" alt="Image"></a>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
