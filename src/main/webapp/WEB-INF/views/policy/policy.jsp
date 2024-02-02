@@ -293,7 +293,7 @@ function applyUserConditions(e) {
 	console.log(email);
 	
 	if(email == null || email == ""){
-		alert("로그인 후 이용 가능한 서비스입니다.");
+		alert("로그인이 필요한 서비스입니다.");
 		return;
 	}
 	
@@ -397,13 +397,18 @@ $(document).ready(function () {
 		}
 	}); //체크박스 끝
 	
-		// 리스트 위시 버튼
+	// 리스트 위시 버튼
 	$(document).on("click", ".toggleLink", function(e) {
 		e.preventDefault();
 		userNick = $("#usernickForm input[name='writer']").val();
 		if(userNick == null || userNick==""){
-			alert("로그인 후 이용 가능한 서비스입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 		    return;
+		}else{
+			if($("#usernickForm input[name='userType']").val()==0){
+				alert("관리자는 이용할 수 없는 기능입니다.");
+				return;
+			}
 		}
 		
 		var $link = $(this).closest("a");

@@ -199,7 +199,7 @@
            window.location.href = "/user/login";
        } else {
            if(userTypeValue == 0){
-        	   alert("관리자는 이용할 수 없는 기능입니다.")
+        	   alert("관리자는 이용할 수 없는 기능입니다.");
            }else{
         	   window.location.href = "/user/mypage?Email=" + user_email;
            }
