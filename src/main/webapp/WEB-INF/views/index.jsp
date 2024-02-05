@@ -419,7 +419,7 @@
 		         url: "/wish/getfiveBoard",
 		         dataType: "json",
 		         success: function(data) {
-		             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+		             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가ㄹ
 		             processData_Wish(data);
 		         },
 		         error: function(error) {
