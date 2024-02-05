@@ -171,7 +171,7 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table class="table table-basic index_table_b" id="communityList" style="text-align:left;">
+                            <table class="table table-basic index_table_a" id="communityList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table class="table table-basic index_table_b" id="suggestList" style="text-align:left;">
+                            <table class="table table-basic index_table_a" id="suggestList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -457,7 +457,7 @@
 	    $.each(data, function(index, policy) {
 	    	policy.crtDt = formatDate(policy.crtDt);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 20; // 적절한 길이로 조절
+	        var maxTextLength = 27; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 	        var row = "<tr>" +
@@ -481,7 +481,7 @@
 			community.regDate = formatDate(community.regDate);
 	     	//community.regDate = formatDate(community.regDate);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 20; // 적절한 길이로 조절
+	        var maxTextLength = 28; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var communityTitleText = (community.title.length > maxTextLength) ? community.title.substring(0, maxTextLength) + '...' : community.title;
 	        var row = "<tr>" +
@@ -504,8 +504,7 @@
 	    $.each(data, function(index, policy) {
 		    policy.crtDt = formatDate(policy.crtDt);
 		    // 각 데이터에 대한 텍스트 길이 제한 
-			var maxTextLength = calculateMaxTextLength();  // 적절한 길이로 조절
-			console.log(maxTextLength);
+			   var maxTextLength = 28;  // 적절한 길이로 조절
 		    // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 		    var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 			var row = "<tr>" +
@@ -517,18 +516,7 @@
 		});
     }
 
-	function calculateMaxTextLength() {
-	    return (window.innerWidth <= 500) ? 10 : 20;
-	}
-
-	function updateTextLength() {
-	    var maxTextLength = calculateMaxTextLength();
-	    $("#wishList td.ellipsis a").each(function() {
-	        var text = $(this).text();
-	        var newText = (text.length > maxTextLength) ? text.substring(0, maxTextLength) + '...' : text;
-	        $(this).text(newText);
-	    });
-	}
+	
 	
 	
 	// 건의게시판 추가
@@ -542,7 +530,7 @@
 		$.each(data, function(index, suggest) {
 			suggest.regDate = formatDate(suggest.regDate);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 20; // 적절한 길이로 조절
+	        var maxTextLength = 28; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var suggestTitleText = (suggest.title.length > maxTextLength) ? suggest.title.substring(0, maxTextLength) + '...' : suggest.title;
 	        var row = "<tr>" +

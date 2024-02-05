@@ -695,7 +695,7 @@ progress {
   }
 }
 
-@media (min-width: 1450px) {
+@media (min-width: 1439px) {
   .container-fluid{
     width: 95%;
   }
