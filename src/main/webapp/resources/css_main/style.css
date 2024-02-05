@@ -45,15 +45,76 @@
 }
 
 /*** mobile ***/
-@media (max-width: 501.00px) {
+@media (max-width: 380.00px) {
+	.container-fluid{
+		width: 96% !important;
+	}
+	
+	/*** policy ***/
+	#login_banner{
+		margin-top: 0px !important;
+		height: 141px !important;
+	}
+	
+	
 	/*** board ***/
+	.navbar-dark .navbar-nav .nav-link{
+		padding: 8px !important;
+	}
+	#main_menu a {
+		font-size: 17px !important;
+	}
+	.bi-arrow-up{
+		padding-top: 5px !important;
+	}
+	.btn-lg-square{
+		width: 34px !important;
+		height: 34px !important;
+	}
+	.back-to-top_a{
+		right: 14px !important;
+	}
+	#main_menu{
+		padding-left: 6px !important;
+	}
+	#mini_heart {
+		width: 17px !important;
+	}
+	
+	.mini_board_title{
+		font-size: 17px !important;
+	}
+	.graph_head{
+		padding: 0px !important;
+	}
+	.index_miniboard {
+		min-height: 265px !important;
+	}	
+	.list_date{
+		width: 24% !important;
+	}
+	.mobile_board_a tbody tr td:first-child{
+		width: 20% !important;
+	}
+	.mobile_board tbody tr td, .mobile_board_a tbody tr td{
+		font-size: small !important;
+		padding-right: 0px !important;
+		padding-left: 0px !important;
+	}
+	
+	.mobile_board, .mobile_board_a{
+		padding: 0px !important;
+		padding-top: 10px !important;
+	}
 	#mini_title{
-		margin-bottom: 0px !important;
+		margin-bottom: 15px !important;
 		margin-top: 20px !important;
 	}
 
 	.mini_board_span {
-	 padding-top: 19px !important;
+	 padding-top: 7px !important;
+	 padding-bottom: 9px !important;
+	 font-size: small !important;
 	}
 	.index_miniboard{
 		box-shadow: none !important;
@@ -61,7 +122,7 @@
 	}
 	.mobile_boardtitle{
 		font-size: 30px !important;
-		padding-top: 0px !important;
+		padding-top: 7px !important;
 	}
 	
 	
