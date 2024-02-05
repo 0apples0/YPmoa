@@ -503,7 +503,7 @@
 	    }	
 	    $.each(data, function(index, policy) {
 		    policy.crtDt = formatDate(policy.crtDt);
-		    // 각 데이터에 대한 텍스트 길이 제한 
+		    // 각 데이터에 대한 텍스트 길이 제한 ㅋ
 			   var maxTextLength = 28;  // 적절한 길이로 조절
 		    // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 		    var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
