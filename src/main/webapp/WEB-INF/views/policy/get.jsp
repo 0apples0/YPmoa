@@ -97,6 +97,7 @@
 							</div>
 						</div>
 						<div class="table_section padding_infor_info">
+
 							<div class="table-responsive-sm">
 								<table class="table commu_table policy_dt_table policyGet_table">
 									<colgroup>
@@ -110,10 +111,50 @@
 											<td colspan="4">
 												<!-- policyCnDtl --> 
 												<pre class="font_light">${policy.policyCnDtl}</pre>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<br>
+							</div>
+						</div>						
+						<div class="full graph_head" id="policyTipbox1">
+							<div class="heading1 margin_0">
+								<h2>정책 팁</h2>
+							</div>
+						</div>
+						<div class="table_section padding_infor_info" id="policyTipbox2">
+
+							<div class="table-responsive-sm">
+								<table class="table commu_table policy_dt_table policyGet_table">
+									<colgroup>
+										<col style="width: 14%">
+										<col style="width: 36%">
+										<col style="width: 14%">
+										<col style="width: 36%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<td colspan="4">
+												<!-- policyCnDtl --> 
 												${policy.board.content }
 											</td>
 										</tr>
 									</tbody>
+								</table>
+								<br>
+							</div>
+						</div>
+						<div class="table_section padding_infor_info">
+
+							<div class="table-responsive-sm">
+								<table class="table commu_table policy_dt_table policyGet_table">
+									<colgroup>
+										<col style="width: 14%">
+										<col style="width: 36%">
+										<col style="width: 14%">
+										<col style="width: 36%">
+									</colgroup>
 								</table>
 								<br>
 								<div style="display: flex;" class="policyGet_likeBox">
@@ -135,6 +176,7 @@
 									</c:if>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -158,7 +200,7 @@
 						style="margin-left: 10px;">댓글 작성</button>
 				</div>
 				
-				<!-- 베스트댓글부분: 조아요10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
+				<!-- 베스트댓글부분: 좋아요 10개이상의 댓글을 띄워준다 해당댓글이 없을 땐 hide된다 -->
 				<div id="communityBestCommentDiv" class="col-md-12">
 					<div class="white_shd_a full" style="padding-bottom: 0px;">
 						<div class="table_section padding_infor_info" style="padding-bottom: 0px;">
@@ -178,7 +220,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- table seㅇction -->
+				<!-- table section -->
 				<div class="col-md-12">
 					<div class="white_shd_a full margin_bottom_30">
 						<div class="table_section padding_infor_info">
@@ -400,6 +442,9 @@
 <form id="usernickForm" action="/policy/policy" method="get">
 	<input type="hidden" name="writer" value="${user.nick}"> 
 </form>
+<form id="policyBoardContentForm">
+	<input type="hidden" name="policyBoardContent" value="${policy.board.content }" />	
+</form>
 
 
 <script>
@@ -490,7 +535,11 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 	$(document).ready(function() {
 		loadTableData();
 		loadBestCommentTableData();
-
+		var policyTipContent = $("#policyBoardContentForm input[name='policyBoardContent']").val();
+		if(policyTipContent=="" || policyTipContent==null){
+			$("#policyTipbox1").hide();
+			$("#policyTipbox2").hide();
+		}
 		// 위시 버튼 클릭 시 이미지 변경        	
 		let no = $("#actionForm input[name='no']").val();
 		function chkLogin() {

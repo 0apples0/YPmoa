@@ -130,12 +130,7 @@
 		)
 	</select>
 	
-	<!-- 
-	<select id="getCommentTotalCount" resultType="int" parameterType="PolicyBoardVO">
-		SELECT COUNT(cno) FROM policyboardcomments
-		WHERE bno=#{no}
-	</select>
-	 -->
+
 	<select id="getBestCommentList" resultType="PolicyCommentVO" parameterType="com.moa.youthpolicy.common.Criteria">
 		SELECT * FROM policyboardcomments
 		WHERE cno>0 AND bno=#{bno} AND `like`>=10
@@ -146,8 +141,13 @@
 	<select id="getReportComment" resultType="com.moa.youthpolicy.common.CommentsReportVO" parameterType="com.moa.youthpolicy.common.CommentsReportVO">
 		SELECT * FROM commentsreport
 		WHERE reporter = #{reporter} AND boardType = #{boardType}
-		    AND (boardType = "P" AND policycno = #{policycno})
-		    OR (boardType = "T" AND tipcno = #{tipcno});		    
+	    <if test="policycno != null and policycno != ''">
+	        AND (boardType = 'P' AND policycno = #{policycno})
+	    </if> 
+	    <if test="tipcno != null and tipcno != ''">
+	        AND (boardType = 'T' AND tipcno = #{tipcno})
+	    </if>	
+		    		    
 	</select>
 	
 	<select id="getLikeComment" resultType="com.moa.youthpolicy.common.LikeCommentVO" parameterType="com.moa.youthpolicy.common.LikeCommentVO">

@@ -167,7 +167,7 @@
 			</div>
 			<div class="modal-body" style="text-align:center;">임시비밀번호가 발급되었습니다.</div>
 			<div class="modal-body" style="text-align:center;"><span class="text-primary" id="tempPW"></span></div>
-			<div class="modal-body" style="text-align:center;">해당 비밀번호로 로그인 뒤 비밀번호를 변경해주세요.</div>
+			<div class="modal-body" style="text-align:center;">해당 비밀번호로 로그인하신 뒤 비밀번호를 변경해주세요.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" id="_loginBtn">로그인</button>
 				<button type="button" class="btn btn-secondary"
