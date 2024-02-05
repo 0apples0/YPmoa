@@ -305,7 +305,7 @@ function applyUserConditions(e) {
 	
 	e.preventDefault();
 	
-	if("${user.address}" == null && "${user.address}" == "" && "${user.interestField}" == ""){
+	if(("${user.address}" == null && "${user.address}" == null) || ("${user.address}" == "" && "${user.interestField}" == "")){
 		var confirmApplyConditions = confirm("맞춤조건을 적용하시겠습니까?");
         if (!confirmApplyConditions) {
             return; // 사용자가 취소한 경우 동작 중단
