@@ -443,7 +443,7 @@
 	<input type="hidden" name="writer" value="${user.nick}"> 
 </form>
 <form id="policyBoardContentForm">
-	<input type="hidden" name="policyBoardContent" value="${policy.board.content }" />	
+	<input type="hidden" name="policyBoardContent" value="${policy.board.content }">	
 </form>
 
 
@@ -535,11 +535,14 @@ $("#customCheck1, #customCheck2, #customCheck3, #customCheck4").on("change", fun
 	$(document).ready(function() {
 		loadTableData();
 		loadBestCommentTableData();
-		var policyTipContent = $("#policyBoardContentForm input[name='policyBoardContent']").val();
-		if(policyTipContent=="" || policyTipContent==null){
+		document.getElementById('policyBoardContentForm').style.display = 'none';
+		var policyTipContent = $("#policyBoardContentForm input[name='policyBoardContent']").val().trim();
+		var convertContent = policyTipContent.replace(/(<([^>]+)>)/ig,"");
+		if(convertContent=="" || convertContent==null){
 			$("#policyTipbox1").hide();
 			$("#policyTipbox2").hide();
 		}
+		
 		// 위시 버튼 클릭 시 이미지 변경        	
 		let no = $("#actionForm input[name='no']").val();
 		function chkLogin() {
