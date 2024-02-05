@@ -32,7 +32,7 @@
     </div>
 </div>
 <!-- Carousel End -->
-<!-- Booking Start -->
+<!-- Booking ㄹ -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
         <div class="bg-white mobile_index_searchBox" style="padding: 35px; margin-top: 56px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.146);">
