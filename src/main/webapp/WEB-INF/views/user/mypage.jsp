@@ -31,15 +31,11 @@
                         <div class="row g-2 mypage_select" style="justify-content: center;">
                             <!-- Address 선택 -->
                             <div class="col-md-3_b">
-                                <select class="form-select" name="address">
-                                    <c:choose>
-                                        <c:when test="${empty user.address}">
-                                            <option selected value="">지역선택</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${user.address}">${user.address}</option>
-                                        </c:otherwise>
-                                    </c:choose>
+                                <select class="form-select" name="address" id="addressSelect">
+                                    <c:if test="${not empty user.address or user.address!=''}">
+                                        <option value="${user.address}">${user.address}</option>
+                                    </c:if>
+                                    <option value="">지역선택</option>
                                     <option value="경상북도">경상북도</option>
                                     <option value="경산시">경산시</option>
                                     <option value="경주시">경주시</option>
@@ -68,15 +64,11 @@
                             </div>
                             <!-- Interest Field 선택ㄹ -->
                             <div class="col-md-3_b">
-                                <select class="form-select" name="interestField">
-                                    <c:choose>
-                                        <c:when test="${empty user.interestField}">
-                                            <option selected value="">관심분야</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${user.interestField}">${user.interestField}</option>
-                                        </c:otherwise>
-                                    </c:choose>
+                                <select class="form-select" name="interestField" id="interestSelect">
+                                    <c:if test="${not empty user.interestField or user.interestField!=''}">
+                                        <option value="${user.interestField}">${user.interestField}</option>
+                                    </c:if>
+                                    <option value="">관심분야</option>
                                     <option value="일자리 (창업)">일자리 (창업)</option>
                                     <option value="일자리 (취업)">일자리 (취업)</option>
                                     <option value="참여">참여</option>
@@ -90,6 +82,7 @@
                                 </select>
                             </div>
                             <div class="col-md-auto">
+                            	<button type="reset" class="btn btn-primary writeBtn" id="addressInterestResetBtn">초기화</button>
                                 <button type="button" class="btn btn-primary" id="saveButton">저장하기</button>
                             </div>
                         </div>
@@ -317,6 +310,14 @@ $(document).ready(function() {
     function disableRegisterButton() {
         $("#mod_regiBtn").prop("disabled", true);
     }
+    
+    // 초기화 버튼 클릭 시 실행되는 함수
+    $("#addressInterestResetBtn").on("click", function(e) {
+        e.preventDefault();
+        // '지역선택' 옵션을 선택
+        $("#addressSelect").val('');
+        $("#interestSelect").val('');
+    });
     
     // 저장하기 버튼
     $("#saveButton").on("click", function () {
