@@ -36,7 +36,7 @@
 				<form id="searchForm">
 					<div class="row  policy_row g-2">
 						<div class="col-md-auto mobile_policySearch1">
-							<select class="form-select" id="selectRgnSeNm" name="rgnSeNm">
+							<select class="form-select mobile_policyFilter" id="selectRgnSeNm" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
 								<option value="경상북도"
@@ -91,7 +91,7 @@
 						</div>
 						
 						<div class="col-md-auto mobile_policySearch1">
-							<select class="form-select" id="selectPolicyTypeNm" name="policyTypeNm">
+							<select class="form-select mobile_policyFilter" id="selectPolicyTypeNm" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
 								<option value="일자리 (창업)"
@@ -117,7 +117,7 @@
 							</select>
 						</div>
 						<div class="col-md-auto mobile_policySearch2">
-                            <select class="form-select" name="type">
+                            <select class="form-select mobile_policyFilter" name="type">
                                 <option value="" 
                                  	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
                                 <option value="T" 
@@ -128,20 +128,20 @@
                         </div>
                         <div class="col-md-3 mobile_policySearch3">
 							<input type="text"
-								class="form-control datetimepicker-input font_light"
+								class="form-control datetimepicker-input font_light mobile_policyFilter"
 								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
 						</div>
                         <div class="col-md-auto">
-							<button type="submit" id="searchBtn"  class="btn btn-primary w-100">검색하기</button>
+							<button type="submit" id="searchBtn"  class="btn btn-primary w-100 mobile_btn">검색하기</button>
 						</div>
 					</div>
 					
 					<div class="row g-2 justify-content-center policy_search_box">
 						<div class="col-md-auto mobile_policySearch4">
-							<button id="applyConditionsBtn" class="btn btn-warning w-100">내 맞춤조건 적용</button>
+							<button id="applyConditionsBtn" class="btn btn-warning w-100 mobile_btn">내 맞춤조건 적용</button>
 						</div>
 						<div class="col-md-auto mobile_policySearch5">
-							<button type="reset" class="btn btn-secondary ">초기화</button>
+							<button type="reset" class="btn btn-secondary mobile_btn">초기화</button>
 						</div>
 					</div>
 					<div class="row g-2 justify-content-center"></div>

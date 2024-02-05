@@ -50,7 +50,29 @@
 		width: 96% !important;
 	}
 	
-	/*** policfy ***/
+	/*** policy ***/
+	#login_h1{
+		padding-top: 26px !important;
+	}
+	.top-100 {
+		top: 107% !important;
+	}
+	.commu_page_nav {
+		font-size: 10px !important;
+	}
+	.policy_page_navbox li{
+		width: 26px !important;
+	}
+
+	.top-policy{
+		top: 11% !important;
+	}
+	.mobile_btn{
+		font-size: 14px !important;
+	}
+	.mobile_policyFilter{
+		font-size: small !important;
+	}
 	.mobile_policyDate{
 		font-size: 11px !important;
 	}
@@ -71,10 +93,10 @@
 		padding-top: 0px !important;
 	}
 	.mobile_policySearch5{
-		width:23% !important;
+		width:21% !important;
 	}
 	.mobile_policySearch4{
-		width: 77% !important;
+		width: 78% !important;
 	}
 	.policy_search_box{
 		padding-top: 8px !important;
@@ -94,7 +116,7 @@
 	}
 	#login_banner{
 		margin-top: 0px !important;
-		height: 141px !important;
+		height: 116px !important;
 	}
 	
 	.mobile_h1{
