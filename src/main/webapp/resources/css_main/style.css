@@ -95,6 +95,21 @@
 	}
 
 	/*** header ***/
+	.mobile_admin_logout{
+		width: 60px !important;
+	}
+	.mobile_admin_menu{
+		width: 59px !important;
+	}
+	.mobile_guest_regi{
+		width: 51px !important;
+	}
+	.mobile_guest_login{
+		width: 35px !important;
+	}
+	.mobile_logout{
+		width: 60px !important;
+	}
 	
 	.register_letter{
 		padding-top: 2px !important;
@@ -107,26 +122,26 @@
 		margin-right: 4px !important;
 	}
 	#login_menu_box{
-		width: 93px !important;
+		width: 94px !important;
 	}
 	#adminMenu_letter {
-		padding-top:2px !importnat;
+		padding-top:5px !important;
 	}
 	
 	#register_letter_guest{
 		font-size: small !important;
-		padding-top: 8px !important;
+		padding-top: 10px !important;
 	}
 	#register{
 		width: 23px !important;
-		padding-top: 6px !important;
+		padding-top: 7px !important;
 	}
 	
 	#login_letter{
 		font-size: small !important;
 	}
 	#login_menu_box_guest{
-		width: 106px !important;
+		width: 94px !important;
 	}
 	
 	#login{
@@ -136,7 +151,7 @@
 	
 	
 	#admin_login_menu_box{
-		width: 122px !important;
+		width: 124px !important;
 	}
 	.register_letter{
 		font-size: small !important;
@@ -172,7 +187,7 @@
 	
 	#nickname {
 		padding-right: 0px !important;
-		padding-top: 0px !important;
+		padding-top: 8px !important;
 	} 
 	
 	.mobile_logo{
@@ -332,7 +347,7 @@
 }
 
 #admin_login_menu_box{
-    width: 150px;
+    width: 147px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -341,7 +356,7 @@
     padding-top: 42px;
 }
 #login_menu_box_guest{
-    width: 121px;
+    width: 113px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;

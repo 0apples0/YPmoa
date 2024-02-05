@@ -85,14 +85,14 @@
                 <c:choose>
 				<c:when test="${user ne null && user.userType == 0}">
 				    <div  id="admin_login_menu_box">
-                    <a href="/adminmenu/adminmenu" style="margin-right:5px"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
-                    <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
+                    <a href="/adminmenu/adminmenu" class="mobile_admin_menu" style="margin-right:5px; width:71px;"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><span id="adminMenu_letter">관리자메뉴</span> </a>
+                    <a href="/user/logout" class="mobile_admin_logout" style="width:70px"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><span class="register_letter">로그아웃</span> </a>
                 	</div>
 				</c:when>
                 <c:when test="${user eq null && user.nick eq null}">
                 <div id="login_menu_box_guest">
-                    <a href="/user/login" style="margin-right:8px"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><p id="login_letter">로그인</p> </a>
-                    <a href="/user/register"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><p id="register_letter_guest">회원가입</p> </a>
+                    <a href="/user/login" class="mobile_guest_login" style="margin-right:8px; width:43px;"> <img src="${pageContext.request.contextPath}/resources/img/login.png" id="login" /><span id="login_letter">로그인</span> </a>
+                    <a href="/user/register" class="mobile_guest_regi" style="width:62px;"> <img src="${pageContext.request.contextPath}/resources/img/register.png" id="register" /><span id="register_letter_guest">회원가입</span> </a>
                 </div>
                 </c:when>
                 <c:otherwise>
@@ -100,8 +100,8 @@
                     <a href="/wish/wish" class="notify_letter"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
                        <span class="login_alarmLetter">알림</span> <span class="badge" hidden>new</span></a>
                     
-                  <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
-                        <p class="register_letter">로그아웃</p>
+                  <a href="/user/logout" class="mobile_logout" style="width:70px;"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
+                        <span class="register_letter">로그아웃</span>
                     </a>
                 </div>
                 </c:otherwise>
