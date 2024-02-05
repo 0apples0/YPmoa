@@ -83,12 +83,80 @@
 	}
 	
 	/*** banner ***/
+	
+	
+	#logout{
+		width: 29px !important;
+	}
+	
 	#header-carousel .carousel-item {
 		position: relative;
 		min-height: 164px !important;
 	}
 
 	/*** header ***/
+	
+	.register_letter{
+		padding-top: 2px !important;
+	}
+	.login_alarmLetter{
+		font-size: small !important;
+	}
+
+	.notify_letter{
+		margin-right: 4px !important;
+	}
+	#login_menu_box{
+		width: 93px !important;
+	}
+	#adminMenu_letter {
+		padding-top:2px !importnat;
+	}
+	
+	#register_letter_guest{
+		font-size: small !important;
+		padding-top: 8px !important;
+	}
+	#register{
+		width: 23px !important;
+		padding-top: 6px !important;
+	}
+	
+	#login_letter{
+		font-size: small !important;
+	}
+	#login_menu_box_guest{
+		width: 106px !important;
+	}
+	
+	#login{
+		width: 37px !important;	
+	}
+
+	
+	
+	#admin_login_menu_box{
+		width: 122px !important;
+	}
+	.register_letter{
+		font-size: small !important;
+	}
+	#adminMenu_letter{
+		font-size: small !important;
+	}
+	
+	#admin_logout{
+		width: 27px !important;
+	}
+	#adminMenu{
+		width: 25px !important;
+	}
+	
+	.mobile_logo_box{
+		width: 44% !important;
+		float: right !important;
+	}
+
 	.mobile_menu_first {
 		margin-left: 0px !important
 	}
@@ -129,8 +197,9 @@
 	}
 	
 	#notify{
+		width: 23px !important;
 		padding-bottom: 5px !important;
-		padding-top: 3px !important;
+		padding-top: 1px !important;
 	}
 	
 	.mobile_header .p-3{
@@ -887,7 +956,7 @@
 #reportReasonTable thead tr th:nth-child(4){
 	width: 6%
 }
-
+	
 #reportReasonTable thead tr th:nth-child(3){
 	width: 18%;
 	word-wrap : break-word;

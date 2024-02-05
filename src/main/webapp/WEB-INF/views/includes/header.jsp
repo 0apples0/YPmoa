@@ -59,7 +59,7 @@
         <!-- Header Start -->
         <div class="container-fluid bg-dark px-0">
             <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
+                <div class="col-lg-3 bg-dark d-lg-block mobile_logo_box">
                     <a href="${pageContext.request.contextPath}/"
                         class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                         <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
@@ -85,7 +85,7 @@
                 <c:choose>
 				<c:when test="${user ne null && user.userType == 0}">
 				    <div  id="admin_login_menu_box">
-                    <a href="/adminmenu/adminmenu" style="margin-right:8px"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
+                    <a href="/adminmenu/adminmenu" style="margin-right:5px"> <img src="${pageContext.request.contextPath}/resources/img/adminMenu.png" id="adminMenu" /><p id="adminMenu_letter">관리자메뉴</p> </a>
                     <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="admin_logout" /><p class="register_letter">로그아웃</p> </a>
                 	</div>
 				</c:when>
@@ -98,7 +98,7 @@
                 <c:otherwise>
                 <div id="login_menu_box">
                     <a href="/wish/wish" class="notify_letter"> <img src="${pageContext.request.contextPath}/resources/img/notify.png" id="notify" />
-                       알림 <span class="badge" hidden>new</span></a>
+                       <span class="login_alarmLetter">알림</span> <span class="badge" hidden>new</span></a>
                     
                   <a href="/user/logout"> <img src="${pageContext.request.contextPath}/resources/img/logout.png" id="logout" />
                         <p class="register_letter">로그아웃</p>
@@ -126,9 +126,9 @@
         </div>
         <div class="col-lg-12 mobile_header">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 mobile_logoBox">
-                <a href="/" class="navbar-brand d-block d-lg-none mobile_logo">
-                   <img src="${pageContext.request.contextPath}/resources/img/logo.svg" id="logo" />
-                </a>
+              	
+              	
+              	
                 <button type="button" class="navbar-toggler" >
                     <i class="fa fa-bars text-secondary"></i>
                 </button>
