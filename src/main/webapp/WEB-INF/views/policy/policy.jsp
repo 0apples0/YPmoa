@@ -18,7 +18,7 @@
 <!-- Page Header End -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
 	<h6 class="section-title text-center text-primary text-uppercase">Policy</h6>
-	<h1 class="mb-5"><i class="fa fa-file-contract text-primary"></i>
+	<h1 class="mb-5 mobile_h1"><i class="fa fa-file-contract text-primary"></i>
 		<span class="text-primary text-uppercase">정책</span> 둘러보기
 	</h1>
 </div>
@@ -26,17 +26,16 @@
 <div class="container-fluid mypage_booking pb-5 wow fadeIn"
 	data-wow-delay="0.1s">
 	<div class="container_search">
-		<div class="bg-white mypage_shadow" style="padding: 35px; padding-top:25px">
+		<div class="bg-white mypage_shadow mobile_policySearch" style="padding: 35px; padding-top:25px">
 			<div class="row g-2">
 				<h3 class=" text-center text-primary ">
 					상세검색<img id="policy_search"
 						src="${pageContext.request.contextPath}/resources/img/search.png" />
 				</h3>
 			</div>
-			<div class="row policy_row g-2">
 				<form id="searchForm">
 					<div class="row  policy_row g-2">
-						<div class="col-md-auto">
+						<div class="col-md-auto mobile_policySearch1">
 							<select class="form-select" id="selectRgnSeNm" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
@@ -91,7 +90,7 @@
 							</select>
 						</div>
 						
-						<div class="col-md-auto">
+						<div class="col-md-auto mobile_policySearch1">
 							<select class="form-select" id="selectPolicyTypeNm" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
@@ -117,7 +116,7 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '건강'?'selected':'' }"/>>건강</option>
 							</select>
 						</div>
-						<div class="col-md-auto">
+						<div class="col-md-auto mobile_policySearch2">
                             <select class="form-select" name="type">
                                 <option value="" 
                                  	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
@@ -127,7 +126,7 @@
                                  	<c:out value="${pageMaker.cri.type == 'C'?'selected':''}"/>>내용</option>  
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mobile_policySearch3">
 							<input type="text"
 								class="form-control datetimepicker-input font_light"
 								placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword == null?null:pageMaker.cri.keyword}"/>
@@ -138,10 +137,10 @@
 					</div>
 					
 					<div class="row g-2 justify-content-center policy_search_box">
-						<div class="col-md-auto">
+						<div class="col-md-auto mobile_policySearch4">
 							<button id="applyConditionsBtn" class="btn btn-warning w-100">내 맞춤조건 적용</button>
 						</div>
-						<div class="col-md-auto">
+						<div class="col-md-auto mobile_policySearch5">
 							<button type="reset" class="btn btn-secondary ">초기화</button>
 						</div>
 					</div>
@@ -152,10 +151,9 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 <!-- Booking End -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-5 mobile_contentBox">
 	<div class="container">
  		<div class="commuGet_btn policy_adminWrite">
 			<c:if test="${user.userType eq 0}">
@@ -545,7 +543,7 @@ $(document).ready(function () {
    	    var contextPath = "${pageContext.request.contextPath}"; // JSP 페이지에서 변수로 받아올 경우
    	    var currentDate = new Date();
 		    	    
-   	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="' + (0.1 * index) + 's">' +
+   	    var policyHtml = '<div class="col-lg-3 col-md-6 wow fadeInUp mobile_policyBox" data-wow-delay="' + (0.1 * index) + 's">' +
    	        '<div class="rounded shadow overflow-hidden" >' +
    	        '<div class="position-relative policy_listImage">' +
    	        '<img class="img-fluid policy_image" src="' + contextPath + '/resources/save_img/'+ imageUrl +'" style="width:100%" alt="" >' +
@@ -569,8 +567,8 @@ $(document).ready(function () {
         }
 		
 		policyHtml += '</div>' + '</div>' + '<div class="p-4 ' + policyDetailMargin + ' policy_detail">' +
-        '<h5 class="fw-bold mb-4"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
-        '<div class="d-flex">'+ '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
+        '<h5 class="fw-bold mb-4 mobile_policyTitle"><a href="get?no=' + policy.no + '" style="color:black;">' + displayPolicyName + '</a></h5>' +
+        '<div class="d-flex mobile_policyDate">'+ '<small class="policy_areaName" style="max-width:100px" >' + (policy.rgnSeNm) + '</small>' +
         '<small class="policy_startDate" style="margin-left:auto">' + (policy.crtDt) + '</small>' + // 날짜 부분만 표시
         '</div>'+ '</div>' + buttonHtml + '</div>';
 	

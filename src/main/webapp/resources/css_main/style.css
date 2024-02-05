@@ -51,9 +51,54 @@
 	}
 	
 	/*** policy ***/
+	.mobile_policyDate{
+		font-size: 11px !important;
+	}
+	.mobile_policyTitle{
+		font-size: 12px !important;
+		margin-bottom: 5px !important;
+	}
+	.policy_badge{
+		font-size: 10px !important;
+	}
+	.mobile_policyBox{
+		width: 50% !important;
+	}
+	#policy_checkbox{
+		font-size: 10px !important;
+	}
+	.mobile_contentBox{
+		padding-top: 0px !important;
+	}
+	.mobile_policySearch5{
+		width:23% !important;
+	}
+	.mobile_policySearch4{
+		width: 77% !important;
+	}
+	.policy_search_box{
+		padding-top: 8px !important;
+	}
+	.mobile_policySearch3{
+		width: 70% !important;
+	}
+	.mobile_policySearch2{
+		width: 30% !important;
+	}
+	.mobile_policySearch1{
+		width: 50% !important;
+	}
+	.mobile_policySearch{
+		box-shadow: none !important;
+		padding: 0px !important;
+	}
 	#login_banner{
 		margin-top: 0px !important;
 		height: 141px !important;
+	}
+	
+	.mobile_h1{
+		font-size: 23px !important;
 	}
 	
 	
