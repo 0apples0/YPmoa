@@ -351,10 +351,6 @@ function applyUserConditions(e) {
 	}
 	
 	
-	
-	
-	
-	
     // 사용자 정보 가져오기
     var user = {
         address: "${user.address}",
