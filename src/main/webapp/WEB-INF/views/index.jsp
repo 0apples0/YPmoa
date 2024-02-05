@@ -135,7 +135,7 @@
                             <span class="mini_board_title">나의 위시 정책</span>
                             <span class="mini_board_span"><a href="#" onclick="chkAndGoToWish()">더보기</a></span>
                     </div>
-                    <div class="table_section padding_infor_info" >
+                    <div class="table_section padding_infor_info mobile_board_a" >
                         <div class="table-responsive-sm">
                             <table class="table table-basic index_table_a" id="wishList" style="text-align:left;" >
                                 <tbody>
@@ -152,7 +152,7 @@
                         <span class="mini_board_title">정책정보</span>
                         <span class="mini_board_span"><a href="/policy/policy">더보기</a></span>
                     </div>
-                    <div class="table_section padding_infor_info">
+                    <div class="table_section padding_infor_info mobile_board_a">
                         <div class="table-responsive-sm">
                             <table class="table table-basic index_table_a" id="policy" style="text-align:left;">
                                 <tbody>
@@ -169,7 +169,7 @@
                         <span class="mini_board_title">꿀팁모음</span>
                         <span class="mini_board_span"><a href="/community/community">더보기</a></span>
                     </div>
-                    <div class="table_section padding_infor_info">
+                    <div class="table_section padding_infor_info mobile_board">
                         <div class="table-responsive-sm">
                             <table class="table table-basic index_table_a" id="communityList" style="text-align:left;">
                                 <tbody>
@@ -186,7 +186,7 @@
                         <span class="mini_board_title">정책건의</span>
                         <span class="mini_board_span"><a href="/suggest/suggest">더보기</a></span>
                     </div>
-                    <div class="table_section padding_infor_info">
+                    <div class="table_section padding_infor_info mobile_board">
                         <div class="table-responsive-sm">
                             <table class="table table-basic index_table_a" id="suggestList" style="text-align:left;">
                                 <tbody>
@@ -453,11 +453,14 @@
 			$("#policy").closest('table').css('text-align', 'center');
 			return;
 		}
+		
+		var windowWidth = $(window).width();
+	    var maxTextLength = (windowWidth <= 500) ? 17 : 27;
 	    // 테이블에 데이터 추가
 	    $.each(data, function(index, policy) {
 	    	policy.crtDt = formatDate(policy.crtDt);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 27; // 적절한 길이로 조절
+	       // var maxTextLength = 27; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 	        var row = "<tr>" +
@@ -476,12 +479,14 @@
 			$("#communityList").closest('table').css('text-align', 'center');
 			return;
 		}
+		var windowWidth = $(window).width();
+	    var maxTextLength = (windowWidth <= 500) ? 20 : 29;
+	    
 		// 테이블에 데이터 추가
 		$.each(data, function(index, community) {
 			community.regDate = formatDate(community.regDate);
 	     	//community.regDate = formatDate(community.regDate);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 28; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var communityTitleText = (community.title.length > maxTextLength) ? community.title.substring(0, maxTextLength) + '...' : community.title;
 	        var row = "<tr>" +
@@ -501,10 +506,14 @@
 		    $("#wishList").closest('table').css('text-align', 'center');
 		    return;
 	    }	
+	    
+	    var windowWidth = $(window).width();
+	    var maxTextLength = (windowWidth <= 500) ? 17 : 27;
+	    
 	    $.each(data, function(index, policy) {
 		    policy.crtDt = formatDate(policy.crtDt);
 		    // 각 데이터에 대한 텍스트 길이 제한 ㅋ
-			   var maxTextLength = 28;  // 적절한 길이로 조절
+			//   var maxTextLength = 28;  // 적절한 길이로 조절
 		    // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 		    var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 			var row = "<tr>" +
@@ -526,11 +535,12 @@
 			$("#suggestList").closest('table').css('text-align', 'center');
 			return;
 		}
+		var windowWidth = $(window).width();
+	    var maxTextLength = (windowWidth <= 500) ? 20 : 29;
 		// 테이블에 데이터 추가
 		$.each(data, function(index, suggest) {
 			suggest.regDate = formatDate(suggest.regDate);
 	        // 각 데이터에 대한 텍스트 길이 제한 
-	        var maxTextLength = 28; // 적절한 길이로 조절
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var suggestTitleText = (suggest.title.length > maxTextLength) ? suggest.title.substring(0, maxTextLength) + '...' : suggest.title;
 	        var row = "<tr>" +

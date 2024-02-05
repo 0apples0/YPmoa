@@ -45,15 +45,76 @@
 }
 
 /*** mobile ***/
-@media (max-width: 501.00px) {
+@media (max-width: 380.00px) {
+	.container-fluid{
+		width: 96% !important;
+	}
+	
+	/*** policy ***/
+	#login_banner{
+		margin-top: 0px !important;
+		height: 141px !important;
+	}
+	
+	
 	/*** board ***/
+	.navbar-dark .navbar-nav .nav-link{
+		padding: 8px !important;
+	}
+	#main_menu a {
+		font-size: 17px !important;
+	}
+	.bi-arrow-up{
+		padding-top: 5px !important;
+	}
+	.btn-lg-square{
+		width: 34px !important;
+		height: 34px !important;
+	}
+	.back-to-top_a{
+		right: 14px !important;
+	}
+	#main_menu{
+		padding-left: 6px !important;
+	}
+	#mini_heart {
+		width: 17px !important;
+	}
+	
+	.mini_board_title{
+		font-size: 17px !important;
+	}
+	.graph_head{
+		padding: 0px !important;
+	}
+	.index_miniboard {
+		min-height: 265px !important;
+	}	
+	.list_date{
+		width: 24% !important;
+	}
+	.mobile_board_a tbody tr td:first-child{
+		width: 20% !important;
+	}
+	.mobile_board tbody tr td, .mobile_board_a tbody tr td{
+		font-size: small !important;
+		padding-right: 0px !important;
+		padding-left: 0px !important;
+	}
+	
+	.mobile_board, .mobile_board_a{
+		padding: 0px !important;
+		padding-top: 10px !important;
+	}
 	#mini_title{
-		margin-bottom: 0px !important;
+		margin-bottom: 15px !important;
 		margin-top: 20px !important;
 	}
 
 	.mini_board_span {
-	 padding-top: 19px !important;
+	 padding-top: 7px !important;
+	 padding-bottom: 9px !important;
+	 font-size: small !important;
 	}
 	.index_miniboard{
 		box-shadow: none !important;
@@ -61,7 +122,7 @@
 	}
 	.mobile_boardtitle{
 		font-size: 30px !important;
-		padding-top: 0px !important;
+		padding-top: 7px !important;
 	}
 	
 	
@@ -83,12 +144,95 @@
 	}
 	
 	/*** banner ***/
+	
+	
+	#logout{
+		width: 29px !important;
+	}
+	
 	#header-carousel .carousel-item {
 		position: relative;
 		min-height: 164px !important;
 	}
 
 	/*** header ***/
+	.mobile_admin_logout{
+		width: 60px !important;
+	}
+	.mobile_admin_menu{
+		width: 59px !important;
+	}
+	.mobile_guest_regi{
+		width: 51px !important;
+	}
+	.mobile_guest_login{
+		width: 35px !important;
+	}
+	.mobile_logout{
+		width: 60px !important;
+	}
+	
+	.register_letter{
+		padding-top: 2px !important;
+	}
+	.login_alarmLetter{
+		font-size: small !important;
+	}
+
+	.notify_letter{
+		margin-right: 4px !important;
+	}
+	#login_menu_box{
+		width: 94px !important;
+	}
+	#adminMenu_letter {
+		padding-top:5px !important;
+	}
+	
+	#register_letter_guest{
+		font-size: small !important;
+		padding-top: 10px !important;
+	}
+	#register{
+		width: 23px !important;
+		padding-top: 7px !important;
+	}
+	
+	#login_letter{
+		font-size: small !important;
+	}
+	#login_menu_box_guest{
+		width: 94px !important;
+	}
+	
+	#login{
+		width: 37px !important;	
+	}
+
+	
+	
+	#admin_login_menu_box{
+		width: 124px !important;
+	}
+	.register_letter{
+		font-size: small !important;
+	}
+	#adminMenu_letter{
+		font-size: small !important;
+	}
+	
+	#admin_logout{
+		width: 27px !important;
+	}
+	#adminMenu{
+		width: 25px !important;
+	}
+	
+	.mobile_logo_box{
+		width: 44% !important;
+		float: right !important;
+	}
+
 	.mobile_menu_first {
 		margin-left: 0px !important
 	}
@@ -104,7 +248,7 @@
 	
 	#nickname {
 		padding-right: 0px !important;
-		padding-top: 0px !important;
+		padding-top: 8px !important;
 	} 
 	
 	.mobile_logo{
@@ -129,15 +273,16 @@
 	}
 	
 	#notify{
+		width: 23px !important;
 		padding-bottom: 5px !important;
-		padding-top: 3px !important;
+		padding-top: 1px !important;
 	}
 	
 	.mobile_header .p-3{
 		padding-top: 0px !important;
 	}
 	
-} /* 모바일 끝 */
+} /* 모바일 끝ㄹ */
 
 
 
@@ -263,7 +408,7 @@
 }
 
 #admin_login_menu_box{
-    width: 150px;
+    width: 147px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -272,7 +417,7 @@
     padding-top: 42px;
 }
 #login_menu_box_guest{
-    width: 121px;
+    width: 113px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -887,7 +1032,7 @@
 #reportReasonTable thead tr th:nth-child(4){
 	width: 6%
 }
-
+	
 #reportReasonTable thead tr th:nth-child(3){
 	width: 18%;
 	word-wrap : break-word;
