@@ -49,6 +49,88 @@
 	.container-fluid{
 		width: 96% !important;
 	}
+	/*** suggest ***/
+	.mobile_sugBadge{
+		margin-left: 3px !important;
+	}
+	.commu_like{
+		width: 15px !important;
+	}
+	#suggestBoardTable thead tr th:nth-child(4),
+	#communityBoardTable thead tr th:nth-child(4)
+	{
+		width: 12% !important;
+	}
+	#suggestBoardTable thead tr th:nth-child(5),
+	#communityBoardTable thead tr th:nth-child(5)
+	{
+		width: 17% !important;
+	}
+	#suggestBoardTable thead tr th:nth-child(6),
+	#communityBoardTable thead tr th:nth-child(6)
+	{
+		width: 6% !important;
+	}
+	#suggestBoardTable thead tr th:nth-child(2),
+	#communityBoardTable thead tr th:nth-child(2)
+	{
+		width: 38% !important;
+	}
+
+	
+	
+	#suggestBoardTable, #communityBoardTable{
+		font-size: 10px !important;
+	}
+	 #suggestBoardTable tbody tr td,
+	 #communityBoardTable tbody tr td,
+	 {
+	 	padding: 5px !important;
+	 }
+	#suggestBoardTable thead tr th,
+	#communityBoardTable thead tr th
+	{
+		padding: 0px !important;
+	}
+	.mobile_table_th{
+		display: none !important;
+	}
+	#suggestBoardTable tbody tr td:first-child, #suggestBoardTable tbody tr td:nth-child(2){
+		display: none !important;
+	}
+	
+	#communityBoardTable tbody tr td:first-child, #communityBoardTable tbody tr td:nth-child(2){
+		display: none !important;
+	}
+	
+	.mobile_suggestH1{
+		font-size: 12px !important;
+	}
+	
+	.mobile_policySearch_suggest{
+		width: 80% !important;
+	}
+	
+	.mobile_policySearch_suggest2{
+		width: 20% !important;
+	}
+	/*** policy Get ***/
+	.policyGet_title h1{
+		font-size: 25px !important;
+		text-align: center !important;
+	}
+	
+	.mobile_policyGetTable{
+		font-size: small;
+	}
+	.policyGet_title{
+		padding-bottom: 10px !important;
+	}
+	
+	.policy_get_heart{
+		width: 25px !important;
+	}
+	
 	
 	/*** policy ***/
 	#login_h1{
@@ -68,10 +150,10 @@
 		top: 11% !important;
 	}
 	.mobile_btn{
-		font-size: 14px !important;
+		font-size: 12px !important;
 	}
 	.mobile_policyFilter{
-		font-size: small !important;
+		font-size: 10px !important;
 	}
 	.mobile_policyDate{
 		font-size: 11px !important;
@@ -93,10 +175,10 @@
 		padding-top: 0px !important;
 	}
 	.mobile_policySearch5{
-		width:21% !important;
+		width:20% !important;
 	}
 	.mobile_policySearch4{
-		width: 78% !important;
+		width: 80% !important;
 	}
 	.policy_search_box{
 		padding-top: 8px !important;
@@ -194,6 +276,13 @@
 	
 	
 	/*** search ***/
+	.mobile_indexBestSearch{
+		font-size:large !important;
+	}
+	
+	#nickname{
+		font-size: small !important;
+	}
 	.mobile_fire{
 		width: 26px !important;
 	}

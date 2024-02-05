@@ -8,29 +8,28 @@
 <div class="container-fluid page-header mb-5 p-0">
     <div class="page-header-inner" id="login_banner">
         <div class="container text-center ">
-            <h1 class=" display-3 text-white mb-3 animated slideInDown" id="login_h1">Suggest</h1>
-            <p id="login_p">새로운 정책이나 기존 정책에 대한 의견을 자유롭게 나눠보세요!</p>
+            <h1 class=" display-3 text-white mb-3 animated slideInDown " id="login_h1">Suggest</h1>
+            <p class="mobile_suggestH1" id="login_p ">새로운 정책이나 기존 정책에 대한 의견을 자유롭게 나눠보세요!</p>
         </div>
     </div>
 </div>
 <!-- Page Header End -->
 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
     <h6 class="section-title text-center text-primary text-uppercase">Suggest</h6>
-    <h1 class="mb-5"><i class="fa fa-file-signature text-primary commu_pic"></i><span class="text-primary text-uppercase">정책</span> 건의</h1>
+    <h1 class="mb-5 mobile_h1"><i class="fa fa-file-signature text-primary commu_pic"></i><span class="text-primary text-uppercase">정책</span> 건의</h1>
 </div>
 <!-- Booking Start -->
 <div class="container-fluid mypage_booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container_search">
-        <div class="bg-white mypage_shadow" style="padding: 49px;">
+        <div class="bg-white mypage_shadow mobile_policySearch" style="padding: 49px;">
             <div class="row g-2">
                 <h3 class=" text-center text-primary ">상세검색<img id="policy_search"
                         src="${pageContext.request.contextPath}/resources/img/search.png" /></h3>
             </div>
             <form id="searchForm">
-                <div class="row policy_row g-2">
                     <div class="row policy_row g-2">
-                        <div class="col-md-auto">
-							<select class="form-select" name="rgnSeNm">
+                        <div class="col-md-auto mobile_policySearch1">
+							<select class="form-select mobile_policyFilter" name="rgnSeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.rgnSeNm == null? 'selected' : '' }"/>>지역선택</option>
 								<option value="경상북도"
@@ -83,8 +82,8 @@
 									<c:out value="${pageMaker.cri.rgnSeNm == '의성군'?'selected':'' }"/>>의성군</option>
 							</select>
                         </div>
-                        <div class="col-md-auto">
-							<select class="form-select" name="policyTypeNm">
+                        <div class="col-md-auto mobile_policySearch1">
+							<select class="form-select mobile_policyFilter" name="policyTypeNm">
 								<option value=""
 									<c:out value="${pageMaker.cri.policyTypeNm == null?'selected':'' }"/>>관심분야</option>
 								<option value="일자리 (창업)"
@@ -109,8 +108,8 @@
 									<c:out value="${pageMaker.cri.policyTypeNm == '건강'?'selected':'' }"/>>건강</option>
 							</select>
                         </div>
-                        <div class="col-md-auto">
-                           <select class="form-select" name="type">
+                        <div class="col-md-auto mobile_policySearch2">
+                           <select class="form-select mobile_policyFilter" name="type">
                             <option value="" 
                              	<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>전체</option>
                             <option value="T" 
@@ -121,18 +120,17 @@
                              	<c:out value="${pageMaker.cri.type == 'W'?'selected':''}"/>>작성자</option>
                            </select>
                         </div>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control datetimepicker-input font_light"
+                        <div class="col-md-3 mobile_policySearch3">
+                            <input type="text" class="form-control datetimepicker-input font_light mobile_policyFilter"
                                 placeholder="검색어를 입력하세요" name="keyword" value="${pageMaker.cri.keyword }"/>
                         </div>
-                        <div class="col-md-1_a ">
-                            <button type="submit" id="searchBtn" class="btn btn-primary w-100" >검색하기</button>
+                        <div class="col-md-1_a mobile_policySearch_suggest">
+                            <button type="submit" id="searchBtn" class="btn btn-primary w-100 mobile_btn" >검색하기</button>
                         </div>
-                        <div class="col-md-auto">
-                            <button type="reset" class="btn btn-secondary ">초기화</button>
+                        <div class="col-md-auto mobile_policySearch_suggest2">
+                            <button type="reset" class="btn btn-secondary mobile_btn">초기화</button>
                         </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>
@@ -158,8 +156,8 @@
 	                            <table id="suggestBoardTable" class="table table-default commu_table commu_table_a">
 	                                <thead>
 	                                	<tr>
-	                                        <th data-sort="area" style="width:5%;">지역</th>
-	                                        <th data-sort="category" style="width:8%;">건의분야</th>
+	                                        <th class="mobile_table_th" data-sort="area" style="width:5%;">지역</th>
+	                                        <th class="mobile_table_th" data-sort="category" style="width:8%;">건의분야</th>
 	                                        <th data-sort="title">제목</th>
 	                                        <th data-sort="author" style="width:10%;">작성자</th>
 	                                        <th data-sort="date" style="width:15%;">작성일</th>
@@ -177,14 +175,14 @@
 						<c:choose>
 		  					<c:when test = "${user ne null && user.nick ne null && user.userType == 1}">
 								<div class="col-md-auto policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning writeBtn">글쓰기</button>
-									<button id="gotoMineBtn" class="btn btn-warning">내글보기</button>
+									<button id="writeBtn" class="btn btn-warning writeBtn mobile_btn">글쓰기</button>
+									<button id="gotoMineBtn" class="btn btn-warning mobile_btn">내글보기</button>
 								</div>
 								                      	  
 							</c:when>
 		 					<c:otherwise>
 								<div class="col-md-auto policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning ">글쓰기</button>
+									<button id="writeBtn" class="btn btn-warning mobile_btn">글쓰기</button>
 								</div>	                        
 							</c:otherwise>
 						</c:choose>
@@ -418,21 +416,32 @@
 	                        row.append($("<td>").text(board.region));
 	                        row.append($("<td>").text(board.category));
 	                        let titleLink = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text(board.title);      
+	                        let titleLink_mobile = $("<a>").addClass("commu_title font_light").attr("href", "/suggest/get?bno="+board.bno).text("["+board.region+"/"+board.category+"]"+board.title);  
 	                        
-	                        let commentNm = $("<span>").addClass("board_commentNm").attr("data-bno", board.bno).text("");
 	                        
-	                        titleLink.append(commentNm);
-	                        
-	                        let newAlarm = $("<span>").addClass("badge_board").text("N").attr("hidden", true);
+	                        let newAlarm = $("<span>").addClass("badge_board mobile_sugBadge").text("N").attr("hidden", true);
 							addedBno.forEach(function(bno) {
 							    if (board.bno == bno) {
-							        newAlarm.attr("hidden", false);
+							    	let clonedNewAlarm = newAlarm.clone(true).css("margin-left", "5px"); // newAlarm을 복제하여 새로운 요소 생성
+							         clonedNewAlarm.removeAttr("hidden"); // 숨겨진 속성 제거하여 보이게 함
+							         titleLink.append(clonedNewAlarm); // titleLink에 새로운 newAlarm 추가
+							         titleLink_mobile.append(clonedNewAlarm.clone()); 
 							    }
 							});
 	                        
-							titleLink.append(newAlarm);
+					
 	                        
-							let titleTd = $("<td>").append(titleLink);
+							// let titleTd = $("<td>").append(titleLink);
+							
+							let titleTd = $("<td>");
+							
+							if (window.matchMedia("(max-width: 400px)").matches) {
+							    // 창의 너비가 400px 이하인 경우
+								titleTd.append(titleLink_mobile);
+							} else {
+							    // 창의 너비가 400px 초과인 경우
+								titleTd.append(titleLink);
+							}
 							
 	                        row.append(titleTd);
 	                        row.append($("<td>").text(board.writer));

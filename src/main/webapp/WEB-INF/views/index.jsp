@@ -42,7 +42,7 @@
                 <div class="row g-2">
                     		<div class="col-md-7 mobile_index_bestsearch" style="margin-bottom:10px; margin-left:10px; ">
                     		<img src="/resources/img/campfire.png" class="mobile_fire" style="width:30px; padding-bottom:10px"/>
-                    			<span style="font-size:larger">인기 검색어</span><span id="insertionPoint"></span>
+                    			<span class="mobile_indexBestSearch" style="font-size:larger">인기 검색어</span><span id="insertionPoint"></span>
                     			
                     			<a href="/policy/policy?type=C&keyword=중소기업">#<span>중소기업</span></a>
                     			<a href="/policy/policy?type=C&keyword=19세">#<span>19세</span></a>
@@ -54,8 +54,8 @@
                     	
                     	</div>
                    	 <div class="row g-2 justify-content-center">                    
-	                        <div class="col-md-3_a mobile_index_select">
-	                            <select class="form-select" name="rgnSeNm">
+	                        <div class="col-md-3_a mobile_index_select mobile_policySearch1">
+	                            <select class="form-select mobile_policyFilter" name="rgnSeNm">
 	                                <option value="" selected>지역선택</option>
 	                                <option value="경상북도">경상북도</option>
 	                                <option value="경산시">경산시</option> 
@@ -83,8 +83,8 @@
 	                                <option value="의성군">의성군</option>
 	                            </select>
 	                        </div>
-	                        <div class="col-md-3_a mobile_index_select" >
-	                            <select class="form-select" name="policyTypeNm">
+	                        <div class="col-md-3_a mobile_index_select mobile_policySearch1" >
+	                            <select class="form-select mobile_policyFilter" name="policyTypeNm">
 	                                <option selected value="">정책분야</option>
 	                                <option value="일자리 (창업)">일자리 (창업)</option>
 	                                <option value="일자리 (취업)">일자리 (취업)</option>
@@ -98,15 +98,15 @@
 	                                <option value="건강">건강</option>
 	                            </select>
 	                        </div>
-	                        <div class="col-md-5">
+	                        <div class="col-md-5 ">
 	                            <div>
-	                                <input type="text" class="form-control datetimepicker-input" style="  font-family: 'LINESeedKR-Bd_light';" 
+	                                <input type="text" class="form-control datetimepicker-input mobile_policyFilter" style="  font-family: 'LINESeedKR-Bd_light';" 
 	                                    placeholder="검색어 입력" data-target="#date2" data-toggle="datetimepicker" name="keyword"/>
 	                            </div>
 	                        </div>
 	                        <input type="hidden" name="pageNum" value=1>
 	                        <div class="col-md-2">
-	                    		<button type="submit" id="searchBtn" class="btn btn-primary w-100">정책검색</button>
+	                    		<button type="submit" id="searchBtn" class="btn btn-primary w-100 mobile_btn">정책검색</button>
 	                		</div>	                	
                     	</div>
                     	
