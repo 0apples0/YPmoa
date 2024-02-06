@@ -230,7 +230,7 @@
 
 							<div class="full graph_head">
 								<div class="heading1 margin_0">
-									<h2>정책 팁</h2>
+									<h2>상세 내용 추가</h2>
 								</div>
 							</div>
 
