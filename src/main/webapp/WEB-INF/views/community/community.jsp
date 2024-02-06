@@ -180,12 +180,12 @@
 									<button id="writeBtn" class="btn btn-warning">글쓰기</button>
 								</div>
 								<div class="col-md-auto policy_writeBtn" style="margin-right: 10px;">
-									<button id="gotoMineBtn" class="btn btn-warning ">내글보기</button>
+									<button id="gotoMineBtn" class="btn btn-warning mobile_btn">내글보기</button>
 								</div>	                       	  
 							</c:when>
 		 					<c:otherwise>
 								<div class="col-md-auto policy_writeBtn">
-									<button id="writeBtn" class="btn btn-warning">글쓰기</button>
+									<button id="writeBtn" class="btn btn-warning mobile_btn">글쓰기</button>
 								</div>	                        
 							</c:otherwise>
 						</c:choose>
