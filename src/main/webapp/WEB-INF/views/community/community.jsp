@@ -445,7 +445,7 @@
 							let newAlarm = $("<span>").addClass("badge_board mobile_sugBadge").text("N").attr("hidden", true);
 							addedBno.forEach(function(bno) {
 							    if (board.bno == bno) {
-							    	let clonedNewAlarm = newAlarm.clone(true).css("margin-left", "5px"); // newAlarm을 복제하여 새로운 요소 생성
+							    	let clonedNewAlarm = newAlarm.clone(true);// newAlarm을 복제하여 새로운 요소 생성
 							         clonedNewAlarm.removeAttr("hidden"); // 숨겨진 속성 제거하여 보이게 함
 							         titleLink.append(clonedNewAlarm); // titleLink에 새로운 newAlarm 추가
 							         titleLink_mobile.append(clonedNewAlarm.clone()); 
