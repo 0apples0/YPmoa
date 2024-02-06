@@ -171,7 +171,7 @@
                     </div>
                     <div class="table_section padding_infor_info mobile_board">
                         <div class="table-responsive-sm">
-                            <table class="table table-basic index_table_a" id="communityList" style="text-align:left;">
+                            <table class="table table-basic index_table_b" id="communityList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="table_section padding_infor_info mobile_board">
                         <div class="table-responsive-sm">
-                            <table class="table table-basic index_table_a" id="suggestList" style="text-align:left;">
+                            <table class="table table-basic index_table_b" id="suggestList" style="text-align:left;">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -518,7 +518,7 @@
 		    var policyNmText = (policy.policyNm.length > maxTextLength) ? policy.policyNm.substring(0, maxTextLength) + '...' : policy.policyNm;
 			var row = "<tr>" +
 						"<td class='mini_board_bold'>" + policy.rgnSeNm + "</td>" +
-		                "<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'	><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
+		                "<td class='ellipsis' id='mini_board_title'><a href='policy/get?no="+ policy.no +"' id='index_wish'>" + policyNmText + "</a></td>" +
 		                "<td class='list_date'>" + policy.crtDt + "</td>" +
 		                "</tr>";
 			$("#wishList").append(row);
@@ -544,7 +544,7 @@
 	        // 텍스트 길이가 maxTextLength보다 길면 말줄임표 추가
 	        var suggestTitleText = (suggest.title.length > maxTextLength) ? suggest.title.substring(0, maxTextLength) + '...' : suggest.title;
 	        var row = "<tr>" +
-						"<td class='ellipsis' id='mini_board_title' style='cursor:pointer;'><a href='suggest/get?bno="+ suggest.bno +"' id='index_wish'>" + suggestTitleText + "</a></td>" +
+						"<td class='ellipsis' id='mini_board_title'><a href='suggest/get?bno="+ suggest.bno +"' id='index_wish'>" + suggestTitleText + "</a></td>" +
 	                    "<td class='list_date'>" + suggest.regDate + "</td>" +
 	                  	"</tr>";
 			$("#suggestList").append(row);
