@@ -528,7 +528,7 @@
 	
 	
 	
-	// 건의게시판 추가
+	// 건의게시판 추가ㄹ
 		function processSuggestData(data) {
 		if (data.length === 0) {
 			$("#suggestList").html("<tr><td colspan='3'>건의 게시판이 비어있습니다.</td></tr>");
