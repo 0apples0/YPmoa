@@ -405,7 +405,6 @@
 		WHERE bno = #{bno}		
 	</update>
 
-	
 	<!-- 게시글 삭제 시 user table의 countReport값을 1 증가 -->
 	<update id="updateUserCountReport" parameterType="com.moa.youthpolicy.common.Criteria">
 	    UPDATE user
