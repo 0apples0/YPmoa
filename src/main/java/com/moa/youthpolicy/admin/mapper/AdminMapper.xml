@@ -523,7 +523,7 @@
 	            </when>
 	        </choose>
 	        WHERE 
-                boardType = #{boardType} AND bno = #{bno} AND cno = #{cno}
+                boardType = #{boardType} AND cno = #{cno}
 	    )
 	</update>
 	
