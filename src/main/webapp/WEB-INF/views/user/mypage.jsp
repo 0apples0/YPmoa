@@ -32,9 +32,6 @@
                             <!-- Address 선택 -->
                             <div class="col-md-3_b">
                                 <select class="form-select" name="address" id="addressSelect">
-                                    <c:if test="${not empty user.address or user.address!=''}">
-                                        <option value="${user.address}">${user.address}</option>
-                                    </c:if>
                                     <option value="">지역선택</option>
                                     <option value="경상북도">경상북도</option>
                                     <option value="경산시">경산시</option>
@@ -60,14 +57,12 @@
                                     <option value="울릉군">울릉군</option>
                                     <option value="울진군">울진군</option>
                                     <option value="의성군">의성군</option>
+                                    
                                 </select>
                             </div>
                             <!-- Interest Field 선택ㄹ -->
                             <div class="col-md-3_b">
                                 <select class="form-select" name="interestField" id="interestSelect">
-                                    <c:if test="${not empty user.interestField or user.interestField!=''}">
-                                        <option value="${user.interestField}">${user.interestField}</option>
-                                    </c:if>
                                     <option value="">관심분야</option>
                                     <option value="일자리 (창업)">일자리 (창업)</option>
                                     <option value="일자리 (취업)">일자리 (취업)</option>
@@ -79,6 +74,7 @@
                                     <option value="금융">금융</option>
                                     <option value="주택공급">주택공급</option>
                                     <option value="건강">건강</option>
+                                    
                                 </select>
                             </div>
                             <div class="col-md-auto">
@@ -166,6 +162,14 @@
 
 <script>	
 $(document).ready(function() {
+	
+    var addressSelect = document.getElementById("addressSelect");
+    addressSelect.value = "${user.address}";
+
+    // 관심분야 select 요소 초기화
+    var interestSelect = document.getElementById("interestSelect");
+    interestSelect.value = "${user.interestField}";
+    
 	$("#phoneValidation").hide();
 	$("#nickValidation").hide();
 	disableRegisterButton();
