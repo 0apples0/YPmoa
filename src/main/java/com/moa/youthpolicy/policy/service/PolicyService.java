@@ -56,13 +56,7 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 		return false;
 	}
 
-	/*
-	 * @Override public <T> T getBoard(Class<T> board) { // TODO Auto-generated
-	 * method stub return null; } /*
-	 * 
-	 * @Override public List<PolicyVO> getPage(Criteria cri) { List<PolicyVO> result
-	 * = mapper.getListWithPasing(cri); return result; }
-	 */
+
 	@Override
 	public List<PolicyVO> getPage(Criteria cri) {
 		List<PolicyVO> list = mapper.getListWithPasing(cri);
@@ -189,9 +183,9 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 	public PolicyCommentVO toggleCommentLike(PolicyCommentVO vo) {
 		String email = AuthUtil.getCurrentUserAccount();
 		LikeCommentVO like = new LikeCommentVO(email, vo.getCno());
-		LikeCommentVO _vo = mapper.getLikeComment(like); //likeCommentVO 1媛�
-		vo = mapper.getComment(vo); // policyCommentVO 1媛�
-		if(_vo != null) { //likeCommentVo媛� null�씠 �븘�땲�씪硫�
+		LikeCommentVO _vo = mapper.getLikeComment(like); //likeCommentVO
+		vo = mapper.getComment(vo); // policyCommentVO
+		if(_vo != null) { //likeCommentVo에 이미 좋아요 누른 이력이 존재한다면
 			mapper.delLikeComment(like);
 			vo.setLike(vo.getLike() - 1);
 		}else {
@@ -204,7 +198,7 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 
 	public int checkWriterUserType(CommentsReportVO vo) {
 		int result = mapper.chkUserType(vo);
-		log.info("���엯: "+result);
+		log.info("checkWriterUserType:"+result);
 		return result;
 	}
 

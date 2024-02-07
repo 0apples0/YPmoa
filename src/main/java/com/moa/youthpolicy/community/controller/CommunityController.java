@@ -212,7 +212,6 @@ public class CommunityController {
 		model.addAttribute("bestcommentvo", communityService.getBestCommentPage(cri));
 		
 		return communityService.getBestCommentPage(cri);
-	
 	}
 	
 	@ResponseBody
@@ -236,7 +235,6 @@ public class CommunityController {
 		return communityService.reportBoard(vo);
 	}
 	
-	
 	// 새글 알람
 	@ResponseBody
 	@GetMapping("/newAlarm")
@@ -244,8 +242,6 @@ public class CommunityController {
 		 List<Integer> response = communityService.newBoardAlarm();
 		 log.info("새글 번호: "+response);
 		return response;
-	
-		
 	}
 	
 	// 댓글 갯수 가져오기

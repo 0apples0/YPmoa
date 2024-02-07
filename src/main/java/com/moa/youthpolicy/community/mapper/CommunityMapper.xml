@@ -52,14 +52,6 @@
 	    <if test="policyTypeNm != null and policyTypeNm != ''">
 	        AND category LIKE CONCAT('%', #{policyTypeNm}, '%')
 	    </if>
-	
-		
-		<!--
-		<if test="type != null and type !='' and keyword !=null and keyword!=''">
-			AND ${type} LIKE CONCAT('%', #{keyword}, '%') 
-		</if>
-		-->
-		
 	</select>
 	
 	<select id="getListWithPaging" resultType="CommunityVO" parameterType="com.moa.youthpolicy.common.Criteria">

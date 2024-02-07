@@ -17,8 +17,6 @@ public class WishVO {
         this.wishUser = Email;
     }
     
-    
-
     public Integer getWishPolicy() {
         return wishPolicy;
     }

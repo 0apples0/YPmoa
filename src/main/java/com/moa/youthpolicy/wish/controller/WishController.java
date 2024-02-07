@@ -55,7 +55,6 @@ public class WishController {
 		log.info("알람: "+cri.getIsAlert());
 		UserVO user = (UserVO) session.getAttribute("user");
 		if(user == null) {
-			//model.addAttribute("alertLoginMessage", "로그인 후 이용 가능한 서비스입니다.");
 			return "redirect:/user/login";
 		}
 		cri.setAmount(8);
@@ -76,7 +75,6 @@ public class WishController {
 	
 		return result;
 	}
-
 
 
 	
@@ -122,10 +120,6 @@ public class WishController {
 		
 	}
 	
-   
-	
-	
-	
-	
+  
 	
 }

@@ -19,18 +19,13 @@ public class PageDTO {
 
 	// cri : 사용자가 선택한 값(request)
 	// total : DB에서 확인하는 값
-	// 위 두가지 값은 controller에서 전달해야함.
 	public PageDTO(Criteria cri, int total) {
 			this.cri = cri;
 			this.total = total;
-			/*
-				// 나눗셈 결과 올림처리
-				Math.round(); // 15/10.0 -> 1.5 -> 2 -> 결과적으로 10
-				// 페이징처리에서 많이 사용 
-		        // 특정 페이지 그룹을 현재 페이지가 속한 그룹으로 설정
-				Math.ceil(); // 15/10.0 -> 1.5 -> 2보다 큰 다음 정수인 3 -> 결과적으로 20
-			*/
-			// 현재 페이지 번호가 15라면 20을 반환
+
+		    // 특정 페이지 그룹을 현재 페이지가 속한 그룹으로 설정
+			// 나눗셈 결과 올림처리 
+			// 현재 페이지 번호가 15라면 20을 반환, Math.ceil() 사용
 			this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0)) * 10;
 			this.startPage = this.endPage-9;
 			

@@ -51,7 +51,7 @@ public class SuggestController {
 		log.info(total);		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		log.info("작성자 누구: "+cri.getWriter());
+		log.info("작성자 로그: "+cri.getWriter());
 	}
 	
 	// 게시글 상세보기 
@@ -142,7 +142,6 @@ public class SuggestController {
 	//글 삭제
 	@PostMapping("/remove")
 	public String removePage(SuggestVO vo, RedirectAttributes rttr) {
-		log.info("글 삭제 컨트롤러로 들어오긴 했니 ?");
 	    if (suggestService.delBoard(vo)) {
 	        rttr.addFlashAttribute("result", "success");
 	    }

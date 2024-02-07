@@ -143,13 +143,4 @@ public class WishService implements BoardInterface<WishVO> {
 
 	
 
-
-
-
-
-
-	
-
-
-
 }
