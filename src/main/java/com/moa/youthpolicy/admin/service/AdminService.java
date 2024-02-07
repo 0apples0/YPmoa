@@ -69,36 +69,6 @@ public class AdminService implements UserGenericService{
 		
 	}
 
-	@Override
-	public void modMember(UserVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void logOut(HttpSession session) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean logIn(UserVO vo, HttpSession session) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public UserVO getCurrentUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean updatePassword(UserVO user, String currentPassword, String newPassword) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	// 게시글 삭제, user 테이블 내 countReport 값 1 증가
 	public void delBoard(Criteria cri) {
 		adminMapper.delBoard(cri);

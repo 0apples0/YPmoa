@@ -36,7 +36,7 @@
         WHERE Email = #{Email} AND PW = #{currentPassword}
     </update>
     
-	<delete id="removeUser" parameterType="string">
+	<delete id="removeUser" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 	    DELETE FROM user WHERE Email = #{email}
 	</delete>
      

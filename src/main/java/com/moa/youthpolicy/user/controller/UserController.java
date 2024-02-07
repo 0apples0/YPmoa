@@ -57,7 +57,7 @@ public class UserController {
 	@PostMapping("/mypage")
 	public String update(@ModelAttribute UserVO vo, Model model) {
 		String email = vo.getEmail();
-		userService.modify(vo);
+		userService.modMember(vo);
 		return "redirect:/user/mypage?Email="+email;
 	}
 	
@@ -157,8 +157,7 @@ public class UserController {
 	public String remove(RedirectAttributes redirectAttributes, HttpServletRequest request) {
 	    UserVO currentUser = userService.getCurrentUser(request);
 	    if (currentUser != null) {
-	        String email = currentUser.getEmail();
-	        userService.removeUser(email);
+	        userService.delMember(currentUser);
 	        request.getSession().invalidate();
 	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
 	        return "redirect:/user/login";
