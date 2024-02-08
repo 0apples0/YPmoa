@@ -280,15 +280,13 @@ $(document).ready(function () {
 		    let bno = $(this).data("bno");
 		    // boardType 값을 가져오기
 		    let boardType = $(this).data("boardType"); 
-			if(isdeleted == 0){ 	
-				if(boardType === "T"){
-					window.location.href = "/community/get?bno="+bno;
-				}else if(boardType === "P"){
-					window.location.href = "/policy/get?no="+bno;
-				}				
-			}else{ // 확인용 alert! 관리자(userType: 0)는 볼 수 있도록 변경 필요
-				alert("삭제/처리완료 된 댓글입니다.");
-			}
+			// 신고된 댓글 클릭 시 해당 게시글로 이동
+			if(boardType === "T"){
+				window.location.href = "/community/get?bno="+bno;
+			}else if(boardType === "P"){
+				window.location.href = "/policy/get?no="+bno;
+			}				
+
 		});
 		
 		// 처리 버튼 클릭 시 삭제 완료 or 처리 완료 진행
