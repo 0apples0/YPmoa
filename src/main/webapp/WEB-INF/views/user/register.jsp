@@ -142,29 +142,6 @@
 </div>
 <!-- Booking End -->
 
-<!-- 맞춤 정보 이동 확인 모달 -->
-<div class="modal fade" tabindex="-1"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">맞춤 정보 설정</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-body">맞춤 정보를 설정하고 나에게 맞는 정책을 추천받아보세요!</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="confirmDeleteBtn">이동</button>
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">취소</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-
 
 <script>
     $(document).ready(function () {

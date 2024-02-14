@@ -233,6 +233,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/changeSessionValue")
+	public String changeSessionValue(HttpSession session) {
+		session.setAttribute("firstRegister", false); // 세션 값 변경
+		return "redirect:/";
+	}
+	
 	@ResponseBody
 	@PostMapping("/chkNickname")
 	public boolean chkID(@RequestParam String nick) {
