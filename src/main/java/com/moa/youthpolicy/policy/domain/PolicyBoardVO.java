@@ -11,5 +11,4 @@ public class PolicyBoardVO {
 	String imageName;
 	Character boardType;
 	Integer bno;
-	Integer view;
 }
