@@ -196,12 +196,4 @@ public class CommunityService implements BoardGenericService<CommunityVO>{
 	}
 	
 
-
-	
-
-
-
-
-
-
 }

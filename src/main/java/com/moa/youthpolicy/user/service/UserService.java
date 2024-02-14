@@ -78,7 +78,6 @@ public class UserService implements UserGenericService {
     }
     
     // 사용자 정보 가져오기
-    @Override
     public UserVO getCurrentUser() {
         return currentUser;
     }
@@ -92,7 +91,6 @@ public class UserService implements UserGenericService {
     }
 
     // 비밀번호 업데이트
-    @Override
     public boolean updatePassword(UserVO user, String currentPassword, String newPassword) {
 
         Map<String, Object> paramMap = new HashMap<>();
@@ -146,20 +144,9 @@ public class UserService implements UserGenericService {
 		return user;
 	}
 
-	public void modify(UserVO modifyUser) {
-		mapper.update(modifyUser);
-	}
 
-	// 회원탈퇴
-	public void removeUser(String email) {
-		mapper.removeUser(email);
-
-	}
 	
-	public void register(UserVO vo,HttpSession session) {		
-		if(vo.getPW() != null) {
-			vo.setPW(hashingPW(vo.getPW()));
-		}
+	public void register(UserVO vo,HttpSession session) {
 		log.info(vo.toString());
 		mapper.register(vo);
 		logIn(vo, session);
@@ -195,55 +182,23 @@ public class UserService implements UserGenericService {
 		return newPW;
 	}
 	
-	private String hashingPW(String pw) {
-//		encoder.encode(pw);
-		return pw;
-	}
-	
 	@Override
 	public void delMember(UserVO vo) {
-		// TODO Auto-generated method stub
-		
+		mapper.removeUser(vo.getEmail());
 	}
 
-	@Override
 	public void modMember(UserVO vo) {
-		// TODO Auto-generated method stub
-		
+		mapper.update(vo);
 	}
 
-	@Override
 	public void logOut(HttpSession session) {
 		session.removeAttribute("user");
 	}
-/*
-	@Override
-	public boolean logIn(UserVO vo, HttpSession session) {
-		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
-	    if(_vo!=null) { //일단 들어온 값이 있을 때 :구글 네이버 일반 다 포함
-	    	System.out.println("일단 로그인은 시작되었어");
-	    	
-			if (vo.getPW() != null && vo.getPW().equals(_vo.getPW())) { //pw가 있다면 << 일반 로그인 처리 추가해야함
-		        session.setAttribute("user", _vo);
-		        return true;
-		    }else if(vo.getPW() ==null && _vo.getPW() == null) {
-		    	session.setAttribute("user", _vo);
-		    	return true;
-		    }
-	    }
 
-	    return false;
-	    
-//		session.setAttribute("user", _vo);
-//		return true;
-		
-	}
-*/
-	@Override
 	public boolean logIn(UserVO vo, HttpSession session) {
 		UserVO _vo = mapper.selectUserByEmail(vo.getEmail());
 	    if(_vo!=null) { //일단 들어온 값이 있을 때 :구글 네이버 일반 다 포함
-	    	System.out.println("일단 로그인은 시작되었어");
+	    	System.out.println("로그인 시작");
 	    	int userT = chkUserType(_vo);
 	    	if(userT==0 || userT==1) {
 				if (vo.getPW() != null && vo.getPW().equals(_vo.getPW())) { //pw가 있다면 << 일반 로그인 처리 추가해야함
@@ -258,10 +213,7 @@ public class UserService implements UserGenericService {
 	    	}
 	    }
 	    return false;
-	    
-//		session.setAttribute("user", _vo);
-//		return true;
-		
+
 	}	
 	
 	public String getUri() {
@@ -352,7 +304,6 @@ public class UserService implements UserGenericService {
 	    uservo.setUserType(1);
 	    
 	    uservo.setName(name);
-	    //uservo.setNick(name);
 
 	    return uservo;
 	}
@@ -421,12 +372,10 @@ public class UserService implements UserGenericService {
     	
     	UserVO uservo = new UserVO();
     	uservo.setName(userResponse.getBody().get("name").toString());
-    	//uservo.setNick(userResponse.getBody().get("name").toString());
     	uservo.setEmail(userResponse.getBody().get("email").toString());
     	uservo.setUserType(1);
     	
     	System.out.println("user name: "+uservo.getName());
-    	//System.out.println("user nick: "+uservo.getNick());
     	System.out.println("user email: "+uservo.getEmail());
     	
 		return uservo;
@@ -442,12 +391,5 @@ public class UserService implements UserGenericService {
 		int usertype = mapper.chkUserType(vo);
 		return usertype;
 	}
-/*
-	public void addleaveUser(UserVO vo) {
-		mapper.addleaveUser(vo);
-		
-	}
-*/
-
 
 }

@@ -36,19 +36,9 @@
         WHERE Email = #{Email} AND PW = #{currentPassword}
     </update>
     
-	<delete id="removeUser" parameterType="string">
+	<delete id="removeUser" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 	    DELETE FROM user WHERE Email = #{email}
 	</delete>
-	
-	<!-- 탈퇴 회원 테이블에 별도 저장 --> 
-	<!-- 
-	<insert id="addleaveUser" parameterType="com.moa.youthpolicy.user.domain.UserVO">
-		INSERT INTO leaveuser
-		(Email, name, nick, phone, PW, countReport, address, interestField, userType, regDate, leaveDate)
-		VALUES(#{Email}, #{name}, #{nick}, #{phone}, #{PW}, #{countReport}, #{address}, #{interestField},
-				#{userType}, #{regDate}, CURRENT_TIMESTAMP)
-	</insert>
-     -->
      
    <!-- 전화번호 문자열로 변경 -->
     <select id="chkPhone" parameterType="java.lang.String" resultType="com.moa.youthpolicy.user.domain.UserVO">

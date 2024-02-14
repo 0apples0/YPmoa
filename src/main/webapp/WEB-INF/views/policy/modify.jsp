@@ -268,14 +268,9 @@
 
 						</div>
 					</div>
-
-										</div>
-
-
-
-
-									</div>
-									<!-- 글쓰기에디터 끝 --></form>
+				</div>
+			</div>
+			<!-- 글쓰기에디터 끝 --></form>
 			</div>
 
 		</div>
@@ -323,7 +318,6 @@
 											callbacks : {
 												onImageUpload : function(files,
 														editor, welEdit) {
-													//alert("^^");
 													//console.log('img upload: ', files);
 													//이미지를 첨부하면 배열로 인식된다.
 													//이것을 서버로 비동기식 통신을 하는 

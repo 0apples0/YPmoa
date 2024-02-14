@@ -146,9 +146,4 @@
     AND policy.aplyEndDt &lt;= DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY);
 </select>
 
-
-
-
-
-
 </mapper>

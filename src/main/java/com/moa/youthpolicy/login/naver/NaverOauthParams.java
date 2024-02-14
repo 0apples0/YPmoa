@@ -26,5 +26,4 @@ public class NaverOauthParams {
         return token_type;
     }
 
-    // 생성자, 다른 필요한 메서드 등도 필요한 경우 추가해 주세요.
 }

@@ -22,7 +22,6 @@ public interface UserMapper {
 	public UserVO getUserByEmail(String email);
 	public Object chkPW(UserVO vo);
 	public int chkUserType(UserVO vo);
-	//public void addleaveUser(UserVO vo); // 탈퇴회원 테이블에 저장
 	public String findUserID(UserVO vo); // 아이디 찾기
 	public UserVO chkCurrentUser(UserVO vo); // 임시 비밀번호 세팅 전 유저 정보 일치여부 체크
 	public void changeToTempPW(UserVO vo); // 임시 비밀번호 세팅

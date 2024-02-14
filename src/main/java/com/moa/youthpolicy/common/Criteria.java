@@ -75,10 +75,10 @@ public class Criteria {
 	
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
-		this.amount = amount;            // pageNum    start
+		this.amount = amount;            // pageNum    start (mapper에서 활용)
 		this.start = (pageNum-1)*amount; //    1   ->   0
-	}   // mapper에서 활용하는 방법 체크 //    2   ->   10
-	//    3   ->   20 
+	}   								 //    2   ->   10
+										 //    3   ->   20 
 
 	public int getStart() {
 		this.start = (this.pageNum-1)*this.amount;
@@ -97,10 +97,5 @@ public class Criteria {
 		
 	}
 
-	// 미션: 이 메서드를 사용하여 검색 기능 구현하기
-	// type의 value : TC(제목+내용) 검색 -> {'T','C'}
-	public String[] getTypeArr() {
-		return type == null? new String[] {} : type.split("");
-	}
-	
+
 }

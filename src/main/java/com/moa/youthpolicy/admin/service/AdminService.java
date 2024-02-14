@@ -53,50 +53,20 @@ public class AdminService implements UserGenericService{
 
 	public int getBoardTotalAmount(Criteria cri) {
 		int cnt = adminMapper.getBoardTotalCount(cri);
-		log.info("여까지 왔수다1");
+		log.info("---getBoardTotalAmount");
 		return cnt;
 	}
 	public List<AdminVO> getBoardPage(Criteria cri) {
-		log.info("여까지 왔수다");
+		log.info("---getBoardPage");
 		List<AdminVO> result = adminMapper.boardListWithPaging(cri);
 		log.info(result.toString());
 		return result;
 	}
 	@Override
 	public void delMember(UserVO vo) {
-		log.info("회원 탈퇴까지 왔어요");
+		log.info("---delMember");
 		adminMapper.delMember(vo);
 		
-	}
-
-	@Override
-	public void modMember(UserVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void logOut(HttpSession session) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean logIn(UserVO vo, HttpSession session) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public UserVO getCurrentUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean updatePassword(UserVO user, String currentPassword, String newPassword) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	// 게시글 삭제, user 테이블 내 countReport 값 1 증가
@@ -105,20 +75,20 @@ public class AdminService implements UserGenericService{
 
 		adminMapper.updateUserCountReport(cri);
 
-		log.info("크리"+cri.toString());
+		log.info("---delBoard criteria:"+cri.toString());
 
 	}
 	
 	// boardreport 테이블 내 ischecked 상태 업데이트 
 	public void updateBoardReport(Criteria cri) {
 		adminMapper.updateBoardReport(cri);
-		log.info("크리크리"+cri.toString());
+		log.info("---updateBoard criteria:"+cri.toString());
 	}
 
 	// 게시글 신고사유 모달에 담을 데이터 추출
 	public List<BoardReportVO> getBoardReportDetail(Criteria cri) {
 		List<BoardReportVO> reportvo = adminMapper.getBoardReportDetail(cri);
-		log.info("가지고 온 값!!"+reportvo.toString());
+		log.info("---reportDetail:"+reportvo.toString());
 		return reportvo;
 	}
 
@@ -126,19 +96,19 @@ public class AdminService implements UserGenericService{
 	public void deleteComment(Criteria cri) {
 		adminMapper.deleteComment(cri);
 		adminMapper.updateCommentCountReport(cri);
-		log.info("크리"+cri.toString());
+		log.info("---deleteComment criteria:"+cri.toString());
 	}
 
 	// commentreport 테이블 내 ischecked 상태 업데이트 
 	public void updateCommentReport(Criteria cri) {
 		adminMapper.updateCommentReport(cri);
-		log.info("크리크리"+cri.toString());
+		log.info("---updateComment criteria:"+cri.toString());
 	}
 
 	// 댓글 신고사유 모달에 담을 데이터 추출
 	public List<CommentsReportVO> getCommentReportDetail(Criteria cri) {
 		List<CommentsReportVO> reportvo = adminMapper.getCommentReportDetail(cri);
-		log.info("가지고 온 값!!"+reportvo.toString());
+		log.info("---commentreportDetail:"+reportvo.toString());
 		return reportvo;
 	}
 
