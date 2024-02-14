@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,22 @@ public class PolicyController {
 		return list;
 	}
 	
+	@ResponseBody
+	@PostMapping("/getBestPolicy")
+	public PolicyVO getBestPolicy(){
+		PolicyVO policyvo = service.getBestPolicy();
+		log.info("인기 말풍선:"+policyvo);
+		return policyvo;
+	}
+	
+	@ResponseBody
+	@PostMapping("/getCustomPolicy")
+	public PolicyVO getCustomPolicy(){
+		PolicyVO policyvo = service.getCustomPolicy();
+		log.info("맞춤 말풍선:"+policyvo);
+		return policyvo;
+	}
+	
 	@PostMapping("/modpolicy")
 	public String modify(PolicyVO vo) {
 		log.info(vo.getAplyBgngDt());
@@ -133,6 +150,7 @@ public class PolicyController {
 		log.info(service.getBoard(vo.getNo()));
 		//int total = service.getCommentTotalAmount(vo.getNo());
 		cri.setBno(vo.getNo());
+		service.increView(vo.getNo()); //조회수 증가
 		int total = service.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info(pageResult.toString());

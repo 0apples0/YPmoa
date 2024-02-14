@@ -720,7 +720,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 1;
+    
 }
 
 .carousel-control-prev,
@@ -782,6 +782,38 @@
 }
 
 /*** index ***/
+
+.carousel-caption_b{
+	top: 91px;
+	left: 793px;
+	
+}
+.bestPostLetter_member{
+	left: -183px !important;
+	font-size: 17px !important;
+	top: 27px !important;
+}
+.bestPostLetter{
+	z-index: 9999;
+	position: relative;
+	left: -156px;
+	top: 20px;
+	font-size: 15px;
+	color: white;
+}
+.carousel-caption_a{
+	  top: -96px !important;
+	  left: 673px !important;
+}
+#bestPost{
+	  width: 218px;
+	
+}
+
+#bestPost_member{
+	width: 275px;
+}
+
 
 .index_table_a tbody tr td:nth-child(2):hover,
 .index_table_b tbody tr td:nth-child(1):hover{

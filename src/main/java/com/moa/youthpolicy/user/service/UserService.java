@@ -149,6 +149,7 @@ public class UserService implements UserGenericService {
 	public void register(UserVO vo,HttpSession session) {
 		log.info(vo.toString());
 		mapper.register(vo);
+		session.setAttribute("firstRegister", true);
 		logIn(vo, session);
 	}
 	

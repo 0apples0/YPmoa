@@ -17,6 +17,7 @@ import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
 import com.moa.youthpolicy.policy.mapper.PolicyMapper;
+import com.moa.youthpolicy.user.domain.UserVO;
 import com.moa.youthpolicy.wish.domain.WishVO;
 import com.moa.youthpolicy.wish.mapper.WishMapper;
 
@@ -204,6 +205,25 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 
 	public String getUrl(int bno) {
 	    return mapper.getImageUrl(bno);
+	}
+
+	public void increView(Integer no) {
+		mapper.increView(no);
+	}
+
+	public PolicyVO getCustomPolicy() {
+		if(AuthUtil.isLogin()) {
+			UserVO user = AuthUtil.getCurrentUserEntitiy();
+			return mapper.getCustomPolicy(user);
+		}else {
+			return mapper.getCustomPolicy(null);
+		}
+		
+		
+	}
+
+	public PolicyVO getBestPolicy() {
+		return mapper.getBestPolicy();
 	}
 
 

@@ -9,7 +9,32 @@
             <div class="carousel-item active">
              <a href="/policy/policy">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
-            </div>
+               	  <div class="carousel-caption carousel-caption_a d-flex flex-column align-items-center justify-content-center">
+              		 <div class="p-3" style="max-width: 700px;">
+            			    <img class="py-md-3 px-md-5 me-3  " id="bestPost" src="${pageContext.request.contextPath}/resources/img/그림1.png" alt="Image">
+                   			  <a href="/policy/policy" >
+                   			  	<span class="bestPostLetter bestPostLetter_everyone">인기정책<br>바로가기<br>Click!</span>
+                   			  </a>
+                     </div>
+                  </div>
+				
+				<%-- 추천정책 말풍선 --%>
+				<div
+					class="carousel-caption carousel-caption_b d-flex flex-column align-items-center justify-content-center">
+					<div class="p-3" style="max-width: 700px;">
+					    <c:if test="${user!=null && ((user.address!=null && user.address!='') || (user.interestField!=null && user.interestField!=''))}">
+						<img class="py-md-3 px-md-5 me-3  " id="bestPost_member"
+							src="${pageContext.request.contextPath}/resources/img/그림2.png"
+							alt="Image"> <a href="/policy/policy"> <span
+							class="bestPostLetter bestPostLetter_member">추천정책<br>바로가기<br>Click!
+						</span>
+						</a>
+						</c:if>
+					</div>
+				</div>
+				<%-- 추천정책 말풍선 끝 --%>
+			</div>
+            
             <div class="carousel-item">
             <a href="/suggest/suggest">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
@@ -243,7 +268,25 @@
                 </div>
             </div>
         </div>
-        
+		<!-- 맞춤 정보 이동 확인 모달 -->
+		<div class="modal fade" tabindex="-1"
+			aria-hidden="true" id="gotoMyPageCustom">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">맞춤 정보 설정</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">회원가입이 완료되었습니다.<br>맞춤 정보를 설정하고 나에게 맞는 정책을 추천받아보세요!</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="gotoMyPage">이동</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">다음에하기</button>
+					</div>
+				</div>
+			</div>
+		</div>       
         <form id="usernickForm" action="/community/community" method="get">
            <input type="hidden" name="writer" value="${user.nick}">
            <input type="hidden" name="Email" value="${user.email}">
@@ -252,6 +295,7 @@
         </form>
 
 <!-- Modal End! -->
+
 
 <script type="text/javascript">
 	function formatDate(date) {
@@ -338,15 +382,77 @@
 		    backdrop: 'static',
 		    keyboard:false
 		});
+		$("#gotoMyPageCustom").modal({
+		    backdrop: 'static',
+		    keyboard:false
+		});		
 		
 		$("#nickValidation").hide(); // 닉네임 유효성 메시지 숨김
 		$("#phoneValidation").hide(); // 연락처 유효성 메시지 숨김
 		
+		var chkfirstRegister = <%=session.getAttribute("firstRegister")%>;
 		if("${user.email}" != "")
 		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "" && $("#usernickForm input[name='userType']").val() != 0)
 		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
 				$("#modalCenter").modal("show");
+				
+				$('#modalCenter').on('hidden.bs.modal', function () {
+					if(chkfirstRegister != null && chkfirstRegister == true){
+						$("#gotoMyPageCustom").modal("show");
+				        $("#gotoMyPage").on("click", function() {
+                            var Email = '${user.email}';
+						    $.ajax({
+						        type: "GET",
+						        url: "/user/changeSessionValue",
+						        success: function(response) {
+						            console.log("세션 값이 변경되었습니다.");
+						        },
+						        error: function(xhr, status, error) {
+						            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
+						        }
+						    });
+                            window.location.href = "/user/mypage?Email=" + Email;
+                        });
+						$('#gotoMyPageCustom').on('hidden.bs.modal', function () {
+						    $.ajax({
+						        type: "GET",
+						        url: "/user/changeSessionValue",
+						        success: function(response) {
+						            console.log("세션 값이 변경되었습니다.");
+						        },
+						        error: function(xhr, status, error) {
+						            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
+						        }
+						    });
+						});
+					}
+				});
+			}else{
+
+				if(chkfirstRegister != null && chkfirstRegister == true){
+					$("#gotoMyPageCustom").modal("show");
+			        $("#gotoMyPage").on("click", function() {
+                        var Email = '${user.email}';
+                        window.location.href = "/user/mypage?Email=" + Email;
+                    });
+					$('#gotoMyPageCustom').on('hidden.bs.modal', function () {
+					    $.ajax({
+					        type: "GET",
+					        url: "/user/changeSessionValue",
+					        success: function(response) {
+					            console.log("세션 값이 변경되었습니다.");
+					        },
+					        error: function(xhr, status, error) {
+					            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
+					        }
+					    });
+					});
+				}
+
 			}
+		
+		
+
 		
 		// 초기화 시 확인 버튼 상태 업데이트
 		enableOrDisableConfirmButton();
@@ -383,7 +489,41 @@
             $("#checkPhoneNumberBtn").prop("disabled", true);
         }
 		
-		
+	     // 맞춤조건, 조회수에 따른 정책글 가져오기
+	     
+	     $.ajax({
+	         type: "POST",
+	         url: "/policy/getCustomPolicy",
+	         dataType: "json",
+	         success: function(data) {
+	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+	             if(data!=null && data!=''){
+	 	        	var bestPostLink = $(".bestPostLetter_member").closest("a");
+		     		// href 속성 변경
+		     	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
+	             }
+	         },
+	         error: function(error) {
+	             $("#bestPost_member").hide();
+	             $(".bestPostLetter_member").css("display", "none");
+	             console.log("Error: " + error);
+	         }
+	     });
+	     
+	     // 조회수에 따른 인기정책글 가져오기
+	     $.ajax({
+	         type: "POST",
+	         url: "/policy/getBestPolicy",
+	         dataType: "json",
+	         success: function(data) {
+	        	var bestPostLink = $(".bestPostLetter_everyone").closest("a");
+	     		// href 속성 변경
+	     	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
+	         },
+	         error: function(error) {
+	             console.log("Error: " + error);
+	         }
+	     });
 		
 		
 	     // 정책모음 게시판 가져오기
@@ -438,7 +578,7 @@
 	         dataType: "json",
 	         success: function(data) {
 	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
-	             processSuggestData(data);
+	             processSuggestData(data);       
 	         },
 	         error: function(error) {
 	             console.log("Error: " + error);
@@ -446,6 +586,11 @@
 	     });
 	});
 
+	function processCustomDataForBanner(data){
+		var bestPostLink = $(".bestPostLetter").closest("a");
+		// href 속성 변경
+	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
+	}
 	// 정책모음 게시판 가져오기
 	function processData(data) {
 		if (data.length === 0) {

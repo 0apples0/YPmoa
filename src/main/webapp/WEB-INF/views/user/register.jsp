@@ -143,10 +143,6 @@
 <!-- Booking End -->
 
 
-
-
-
-
 <script>
     $(document).ready(function () {
         // 초기에 회원가입 버튼 비활성화
