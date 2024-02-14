@@ -9,14 +9,32 @@
             <div class="carousel-item active">
              <a href="/policy/policy">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_정책게시판.gif" alt="Image"></a>
+            		    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                               
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">인기글 보기</a>
+                            </div>
+                        </div>
             </div>
             <div class="carousel-item">
             <a href="/suggest/suggest">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
+                  <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                               
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">인기글 보기</a>
+                            </div>
+                        </div>
             </div>
             <div class="carousel-item">
               <a href="/community/community">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_꿀팁게시판.gif" alt="Image"></a>
+                  <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                               
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">인기글 보기</a>
+                            </div>
+                        </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
