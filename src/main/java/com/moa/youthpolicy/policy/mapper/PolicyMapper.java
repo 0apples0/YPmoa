@@ -43,4 +43,5 @@ public interface PolicyMapper {
 	public int chkUserType(CommentsReportVO vo);
 	 String getImageUrl(int bno);
 	public PolicyVO getCustomPolicy(UserVO user);
+	public PolicyVO getBestPolicy();
 }

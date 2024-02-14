@@ -13,31 +13,26 @@
               		 <div class="p-3" style="max-width: 700px;">
             			    <img class="py-md-3 px-md-5 me-3  " id="bestPost" src="${pageContext.request.contextPath}/resources/img/그림1.png" alt="Image">
                    			  <a href="/policy/policy" >
-                   			  	<c:choose>
-                   			  	<c:when test="${user!=null && ((user.address!=null && user.address!='') || (user.interestField!=null && user.interestField!=''))}">
-                   			  		<span class="bestPostLetter">추천정책<br>바로가기<br>Click!</span>
-                   			  	</c:when>
-                   			  	<c:otherwise>
-                   			  		<span class="bestPostLetter">인기정책<br>바로가기<br>Click!</span>
-                   			  	</c:otherwise>
-                   			  	</c:choose>
+                   			  	<span class="bestPostLetter bestPostLetter_everyone">인기정책<br>바로가기<br>Click!</span>
                    			  </a>
                      </div>
                   </div>
 				
-				<%-- 맞춤정책 말풍선 --%>
+				<%-- 추천정책 말풍선 --%>
 				<div
 					class="carousel-caption carousel-caption_b d-flex flex-column align-items-center justify-content-center">
 					<div class="p-3" style="max-width: 700px;">
+					    <c:if test="${user!=null && ((user.address!=null && user.address!='') || (user.interestField!=null && user.interestField!=''))}">
 						<img class="py-md-3 px-md-5 me-3  " id="bestPost_member"
 							src="${pageContext.request.contextPath}/resources/img/그림2.png"
 							alt="Image"> <a href="/policy/policy"> <span
-							class="bestPostLetter bestPostLetter_member">맞춤정책<br>바로가기<br>Click!
+							class="bestPostLetter bestPostLetter_member">추천정책<br>바로가기<br>Click!
 						</span>
 						</a>
+						</c:if>
 					</div>
 				</div>
-				<%-- 맞춤정책 말풍선 끝 --%>
+				<%-- 추천정책 말풍선 끝 --%>
 			</div>
            <!-- 
             <div class="carousel-item">
@@ -414,6 +409,7 @@
         }
 		
 	     // 맞춤조건, 조회수에 따른 정책글 가져오기
+	     
 	     $.ajax({
 	         type: "POST",
 	         url: "/policy/getCustomPolicy",
@@ -421,12 +417,29 @@
 	         success: function(data) {
 	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
 	             if(data!=null && data!=''){
-	            	 processCustomDataForBanner(data);
+	 	        	var bestPostLink = $(".bestPostLetter_member").closest("a");
+		     		// href 속성 변경
+		     	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
 	             }
 	         },
 	         error: function(error) {
-	             $("#bestPost").hide();
-	             $(".bestPostLetter").css("display", "none");
+	             $("#bestPost_member").hide();
+	             $(".bestPostLetter_member").css("display", "none");
+	             console.log("Error: " + error);
+	         }
+	     });
+	     
+	     // 조회수에 따른 인기정책글 가져오기
+	     $.ajax({
+	         type: "POST",
+	         url: "/policy/getBestPolicy",
+	         dataType: "json",
+	         success: function(data) {
+	        	var bestPostLink = $(".bestPostLetter_everyone").closest("a");
+	     		// href 속성 변경
+	     	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
+	         },
+	         error: function(error) {
 	             console.log("Error: " + error);
 	         }
 	     });

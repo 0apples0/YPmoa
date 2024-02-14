@@ -222,6 +222,10 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 		
 	}
 
+	public PolicyVO getBestPolicy() {
+		return mapper.getBestPolicy();
+	}
+
 
 
 }

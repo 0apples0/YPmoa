@@ -296,6 +296,7 @@
 		WHERE no=#{no}
 	</update>
 	
+	
 	<select id="getCustomPolicy" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.user.domain.UserVO">
 		SELECT * FROM policy
 		WHERE no>0
@@ -307,6 +308,15 @@
 				AND policyTypeNm = #{interestField}
 			</if>
 		</if>
+		AND aplyBgngDt &lt;= CURRENT_DATE
+    	AND aplyEndDt &gt;= CURRENT_DATE
+		ORDER BY view DESC, crtDt DESC
+		LIMIT 1
+	</select>
+	
+	<select id="getBestPolicy" resultType="com.moa.youthpolicy.policy.domain.PolicyVO">
+		SELECT * FROM policy
+		WHERE no>0
 		AND aplyBgngDt &lt;= CURRENT_DATE
     	AND aplyEndDt &gt;= CURRENT_DATE
 		ORDER BY view DESC, crtDt DESC

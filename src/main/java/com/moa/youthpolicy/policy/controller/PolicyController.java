@@ -85,10 +85,18 @@ public class PolicyController {
 	}
 	
 	@ResponseBody
+	@PostMapping("/getBestPolicy")
+	public PolicyVO getBestPolicy(){
+		PolicyVO policyvo = service.getBestPolicy();
+		log.info("인기 말풍선:"+policyvo);
+		return policyvo;
+	}
+	
+	@ResponseBody
 	@PostMapping("/getCustomPolicy")
 	public PolicyVO getCustomPolicy(){
 		PolicyVO policyvo = service.getCustomPolicy();
-		log.info("말풍선 가져온값:"+policyvo);
+		log.info("맞춤 말풍선:"+policyvo);
 		return policyvo;
 	}
 	
