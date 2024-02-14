@@ -782,6 +782,17 @@
 }
 
 /*** index ***/
+
+.carousel-caption_b{
+	top: 91px;
+	left: 793px;
+	
+}
+.bestPostLetter_member{
+	left: -183px !important;
+	font-size: 17px !important;
+	top: 27px !important;
+}
 .bestPostLetter{
 	z-index: 9999;
 	position: relative;
@@ -797,6 +808,10 @@
 #bestPost{
 	  width: 218px;
 	
+}
+
+#bestPost_member{
+	width: 275px;
 }
 
 

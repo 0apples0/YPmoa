@@ -23,9 +23,23 @@
                    			  	</c:choose>
                    			  </a>
                      </div>
-                  </div>	
-            </div>
-           
+                  </div>
+				
+				<%-- 맞춤정책 말풍선 --%>
+				<div
+					class="carousel-caption carousel-caption_b d-flex flex-column align-items-center justify-content-center">
+					<div class="p-3" style="max-width: 700px;">
+						<img class="py-md-3 px-md-5 me-3  " id="bestPost_member"
+							src="${pageContext.request.contextPath}/resources/img/그림2.png"
+							alt="Image"> <a href="/policy/policy"> <span
+							class="bestPostLetter bestPostLetter_member">맞춤정책<br>바로가기<br>Click!
+						</span>
+						</a>
+					</div>
+				</div>
+				<%-- 맞춤정책 말풍선 끝 --%>
+			</div>
+           <!-- 
             <div class="carousel-item">
             <a href="/suggest/suggest">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
@@ -33,7 +47,7 @@
             <div class="carousel-item">
               <a href="/community/community">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_꿀팁게시판.gif" alt="Image"></a>
-            </div>
+            </div> -->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
             data-bs-slide="prev">
