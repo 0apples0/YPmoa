@@ -9,6 +9,7 @@ import com.moa.youthpolicy.common.LikeCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyBoardVO;
 import com.moa.youthpolicy.policy.domain.PolicyCommentVO;
 import com.moa.youthpolicy.policy.domain.PolicyVO;
+import com.moa.youthpolicy.user.domain.UserVO;
 
 public interface PolicyMapper {
 	public List<PolicyVO> getfiveboard();	
@@ -40,5 +41,6 @@ public interface PolicyMapper {
 	public void modLikeComment(PolicyCommentVO vo);
 	public PolicyCommentVO getComment(PolicyCommentVO vo);
 	public int chkUserType(CommentsReportVO vo);
-	 String getImageUrl(int bno);	
+	 String getImageUrl(int bno);
+	public PolicyVO getCustomPolicy(UserVO user);
 }

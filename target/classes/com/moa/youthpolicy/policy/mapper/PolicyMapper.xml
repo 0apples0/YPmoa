@@ -295,6 +295,23 @@
 		SET view=view+1
 		WHERE no=#{no}
 	</update>
+	
+	<select id="getCustomPolicy" resultType="com.moa.youthpolicy.policy.domain.PolicyVO" parameterType="com.moa.youthpolicy.user.domain.UserVO">
+		SELECT * FROM policy
+		WHERE no>0
+		<if test="Email!=null">
+			<if test="address!=null and address!=''">
+				AND rgnSeNm = #{address}
+			</if>
+			<if test="interestField!=null and interestField!=''">
+				AND policyTypeNm = #{interestField}
+			</if>
+		</if>
+		AND aplyBgngDt &lt;= CURRENT_DATE
+    	AND aplyEndDt &gt;= CURRENT_DATE
+		ORDER BY view DESC, crtDt DESC
+		LIMIT 1
+	</select>
 
 
 </mapper>

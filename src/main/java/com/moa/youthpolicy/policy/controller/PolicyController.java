@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,14 @@ public class PolicyController {
 	public List<PolicyVO> getfiveBoard(){
 		List<PolicyVO> list = service.getfiveboard();
 		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("/getCustomPolicy")
+	public PolicyVO getCustomPolicy(){
+		PolicyVO policyvo = service.getCustomPolicy();
+		log.info("말풍선 가져온값:"+policyvo);
+		return policyvo;
 	}
 	
 	@PostMapping("/modpolicy")

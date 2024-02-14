@@ -12,11 +12,20 @@
                	  <div class="carousel-caption carousel-caption_a d-flex flex-column align-items-center justify-content-center">
               		 <div class="p-3" style="max-width: 700px;">
             			    <img class="py-md-3 px-md-5 me-3  " id="bestPost" src="${pageContext.request.contextPath}/resources/img/그림1.png" alt="Image">
-                   			  <a href="/policy/policy" ><span class="bestPostLetter">추천정책<br>바로가기<br>Click!</span></a>
+                   			  <a href="/policy/policy" >
+                   			  	<c:choose>
+                   			  	<c:when test="${user!=null && ((user.address!=null && user.address!='') || (user.interestField!=null && user.interestField!=''))}">
+                   			  		<span class="bestPostLetter">추천정책<br>바로가기<br>Click!</span>
+                   			  	</c:when>
+                   			  	<c:otherwise>
+                   			  		<span class="bestPostLetter">인기정책<br>바로가기<br>Click!</span>
+                   			  	</c:otherwise>
+                   			  	</c:choose>
+                   			  </a>
                      </div>
                   </div>	
             </div>
-          <!-- 
+           
             <div class="carousel-item">
             <a href="/suggest/suggest">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_건의게시판.gif" alt="Image"></a>
@@ -24,7 +33,7 @@
             <div class="carousel-item">
               <a href="/community/community">
                 <img class="w-100" src="${pageContext.request.contextPath}/resources/img/배너_꿀팁게시판.gif" alt="Image"></a>
-            </div> -->
+            </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
             data-bs-slide="prev">
@@ -390,7 +399,23 @@
             $("#checkPhoneNumberBtn").prop("disabled", true);
         }
 		
-		
+	     // 맞춤조건, 조회수에 따른 정책글 가져오기
+	     $.ajax({
+	         type: "POST",
+	         url: "/policy/getCustomPolicy",
+	         dataType: "json",
+	         success: function(data) {
+	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
+	             if(data!=null && data!=''){
+	            	 processCustomDataForBanner(data);
+	             }
+	         },
+	         error: function(error) {
+	             $("#bestPost").hide();
+	             $(".bestPostLetter").css("display", "none");
+	             console.log("Error: " + error);
+	         }
+	     });
 		
 		
 	     // 정책모음 게시판 가져오기
@@ -445,7 +470,7 @@
 	         dataType: "json",
 	         success: function(data) {
 	             // 성공 시 데이터를 처리하고 동적으로 테이블에 추가
-	             processSuggestData(data);
+	             processSuggestData(data);       
 	         },
 	         error: function(error) {
 	             console.log("Error: " + error);
@@ -453,6 +478,11 @@
 	     });
 	});
 
+	function processCustomDataForBanner(data){
+		var bestPostLink = $(".bestPostLetter").closest("a");
+		// href 속성 변경
+	    bestPostLink.attr("href", "/policy/get?no=" + data.no);
+	}
 	// 정책모음 게시판 가져오기
 	function processData(data) {
 		if (data.length === 0) {
