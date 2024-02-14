@@ -288,7 +288,13 @@
     SELECT content AS imageUrl
     FROM policyboard
     WHERE bno = #{bno}
-</select>
+	</select>
+	
+	<update id="increView" parameterType="Integer">
+		UPDATE policy
+		SET view=view+1
+		WHERE no=#{no}
+	</update>
 
 
 </mapper>

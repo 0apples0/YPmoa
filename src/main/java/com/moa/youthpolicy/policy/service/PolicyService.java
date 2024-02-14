@@ -206,6 +206,10 @@ public class PolicyService implements BoardGenericService<PolicyVO> {
 	    return mapper.getImageUrl(bno);
 	}
 
+	public void increView(Integer no) {
+		mapper.increView(no);
+	}
+
 
 
 }

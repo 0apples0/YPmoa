@@ -133,6 +133,7 @@ public class PolicyController {
 		log.info(service.getBoard(vo.getNo()));
 		//int total = service.getCommentTotalAmount(vo.getNo());
 		cri.setBno(vo.getNo());
+		service.increView(vo.getNo()); //조회수 증가
 		int total = service.getCommentTotalAmount(cri);
 		PageDTO pageResult = new PageDTO(cri, total);
 		log.info(pageResult.toString());

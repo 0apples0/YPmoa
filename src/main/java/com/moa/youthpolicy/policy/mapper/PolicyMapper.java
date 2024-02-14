@@ -17,6 +17,7 @@ public interface PolicyMapper {
 	public PolicyVO getPolicy(Integer key);
 	public PolicyBoardVO getBoard(Integer key);
 	public LikeBoardVO getLike(LikeBoardVO vo);
+	public void increView(Integer no);
 	public void delLike(LikeBoardVO like);
 	public void addLike(LikeBoardVO like);
 	public void modLike(PolicyVO _vo);
@@ -39,5 +40,5 @@ public interface PolicyMapper {
 	public void modLikeComment(PolicyCommentVO vo);
 	public PolicyCommentVO getComment(PolicyCommentVO vo);
 	public int chkUserType(CommentsReportVO vo);
-	 String getImageUrl(int bno);
+	 String getImageUrl(int bno);	
 }
