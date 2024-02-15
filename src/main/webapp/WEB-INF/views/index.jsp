@@ -270,7 +270,7 @@
         </div>
 		<!-- 맞춤 정보 이동 확인 모달 -->
 		<div class="modal fade" tabindex="-1"
-			aria-hidden="true" id="gotoMyPageCustom">
+			aria-hidden="true" data-backdrop="static" data-keyboard="false" id="gotoMyPageCustom">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -282,7 +282,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" id="gotoMyPage">설정하러가기</button>
 						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">다음에하기</button>
+							data-bs-dismiss="modal">다음에</button>
 					</div>
 				</div>
 			</div>
@@ -556,8 +556,8 @@
 		    $.ajax({
 		        type: "GET",
 		        url: "/user/changeSessionValue",
-		        dataType: 'text',
-		        success: function(data) {
+		        dataType: "text",
+		        success: function() {
 		            console.log("세션 값이 변경되었습니다.");
 		            $("span.bestPostLetter_everyone").off('click');
 		        },
