@@ -234,9 +234,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/changeSessionValue")
-	public String changeSessionValue(HttpSession session) {
-		session.setAttribute("firstRegister", false); // 세션 값 변경
-		return "redirect:/";
+	public @ResponseBody String changeSessionValue(HttpSession session) {
+		try {
+			session.setAttribute("firstRegister", false); // 세션 값 변경
+			log.info(session.getAttribute("firstRegister"));
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	
 	@ResponseBody

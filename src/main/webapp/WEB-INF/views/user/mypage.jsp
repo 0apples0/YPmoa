@@ -162,7 +162,7 @@
 
 <script>	
 $(document).ready(function() {
-	
+
     var addressSelect = document.getElementById("addressSelect");
     addressSelect.value = "${user.address}";
 

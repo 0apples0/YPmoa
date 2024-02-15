@@ -12,7 +12,7 @@
                	  <div class="carousel-caption carousel-caption_a d-flex flex-column align-items-center justify-content-center">
               		 <div class="p-3" style="max-width: 700px;">
             			    <img class="py-md-3 px-md-5 me-3  " id="bestPost" src="${pageContext.request.contextPath}/resources/img/그림1.png" alt="Image">
-                   			  <a href="/policy/policy" >
+                   			  <a href="#" >
                    			  	<span class="bestPostLetter bestPostLetter_everyone">인기정책<br>바로가기<br>Click!</span>
                    			  </a>
                      </div>
@@ -280,7 +280,7 @@
 					</div>
 					<div class="modal-body">회원가입이 완료되었습니다.<br>맞춤 정보를 설정하고 나에게 맞는 정책을 추천받아보세요!</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="gotoMyPage">이동</button>
+						<button type="button" class="btn btn-primary" id="gotoMyPage">설정하러가기</button>
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">다음에하기</button>
 					</div>
@@ -395,64 +395,19 @@
 		    if(($("#usernickForm input[name=phone]").val() === undefined || $("#usernickForm input[name=phone]").val().trim() === "" && $("#usernickForm input[name='userType']").val() != 0)
 		    || ($("#usernickForm input[name=writer]").val() === undefined || $("#usernickForm input[name=writer]").val().trim() === "")){
 				$("#modalCenter").modal("show");
+			    $('#modalCenter').on('shown.bs.modal', function () {
+			        $("span.bestPostLetter_everyone").on('click', function(event) {
+			            event.preventDefault();
+			        });
+			    });
+				$('#modalCenter').on('hidden.bs.modal', function () { //네이버, 구글 최초 로그인 시 노출되는 정보 입력 팝업이 닫힌 후
+					$("span.bestPostLetter_everyone").off('click');
+					gotoMyPageCustom(chkfirstRegister); // 맞춤조건 설정 모달 노출
+				});		
 				
-				$('#modalCenter').on('hidden.bs.modal', function () {
-					if(chkfirstRegister != null && chkfirstRegister == true){
-						$("#gotoMyPageCustom").modal("show");
-				        $("#gotoMyPage").on("click", function() {
-                            var Email = '${user.email}';
-						    $.ajax({
-						        type: "GET",
-						        url: "/user/changeSessionValue",
-						        success: function(response) {
-						            console.log("세션 값이 변경되었습니다.");
-						        },
-						        error: function(xhr, status, error) {
-						            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
-						        }
-						    });
-                            window.location.href = "/user/mypage?Email=" + Email;
-                        });
-						$('#gotoMyPageCustom').on('hidden.bs.modal', function () {
-						    $.ajax({
-						        type: "GET",
-						        url: "/user/changeSessionValue",
-						        success: function(response) {
-						            console.log("세션 값이 변경되었습니다.");
-						        },
-						        error: function(xhr, status, error) {
-						            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
-						        }
-						    });
-						});
-					}
-				});
 			}else{
-
-				if(chkfirstRegister != null && chkfirstRegister == true){
-					$("#gotoMyPageCustom").modal("show");
-			        $("#gotoMyPage").on("click", function() {
-                        var Email = '${user.email}';
-                        window.location.href = "/user/mypage?Email=" + Email;
-                    });
-					$('#gotoMyPageCustom').on('hidden.bs.modal', function () {
-					    $.ajax({
-					        type: "GET",
-					        url: "/user/changeSessionValue",
-					        success: function(response) {
-					            console.log("세션 값이 변경되었습니다.");
-					        },
-					        error: function(xhr, status, error) {
-					            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:", error);
-					        }
-					    });
-					});
-				}
-
+				gotoMyPageCustom(chkfirstRegister); // 회원가입 시 최초 1회 맞춤조건 설정 모달 노출
 			}
-		
-		
-
 		
 		// 초기화 시 확인 버튼 상태 업데이트
 		enableOrDisableConfirmButton();
@@ -586,6 +541,39 @@
 	     });
 	});
 
+	function gotoMyPageCustom(chkfirstRegister){
+		if(chkfirstRegister != null && chkfirstRegister == true){
+			$("#gotoMyPageCustom").modal("show");
+		    $('#gotoMyPageCustom').on('shown.bs.modal', function () {
+		        $("span.bestPostLetter_everyone").on('click', function(event) {
+		            event.preventDefault();
+		        });
+		    });
+		    $('#gotoMyPageCustom').on('hidden.bs.modal', function () { 
+		    	$("span.bestPostLetter_everyone").off('click');
+		    });
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/user/changeSessionValue",
+		        dataType: 'text',
+		        success: function(data) {
+		            console.log("세션 값이 변경되었습니다.");
+		            $("span.bestPostLetter_everyone").off('click');
+		        },
+		        error: function() {
+		            console.error("세션 값을 변경하는 중 오류가 발생하였습니다:");
+		        }
+		    });
+	        $("#gotoMyPage").on("click", function() {
+                var Email = '${user.email}';
+                $("span.bestPostLetter_everyone").off('click');
+                window.location.href = "/user/mypage?Email=" + Email;
+                
+            });
+		}
+	}
+	
 	function processCustomDataForBanner(data){
 		var bestPostLink = $(".bestPostLetter").closest("a");
 		// href 속성 변경
